@@ -1,0 +1,1844 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Java & Spring Boot — Complete Learning Path</title>
+<style>*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --bg: #faf9f7; --surface: #ffffff; --surface2: #f3f1ee; --surface3: #e2ded8;
+  --text: #1e293b; --text2: #64748b; --text3: #94a3b8;
+  --accent: #2563eb; --accent2: #7c3aed; --success: #059669; --warning: #d97706;
+  --danger: #dc2626;
+  --java: #ea580c; --tools: #9333ea; --dsa: #db2777; --db: #2563ea;
+  --web: #0284c7; --spring: #4d7c0f;
+  --radius: 8px; --radius-sm: 5px;
+  --font: 'Segoe UI', system-ui, -apple-system, sans-serif;
+  --mono: 'JetBrains Mono', 'Fira Code', 'Cascadia Code', monospace;
+}
+body { font-family: var(--font); background: var(--bg); color: var(--text); height: 100vh; display: flex; overflow: hidden; }
+.sidebar { width: 390px; min-width: 390px; background: var(--surface); border-right: 1px solid var(--surface3); display: flex; flex-direction: column; overflow: hidden; user-select: none; box-shadow: 1px 0 4px rgba(0,0,0,0.04); }
+.sidebar-header { padding: 16px 18px; border-bottom: 1px solid var(--surface3); flex-shrink: 0; }
+.sidebar-header h1 { font-size: 1.15rem; font-weight: 700; }
+.sidebar-header h1 .accent { color: var(--accent); }
+.sidebar-header .subtitle { font-size: 0.73rem; color: var(--text2); margin-top: 3px; }
+.sidebar-stats { display: flex; gap: 8px; padding: 10px 18px; border-bottom: 1px solid var(--surface3); flex-shrink: 0; font-size: 0.7rem; color: var(--text2); }
+.sidebar-stats span { color: var(--accent); font-weight: 700; }
+.sidebar-nav { flex: 1; overflow-y: auto; padding: 6px 0 20px 0; }
+.phase-toggle { display: flex; align-items: center; gap: 8px; padding: 10px 18px; cursor: pointer; border: none; background: none; width: 100%; text-align: left; font-family: var(--font); font-size: 0.81rem; font-weight: 700; color: var(--text); transition: background 0.15s; }
+.phase-toggle:hover { background: var(--surface2); }
+.phase-toggle .arrow { font-size: 0.6rem; transition: transform 0.2s; color: var(--text3); flex-shrink: 0; }
+.phase-toggle.collapsed .arrow { transform: rotate(-90deg); }
+.phase-toggle .phase-icon { font-size: 1rem; flex-shrink: 0; }
+.phase-toggle .phase-name { flex: 1; }
+.phase-toggle .phase-meta { font-size: 0.68rem; color: var(--text3); font-weight: 400; }
+.ph-java { border-left: 3px solid var(--java); }
+.ph-tools { border-left: 3px solid var(--tools); }
+.ph-dsa { border-left: 3px solid var(--dsa); }
+.ph-db { border-left: 3px solid var(--db); }
+.ph-web { border-left: 3px solid var(--web); }
+.ph-spring { border-left: 3px solid var(--spring); }
+.topic-list { overflow: hidden; }
+.topic-list.collapsed { max-height: 0 !important; }
+.topic-item { display: flex; align-items: center; gap: 9px; padding: 7px 18px 7px 32px; cursor: pointer; border: none; background: none; width: 100%; text-align: left; font-family: var(--font); font-size: 0.78rem; color: var(--text2); transition: all 0.12s; }
+.topic-item:hover { background: var(--surface2); color: var(--text); }
+.topic-item.active { background: #2563eb10; color: var(--accent); font-weight: 600; }
+.topic-item.locked { opacity: 0.38; cursor: not-allowed; }
+.topic-item.locked:hover { background: none; color: var(--text2); }
+.topic-item.completed { color: var(--success); }
+.topic-item .t-num { font-size: 0.65rem; color: var(--text3); min-width: 22px; }
+.topic-item .t-title { flex: 1; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.topic-item .t-badges { display: flex; gap: 4px; flex-shrink: 0; }
+.badge { font-size: 0.6rem; padding: 2px 6px; border-radius: 10px; font-weight: 700; letter-spacing: 0.2px; white-space: nowrap; }
+.badge-i-c { background: #dc262618; color: var(--danger); }
+.badge-i-i { background: #d9770618; color: var(--warning); }
+.badge-i-n { background: #2563eb18; color: var(--accent); }
+.badge-d-b { background: #05966918; color: var(--success); }
+.badge-d-i { background: #d9770618; color: var(--warning); }
+.badge-d-a { background: #dc262618; color: var(--danger); }
+.badge-phase { font-size: 0.62rem; padding: 3px 8px; border-radius: 12px; font-weight: 700; border: 1px solid; }
+.badge-phase.java { color: var(--java); border-color: #ea580c55; background: #ea580c11; }
+.badge-phase.tools { color: var(--tools); border-color: #9333ea55; background: #9333ea11; }
+.badge-phase.dsa { color: var(--dsa); border-color: #db277755; background: #db277711; }
+.badge-phase.db { color: var(--db); border-color: #2563ea55; background: #2563ea11; }
+.badge-phase.web { color: var(--web); border-color: #0284c755; background: #0284c711; }
+.badge-phase.spring { color: var(--spring); border-color: #4d7c0f55; background: #4d7c0f11; }
+.main { flex: 1; display: flex; flex-direction: column; overflow: hidden; min-width: 0; }
+.topbar { padding: 12px 24px; background: var(--surface); border-bottom: 1px solid var(--surface3); display: flex; align-items: center; justify-content: space-between; flex-shrink: 0; gap: 12px; }
+.topbar h2 { font-size: 1.05rem; font-weight: 600; flex: 1; min-width: 0; }
+.topbar .meta-badges { display: flex; gap: 6px; flex-shrink: 0; }
+.content-area { flex: 1; overflow-y: auto; padding: 24px 32px; }
+.welcome { text-align: center; padding: 60px 20px; color: var(--text2); }
+.welcome .icon { font-size: 3.5rem; margin-bottom: 16px; }
+.welcome h2 { font-size: 1.5rem; color: var(--text); margin-bottom: 8px; }
+.welcome p { max-width: 500px; margin: 0 auto 8px; line-height: 1.6; font-size: 0.9rem; }
+.welcome .summary-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; max-width: 600px; margin: 24px auto 0; }
+.welcome .summary-card { background: var(--surface); border-radius: var(--radius); padding: 16px 12px; border: 1px solid var(--surface3); text-align: center; box-shadow: 0 1px 3px rgba(0,0,0,0.04); }
+.summary-card .sc-val { font-size: 1.4rem; font-weight: 700; color: var(--accent); }
+.summary-card .sc-label { font-size: 0.7rem; color: var(--text2); margin-top: 2px; }
+.tabs { display: flex; gap: 2px; margin-bottom: 20px; background: var(--surface2); border-radius: var(--radius); padding: 4px; position: sticky; top: 0; z-index: 3; }
+.tab { padding: 9px 18px; border: none; background: transparent; color: var(--text2); font-family: var(--font); font-size: 0.83rem; font-weight: 600; cursor: pointer; border-radius: 6px; transition: all 0.15s; }
+.tab.active { background: var(--accent); color: #ffffff; }
+.tab:hover:not(.active) { color: var(--text); }
+.lesson-section { display: none; }
+.lesson-section.active { display: block; }
+.lesson-section h3 { font-size: 1.3rem; margin-bottom: 12px; color: var(--text); }
+.lesson-section h4 { font-size: 1rem; margin: 22px 0 8px; color: var(--text); }
+.lesson-section p { line-height: 1.72; color: var(--text2); margin-bottom: 12px; font-size: 0.9rem; }
+.lesson-section ul, .lesson-section ol { margin-left: 20px; line-height: 1.8; color: var(--text2); margin-bottom: 14px; font-size: 0.9rem; }
+.lesson-section li { margin-bottom: 6px; }
+.lesson-section code { background: var(--surface2); color: #d73a49; padding: 2px 6px; border-radius: 4px; font-family: var(--mono); font-size: 0.82em; }
+.code-block { background: #f8f7f5; border: 1px solid var(--surface3); border-radius: var(--radius); padding: 14px 16px; margin: 12px 0 20px; overflow-x: auto; position: relative; }
+.code-block .lang-tag { position: absolute; top: 8px; right: 12px; font-size: 0.65rem; color: var(--text3); text-transform: uppercase; font-weight: 700; letter-spacing: 0.5px; }
+.code-block pre { font-family: var(--mono); font-size: 0.8rem; line-height: 1.65; color: #1e293b; white-space: pre-wrap; margin: 0; }
+.code-block .kw { color: #cf222e; }
+.code-block .tp { color: #0550ae; }
+.code-block .st { color: #0a3069; }
+.code-block .cm { color: #656d76; font-style: italic; }
+.code-block .an { color: #8250df; }
+.code-block .nu { color: #0550ae; }
+.code-block .mt { color: #8250df; }
+.key-point { background: #2563eb0a; border-left: 3px solid var(--accent); padding: 12px 16px; border-radius: 0 var(--radius) var(--radius) 0; margin: 18px 0; font-size: 0.88rem; line-height: 1.6; }
+.key-point strong { color: var(--accent); }
+.textbook-ref { background: var(--surface2); border: 1px solid var(--surface3); border-radius: var(--radius); padding: 10px 14px; margin: 12px 0 20px; font-size: 0.8rem; color: var(--text2); }
+.textbook-ref strong { color: var(--warning); }
+.textbook-ref em { color: var(--text); }
+.meta-table { width: 100%; border-collapse: collapse; margin: 12px 0; font-size: 0.82rem; }
+.meta-table th { background: var(--surface2); padding: 8px 12px; text-align: left; font-weight: 600; font-size: 0.75rem; color: var(--text2); text-transform: uppercase; letter-spacing: 0.5px; }
+.meta-table td { padding: 8px 12px; border-bottom: 1px solid var(--surface3); }
+.quiz-question { background: var(--surface); border-radius: var(--radius); padding: 18px; margin-bottom: 14px; border: 1px solid var(--surface3); }
+.quiz-question h4 { margin-bottom: 12px; font-size: 0.9rem; margin-top: 0; }
+.quiz-option { display: block; width: 100%; text-align: left; padding: 10px 14px; margin-bottom: 5px; background: var(--bg); border: 1px solid var(--surface3); border-radius: 6px; color: var(--text); font-family: var(--font); font-size: 0.83rem; cursor: pointer; transition: all 0.12s; }
+.quiz-option:hover { border-color: var(--accent); background: #2563eb0d; }
+.quiz-option.correct { border-color: var(--success) !important; background: #05966915 !important; }
+.quiz-option.wrong { border-color: var(--danger) !important; background: #dc262615 !important; }
+.quiz-option:disabled { cursor: default; }
+.quiz-feedback { margin-top: 8px; padding: 10px 14px; border-radius: 6px; font-size: 0.82rem; font-weight: 600; display: none; line-height: 1.5; }
+.quiz-feedback.show { display: block; }
+.quiz-feedback.correct { background: #05966910; color: var(--success); }
+.quiz-feedback.wrong { background: #dc262610; color: var(--danger); }
+.coding-exercise { background: var(--surface); border-radius: var(--radius); padding: 18px; margin-bottom: 14px; border: 1px solid var(--surface3); }
+.coding-exercise h4 { margin-bottom: 8px; margin-top: 0; font-size: 0.92rem; }
+.coding-exercise textarea { width: 100%; height: 140px; background: #f8f7f5; color: var(--text); border: 1px solid var(--surface3); border-radius: 6px; padding: 12px; font-family: var(--mono); font-size: 0.8rem; resize: vertical; margin: 8px 0; }
+.coding-exercise .hint { font-size: 0.78rem; color: var(--warning); margin-bottom: 6px; opacity: 0.85; }
+.coding-exercise button { padding: 8px 18px; background: var(--accent); color: #ffffff; border: none; border-radius: 6px; font-weight: 700; cursor: pointer; font-family: var(--font); font-size: 0.83rem; margin-right: 6px; }
+.coding-exercise button.secondary { background: transparent; border: 1px solid var(--surface3); color: var(--text2); }
+.check-result { margin-top: 10px; padding: 10px; border-radius: 6px; font-size: 0.83rem; font-weight: 600; display: none; line-height: 1.5; }
+.check-result.show { display: block; }
+.check-result.pass { background: #05966910; color: var(--success); }
+.check-result.fail { background: #dc262610; color: var(--danger); }
+.stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 10px; margin-bottom: 20px; }
+.stat-card { background: var(--surface); border-radius: var(--radius); padding: 18px; border: 1px solid var(--surface3); text-align: center; box-shadow: 0 1px 3px rgba(0,0,0,0.04); }
+.stat-card .stat-value { font-size: 1.8rem; font-weight: 700; color: var(--accent); }
+.stat-card .stat-label { font-size: 0.72rem; color: var(--text2); margin-top: 2px; }
+.phase-progress { background: var(--surface); border-radius: var(--radius); padding: 14px 16px; border: 1px solid var(--surface3); margin-bottom: 10px; }
+.phase-progress h4 { font-size: 0.85rem; margin: 0 0 8px 0; }
+.progress-bar-bg { height: 6px; background: var(--surface2); border-radius: 3px; overflow: hidden; }
+.progress-bar-fill { height: 100%; border-radius: 3px; transition: width 0.5s ease; }
+.reminder-panel { background: var(--surface); border-radius: var(--radius); padding: 16px; border: 1px solid var(--surface3); margin-top: 14px; }
+.reminder-panel ul { list-style: none; }
+.reminder-panel li { padding: 7px 10px; background: var(--bg); border-radius: 5px; margin-bottom: 5px; display: flex; justify-content: space-between; align-items: center; font-size: 0.8rem; }
+.reminder-panel .due { color: var(--warning); font-weight: 600; } .reminder-panel .overdue { color: var(--danger); font-weight: 600; } .reminder-panel .ok { color: var(--success); }
+.complete-btn { padding: 10px 24px; background: var(--success); color: #ffffff; border: none; border-radius: 7px; font-weight: 700; font-size: 0.85rem; cursor: pointer; font-family: var(--font); }
+.complete-btn:disabled { background: var(--surface3); color: var(--text3); cursor: not-allowed; }
+.reset-btn { padding: 6px 14px; background: transparent; color: var(--danger); border: 1px solid var(--danger); border-radius: 6px; font-size: 0.75rem; cursor: pointer; font-family: var(--font); margin-top: 10px; }
+.toast { position: fixed; bottom: 20px; right: 20px; padding: 12px 20px; border-radius: var(--radius); font-weight: 600; font-size: 0.82rem; z-index: 1000; animation: slideIn 0.3s ease; box-shadow: 0 4px 24px rgba(0,0,0,0.1); max-width: 380px; }
+.toast.success { background: #ecfdf5; color: var(--success); border: 1px solid var(--success); }
+.toast.info { background: #eff6ff; color: var(--accent); border: 1px solid var(--accent); }
+.toast.warn { background: #fffbeb; color: var(--warning); border: 1px solid var(--warning); }
+@keyframes slideIn { from { transform: translateY(16px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+.notify-prompt { background: var(--surface); border: 1px solid var(--accent2); border-radius: var(--radius); padding: 14px; margin-top: 12px; text-align: center; }
+.notify-prompt button { padding: 6px 16px; background: var(--accent2); color: white; border: none; border-radius: 6px; font-weight: 700; cursor: pointer; font-family: var(--font); font-size: 0.8rem; margin-top: 6px; }
+::-webkit-scrollbar { width: 5px; } ::-webkit-scrollbar-track { background: transparent; } ::-webkit-scrollbar-thumb { background: var(--surface3); border-radius: 3px; }
+@media (max-width: 900px) { body { flex-direction: column; } .sidebar { width: 100%; min-width: 100%; max-height: 38vh; } .main { height: 62vh; } .content-area { padding: 16px; } }
+</style>
+</head>
+<body>
+<div class="sidebar">
+  <div class="sidebar-header">
+    <h1>☕ Java <span class="accent">Learning Path</span></h1>
+    <p class="subtitle">Programming Fundamentals → Dev Tools → DSA → Databases → Web → Spring Boot</p>
+  </div>
+  <div class="sidebar-stats"><span id="sb-completed">0</span>/<span id="sb-total">65</span> done · <span id="sb-percent">0%</span> complete</div>
+  <div class="sidebar-nav" id="sidebar-nav"></div>
+</div>
+<div class="main">
+  <div class="topbar"><h2 id="current-topic-title">Select a topic to begin</h2><div class="meta-badges" id="topic-meta-badges"></div></div>
+  <div class="content-area" id="content-area">
+    <div class="welcome" id="welcome-screen">
+      <div class="icon">📚</div>
+      <h2>Complete Java Developer Roadmap</h2>
+      <p>65 topics across 6 phases. From your first line of code to production Spring Boot APIs. Nothing mandatory is left out.</p>
+      <div class="summary-grid">
+        <div class="summary-card"><div class="sc-val">6</div><div class="sc-label">Phases</div></div>
+        <div class="summary-card"><div class="sc-val">65</div><div class="sc-label">Topics</div></div>
+        <div class="summary-card"><div class="sc-val">~220h</div><div class="sc-label">Duration</div></div>
+      </div>
+      <p style="margin-top:20px;font-size:0.85rem"><strong>How to use:</strong> Expand a phase on the left, click any unlocked topic.</p>
+    </div>
+    <div id="lesson-viewer" style="display:none">
+      <div class="tabs">
+        <button class="tab active" data-tab="lesson">📖 Lesson</button>
+        <button class="tab" data-tab="practice">✏️ Practice</button>
+        <button class="tab" data-tab="progress-view">📊 Progress</button>
+      </div>
+      <div id="tab-lesson" class="lesson-section active"></div>
+      <div id="tab-practice" class="lesson-section"></div>
+      <div id="tab-progress-view" class="lesson-section"></div>
+    </div>
+  </div>
+</div>
+<div id="toast-container"></div>
+<script>
+// ===== CURRICULUM DATA =====
+const CURRICULUM = [
+  {
+    "id": 1,
+    "phase": "Programming Fundamentals",
+    "phaseColor": "java",
+    "phaseClass": "ph-java",
+    "title": "How Computers & Programming Work",
+    "hours": 3,
+    "complexity": "beginner",
+    "importance": "critical",
+    "textbook": "Brookshear & Brylow, Computer Science: An Overview, Ch. 1-2",
+    "summary": "CPU, memory, binary, compilers vs interpreters, and the programming mindset.",
+    "lesson": "<h4>Von Neumann Architecture</h4><p>Every computer follows this model: <strong>CPU</strong> fetches, decodes, and executes instructions. <strong>Memory (RAM)</strong> stores both data AND program instructions. <strong>I/O devices</strong> handle input/output. The <strong>Bus</strong> connects everything.</p><h4>Binary: Why 0s and 1s</h4><p>Transistors have two states: ON (1) and OFF (0). From this we build numbers, text, images, and programs. One byte = 8 bits = 256 values.</p><h4>Compiled vs Interpreted</h4><p><strong>Compiled (C, Rust):</strong> Source directly to machine code. Fast, platform-specific.<br><strong>Interpreted (Python, JS):</strong> Executed line-by-line at runtime.<br><strong>Java's Hybrid:</strong> Source to bytecode (javac) to JVM interpretation/JIT compilation. Write once, run anywhere.</p><div class='key-point'><strong>Key Insight:</strong> The stored-program concept — instructions and data in the same memory — makes general-purpose computing possible. This is the foundation everything else builds on.</div>",
+    "quiz": [
+      {
+        "question": "What is the key insight of Von Neumann architecture?",
+        "options": [
+          "CPUs are very fast",
+          "Programs and data share the same memory",
+          "Computers need electricity",
+          "Memory is unlimited"
+        ],
+        "correct": 1,
+        "explanation": "The stored-program concept means instructions and data coexist in the same addressable memory, enabling general-purpose computation."
+      },
+      {
+        "question": "Which best describes Java's execution model?",
+        "options": [
+          "Directly compiled to machine code",
+          "Interpreted line-by-line",
+          "Compiled to bytecode, then JIT-compiled/interpreted by the JVM",
+          "Transpiled to Python"
+        ],
+        "correct": 2,
+        "explanation": "javac compiles .java to .class (bytecode). The JVM then interprets or JIT-compiles that bytecode to native machine code at runtime."
+      }
+    ],
+    "codingExercise": {
+      "instruction": "Explain in your own words what happens from typing 'java HelloWorld' to seeing output on screen. Include JVM startup, class loading, bytecode verification, and main method execution.",
+      "hint": "Think about: class loaders, the method area, the heap, the stack, and how System.out.println reaches the terminal.",
+      "checkKeywords": [
+        "JVM",
+        "bytecode",
+        "class loader",
+        "main",
+        "stack",
+        "heap"
+      ]
+    }
+  },
+  {
+    "id": 2,
+    "phase": "Programming Fundamentals",
+    "phaseColor": "java",
+    "phaseClass": "ph-java",
+    "title": "Setting Up Your Development Environment",
+    "hours": 2,
+    "complexity": "beginner",
+    "importance": "critical",
+    "textbook": "Bloch, Effective Java (3rd ed), Item 1",
+    "summary": "Install JDK 21, configure JAVA_HOME, choose IntelliJ IDEA, set up Git, and understand the toolchain.",
+    "lesson": "<h4>Step 1: Install JDK 21 LTS</h4><p><strong>macOS:</strong> <code>brew install openjdk@21</code><br><strong>Windows:</strong> Download .msi installer<br><strong>Linux:</strong> <code>sudo apt install openjdk-21-jdk</code></p><div class='code-block'><span class='lang-tag'>terminal</span><pre>$ java -version\nopenjdk version \"21.0.5\" 2024-10-15 LTS\n$ javac -version\njavac 21.0.5</pre></div><h4>Step 2: Set JAVA_HOME</h4><p>JAVA_HOME tells tools (Maven, Gradle, IDEs) where Java lives. Add to <code>~/.zshrc</code> or <code>~/.bashrc</code>.</p><h4>Step 3: IntelliJ IDEA Community Edition</h4><p>The industry-standard Java IDE. Features: intelligent code completion, powerful refactoring, built-in debugger, Maven/Gradle integration.</p><h4>The Build-Compile-Run Cycle</h4><p>You write <code>.java</code> files. <code>javac</code> compiles to <code>.class</code> bytecode. The JVM runs the bytecode. Maven/Gradle packages into <code>.jar</code>.</p><div class='key-point'><strong>Toolchain:</strong> You write Java. javac compiles. The JVM runs. Maven builds. Git tracks. IntelliJ ties it together. Same toolchain from a 100-line script to enterprise systems.</div>",
+    "quiz": [
+      {
+        "question": "What does JAVA_HOME point to?",
+        "options": [
+          "Your project directory",
+          "The JDK installation directory",
+          "The JRE runtime",
+          "Your home folder"
+        ],
+        "correct": 1,
+        "explanation": "JAVA_HOME points to the JDK root directory. Build tools and IDEs use it to find javac, java, and core libraries."
+      },
+      {
+        "question": "What is the purpose of javac?",
+        "options": [
+          "It runs Java programs",
+          "It compiles .java to .class bytecode",
+          "It manages dependencies",
+          "It formats code"
+        ],
+        "correct": 1,
+        "explanation": "javac is the Java compiler, translating .java source files into .class bytecode files the JVM can execute."
+      }
+    ],
+    "codingExercise": {
+      "instruction": "Install JDK 21, set JAVA_HOME, install IntelliJ, create a new Java project, and run HelloWorld. Verify with java -version and javac -version.",
+      "hint": "Use IntelliJ's New Project wizard. Select Java 21, no build system for now. Create a class with a main method.",
+      "checkKeywords": [
+        "java",
+        "javac",
+        "version",
+        "HelloWorld",
+        "main"
+      ]
+    }
+  },
+  {
+    "id": 3,
+    "phase": "Programming Fundamentals",
+    "phaseColor": "java",
+    "phaseClass": "ph-java",
+    "title": "Your First Java Program",
+    "hours": 3,
+    "complexity": "beginner",
+    "importance": "critical",
+    "textbook": "Horstmann, Core Java Volume I (12th ed), Ch. 1",
+    "summary": "Class declaration, main method signature, System.out.println, and understanding every keyword in HelloWorld.",
+    "lesson": "<h4>HelloWorld.java — Every Keyword Explained</h4><div class='code-block'><span class='lang-tag'>java</span><pre><span class='kw'>public class</span> <span class='tp'>HelloWorld</span> {\n    <span class='kw'>public static void</span> <span class='mt'>main</span>(<span class='tp'>String</span>[] args) {\n        <span class='tp'>System</span>.out.println(<span class='st'>\"Hello, World!\"</span>);\n    }\n}</pre></div><p><strong>public</strong> — Accessible to the JVM. <strong>class</strong> — Defines a new type. Everything in Java lives in a class.<br><strong>static</strong> — Belongs to the class, no instance needed.<br><strong>void</strong> — Returns nothing. <strong>main</strong> — The entry point the JVM looks for.<br><strong>String[] args</strong> — Command-line arguments.<br><strong>System.out.println()</strong> — Prints to standard output with a newline.</p><div class='key-point'><strong>Every keyword has a reason.</strong> public = JVM access. static = no object needed. void = no return value (exit code via System.exit()). main = designated entry point. String[] = command-line arguments.</div>",
+    "quiz": [
+      {
+        "question": "Why must main() be static?",
+        "options": [
+          "Tradition",
+          "So the JVM can call it without creating an object",
+          "Static methods are faster",
+          "It must access static variables"
+        ],
+        "correct": 1,
+        "explanation": "The JVM calls main() before any objects exist. static means it belongs to the class itself and can be invoked without instantiation."
+      },
+      {
+        "question": "What package is System in, and why don't you need to import it?",
+        "options": [
+          "java.util, imported explicitly",
+          "java.lang, auto-imported in every Java file",
+          "java.io, it is a special class",
+          "java.system, built into javac"
+        ],
+        "correct": 1,
+        "explanation": "System is in java.lang, which is implicitly imported in every Java source file. String, Integer, and Math are also in java.lang."
+      }
+    ],
+    "codingExercise": {
+      "instruction": "Write a complete Java program that prints your name, today's date (use java.time.LocalDate.now()), and the result of 1234 * 5678. Compile with javac and run with java from the command line.",
+      "hint": "Use multiple System.out.println() calls. Import java.time.LocalDate.",
+      "checkKeywords": [
+        "class",
+        "main",
+        "String[]",
+        "System.out.println",
+        "LocalDate"
+      ]
+    }
+  },
+  {
+    "id": 4,
+    "phase": "Programming Fundamentals",
+    "phaseColor": "java",
+    "phaseClass": "ph-java",
+    "title": "Variables & Data Types",
+    "hours": 4,
+    "complexity": "beginner",
+    "importance": "critical",
+    "textbook": "Sedgewick & Wayne, Intro to Programming in Java, Ch. 1.2",
+    "summary": "The 8 primitive types, reference types, stack vs heap, type casting (widening/narrowing), and IEEE 754 floating-point.",
+    "lesson": "<h4>Java's Type System — Static and Strong</h4><p>Java is <strong>statically typed</strong>: every variable has a declared type at compile time. It is also <strong>strongly typed</strong>: you cannot treat one type as another without explicit casting.</p><h4>The 8 Primitive Types (Stack-Allocated)</h4><div class='code-block'><span class='lang-tag'>java</span><pre><span class='cm'>// Integer types (signed two's complement)</span>\n<span class='tp'>byte</span> b = 127;                  <span class='cm'>// 1 byte, -128 to 127</span>\n<span class='tp'>short</span> s = 32_000;             <span class='cm'>// 2 bytes</span>\n<span class='tp'>int</span> i = 2_147_483_647;       <span class='cm'>// 4 bytes (most common)</span>\n<span class='tp'>long</span> l = 9_223_372_036_854L;  <span class='cm'>// 8 bytes, L suffix required</span>\n\n<span class='cm'>// Floating-point (IEEE 754)</span>\n<span class='tp'>float</span> f = 3.14f;               <span class='cm'>// 4 bytes, f suffix required</span>\n<span class='tp'>double</span> d = 3.141592653589793;  <span class='cm'>// 8 bytes (default for decimals)</span>\n\n<span class='cm'>// Other primitives</span>\n<span class='tp'>char</span> c = 'A';                 <span class='cm'>// 2 bytes, UTF-16 code unit</span>\n<span class='tp'>boolean</span> flag = false;          <span class='cm'>// true/false only (not 0 or 1 like C)</span></pre></div><h4>Reference Types (Heap-Allocated)</h4><p>Reference variables hold a <strong>memory address</strong> pointing to an object on the heap. The default value is <code>null</code>.</p><div class='code-block'><span class='lang-tag'>java</span><pre><span class='tp'>String</span> name = <span class='st'>\"Alice\"</span>;  <span class='cm'>// String is a CLASS, not a primitive</span>\n<span class='tp'>int</span>[] scores = {95, 87, 91}; <span class='cm'>// Arrays are objects on the heap</span></pre></div><h4>Type Casting</h4><p><strong>Widening (automatic):</strong> byte to short to int to long to float to double — safe, no data loss.<br><strong>Narrowing (explicit):</strong> double to int — may lose fractional part. <code>(int) 3.99</code> = 3 (truncated, NOT rounded).<br><strong>Overflow:</strong> <code>Integer.MAX_VALUE + 1</code> wraps to <code>Integer.MIN_VALUE</code> (-2147483648).</p><div class='key-point'><strong>Primitives live on the stack</strong> (fixed size, fast). <strong>Objects live on the heap</strong> (dynamic size, garbage collected). This distinction is fundamental to understanding memory and performance in Java.</div>",
+    "quiz": [
+      {
+        "question": "Which is NOT a Java primitive type?",
+        "options": [
+          "int",
+          "boolean",
+          "String",
+          "double"
+        ],
+        "correct": 2,
+        "explanation": "String is a reference type (a class in java.lang). All others are primitives."
+      },
+      {
+        "question": "What is the value of (int) 3.99?",
+        "options": [
+          "4 (rounded)",
+          "3 (truncated)",
+          "3.99",
+          "Compile error"
+        ],
+        "correct": 1,
+        "explanation": "Casting from floating-point to integer truncates toward zero — the fractional part is discarded. Use Math.round() for proper rounding."
+      }
+    ],
+    "codingExercise": {
+      "instruction": "Declare all 8 primitive types with values. Convert a double to int. Demonstrate overflow by adding 1 to Integer.MAX_VALUE. Explain WHY each result occurs.",
+      "hint": "Use Integer.MAX_VALUE, Integer.MIN_VALUE. Add comments explaining your observations.",
+      "checkKeywords": [
+        "byte",
+        "short",
+        "int",
+        "long",
+        "float",
+        "double",
+        "char",
+        "boolean",
+        "MAX_VALUE",
+        "overflow"
+      ]
+    }
+  },
+  {
+    "id": 5,
+    "phase": "Programming Fundamentals",
+    "phaseColor": "java",
+    "phaseClass": "ph-java",
+    "title": "Operators & Expressions",
+    "hours": 3,
+    "complexity": "beginner",
+    "importance": "critical",
+    "textbook": "Sedgewick & Wayne, Intro to Programming in Java, Ch. 1.2",
+    "summary": "Arithmetic, relational, logical (short-circuit), assignment operators. Precedence rules and common pitfalls like integer division.",
+    "lesson": "<h4>Arithmetic Operators</h4><div class='code-block'><span class='lang-tag'>java</span><pre><span class='tp'>int</span> a = 10, b = 3;\na + b  <span class='cm'>// 13 (addition)</span>\na - b  <span class='cm'>// 7  (subtraction)</span>\na * b  <span class='cm'>// 30 (multiplication)</span>\na / b  <span class='cm'>// 3  (INTEGER DIVISION — truncates!)</span>\na % b  <span class='cm'>// 1  (modulo/remainder)</span>\n\n<span class='cm'>// The classic bug:</span>\n<span class='tp'>double</span> wrong = 10 / 3;    <span class='cm'>// 3.0 — both operands are ints!</span>\n<span class='tp'>double</span> right = 10.0 / 3;  <span class='cm'>// 3.333... — one operand is double</span></pre></div><h4>Relational and Logical Operators</h4><div class='code-block'><span class='lang-tag'>java</span><pre><span class='cm'>// Relational: ==, !=, <, >, <=, >=</span>\n<span class='cm'>// Logical (short-circuit):</span>\n<span class='kw'>if</span> (obj != <span class='kw'>null</span> && obj.getValue() > 0) { ... }  <span class='cm'>// SAFE — no NPE!</span>\n\n<span class='cm'>// NEVER use == for String comparison!</span>\ns1.equals(s2)  <span class='cm'>// Compares CONTENT</span>\ns1 == s2       <span class='cm'>// Compares REFERENCES — almost always wrong</span></pre></div><h4>Operator Precedence (Highest to Lowest)</h4><ol><li><code>()</code> parentheses</li><li><code>++ -- !</code> unary</li><li><code>* / %</code> multiplicative</li><li><code>+ -</code> additive</li><li><code>&lt; &lt;= &gt; &gt;=</code> relational</li><li><code>== !=</code> equality</li><li><code>&&</code> logical AND</li><li><code>||</code> logical OR</li><li><code>=</code> assignment (right to left, lowest)</li></ol><div class='key-point'><strong>When in doubt, use parentheses.</strong> (a + b) * c is unambiguous. a + b * c relies on the reader knowing precedence rules. Clarity beats cleverness.</div>",
+    "quiz": [
+      {
+        "question": "What is the value of: 5 + 3 * 2?",
+        "options": [
+          "16",
+          "11",
+          "10",
+          "13"
+        ],
+        "correct": 1,
+        "explanation": "Multiplication before addition: 3 * 2 = 6, then 5 + 6 = 11."
+      },
+      {
+        "question": "Why use .equals() instead of == for String comparison?",
+        "options": [
+          "It is faster",
+          "== compares references, .equals() compares content",
+          "== is deprecated",
+          ".equals() handles null"
+        ],
+        "correct": 1,
+        "explanation": "== compares whether two references point to the same object in memory. .equals() compares the actual character content."
+      }
+    ],
+    "codingExercise": {
+      "instruction": "Write a program demonstrating: (1) integer division vs floating-point division, (2) short-circuit evaluation (create a method that prints when called, use it as the right side of &&), and (3) String == vs .equals() comparison.",
+      "hint": "Create a boolean method that prints something. Use it after && with a false left operand to show the right side is never evaluated.",
+      "checkKeywords": [
+        "/",
+        "10.0",
+        "&&",
+        ".equals",
+        "==",
+        "String"
+      ]
+    }
+  },
+  {
+    "id": 6,
+    "phase": "Programming Fundamentals",
+    "phaseColor": "java",
+    "phaseClass": "ph-java",
+    "title": "Control Flow (if-else, switch)",
+    "hours": 4,
+    "complexity": "beginner",
+    "importance": "critical",
+    "textbook": "Sedgewick & Wayne, Intro to Programming in Java, Ch. 1.3",
+    "summary": "if-else ladders, switch (traditional + Java 14 arrow syntax), ternary operator, and pattern matching.",
+    "lesson": "<h4>if-else Statements</h4><div class='code-block'><span class='lang-tag'>java</span><pre><span class='kw'>if</span> (score >= 90) {\n    grade = <span class='st'>'A'</span>;\n} <span class='kw'>else if</span> (score >= 80) {\n    grade = <span class='st'>'B'</span>;\n} <span class='kw'>else</span> {\n    grade = <span class='st'>'F'</span>;\n}</pre></div><h4>ALWAYS Use Braces</h4><div class='code-block'><span class='lang-tag'>java</span><pre><span class='cm'>// DANGEROUS — only first line is conditional!</span>\n<span class='kw'>if</span> (isAdmin)\n    System.out.println(<span class='st'>\"Welcome\"</span>);      <span class='cm'>// Only this is conditional</span>\n    System.out.println(<span class='st'>\"Access granted\"</span>); <span class='cm'>// ALWAYS executes! BUG!</span></pre></div><h4>Switch Expressions (Java 14+)</h4><div class='code-block'><span class='lang-tag'>java</span><pre><span class='tp'>String</span> season = <span class='kw'>switch</span> (month) {\n    <span class='kw'>case</span> 12, 1, 2 -> <span class='st'>\"Winter\"</span>;\n    <span class='kw'>case</span> 3, 4, 5 -> <span class='st'>\"Spring\"</span>;\n    <span class='kw'>case</span> 6, 7, 8 -> <span class='st'>\"Summer\"</span>;\n    <span class='kw'>case</span> 9, 10, 11 -> <span class='st'>\"Autumn\"</span>;\n};</pre></div><h4>Ternary Operator</h4><p><code>condition ? valueIfTrue : valueIfFalse</code> — a compact if-else that returns a value.</p><div class='key-point'><strong>Always use braces with if/else.</strong> Even for single statements. Google and Microsoft Java style guides require them. They prevent the dangling-else bug when adding more lines.</div>",
+    "quiz": [
+      {
+        "question": "What happens if you omit break in a traditional switch case?",
+        "options": [
+          "Compile error",
+          "Nothing",
+          "Fall-through: execution continues to the next case",
+          "The program crashes"
+        ],
+        "correct": 2,
+        "explanation": "Without break, execution falls through to the next case. Modern arrow syntax (->) eliminates this issue."
+      },
+      {
+        "question": "Which is safer: if without braces or if with braces?",
+        "options": [
+          "Without braces — fewer characters",
+          "With braces — prevents bugs when adding lines",
+          "They are identical",
+          "Braces make code slower"
+        ],
+        "correct": 1,
+        "explanation": "Braces make the block explicit. Without braces, adding a second line silently falls outside the conditional."
+      }
+    ],
+    "codingExercise": {
+      "instruction": "Write a program that classifies a triangle as equilateral, isosceles, or scalene based on three side lengths. Also handle invalid triangles (triangle inequality) and negative/zero sides.",
+      "hint": "A triangle is valid if a+b>c AND b+c>a AND a+c>b. Equilateral: all equal. Isosceles: exactly two equal. Scalene: all different.",
+      "checkKeywords": [
+        "if",
+        "else if",
+        "triangle",
+        "&&",
+        "||"
+      ]
+    }
+  },
+  {
+    "id": 7,
+    "phase": "Programming Fundamentals",
+    "phaseColor": "java",
+    "phaseClass": "ph-java",
+    "title": "Loops (for, while, do-while)",
+    "hours": 4,
+    "complexity": "beginner",
+    "importance": "critical",
+    "textbook": "Sedgewick & Wayne, Intro to Programming in Java, Ch. 1.3",
+    "summary": "for, while, do-while, enhanced for-each, break/continue, and choosing the right loop.",
+    "lesson": "<h4>The Three Loop Types</h4><div class='code-block'><span class='lang-tag'>java</span><pre><span class='cm'>// 1. for — when you know exactly how many iterations</span>\n<span class='kw'>for</span> (<span class='tp'>int</span> i = 0; i < n; i++) { ... }\n\n<span class='cm'>// 2. while — condition-driven</span>\n<span class='kw'>while</span> (scanner.hasNext()) { ... }\n\n<span class='cm'>// 3. do-while — body executes AT LEAST ONCE</span>\n<span class='kw'>do</span> { ... } <span class='kw'>while</span> (condition);</pre></div><h4>Enhanced for-each — Clean Iteration</h4><div class='code-block'><span class='lang-tag'>java</span><pre><span class='kw'>for</span> (<span class='tp'>int</span> value : numbers) {\n    System.out.println(value);\n}</pre></div><h4>break and continue</h4><p><strong>break:</strong> Exits the loop immediately.<br><strong>continue:</strong> Skips the rest of the current iteration, proceeds to the next.</p><div class='key-point'><strong>Loop choice decision tree:</strong> Known count → for. Unknown count → while. Must run once → do-while. Iterating collection → for-each.</div>",
+    "quiz": [
+      {
+        "question": "How many times does do { ... } while (false); execute?",
+        "options": [
+          "0",
+          "1",
+          "Infinite",
+          "Compile error"
+        ],
+        "correct": 1,
+        "explanation": "do-while checks the condition AFTER the body. The body executes once regardless."
+      },
+      {
+        "question": "What does continue do in a for loop?",
+        "options": [
+          "Exits the loop",
+          "Skips the current iteration, executes update, checks condition",
+          "Restarts from iteration 0",
+          "Does nothing"
+        ],
+        "correct": 1,
+        "explanation": "In a for loop, continue jumps to the update statement (i++), then checks the condition. In while loops, it jumps directly to the condition check."
+      }
+    ],
+    "codingExercise": {
+      "instruction": "Write programs using: (1) for loop for first 20 Fibonacci numbers, (2) while loop to find smallest power of 2 > 1,000,000, (3) do-while to validate input (simulate with a hardcoded negative number).",
+      "hint": "Fibonacci: F(0)=0, F(1)=1, F(n)=F(n-1)+F(n-2). Powers of 2: 1,2,4,8,16,...",
+      "checkKeywords": [
+        "for",
+        "while",
+        "do-while",
+        "fibonacci",
+        "break"
+      ]
+    }
+  },
+  {
+    "id": 8,
+    "phase": "Programming Fundamentals",
+    "phaseColor": "java",
+    "phaseClass": "ph-java",
+    "title": "Methods & Parameters",
+    "hours": 5,
+    "complexity": "beginner",
+    "importance": "critical",
+    "textbook": "Eckel, Thinking in Java (4th ed), Ch. 5",
+    "summary": "Method signatures, parameters vs arguments, pass-by-value semantics, the call stack, and method overloading.",
+    "lesson": "<h4>Method Anatomy</h4><div class='code-block'><span class='lang-tag'>java</span><pre><span class='kw'>public static int</span> <span class='mt'>max</span>(<span class='tp'>int</span> a, <span class='tp'>int</span> b) {\n    <span class='kw'>return</span> (a > b) ? a : b;\n}\n\n<span class='kw'>public static void</span> <span class='mt'>greet</span>(<span class='tp'>String</span> name) {\n    System.out.printf(<span class='st'>\"Hello, %s!%n\"</span>, name);\n}</pre></div><h4>Java is ALWAYS Pass-by-Value</h4><p>This is the most misunderstood concept in Java. Java passes a COPY of the value. For primitives, the copy is the number. For objects, the copy is the REFERENCE (memory address).</p><div class='code-block'><span class='lang-tag'>java</span><pre><span class='kw'>public static void</span> <span class='mt'>changePrimitive</span>(<span class='tp'>int</span> x) {\n    x = 100;  <span class='cm'>// Only changes the local COPY</span>\n}\n\n<span class='kw'>public static void</span> <span class='mt'>changeObject</span>(<span class='tp'>StringBuilder</span> sb) {\n    sb.append(<span class='st'>\" modified\"</span>);  <span class='cm'>// Mutates the object via the copied reference</span>\n    sb = <span class='kw'>new</span> <span class='tp'>StringBuilder</span>(<span class='st'>\"new\"</span>);  <span class='cm'>// Reassigns local copy — caller unchanged</span>\n}</pre></div><h4>Method Overloading</h4><p>Same method name, different parameter lists (type, count, or order). Return type alone is NOT sufficient to overload.</p><div class='key-point'><strong>The Call Stack:</strong> Each method call pushes a stack frame (parameters + local variables). When the method returns, the frame is popped. Too many nested calls cause StackOverflowError.</div>",
+    "quiz": [
+      {
+        "question": "Does Java pass objects by reference?",
+        "options": [
+          "Yes",
+          "No — Java passes the reference by value (a copy of the memory address)",
+          "Only for String",
+          "Only for arrays"
+        ],
+        "correct": 1,
+        "explanation": "Java is always pass-by-value. For objects, the value being passed is the reference, but you cannot change the caller's reference variable — only mutate the object it points to."
+      },
+      {
+        "question": "Can you overload a method by only changing the return type?",
+        "options": [
+          "Yes",
+          "No — parameter list must differ",
+          "Only for void methods",
+          "Only in interfaces"
+        ],
+        "correct": 1,
+        "explanation": "The compiler distinguishes overloads by parameter types. Return type is not part of the method signature and cannot disambiguate calls."
+      }
+    ],
+    "codingExercise": {
+      "instruction": "Write (1) a method that attempts to swap two ints, demonstrating it does NOT affect the caller, (2) an overloaded method that swaps elements in an int[] at given indices (this WILL affect the caller). Explain why.",
+      "hint": "Arrays are objects. The reference to the array is copied, but the copy points to the same heap array. Modifying array elements through the copy affects the original.",
+      "checkKeywords": [
+        "swap",
+        "int",
+        "int[]",
+        "static",
+        "void",
+        "pass-by-value"
+      ]
+    }
+  },
+  {
+    "id": 9,
+    "phase": "Programming Fundamentals",
+    "phaseColor": "java",
+    "phaseClass": "ph-java",
+    "title": "Arrays",
+    "hours": 5,
+    "complexity": "beginner",
+    "importance": "critical",
+    "textbook": "Sedgewick & Wayne, Intro to Programming in Java, Ch. 1.4",
+    "summary": "Fixed-size contiguous memory, O(1) random access, multi-dimensional arrays, java.util.Arrays utility class.",
+    "lesson": "<h4>Array Fundamentals</h4><p>An array is a <strong>fixed-size, contiguous block</strong> of elements of the same type, accessed by 0-based integer index. Arrays are objects allocated on the heap.</p><div class='code-block'><span class='lang-tag'>java</span><pre><span class='tp'>int</span>[] scores = <span class='kw'>new</span> <span class='tp'>int</span>[5];        <span class='cm'>// All zeros: [0,0,0,0,0]</span>\n<span class='tp'>String</span>[] names = <span class='kw'>new</span> <span class='tp'>String</span>[3];    <span class='cm'>// All nulls</span>\n<span class='tp'>double</span>[] vals = {1.0, 2.5, 3.7};  <span class='cm'>// Inline initialization</span>\n\n<span class='tp'>int</span> first = scores[0];   <span class='cm'>// O(1) — computed from base + index * size</span>\n<span class='tp'>int</span> len = scores.length; <span class='cm'>// FIELD, not a method!</span></pre></div><h4>Common Array Patterns</h4><div class='code-block'><span class='lang-tag'>java</span><pre><span class='cm'>// Sum all elements — O(n)</span>\n<span class='tp'>int</span> sum = 0;\n<span class='kw'>for</span> (<span class='tp'>int</span> v : arr) sum += v;\n\n<span class='cm'>// Find max — O(n)</span>\n<span class='tp'>int</span> max = arr[0];\n<span class='kw'>for</span> (<span class='tp'>int</span> v : arr) <span class='kw'>if</span> (v > max) max = v;\n\n<span class='cm'>// Reverse in-place — O(n/2)</span>\n<span class='kw'>for</span> (<span class='tp'>int</span> i = 0; i < arr.length / 2; i++) {\n    <span class='tp'>int</span> tmp = arr[i];\n    arr[i] = arr[arr.length - 1 - i];\n    arr[arr.length - 1 - i] = tmp;\n}</pre></div><h4>java.util.Arrays Utility</h4><div class='code-block'><span class='lang-tag'>java</span><pre>Arrays.sort(arr);              <span class='cm'>// Dual-pivot quicksort, O(n log n)</span>\nArrays.binarySearch(arr, 4);   <span class='cm'>// Must be sorted first!</span>\nArrays.toString(arr);          <span class='cm'>// Human-readable: \"[1, 2, 3]\"</span>\nArrays.copyOf(arr, 10);        <span class='cm'>// New array, truncated or padded</span>\nArrays.fill(arr, 0);           <span class='cm'>// Set all elements</span></pre></div><div class='key-point'><strong>O(1) random access:</strong> arr[i] = base_address + i * sizeof(element). Three simple operations regardless of array size. The tradeoff: fixed size. Use ArrayList for dynamic sizing.</div>",
+    "quiz": [
+      {
+        "question": "Why is array access O(1)?",
+        "options": [
+          "Arrays are sorted",
+          "Address of arr[i] = base + i * elementSize — simple arithmetic",
+          "Because of caching",
+          "It is actually O(n)"
+        ],
+        "correct": 1,
+        "explanation": "Arrays are contiguous in memory. The CPU calculates arr[i] address as base_address + i * sizeof(element) — constant time regardless of array size."
+      },
+      {
+        "question": "What is the default value of elements in new int[5]?",
+        "options": [
+          "null",
+          "0",
+          "undefined",
+          "Garbage values like C"
+        ],
+        "correct": 1,
+        "explanation": "Java initializes numeric arrays to 0, boolean arrays to false, and object arrays to null. Unlike C/C++, there are no garbage values."
+      }
+    ],
+    "codingExercise": {
+      "instruction": "Write methods for: (1) binary search on a sorted array (implement yourself), (2) rotate array left by k positions in-place, and (3) find all pairs that sum to a target value.",
+      "hint": "Binary search: compare with middle, eliminate half. Rotation: reverse 3 segments. Pairs: use HashSet for O(n) or sort + two pointers.",
+      "checkKeywords": [
+        "int[]",
+        "binary",
+        "search",
+        "rotate",
+        "for",
+        "sum"
+      ]
+    }
+  },
+  {
+    "id": 10,
+    "phase": "Programming Fundamentals",
+    "phaseColor": "java",
+    "phaseClass": "ph-java",
+    "title": "Object-Oriented Programming: Classes & Objects",
+    "hours": 6,
+    "complexity": "beginner",
+    "importance": "critical",
+    "textbook": "Eckel, Thinking in Java (4th ed), Ch. 2-5; Bloch, Effective Java, Ch. 2",
+    "summary": "Classes as blueprints, objects as instances, fields (state), methods (behavior), constructors, the new keyword, heap vs stack.",
+    "lesson": "<h4>The Four Pillars of OOP</h4><ol><li><strong>Encapsulation:</strong> Bundle data + methods. Hide internal state.</li><li><strong>Inheritance:</strong> Create new classes from existing ones. Is-a relationships.</li><li><strong>Polymorphism:</strong> Same interface, different behavior. One interface, many implementations.</li><li><strong>Abstraction:</strong> Hide complexity. Show only essentials.</li></ol><h4>Class = Blueprint, Object = Instance</h4><div class='code-block'><span class='lang-tag'>java</span><pre><span class='kw'>public class</span> <span class='tp'>Student</span> {\n    <span class='kw'>private</span> <span class='tp'>String</span> name;\n    <span class='kw'>private</span> <span class='tp'>int</span> age;\n    <span class='kw'>private</span> <span class='tp'>double</span> gpa;\n\n    <span class='kw'>public</span> <span class='mt'>Student</span>(<span class='tp'>String</span> name, <span class='tp'>int</span> age, <span class='tp'>double</span> gpa) {\n        <span class='kw'>this</span>.name = name;\n        <span class='kw'>this</span>.age = age;\n        <span class='kw'>this</span>.gpa = gpa;\n    }\n\n    <span class='kw'>public void</span> <span class='mt'>study</span>() {\n        System.out.println(name + <span class='st'>\" is studying...\"</span>);\n    }\n\n    <span class='kw'>public boolean</span> <span class='mt'>isHonorRoll</span>() {\n        <span class='kw'>return</span> gpa >= 3.5;\n    }\n}\n\n<span class='cm'>// Creating objects</span>\n<span class='tp'>Student</span> alice = <span class='kw'>new</span> <span class='tp'>Student</span>(<span class='st'>\"Alice\"</span>, 20, 3.8);\nalice.study();  <span class='cm'>// \"Alice is studying...\"</span></pre></div><h4>Memory Layout</h4><p><strong>Stack:</strong> Reference variables (alice, bob) — fast, scope-based.<br><strong>Heap:</strong> Actual Student objects — dynamic, garbage collected. Multiple references can point to the same object.</p><div class='key-point'><strong>new does three things:</strong> (1) Allocates heap memory for the object, (2) Calls the constructor to initialize fields, (3) Returns a reference (memory address) to the caller.</div>",
+    "quiz": [
+      {
+        "question": "What does the new keyword do?",
+        "options": [
+          "Declares a variable",
+          "Allocates heap memory, calls constructor, returns reference",
+          "Creates a copy",
+          "Imports a class"
+        ],
+        "correct": 1,
+        "explanation": "new allocates memory on the heap, invokes the constructor to initialize the object, and returns a reference to the caller."
+      },
+      {
+        "question": "What does this refer to in a constructor?",
+        "options": [
+          "The parent class",
+          "The current object being constructed",
+          "The previous object",
+          "The class definition"
+        ],
+        "correct": 1,
+        "explanation": "this is a reference to the current instance — the specific object being created or the object on which the method was called."
+      }
+    ],
+    "codingExercise": {
+      "instruction": "Design a BankAccount class with: accountNumber (String), balance (double, private), and methods deposit(double), withdraw(double) returning boolean, getBalance(), and transfer(BankAccount to, double amount). Prevent negative balances.",
+      "hint": "withdraw returns false if insufficient funds. transfer calls this.withdraw and to.deposit. Keep balance private.",
+      "checkKeywords": [
+        "class",
+        "BankAccount",
+        "private",
+        "deposit",
+        "withdraw",
+        "transfer",
+        "this"
+      ]
+    }
+  },
+  {
+    "id": 11,
+    "phase": "Programming Fundamentals",
+    "phaseColor": "java",
+    "phaseClass": "ph-java",
+    "title": "Encapsulation & Access Modifiers",
+    "hours": 4,
+    "complexity": "beginner",
+    "importance": "critical",
+    "textbook": "Bloch, Effective Java (3rd ed), Item 15: Minimize accessibility",
+    "summary": "private, default, protected, public. Data hiding, getters/setters, and why public fields are dangerous.",
+    "lesson": "<h4>The Four Access Levels</h4><table class='meta-table'><tr><th>Modifier</th><th>Class</th><th>Package</th><th>Subclass</th><th>World</th></tr><tr><td><code>private</code></td><td style='color:#4ade80'>Yes</td><td style='color:#f87171'>No</td><td style='color:#f87171'>No</td><td style='color:#f87171'>No</td></tr><tr><td><code>(default)</code></td><td style='color:#4ade80'>Yes</td><td style='color:#4ade80'>Yes</td><td style='color:#f87171'>No</td><td style='color:#f87171'>No</td></tr><tr><td><code>protected</code></td><td style='color:#4ade80'>Yes</td><td style='color:#4ade80'>Yes</td><td style='color:#4ade80'>Yes</td><td style='color:#f87171'>No</td></tr><tr><td><code>public</code></td><td style='color:#4ade80'>Yes</td><td style='color:#4ade80'>Yes</td><td style='color:#4ade80'>Yes</td><td style='color:#4ade80'>Yes</td></tr></table><h4>Encapsulation Protects Invariants</h4><div class='code-block'><span class='lang-tag'>java</span><pre><span class='kw'>public class</span> <span class='tp'>Temperature</span> {\n    <span class='kw'>private</span> <span class='tp'>double</span> celsius;  <span class='cm'>// Single source of truth</span>\n\n    <span class='kw'>public</span> <span class='tp'>double</span> <span class='mt'>getCelsius</span>() { <span class='kw'>return</span> celsius; }\n    <span class='kw'>public void</span> <span class='mt'>setCelsius</span>(<span class='tp'>double</span> c) { <span class='kw'>this</span>.celsius = c; }\n\n    <span class='cm'>// Derived — always consistent with celsius</span>\n    <span class='kw'>public</span> <span class='tp'>double</span> <span class='mt'>getFahrenheit</span>() { <span class='kw'>return</span> celsius * 9/5 + 32; }\n    <span class='kw'>public void</span> <span class='mt'>setFahrenheit</span>(<span class='tp'>double</span> f) { celsius = (f - 32) * 5/9; }\n}</pre></div><div class='key-point'><strong>The encapsulation rule:</strong> Make fields private. Provide public methods only when needed. Start with the most restrictive access. You can always open up later; you can never take back a published public API.</div>",
+    "quiz": [
+      {
+        "question": "What is the difference between private and default access?",
+        "options": [
+          "They are the same",
+          "private = same class only; default = same package",
+          "private = same file; default = same project",
+          "No default access level exists"
+        ],
+        "correct": 1,
+        "explanation": "private limits to the declaring class. Default (no modifier) extends to the entire package."
+      },
+      {
+        "question": "Why use getters/setters instead of public fields?",
+        "options": [
+          "It looks professional",
+          "Enables validation, computed properties, and internal changes without breaking callers",
+          "Java requires it",
+          "Getters are faster"
+        ],
+        "correct": 1,
+        "explanation": "Encapsulation lets you change internal representation without breaking callers. It also enables validation and computed properties."
+      }
+    ],
+    "codingExercise": {
+      "instruction": "Create an ImmutablePerson class where all fields are private final, set only through the constructor. Provide getters but NO setters. Include: name, birthDate (LocalDate), and a getAge() method that computes age.",
+      "hint": "Immutability: no setters, all fields final. getAge() uses Period.between(birthDate, LocalDate.now()).getYears().",
+      "checkKeywords": [
+        "private",
+        "final",
+        "class",
+        "constructor",
+        "get",
+        "Immutable"
+      ]
+    }
+  },
+  {
+    "id": 12,
+    "phase": "Programming Fundamentals",
+    "phaseColor": "java",
+    "phaseClass": "ph-java",
+    "title": "Inheritance",
+    "hours": 5,
+    "complexity": "intermediate",
+    "importance": "critical",
+    "textbook": "Eckel, Thinking in Java (4th ed), Ch. 7; Bloch, Effective Java, Item 18",
+    "summary": "extends keyword, super(), @Override, the Object class, is-a vs has-a, and favor composition over inheritance.",
+    "lesson": "<h4>Inheritance Models Is-a</h4><p>A Dog <strong>is an</strong> Animal. A SavingsAccount <strong>is a</strong> BankAccount. Inheritance extends existing classes, reusing and specializing behavior.</p><div class='code-block'><span class='lang-tag'>java</span><pre><span class='kw'>public class</span> <span class='tp'>Animal</span> {\n    <span class='kw'>protected</span> <span class='tp'>String</span> name;\n    <span class='kw'>public</span> <span class='mt'>Animal</span>(<span class='tp'>String</span> name) { <span class='kw'>this</span>.name = name; }\n    <span class='kw'>public void</span> <span class='mt'>eat</span>() { System.out.println(name + <span class='st'>\" eats\"</span>); }\n}\n\n<span class='kw'>public class</span> <span class='tp'>Dog</span> <span class='kw'>extends</span> <span class='tp'>Animal</span> {\n    <span class='kw'>private</span> <span class='tp'>String</span> breed;\n\n    <span class='kw'>public</span> <span class='mt'>Dog</span>(<span class='tp'>String</span> name, <span class='tp'>String</span> breed) {\n        <span class='kw'>super</span>(name);  <span class='cm'>// MUST be first line!</span>\n        <span class='kw'>this</span>.breed = breed;\n    }\n\n    @Override\n    <span class='kw'>public void</span> <span class='mt'>eat</span>() {\n        System.out.println(name + <span class='st'>\" eats kibble\"</span>);\n    }\n}</pre></div><h4>Single Inheritance Only</h4><p>Java allows extending exactly ONE class. This avoids the diamond problem (ambiguity from multiple parent implementations). Use interfaces for multiple type inheritance.</p><h4>Every Class Extends Object</h4><p>Object provides: toString(), equals(Object), hashCode(), getClass(), clone() (deprecated).</p><div class='key-point'><strong>Composition over Inheritance:</strong> Bloch's Item 18. Inheritance creates tight coupling. For code reuse without is-a, use composition (a field of the other type). Reserve inheritance for true is-a relationships with polymorphic behavior.</div>",
+    "quiz": [
+      {
+        "question": "Why does Java only support single class inheritance?",
+        "options": [
+          "Simpler implementation",
+          "Avoids the diamond problem (ambiguity from multiple parent implementations)",
+          "It is faster",
+          "Multiple inheritance is not useful"
+        ],
+        "correct": 1,
+        "explanation": "The diamond problem occurs when two parents define the same method. Java avoids it by design, using interfaces for multiple type inheritance."
+      },
+      {
+        "question": "What does super() do and where must it appear?",
+        "options": [
+          "Calls current constructor, must be last",
+          "Calls parent constructor, must be first",
+          "Calls all constructors, anywhere",
+          "It is optional"
+        ],
+        "correct": 1,
+        "explanation": "super() invokes the parent constructor. It must be the first statement in the child constructor. If omitted, Java inserts super() automatically."
+      }
+    ],
+    "codingExercise": {
+      "instruction": "Create a Vehicle hierarchy: Vehicle (speed, accelerate()), Car extends Vehicle (numDoors, honk()), ElectricCar extends Car (batteryLevel, charge()). Override accelerate() in ElectricCar to consume battery.",
+      "hint": "ElectricCar.accelerate() should call super.accelerate() AND decrease batteryLevel. Use @Override on every overridden method.",
+      "checkKeywords": [
+        "extends",
+        "super",
+        "@Override",
+        "Vehicle",
+        "Car",
+        "ElectricCar",
+        "accelerate"
+      ]
+    }
+  },
+  {
+    "id": 13,
+    "phase": "Programming Fundamentals",
+    "phaseColor": "java",
+    "phaseClass": "ph-java",
+    "title": "Polymorphism",
+    "hours": 5,
+    "complexity": "intermediate",
+    "importance": "critical",
+    "textbook": "Eckel, Thinking in Java (4th ed), Ch. 8",
+    "summary": "Dynamic method dispatch, upcasting/downcasting, instanceof pattern matching, and programming to interfaces.",
+    "lesson": "<h4>Dynamic Method Dispatch</h4><p>The JVM decides <strong>at runtime</strong> which method to call, based on the <strong>actual type</strong> of the object, not the declared type of the reference. This is polymorphism.</p><div class='code-block'><span class='lang-tag'>java</span><pre><span class='tp'>Animal</span> myPet = <span class='kw'>new</span> <span class='tp'>Dog</span>(<span class='st'>\"Rex\"</span>, <span class='st'>\"Shepherd\"</span>);\nmyPet.eat();  <span class='cm'>// Calls Dog.eat(), NOT Animal.eat()!</span>\n              <span class='cm'>// Decision made at RUNTIME based on actual object type</span></pre></div><h4>The Real Power: Writing Generic Code</h4><div class='code-block'><span class='lang-tag'>java</span><pre><span class='kw'>public void</span> <span class='mt'>feedAll</span>(<span class='tp'>List</span>&lt;Animal&gt; animals) {\n    <span class='kw'>for</span> (<span class='tp'>Animal</span> a : animals) {\n        a.eat();  <span class='cm'>// Each animal eats its own way! No if/else needed.</span>\n    }\n}\n<span class='cm'>// Add Cat? Bird? Fish? feedAll() works WITHOUT modification!</span></pre></div><h4>Programming to an Interface</h4><div class='code-block'><span class='lang-tag'>java</span><pre><span class='cm'>// BAD — locked to ArrayList</span>\n<span class='tp'>ArrayList</span>&lt;String&gt; list = <span class='kw'>new</span> <span class='tp'>ArrayList</span>&lt;&gt;();\n\n<span class='cm'>// GOOD — program to List interface. Swap implementations freely.</span>\n<span class='tp'>List</span>&lt;String&gt; list = <span class='kw'>new</span> <span class='tp'>ArrayList</span>&lt;&gt;();</pre></div><div class='key-point'><strong>Program to an interface, not an implementation.</strong> Use the most abstract type that works. This enables swapping implementations without changing calling code.</div>",
+    "quiz": [
+      {
+        "question": "What determines which overridden method is called at runtime?",
+        "options": [
+          "The reference variable type",
+          "The actual object type in memory",
+          "The compiler",
+          "It is random"
+        ],
+        "correct": 1,
+        "explanation": "The JVM looks at the actual class of the object and walks the method table. This is dynamic dispatch — it happens at runtime, not compile time."
+      },
+      {
+        "question": "What does it mean to program to an interface?",
+        "options": [
+          "Always use the interface keyword",
+          "Declare variables as the most general type that meets your needs",
+          "Never use concrete classes",
+          "Write only abstract methods"
+        ],
+        "correct": 1,
+        "explanation": "Use the most abstract type that provides the needed functionality. Declare as List, not ArrayList. This makes code flexible."
+      }
+    ],
+    "codingExercise": {
+      "instruction": "Create a Shape hierarchy: Shape defines area(). Circle and Rectangle implement it. Write totalArea(List<Shape>) that works with any shapes. Add Triangle — totalArea() needs ZERO changes.",
+      "hint": "This is the Open-Closed Principle: open for extension, closed for modification.",
+      "checkKeywords": [
+        "interface",
+        "Shape",
+        "area",
+        "List",
+        "implements",
+        "extends"
+      ]
+    }
+  },
+  {
+    "id": 14,
+    "phase": "Programming Fundamentals",
+    "phaseColor": "java",
+    "phaseClass": "ph-java",
+    "title": "Abstract Classes & Interfaces",
+    "hours": 6,
+    "complexity": "intermediate",
+    "importance": "critical",
+    "textbook": "Bloch, Effective Java (3rd ed), Item 20: Prefer interfaces to abstract classes",
+    "summary": "abstract keyword, interface definitions, default/static methods, and when to use each.",
+    "lesson": "<h4>Abstract Classes — Partial Implementation</h4><p>Cannot be instantiated. May have abstract methods (no body) and concrete methods. Subclasses must implement abstract methods.</p><div class='code-block'><span class='lang-tag'>java</span><pre><span class='kw'>public abstract class</span> <span class='tp'>Shape</span> {\n    <span class='kw'>public abstract double</span> <span class='mt'>area</span>();  <span class='cm'>// Subclasses MUST implement</span>\n    <span class='kw'>public</span> <span class='tp'>String</span> <span class='mt'>description</span>() { <span class='kw'>return</span> <span class='st'>\"Area: \"</span> + area(); }\n}</pre></div><h4>Interfaces — Pure Contract</h4><div class='code-block'><span class='lang-tag'>java</span><pre><span class='kw'>public interface</span> <span class='tp'>Drawable</span> {\n    <span class='kw'>void</span> <span class='mt'>draw</span>();  <span class='cm'>// Implicitly public abstract</span>\n\n    <span class='kw'>default void</span> <span class='mt'>drawBold</span>() {  <span class='cm'>// Java 8+ — provides implementation</span>\n        System.out.println(<span class='st'>\"=== START ===\"</span>);\n        draw();\n        System.out.println(<span class='st'>\"=== END ===\"</span>);\n    }\n}\n\n<span class='cm'>// A class can implement MULTIPLE interfaces</span>\n<span class='kw'>public class</span> <span class='tp'>Circle</span> <span class='kw'>extends</span> <span class='tp'>Shape</span> <span class='kw'>implements</span> <span class='tp'>Drawable</span>, <span class='tp'>Comparable</span>&lt;Circle&gt; { ... }</pre></div><h4>Decision Guide</h4><table class='meta-table'><tr><th>Use Abstract Class When</th><th>Use Interface When</th></tr><tr><td>Subclasses share state (fields)</td><td>Unrelated classes share behavior</td></tr><tr><td>You need constructors</td><td>You need multiple inheritance of type</td></tr><tr><td>Clear is-a hierarchy</td><td>Can-do capability/contract</td></tr></table><div class='key-point'><strong>Prefer interfaces to abstract classes</strong> (Bloch, Item 20). Interfaces are more flexible, enable mixins, and allow non-hierarchical type sharing.</div>",
+    "quiz": [
+      {
+        "question": "Can an abstract class be instantiated?",
+        "options": [
+          "Yes",
+          "No — it is incomplete by definition",
+          "Only if it has no abstract methods",
+          "Only through reflection"
+        ],
+        "correct": 1,
+        "explanation": "Abstract classes have unimplemented methods. You must subclass and implement all abstract methods before instantiation."
+      },
+      {
+        "question": "How many interfaces can a Java class implement?",
+        "options": [
+          "One",
+          "Two",
+          "Up to 5",
+          "Unlimited"
+        ],
+        "correct": 3,
+        "explanation": "A class can implement as many interfaces as needed. This is Java's answer to multiple inheritance."
+      }
+    ],
+    "codingExercise": {
+      "instruction": "Create interface Playable with play() and pause(). Create Recordable with record(). Create MediaPlayer that implements both. Create Podcast extending MediaPlayer with download(). Demonstrate multiple interface inheritance.",
+      "hint": "Use implements Playable, Recordable on MediaPlayer. Podcast extends MediaPlayer.",
+      "checkKeywords": [
+        "interface",
+        "implements",
+        "Playable",
+        "Recordable",
+        "@Override",
+        "extends"
+      ]
+    }
+  },
+  {
+    "id": 15,
+    "phase": "Programming Fundamentals",
+    "phaseColor": "java",
+    "phaseClass": "ph-java",
+    "title": "Exception Handling",
+    "hours": 5,
+    "complexity": "intermediate",
+    "importance": "critical",
+    "textbook": "Bloch, Effective Java (3rd ed), Ch. 10",
+    "summary": "try-catch-finally, checked vs unchecked, throw/throws, try-with-resources, and custom exceptions.",
+    "lesson": "<h4>The Exception Hierarchy</h4><div class='code-block'><span class='lang-tag'>text</span><pre>Throwable\n├── Error (serious JVM errors — don't catch!)\n└── Exception\n    ├── RuntimeException (unchecked — programming bugs)\n    └── Other (checked — MUST handle or declare)</pre></div><h4>try-with-resources — Never Leak Resources</h4><div class='code-block'><span class='lang-tag'>java</span><pre><span class='cm'>// Modern — auto-close, exception-safe</span>\n<span class='kw'>try</span> (<span class='tp'>BufferedReader</span> reader = <span class='kw'>new</span> <span class='tp'>BufferedReader</span>(<span class='kw'>new</span> <span class='tp'>FileReader</span>(<span class='st'>\"file.txt\"</span>))) {\n    <span class='kw'>return</span> reader.readLine();\n}  <span class='cm'>// reader.close() called AUTOMATICALLY</span></pre></div><h4>Custom Exceptions</h4><div class='code-block'><span class='lang-tag'>java</span><pre><span class='kw'>public class</span> <span class='tp'>InsufficientFundsException</span> <span class='kw'>extends</span> <span class='tp'>RuntimeException</span> {\n    <span class='kw'>public</span> <span class='mt'>InsufficientFundsException</span>(<span class='tp'>double</span> balance, <span class='tp'>double</span> requested) {\n        <span class='kw'>super</span>(String.format(<span class='st'>\"Balance %.2f, requested %.2f\"</span>, balance, requested));\n    }\n}</pre></div><div class='key-point'><strong>Checked vs Unchecked:</strong> Checked = caller CAN recover (IOException). Unchecked = programming error (NullPointerException). Use try-with-resources for ALL AutoCloseable resources.</div>",
+    "quiz": [
+      {
+        "question": "What is the difference between checked and unchecked exceptions?",
+        "options": [
+          "No difference",
+          "Checked must be caught or declared; unchecked are not enforced",
+          "Checked are more serious",
+          "Unchecked only happen at compile time"
+        ],
+        "correct": 1,
+        "explanation": "The compiler forces handling of checked exceptions. Unchecked (RuntimeException) are not enforced — they represent programming bugs."
+      },
+      {
+        "question": "Why use try-with-resources instead of finally blocks?",
+        "options": [
+          "Shorter syntax",
+          "Guarantees close(), handles suppressed exceptions correctly, prevents resource leaks",
+          "Prevents all exceptions",
+          "Required by Java 8"
+        ],
+        "correct": 1,
+        "explanation": "try-with-resources correctly handles multiple resources, suppressed exceptions, and guarantees close() even when both the try block and close() throw exceptions."
+      }
+    ],
+    "codingExercise": {
+      "instruction": "Create a BankService with transfer(fromId, toId, amount). Throw InsufficientFundsException (unchecked) when balance is too low, AccountNotFoundException (unchecked) when invalid ID. Use try-catch in caller.",
+      "hint": "Extend RuntimeException for both. The caller doesn't need to declare them but should catch them for proper error handling.",
+      "checkKeywords": [
+        "extends RuntimeException",
+        "throw",
+        "try",
+        "catch",
+        "transfer",
+        "balance"
+      ]
+    }
+  },
+  {
+    "id": 16,
+    "phase": "Programming Fundamentals",
+    "phaseColor": "java",
+    "phaseClass": "ph-java",
+    "title": "Collections Framework",
+    "hours": 8,
+    "complexity": "intermediate",
+    "importance": "critical",
+    "textbook": "Sedgewick & Wayne, Algorithms (4th ed), Ch. 1.3, 3",
+    "summary": "List/Set/Map/Queue, ArrayList vs LinkedList, HashSet vs TreeSet, HashMap internals, and choosing the right collection.",
+    "lesson": "<h4>Collection Interfaces</h4><div class='code-block'><span class='lang-tag'>text</span><pre>Collection\n├── List (ordered, indexed, duplicates OK)\n│   ├── ArrayList  — Dynamic array, O(1) get, O(n) insert middle\n│   └── LinkedList — Doubly-linked, O(n) get, O(1) insert ends\n├── Set (unique, no index)\n│   ├── HashSet       — Hash table, O(1), no order\n│   ├── LinkedHashSet — Insertion-ordered\n│   └── TreeSet       — Red-black tree, sorted, O(log n)\n└── Queue (FIFO/priority)\n\nMap (key→value, NOT a Collection)\n├── HashMap       — Hash table, O(1)\n├── LinkedHashMap — Insertion-ordered\n└── TreeMap       — Sorted by keys, O(log n)</pre></div><h4>HashMap Internals (Interview Essential)</h4><p>HashMap uses an array of buckets. key.hashCode() determines the bucket. equals() finds the exact key within the bucket. When load factor exceeds 0.75, the array doubles (rehashing). Long buckets (>8) convert to red-black trees.</p><div class='code-block'><span class='lang-tag'>java</span><pre><span class='cm'>// Must override BOTH hashCode() and equals() for HashMap keys!</span>\n@Override <span class='kw'>public boolean</span> <span class='mt'>equals</span>(<span class='tp'>Object</span> o) { ... }\n@Override <span class='kw'>public int</span> <span class='mt'>hashCode</span>() { <span class='kw'>return</span> Objects.hash(field1, field2); }\n<span class='cm'>// Contract: a.equals(b) → a.hashCode() == b.hashCode()</span></pre></div><div class='key-point'><strong>Default choices:</strong> ArrayList for lists, HashSet for unique sets, HashMap for key-value. Always override equals() AND hashCode() when using custom objects as keys.</div>",
+    "quiz": [
+      {
+        "question": "What is the default load factor of HashMap?",
+        "options": [
+          "0.5",
+          "0.75 — when exceeded, the table resizes",
+          "1.0",
+          "0.25"
+        ],
+        "correct": 1,
+        "explanation": "At load factor 0.75, when 75 percent full, HashMap rehashes into a larger array. This balances memory against collision probability."
+      },
+      {
+        "question": "Why must you override both equals() and hashCode()?",
+        "options": [
+          "Performance",
+          "The contract: equal objects MUST have equal hash codes. Violating this breaks HashMap/HashSet.",
+          "It is optional",
+          "Only hashCode() matters"
+        ],
+        "correct": 1,
+        "explanation": "HashMap uses hashCode() to find the bucket and equals() to find the exact key. If two equal objects have different hashCodes, HashMap literally cannot find them."
+      }
+    ],
+    "codingExercise": {
+      "instruction": "Write a method that counts word frequencies in text using HashMap. Find the most frequent word. Handle punctuation and case normalization. Use map.merge(word, 1, Integer::sum) or getOrDefault.",
+      "hint": "Split by non-word characters. Normalize to lowercase. Iterate entrySet() to find max.",
+      "checkKeywords": [
+        "HashMap",
+        "getOrDefault",
+        "entrySet",
+        "split",
+        "toLowerCase"
+      ]
+    }
+  },
+  {
+    "id": 17,
+    "phase": "Programming Fundamentals",
+    "phaseColor": "java",
+    "phaseClass": "ph-java",
+    "title": "Generics",
+    "hours": 5,
+    "complexity": "intermediate",
+    "importance": "critical",
+    "textbook": "Bloch, Effective Java (3rd ed), Ch. 5",
+    "summary": "Type parameters, generic classes/methods, bounded types, wildcards (? extends/? super), PECS, type erasure.",
+    "lesson": "<h4>Why Generics? Compile-Time Type Safety</h4><p>Without generics: List holds Object, casting required, ClassCastException at runtime. With generics: type errors caught at compile time.</p><div class='code-block'><span class='lang-tag'>java</span><pre><span class='cm'>// Without generics (DON'T DO THIS)</span>\n<span class='tp'>List</span> list = <span class='kw'>new</span> <span class='tp'>ArrayList</span>();\nlist.add(<span class='st'>\"hello\"</span>);\nlist.add(42);  <span class='cm'>// Accidentally adds Integer — compiles fine!</span>\n<span class='tp'>String</span> s = (<span class='tp'>String</span>) list.get(1);  <span class='cm'>// ClassCastException at RUNTIME</span>\n\n<span class='cm'>// With generics — caught at COMPILE TIME</span>\n<span class='tp'>List</span>&lt;String&gt; list = <span class='kw'>new</span> <span class='tp'>ArrayList</span>&lt;&gt;();\n<span class='cm'>// list.add(42);  ← COMPILE ERROR!</span></pre></div><h4>PECS: Producer Extends, Consumer Super</h4><ul><li><strong>? extends T:</strong> You READ from it (producer). Safe to read as T.</li><li><strong>? super T:</strong> You WRITE to it (consumer). Safe to add T instances.</li></ul><h4>Type Erasure</h4><p>At runtime, all generic type information is erased. List&lt;String&gt; and List&lt;Integer&gt; are both just List. This was for backward compatibility with pre-generics code.</p><div class='key-point'><strong>PECS mnemonic:</strong> Producer Extends, Consumer Super. Read from → extends. Write to → super. Both read and write → exact type (no wildcard).</div>",
+    "quiz": [
+      {
+        "question": "What does PECS stand for?",
+        "options": [
+          "Not a real concept",
+          "Producer Extends (read), Consumer Super (write)",
+          "Public Extends Class Super",
+          "Parent Extends Child Spec"
+        ],
+        "correct": 1,
+        "explanation": "Use ? extends T when reading (producing) values. Use ? super T when writing (consuming) values. From Bloch's Effective Java, Item 31."
+      },
+      {
+        "question": "What is type erasure?",
+        "options": [
+          "A compiler bug",
+          "Removal of generic type information at runtime for backward compatibility",
+          "A speed optimization",
+          "Adding types at runtime"
+        ],
+        "correct": 1,
+        "explanation": "Generics exist only at compile time. The JVM sees raw types. You cannot do instanceof List<String> or new T() — type info is gone at runtime."
+      }
+    ],
+    "codingExercise": {
+      "instruction": "Write a generic class Pair<K,V> with getKey(), getValue(). Add a static generic method swap() that returns Pair<V,K>. Also write a method accepting List<? extends Number> that returns their sum as double.",
+      "hint": "Generic class: public class Pair<K,V> { ... }. Static method: public static <A,B> Pair<B,A> swap(Pair<A,B> p).",
+      "checkKeywords": [
+        "<",
+        ">",
+        "Pair",
+        "extends",
+        "super",
+        "static",
+        "swap"
+      ]
+    }
+  },
+  {
+    "id": 18,
+    "phase": "Programming Fundamentals",
+    "phaseColor": "java",
+    "phaseClass": "ph-java",
+    "title": "File I/O",
+    "hours": 5,
+    "complexity": "intermediate",
+    "importance": "important",
+    "textbook": "Horstmann, Core Java Volume II (12th ed), Ch. 2",
+    "summary": "java.nio.file (modern) vs java.io (legacy), Files.readString/writeString, BufferedReader, Path, directory walking.",
+    "lesson": "<h4>Modern File I/O — Always Prefer java.nio.file</h4><div class='code-block'><span class='lang-tag'>java</span><pre><span class='cm'>// Read entire file (Java 11+)</span>\n<span class='tp'>String</span> content = Files.readString(Path.of(<span class='st'>\"input.txt\"</span>));\n\n<span class='cm'>// Write string to file</span>\nFiles.writeString(Path.of(<span class='st'>\"output.txt\"</span>), <span class='st'>\"Hello!\"</span>);\n\n<span class='cm'>// Buffered reading for LARGE files</span>\n<span class='kw'>try</span> (<span class='tp'>BufferedReader</span> reader = Files.newBufferedReader(Path.of(<span class='st'>\"large.csv\"</span>))) {\n    <span class='tp'>String</span> line;\n    <span class='kw'>while</span> ((line = reader.readLine()) != <span class='kw'>null</span>) { process(line); }\n}\n\n<span class='cm'>// Walk directory tree</span>\n<span class='kw'>try</span> (<span class='kw'>var</span> paths = Files.walk(Path.of(<span class='st'>\"src\"</span>))) {\n    <span class='kw'>var</span> javaFiles = paths.filter(p -> p.toString().endsWith(<span class='st'>\".java\"</span>)).toList();\n}</pre></div><h4>Path vs File</h4><p><strong>java.nio.file.Path</strong> — Modern, immutable, better errors. Use this.<br><strong>java.io.File</strong> — Legacy (pre-Java 7), mutable. Avoid.</p><div class='key-point'><strong>Always use try-with-resources.</strong> File handles are limited OS resources. Leaking them crashes applications under load.</div>",
+    "quiz": [
+      {
+        "question": "When use buffered reading vs reading entire file?",
+        "options": [
+          "Always read entire file",
+          "Buffered reading for large files — constant memory usage",
+          "They are the same",
+          "Buffered is deprecated"
+        ],
+        "correct": 1,
+        "explanation": "Files.readString() loads everything into a String. For files larger than heap, this causes OutOfMemoryError. BufferedReader processes line-by-line with constant memory."
+      },
+      {
+        "question": "What is the modern replacement for java.io.File?",
+        "options": [
+          "java.nio.file.Path",
+          "java.util.File",
+          "java.io.FileStream",
+          "No replacement"
+        ],
+        "correct": 0,
+        "explanation": "java.nio.file.Path (Java 7+) is the modern path abstraction with better error messages, immutability, and richer Files helper methods."
+      }
+    ],
+    "codingExercise": {
+      "instruction": "Read a CSV file line-by-line, parse into fields, count valid lines, write summary report. Handle IOException. Use try-with-resources throughout.",
+      "hint": "Use Files.newBufferedReader(), String.split(\",\"), try-with-resources. Include total lines, valid lines, invalid lines in summary.",
+      "checkKeywords": [
+        "Files",
+        "BufferedReader",
+        "Path",
+        "split",
+        "try",
+        "IOException"
+      ]
+    }
+  },
+  {
+    "id": 19,
+    "phase": "Programming Fundamentals",
+    "phaseColor": "java",
+    "phaseClass": "ph-java",
+    "title": "Enums & Records (Modern Java)",
+    "hours": 4,
+    "complexity": "intermediate",
+    "importance": "important",
+    "textbook": "Bloch, Effective Java (3rd ed), Item 34",
+    "summary": "Enums with fields/methods, records for immutable data carriers, and when to use each.",
+    "lesson": "<h4>Enums — More Than Constants</h4><div class='code-block'><span class='lang-tag'>java</span><pre><span class='kw'>public enum</span> <span class='tp'>DayOfWeek</span> {\n    MONDAY(<span class='st'>\"Mon\"</span>, true),\n    SUNDAY(<span class='st'>\"Sun\"</span>, false);\n\n    <span class='kw'>private final</span> <span class='tp'>String</span> abbrev;\n    <span class='kw'>private final</span> <span class='tp'>boolean</span> isWeekday;\n\n    <span class='kw'>private</span> <span class='mt'>DayOfWeek</span>(<span class='tp'>String</span> a, <span class='tp'>boolean</span> w) { abbrev = a; isWeekday = w; }\n    <span class='kw'>public boolean</span> <span class='mt'>isWeekday</span>() { <span class='kw'>return</span> isWeekday; }\n}</pre></div><h4>Records — Immutable Data, Zero Boilerplate (Java 14+)</h4><div class='code-block'><span class='lang-tag'>java</span><pre><span class='cm'>// One line! Constructor, accessors, equals, hashCode, toString — all auto-generated.</span>\n<span class='kw'>public record</span> <span class='tp'>Point</span>(<span class='tp'>int</span> x, <span class='tp'>int</span> y) {}\n\n<span class='cm'>// Records CAN have validation</span>\n<span class='kw'>public record</span> <span class='tp'>Person</span>(<span class='tp'>String</span> name, <span class='tp'>int</span> age) {\n    <span class='kw'>public</span> <span class='tp'>Person</span> {\n        <span class='kw'>if</span> (age < 0) <span class='kw'>throw new</span> <span class='tp'>IllegalArgumentException</span>();\n    }\n}</pre></div><div class='key-point'><strong>Rule of thumb:</strong> Enums for fixed sets of constants. Records for immutable data carriers (DTOs, value objects). Both eliminate enormous boilerplate.</div>",
+    "quiz": [
+      {
+        "question": "What does a Java record automatically provide?",
+        "options": [
+          "Just getters",
+          "Constructor, accessors, equals(), hashCode(), toString() — all auto-generated",
+          "Only toString()",
+          "Just shorter syntax"
+        ],
+        "correct": 1,
+        "explanation": "Records auto-generate canonical constructor, accessor methods (named after components), equals(), hashCode(), and toString()."
+      },
+      {
+        "question": "Can an enum have methods and fields?",
+        "options": [
+          "No",
+          "Yes — enums are full classes with fields, methods, and constructors",
+          "Only static methods",
+          "Only in Java 17+"
+        ],
+        "correct": 1,
+        "explanation": "Java enums are full-fledged classes. They can have private constructors, instance fields, methods, and implement interfaces."
+      }
+    ],
+    "codingExercise": {
+      "instruction": "Create an enum Currency (USD, EUR, GBP, JPY) with symbol and exchangeRateToUSD fields. Add convertToUSD(amount) and convertFromUSD(amount) methods. Create a record Money(Currency currency, double amount) with a convertTo(Currency target) method.",
+      "hint": "Enum constructor: USD(\"$\", 1.0). convertTo: convert to USD first, then to target currency.",
+      "checkKeywords": [
+        "enum",
+        "record",
+        "Currency",
+        "Money",
+        "convert",
+        "symbol"
+      ]
+    }
+  },
+  {
+    "id": 20,
+    "phase": "Programming Fundamentals",
+    "phaseColor": "java",
+    "phaseClass": "ph-java",
+    "title": "Lambdas & Functional Interfaces",
+    "hours": 6,
+    "complexity": "intermediate",
+    "importance": "critical",
+    "textbook": "Bloch, Effective Java (3rd ed), Item 42",
+    "summary": "Lambda syntax, @FunctionalInterface, Predicate/Function/Consumer/Supplier, method references, higher-order functions.",
+    "lesson": "<h4>Lambda Syntax</h4><div class='code-block'><span class='lang-tag'>java</span><pre><span class='cm'>// Full: (parameters) -> { statements; return value; }</span>\n(<span class='tp'>int</span> a, <span class='tp'>int</span> b) -> { <span class='kw'>return</span> a + b; }\n\n<span class='cm'>// Type inference, single expression</span>\n(a, b) -> a + b\n\n<span class='cm'>// Single parameter, no type</span>\ns -> s.toUpperCase()\n\n<span class='cm'>// Method reference (preferred when possible)</span>\nString::toUpperCase    <span class='cm'>// = s -> s.toUpperCase()</span>\nSystem.out::println    <span class='cm'>// = s -> System.out.println(s)</span></pre></div><h4>Key Functional Interfaces</h4><table class='meta-table'><tr><th>Interface</th><th>Method</th><th>Takes</th><th>Returns</th></tr><tr><td>Predicate&lt;T&gt;</td><td>test(T)</td><td>T</td><td>boolean</td></tr><tr><td>Function&lt;T,R&gt;</td><td>apply(T)</td><td>T</td><td>R</td></tr><tr><td>Consumer&lt;T&gt;</td><td>accept(T)</td><td>T</td><td>void</td></tr><tr><td>Supplier&lt;T&gt;</td><td>get()</td><td>—</td><td>T</td></tr></table><p>Lambdas enable passing BEHAVIOR as parameters. Foundation of modern Java: streams, reactive programming, testability.</p>",
+    "quiz": [
+      {
+        "question": "What must an interface have to work with lambdas?",
+        "options": [
+          "Be abstract",
+          "Exactly one abstract method (functional interface)",
+          "Extend Function",
+          "Be in java.util.function"
+        ],
+        "correct": 1,
+        "explanation": "A lambda implements a functional interface — exactly one abstract method. @FunctionalInterface annotation enforces this."
+      },
+      {
+        "question": "What is the difference between x -> foo(x) and Foo::foo?",
+        "options": [
+          "Completely different",
+          "Functionally identical — method reference is cleaner syntax",
+          "Method references are faster",
+          "Lambdas are deprecated"
+        ],
+        "correct": 1,
+        "explanation": "Method references are syntactic sugar for lambdas that simply call an existing method. Preferred when applicable for readability."
+      }
+    ],
+    "codingExercise": {
+      "instruction": "Write a generic method filterAndTransform(List<T> input, Predicate<T> filter, Function<T,R> transform) returning List<R>. Demonstrate filtering strings starting with 'A' and transforming to uppercase.",
+      "hint": "Use for-each: for (T item : input) { if (filter.test(item)) result.add(transform.apply(item)); }",
+      "checkKeywords": [
+        "Predicate",
+        "Function",
+        "lambda",
+        "test",
+        "apply",
+        "filter",
+        "map"
+      ]
+    }
+  },
+  {
+    "id": 21,
+    "phase": "Programming Fundamentals",
+    "phaseColor": "java",
+    "phaseClass": "ph-java",
+    "title": "Streams API",
+    "hours": 8,
+    "complexity": "intermediate",
+    "importance": "critical",
+    "textbook": "Bloch, Effective Java (3rd ed), Item 45",
+    "summary": "Stream pipeline (source → intermediate → terminal), map/filter/reduce, collectors, groupingBy, and when NOT to use streams.",
+    "lesson": "<h4>The Stream Pipeline</h4><div class='code-block'><span class='lang-tag'>java</span><pre><span class='kw'>var</span> result = names.stream()                     <span class='cm'>// Source</span>\n    .filter(s -> s.startsWith(<span class='st'>\"A\"</span>))             <span class='cm'>// Intermediate (lazy)</span>\n    .map(String::toUpperCase)                    <span class='cm'>// Intermediate (lazy)</span>\n    .sorted()                                    <span class='cm'>// Intermediate (lazy)</span>\n    .collect(Collectors.toList());               <span class='cm'>// Terminal (triggers execution)</span></pre></div><h4>Common Terminal Operations</h4><p><strong>Collect:</strong> toList(), toSet(), toMap(), groupingBy(), joining()<br><strong>Reduce:</strong> reduce(), count(), min(), max(), sum(), average()<br><strong>Match:</strong> anyMatch(), allMatch(), noneMatch()<br><strong>Find:</strong> findFirst(), findAny() (returns Optional)</p><h4>groupingBy — The Power Tool</h4><div class='code-block'><span class='lang-tag'>java</span><pre><span class='cm'>// Group employees by department → Map&lt;Department, List&lt;Employee&gt;&gt;</span>\n<span class='kw'>var</span> byDept = employees.stream().collect(Collectors.groupingBy(Employee::department));\n\n<span class='cm'>// Group + count: Map&lt;Department, Long&gt;</span>\n<span class='kw'>var</span> countByDept = employees.stream().collect(\n    Collectors.groupingBy(Employee::department, Collectors.counting()));</pre></div><div class='key-point'><strong>Streams are lazy:</strong> Nothing happens until a terminal operation. Streams are single-use. Never modify shared state inside a stream — this breaks the functional contract.</div>",
+    "quiz": [
+      {
+        "question": "When does a stream pipeline actually execute?",
+        "options": [
+          "When created",
+          "When a terminal operation is called (lazy evaluation)",
+          "When an intermediate operation is called",
+          "At compile time"
+        ],
+        "correct": 1,
+        "explanation": "Intermediate operations build a pipeline. Only a terminal operation triggers execution. This enables optimization."
+      },
+      {
+        "question": "Can a stream be reused after a terminal operation?",
+        "options": [
+          "Yes",
+          "No — consumed after terminal operation",
+          "Only parallel streams",
+          "Only empty streams"
+        ],
+        "correct": 1,
+        "explanation": "After a terminal operation, the stream is consumed. Create a new stream from the source for another pass."
+      }
+    ],
+    "codingExercise": {
+      "instruction": "Given List transaction with fields (type, amount, date), use streams to: (1) total amount by type (groupingBy + summingDouble), (2) top 3 largest transactions, (3) average amount per month.",
+      "hint": "groupingBy with downstream Collectors. sorted + limit for top N. Extract month from date for grouping.",
+      "checkKeywords": [
+        "stream",
+        "groupingBy",
+        "filter",
+        "sorted",
+        "limit",
+        "collect",
+        "Collectors"
+      ]
+    }
+  },
+  {
+    "id": 22,
+    "phase": "Programming Fundamentals",
+    "phaseColor": "java",
+    "phaseClass": "ph-java",
+    "title": "Optional & Null Handling",
+    "hours": 4,
+    "complexity": "intermediate",
+    "importance": "critical",
+    "textbook": "Bloch, Effective Java (3rd ed), Item 55",
+    "summary": "Optional for absent values, map/flatMap/filter on Optional, orElse/orElseGet/orElseThrow.",
+    "lesson": "<h4>The Billion-Dollar Mistake</h4><p>Tony Hoare introduced null references in 1965, calling it his billion-dollar mistake. Null is ambiguous: not found? not initialized? error? Optional makes absence EXPLICIT in the type system.</p><div class='code-block'><span class='lang-tag'>java</span><pre><span class='cm'>// BAD — returning null forces null checks (which get forgotten)</span>\n<span class='kw'>public</span> <span class='tp'>User</span> <span class='mt'>findUser</span>(<span class='tp'>String</span> id) { <span class='kw'>return</span> database.get(id); }\n\n<span class='cm'>// GOOD — Optional makes absence part of the type signature</span>\n<span class='kw'>public</span> <span class='tp'>Optional</span>&lt;User&gt; <span class='mt'>findUser</span>(<span class='tp'>String</span> id) {\n    <span class='kw'>return</span> Optional.ofNullable(database.get(id));\n}\n\n<span class='cm'>// Caller CANNOT ignore the possibility of absence</span>\n<span class='kw'>var</span> user = findUser(<span class='st'>\"42\"</span>).orElseThrow(() -> <span class='kw'>new</span> <span class='tp'>NotFoundException</span>());</pre></div><h4>Optional Operations</h4><p><strong>orElse(T):</strong> Default value (ALWAYS evaluated!)<br><strong>orElseGet(Supplier):</strong> Lazy default (preferred for expensive defaults)<br><strong>orElseThrow():</strong> Fail if absent<br><strong>map(Function):</strong> Transform value if present<br><strong>flatMap(Function):</strong> Flatten Optional&lt;Optional&lt;T&gt;&gt;<br><strong>filter(Predicate):</strong> Conditional presence</p><h4>The Rules</h4><ul><li>DO use as return type for methods that might not return a value</li><li>DO use orElseGet() for expensive defaults</li><li>DON'T use Optional.get() without checking — defeats the purpose. Use orElseThrow()</li><li>DON'T use Optional as field type (not Serializable, adds overhead)</li></ul>",
+    "quiz": [
+      {
+        "question": "When use orElseGet() instead of orElse()?",
+        "options": [
+          "Identical",
+          "When the default is expensive — orElseGet is lazy, orElse is eager",
+          "When value might be null",
+          "Only in streams"
+        ],
+        "correct": 1,
+        "explanation": "orElse() always evaluates its argument. orElseGet() only evaluates the Supplier when Optional is empty. For expensive defaults, orElse() wastes computation."
+      },
+      {
+        "question": "Why is Optional.get() without checking considered bad?",
+        "options": [
+          "It is slow",
+          "Throws NoSuchElementException if empty — same problem as NPE",
+          "It is deprecated",
+          "Only works in Java 17"
+        ],
+        "correct": 1,
+        "explanation": "Calling get() on empty Optional throws NoSuchElementException — just as bad as NPE. Use orElse, orElseGet, orElseThrow, or ifPresent instead."
+      }
+    ],
+    "codingExercise": {
+      "instruction": "Write findEmployeeByEmail(email) returning Optional. Chain: find employee, get their department, get manager name (all Optional). End with orElse(\"No manager\"). Use map() and flatMap().",
+      "hint": "findEmployee(email).map(Employee::department).flatMap(Department::manager).map(Employee::name).orElse(\"No manager\")",
+      "checkKeywords": [
+        "Optional",
+        "map",
+        "flatMap",
+        "orElse",
+        "orElseThrow",
+        "filter"
+      ]
+    }
+  }
+];
+
+// ===== PHASE METADATA =====
+const PHASES = {
+  "Programming Fundamentals": {
+    "icon": "☕",
+    "colorClass": "java",
+    "cssClass": "ph-java",
+    "color": "#f89820"
+  },
+  "Developer Tools": {
+    "icon": "🔧",
+    "colorClass": "tools",
+    "cssClass": "ph-tools",
+    "color": "#c084fc"
+  },
+  "Data Structures & Algorithms": {
+    "icon": "📊",
+    "colorClass": "dsa",
+    "cssClass": "ph-dsa",
+    "color": "#f472b6"
+  },
+  "Database Fundamentals": {
+    "icon": "🗄️",
+    "colorClass": "db",
+    "cssClass": "ph-db",
+    "color": "#60a5fa"
+  },
+  "Web Fundamentals": {
+    "icon": "🌐",
+    "colorClass": "web",
+    "cssClass": "ph-web",
+    "color": "#38bdf8"
+  },
+  "Spring Boot": {
+    "icon": "🍃",
+    "colorClass": "spring",
+    "cssClass": "ph-spring",
+    "color": "#6db33f"
+  }
+};
+
+// ===== APPLICATION STATE =====
+const STATE = {
+    currentTopicId: null,
+    completedTopics: new Set(),
+    expandedPhases: new Set(['Programming Fundamentals'])
+};
+
+// ===== LOCAL STORAGE =====
+const STORAGE_KEY = 'java-learning-platform-progress';
+
+function loadProgress() {
+    try {
+        const raw = localStorage.getItem(STORAGE_KEY);
+        if (raw) {
+            const data = JSON.parse(raw);
+            if (Array.isArray(data.completedTopics)) {
+                STATE.completedTopics = new Set(data.completedTopics);
+            }
+        }
+    } catch (e) { /* corrupted data, reset */ }
+}
+
+function saveProgress() {
+    const data = { completedTopics: Array.from(STATE.completedTopics) };
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+}
+
+// ===== HELPER: group topics by phase =====
+function getTopicsByPhase() {
+    var map = {};
+    for (var i = 0; i < CURRICULUM.length; i++) {
+        var t = CURRICULUM[i];
+        if (!map[t.phase]) map[t.phase] = [];
+        map[t.phase].push(t);
+    }
+    var phases = Object.keys(map);
+    for (var j = 0; j < phases.length; j++) {
+        map[phases[j]].sort(function(a, b) { return a.id - b.id; });
+    }
+    return map;
+}
+
+function getTopicById(id) {
+    for (var i = 0; i < CURRICULUM.length; i++) {
+        if (CURRICULUM[i].id === id) return CURRICULUM[i];
+    }
+    return null;
+}
+
+function getNextTopicId(currentId) {
+    for (var i = 0; i < CURRICULUM.length - 1; i++) {
+        if (CURRICULUM[i].id === currentId) return CURRICULUM[i + 1].id;
+    }
+    return null;
+}
+
+function getPrevTopicId(currentId) {
+    for (var i = 1; i < CURRICULUM.length; i++) {
+        if (CURRICULUM[i].id === currentId) return CURRICULUM[i - 1].id;
+    }
+    return null;
+}
+
+// ===== SIDEBAR RENDERING =====
+function renderSidebar() {
+    var nav = document.getElementById('sidebar-nav');
+    var topicsByPhase = getTopicsByPhase();
+    var phaseOrder = Object.keys(PHASES);
+
+    var html = '';
+    for (var pi = 0; pi < phaseOrder.length; pi++) {
+        var phaseName = phaseOrder[pi];
+        var meta = PHASES[phaseName];
+        var topics = topicsByPhase[phaseName] || [];
+        var phaseHours = 0;
+        for (var ti = 0; ti < topics.length; ti++) {
+            phaseHours += topics[ti].hours;
+        }
+        var isExpanded = STATE.expandedPhases.has(phaseName);
+
+        html += '<button class="phase-toggle ' + meta.cssClass + (isExpanded ? '' : ' collapsed') + '" data-phase="' + escapeHTML(phaseName) + '">';
+        html += '<span class="arrow">▼</span>';
+        html += '<span class="phase-icon">' + meta.icon + '</span>';
+        html += '<span class="phase-name">' + escapeHTML(phaseName) + '</span>';
+        html += '<span class="phase-meta">' + topics.length + ' topics · ' + phaseHours + 'h</span>';
+        html += '</button>';
+
+        html += '<div class="topic-list' + (isExpanded ? '' : ' collapsed') + '" data-phase-list="' + escapeHTML(phaseName) + '">';
+        if (topics.length > 0) {
+            for (var ti2 = 0; ti2 < topics.length; ti2++) {
+                var topic = topics[ti2];
+                var isActive = STATE.currentTopicId === topic.id;
+                var isCompleted = STATE.completedTopics.has(topic.id);
+                var itemClass = 'topic-item';
+                if (isActive) itemClass += ' active';
+                if (isCompleted) itemClass += ' completed';
+
+                html += '<button class="' + itemClass + '" data-topic-id="' + topic.id + '">';
+                html += '<span class="t-num">' + topic.id + '</span>';
+                html += '<span class="t-title">' + escapeHTML(topic.title) + '</span>';
+                html += '<span class="t-badges">';
+                html += renderBadges(topic);
+                html += '</span>';
+                html += '</button>';
+            }
+        } else {
+            html += '<div style="padding:8px 32px;font-size:0.73rem;color:var(--text3);font-style:italic">Coming soon</div>';
+        }
+        html += '</div>';
+    }
+
+    nav.innerHTML = html;
+    updateSidebarStats();
+}
+
+function renderBadges(topic) {
+    var badges = '';
+    var compClass = { 'beginner': 'badge-d-b', 'intermediate': 'badge-d-i', 'advanced': 'badge-d-a' };
+    var compLabel = { 'beginner': 'beg', 'intermediate': 'int', 'advanced': 'adv' };
+    badges += '<span class="badge ' + (compClass[topic.complexity] || 'badge-d-b') + '">' + (compLabel[topic.complexity] || topic.complexity) + '</span>';
+    var impClass = { 'critical': 'badge-i-c', 'important': 'badge-i-i', 'nice': 'badge-i-n' };
+    badges += '<span class="badge ' + (impClass[topic.importance] || 'badge-i-i') + '">' + topic.importance + '</span>';
+    return badges;
+}
+
+function updateSidebarStats() {
+    var completed = STATE.completedTopics.size;
+    var total = CURRICULUM.length;
+    var pct = total > 0 ? Math.round(completed / total * 100) : 0;
+    document.getElementById('sb-completed').textContent = completed;
+    document.getElementById('sb-total').textContent = total;
+    document.getElementById('sb-percent').textContent = pct + '%';
+}
+
+// ===== SIDEBAR CLICK HANDLER =====
+document.getElementById('sidebar-nav').addEventListener('click', function(e) {
+    var toggle = e.target.closest('.phase-toggle');
+    if (toggle) {
+        var phaseName = toggle.dataset.phase;
+        if (STATE.expandedPhases.has(phaseName)) {
+            STATE.expandedPhases.delete(phaseName);
+        } else {
+            STATE.expandedPhases.add(phaseName);
+        }
+        renderSidebar();
+        return;
+    }
+
+    var topicItem = e.target.closest('.topic-item');
+    if (topicItem) {
+        var topicId = parseInt(topicItem.dataset.topicId);
+        if (!isNaN(topicId)) {
+            selectTopic(topicId);
+        }
+    }
+});
+
+// ===== TOPIC SELECTION =====
+function selectTopic(id) {
+    STATE.currentTopicId = id;
+    var topic = getTopicById(id);
+    if (!topic) return;
+
+    document.getElementById('current-topic-title').textContent = topic.title;
+    var metaBadges = document.getElementById('topic-meta-badges');
+    metaBadges.innerHTML = renderBadges(topic) +
+        '<span class="badge badge-phase ' + topic.phaseColor + '" style="margin-left:4px">' + escapeHTML(topic.phase) + '</span>' +
+        '<span style="font-size:0.7rem;color:var(--text3);margin-left:6px">' + topic.hours + 'h</span>';
+
+    document.getElementById('welcome-screen').style.display = 'none';
+    document.getElementById('lesson-viewer').style.display = 'block';
+
+    renderLesson(topic);
+    renderPractice(topic);
+    renderProgressTab(topic);
+    switchTab('lesson');
+    renderSidebar();
+
+    var activeItem = document.querySelector('.topic-item.active');
+    if (activeItem) {
+        activeItem.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
+    }
+}
+
+// ===== TAB SWITCHING =====
+function initTabs() {
+    var tabsEl = document.querySelector('.tabs');
+    if (tabsEl) {
+        tabsEl.addEventListener('click', function(e) {
+            var tab = e.target.closest('.tab');
+            if (!tab) return;
+            switchTab(tab.dataset.tab);
+        });
+    }
+}
+
+function switchTab(tabName) {
+    var tabs = document.querySelectorAll('.tab');
+    for (var i = 0; i < tabs.length; i++) tabs[i].classList.remove('active');
+    var sections = document.querySelectorAll('.lesson-section');
+    for (var j = 0; j < sections.length; j++) sections[j].classList.remove('active');
+
+    var tab = document.querySelector('[data-tab="' + tabName + '"]');
+    var section = document.getElementById('tab-' + tabName);
+    if (tab) tab.classList.add('active');
+    if (section) section.classList.add('active');
+}
+
+// ===== LESSON RENDERING =====
+function renderLesson(topic) {
+    var container = document.getElementById('tab-lesson');
+    var html = '';
+
+    html += '<h3>' + escapeHTML(topic.title) + '</h3>';
+    html += '<p style="font-size:0.95rem;color:var(--text)">' + escapeHTML(topic.summary) + '</p>';
+    html += '<div class="textbook-ref"><strong>📖 Textbook:</strong> <em>' + escapeHTML(topic.textbook) + '</em></div>';
+    html += topic.lesson;
+
+    html += '<div style="margin-top:24px;display:flex;gap:10px;align-items:center">';
+    if (STATE.completedTopics.has(topic.id)) {
+        html += '<button class="complete-btn" disabled>✓ Completed</button>';
+        html += '<button class="reset-btn" onclick="unmarkComplete(' + topic.id + ')">↩ Mark Incomplete</button>';
+    } else {
+        html += '<button class="complete-btn" onclick="markComplete(' + topic.id + ')">✓ Mark Complete</button>';
+    }
+    html += '</div>';
+
+    container.innerHTML = html;
+}
+
+// ===== PRACTICE RENDERING =====
+function renderPractice(topic) {
+    var container = document.getElementById('tab-practice');
+    var html = '';
+
+    if (topic.quiz && topic.quiz.length > 0) {
+        html += '<h3>📝 Quiz: ' + escapeHTML(topic.title) + '</h3>';
+        for (var qi = 0; qi < topic.quiz.length; qi++) {
+            var q = topic.quiz[qi];
+            html += '<div class="quiz-question" id="quiz-' + topic.id + '-' + qi + '">';
+            html += '<h4>Q' + (qi + 1) + '. ' + escapeHTML(q.question) + '</h4>';
+            for (var oi = 0; oi < q.options.length; oi++) {
+                html += '<button class="quiz-option" onclick="checkAnswer(' + topic.id + ',' + qi + ',' + oi + ')"';
+                html += ' data-topic="' + topic.id + '" data-q="' + qi + '" data-o="' + oi + '">';
+                html += escapeHTML(q.options[oi]);
+                html += '</button>';
+            }
+            html += '<div class="quiz-feedback" id="quiz-fb-' + topic.id + '-' + qi + '"></div>';
+            html += '</div>';
+        }
+    } else {
+        html += '<h3>📝 Practice</h3><p style="color:var(--text3)">No quiz for this topic.</p>';
+    }
+
+    if (topic.codingExercise && topic.codingExercise.instruction) {
+        var ex = topic.codingExercise;
+        html += '<div class="coding-exercise" style="margin-top:20px">';
+        html += '<h4>💻 Coding Exercise</h4>';
+        html += '<p style="color:var(--text2);line-height:1.6">' + escapeHTML(ex.instruction) + '</p>';
+        if (ex.hint) {
+            html += '<div class="hint" id="hint-' + topic.id + '" style="display:none">💡 Hint: ' + escapeHTML(ex.hint) + '</div>';
+            html += '<button class="secondary" onclick="document.getElementById(\'hint-' + topic.id + '\').style.display=\'block\'" style="margin-bottom:8px;padding:6px 14px;background:transparent;border:1px solid var(--surface3);color:var(--text2);border-radius:6px;cursor:pointer;font-family:var(--font);font-size:0.8rem">Show Hint</button>';
+        }
+        html += '<textarea id="exercise-input-' + topic.id + '" placeholder="Write your solution here..."></textarea>';
+        html += '<button onclick="checkExercise(' + topic.id + ')">✓ Check</button>';
+        html += '<div class="check-result" id="exercise-result-' + topic.id + '"></div>';
+        html += '</div>';
+    }
+
+    html += '<div style="margin-top:20px;display:flex;gap:10px;align-items:center;flex-wrap:wrap">';
+    if (STATE.completedTopics.has(topic.id)) {
+        html += '<button class="complete-btn" disabled>✓ Completed</button>';
+    } else {
+        html += '<button class="complete-btn" onclick="markComplete(' + topic.id + ')">✓ Mark Complete</button>';
+    }
+    var prevId = getPrevTopicId(topic.id);
+    var nextId = getNextTopicId(topic.id);
+    if (prevId !== null) {
+        html += '<button class="secondary" onclick="selectTopic(' + prevId + ')" style="padding:8px 16px;background:transparent;border:1px solid var(--surface3);color:var(--text2);border-radius:6px;cursor:pointer;font-family:var(--font)">← Previous</button>';
+    }
+    if (nextId !== null) {
+        html += '<button class="secondary" onclick="selectTopic(' + nextId + ')" style="padding:8px 16px;background:transparent;border:1px solid var(--surface3);color:var(--text2);border-radius:6px;cursor:pointer;font-family:var(--font)">Next →</button>';
+    }
+    html += '</div>';
+
+    container.innerHTML = html;
+}
+
+// ===== PROGRESS TAB =====
+function renderProgressTab(topic) {
+    var container = document.getElementById('tab-progress-view');
+    var topicsByPhase = getTopicsByPhase();
+    var phaseOrder = Object.keys(PHASES);
+
+    var html = '<h3>📊 Your Progress</h3>';
+
+    var completed = STATE.completedTopics.size;
+    var total = CURRICULUM.length;
+    var pct = total > 0 ? Math.round(completed / total * 100) : 0;
+    var completedHours = 0;
+    var totalHours = 0;
+    for (var i = 0; i < CURRICULUM.length; i++) {
+        totalHours += CURRICULUM[i].hours;
+        if (STATE.completedTopics.has(CURRICULUM[i].id)) {
+            completedHours += CURRICULUM[i].hours;
+        }
+    }
+
+    html += '<div class="stats-grid">';
+    html += '<div class="stat-card"><div class="stat-value">' + completed + '/' + total + '</div><div class="stat-label">Topics Done</div></div>';
+    html += '<div class="stat-card"><div class="stat-value">' + pct + '%</div><div class="stat-label">Complete</div></div>';
+    html += '<div class="stat-card"><div class="stat-value">' + completedHours + '/' + totalHours + 'h</div><div class="stat-label">Hours</div></div>';
+    html += '<div class="stat-card"><div class="stat-value">' + (STATE.completedTopics.has(topic.id) ? '✓' : '—') + '</div><div class="stat-label">This Topic</div></div>';
+    html += '</div>';
+
+    for (var pi = 0; pi < phaseOrder.length; pi++) {
+        var phaseName = phaseOrder[pi];
+        var meta = PHASES[phaseName];
+        var topics = topicsByPhase[phaseName] || [];
+        if (topics.length === 0) continue;
+        var phaseCompleted = 0;
+        for (var ti = 0; ti < topics.length; ti++) {
+            if (STATE.completedTopics.has(topics[ti].id)) phaseCompleted++;
+        }
+        var phasePct = Math.round(phaseCompleted / topics.length * 100);
+        html += '<div class="phase-progress">';
+        html += '<h4>' + meta.icon + ' ' + escapeHTML(phaseName) + ' — ' + phaseCompleted + '/' + topics.length + ' topics</h4>';
+        html += '<div class="progress-bar-bg"><div class="progress-bar-fill" style="width:' + phasePct + '%;background:' + meta.color + '"></div></div>';
+        html += '</div>';
+    }
+
+    html += '<div class="reminder-panel"><h4 style="margin:0 0 10px 0;font-size:0.85rem">✅ Completed Topics</h4>';
+    if (completed === 0) {
+        html += '<p style="color:var(--text3);font-size:0.8rem">None yet. Start working through the curriculum!</p>';
+    } else {
+        html += '<ul>';
+        for (var ci = 0; ci < CURRICULUM.length; ci++) {
+            if (STATE.completedTopics.has(CURRICULUM[ci].id)) {
+                html += '<li>' + escapeHTML(CURRICULUM[ci].title) + ' <span class="ok">✓</span></li>';
+            }
+        }
+        html += '</ul>';
+    }
+    html += '</div>';
+
+    if (completed > 0) {
+        html += '<button class="reset-btn" onclick="resetAllProgress()">⚠ Reset All Progress</button>';
+    }
+
+    container.innerHTML = html;
+}
+
+// ===== QUIZ LOGIC =====
+function checkAnswer(topicId, questionIndex, selectedOption) {
+    var topic = getTopicById(topicId);
+    if (!topic || !topic.quiz || questionIndex >= topic.quiz.length) return;
+
+    var q = topic.quiz[questionIndex];
+    var isCorrect = selectedOption === q.correct;
+
+    var questionEl = document.getElementById('quiz-' + topicId + '-' + questionIndex);
+    if (!questionEl) return;
+    var options = questionEl.querySelectorAll('.quiz-option');
+    for (var i = 0; i < options.length; i++) {
+        options[i].disabled = true;
+    }
+
+    for (var j = 0; j < options.length; j++) {
+        if (j === q.correct) {
+            options[j].classList.add('correct');
+        } else if (j === selectedOption && !isCorrect) {
+            options[j].classList.add('wrong');
+        }
+    }
+
+    var fb = document.getElementById('quiz-fb-' + topicId + '-' + questionIndex);
+    if (fb) {
+        fb.textContent = (isCorrect ? '✓ Correct! ' : '✗ Incorrect. ') + q.explanation;
+        fb.classList.add('show', isCorrect ? 'correct' : 'wrong');
+    }
+}
+
+// ===== CODING EXERCISE LOGIC =====
+function checkExercise(topicId) {
+    var topic = getTopicById(topicId);
+    if (!topic || !topic.codingExercise) return;
+
+    var ex = topic.codingExercise;
+    var input = document.getElementById('exercise-input-' + topicId);
+    var result = document.getElementById('exercise-result-' + topicId);
+    if (!input || !result) return;
+
+    var text = input.value.trim();
+    if (text.length < 10) {
+        result.textContent = '✗ Please write a more complete solution before checking.';
+        result.className = 'check-result show fail';
+        return;
+    }
+
+    var keywords = ex.checkKeywords || [];
+    var textLower = text.toLowerCase();
+    var found = [];
+    var missing = [];
+
+    for (var i = 0; i < keywords.length; i++) {
+        if (textLower.indexOf(keywords[i].toLowerCase()) !== -1) {
+            found.push(keywords[i]);
+        } else {
+            missing.push(keywords[i]);
+        }
+    }
+
+    var pct = keywords.length > 0 ? Math.round(found.length / keywords.length * 100) : 100;
+    if (pct >= 80) {
+        result.textContent = '✓ Great! Found ' + found.length + '/' + keywords.length + ' key concepts: ' + found.join(', ') + (missing.length > 0 ? '. Missing: ' + missing.join(', ') : '');
+        result.className = 'check-result show pass';
+    } else if (pct >= 40) {
+        result.textContent = '⚠ Getting there. Found: ' + found.join(', ') + '. Missing: ' + missing.join(', ') + '. Review the lesson and try again.';
+        result.className = 'check-result show fail';
+    } else {
+        result.textContent = '✗ Keep working. Try to include these concepts: ' + keywords.join(', ');
+        result.className = 'check-result show fail';
+    }
+}
+
+// ===== COMPLETION LOGIC =====
+function markComplete(id) {
+    STATE.completedTopics.add(id);
+    saveProgress();
+    var topic = getTopicById(id);
+    showToast('✓ Completed: ' + topic.title, 'success');
+
+    renderLesson(topic);
+    renderPractice(topic);
+    renderProgressTab(topic);
+    renderSidebar();
+
+    var nextId = getNextTopicId(id);
+    if (nextId !== null && STATE.completedTopics.size < CURRICULUM.length) {
+        setTimeout(function() {
+            if (STATE.currentTopicId === id) {
+                selectTopic(nextId);
+                showToast('→ Advanced to next topic', 'info');
+            }
+        }, 800);
+    } else if (nextId === null && STATE.completedTopics.size === CURRICULUM.length) {
+        setTimeout(function() {
+            showToast('🎉 All topics completed! Amazing work!', 'success');
+        }, 800);
+    }
+}
+
+function unmarkComplete(id) {
+    STATE.completedTopics.delete(id);
+    saveProgress();
+    var topic = getTopicById(id);
+    showToast('↩ Marked incomplete: ' + topic.title, 'warn');
+    renderLesson(topic);
+    renderPractice(topic);
+    renderProgressTab(topic);
+    renderSidebar();
+}
+
+function resetAllProgress() {
+    if (confirm('Reset all progress? This cannot be undone.')) {
+        STATE.completedTopics.clear();
+        saveProgress();
+        var currentTopic = STATE.currentTopicId ? getTopicById(STATE.currentTopicId) : null;
+        if (currentTopic) {
+            renderLesson(currentTopic);
+            renderPractice(currentTopic);
+            renderProgressTab(currentTopic);
+        }
+        renderSidebar();
+        showToast('All progress reset', 'warn');
+    }
+}
+
+// ===== TOAST NOTIFICATIONS =====
+var toastTimeout = null;
+
+function showToast(message, type) {
+    var container = document.getElementById('toast-container');
+    if (!container) return;
+
+    if (toastTimeout) clearTimeout(toastTimeout);
+    container.innerHTML = '';
+
+    var toast = document.createElement('div');
+    toast.className = 'toast ' + (type || 'info');
+    toast.textContent = message;
+    container.appendChild(toast);
+
+    toastTimeout = setTimeout(function() {
+        toast.style.opacity = '0';
+        toast.style.transition = 'opacity 0.3s';
+        setTimeout(function() { if (toast.parentNode) toast.remove(); }, 300);
+    }, 3500);
+}
+
+// ===== UTILITY =====
+function escapeHTML(str) {
+    var div = document.createElement('div');
+    div.appendChild(document.createTextNode(str));
+    return div.innerHTML;
+}
+
+// ===== INITIALIZATION =====
+function init() {
+    loadProgress();
+    initTabs();
+    renderSidebar();
+
+    if (!STATE.currentTopicId) {
+        document.getElementById('welcome-screen').style.display = 'block';
+        document.getElementById('lesson-viewer').style.display = 'none';
+        document.getElementById('current-topic-title').textContent = 'Select a topic to begin';
+        document.getElementById('topic-meta-badges').innerHTML = '';
+    }
+}
+
+document.addEventListener('DOMContentLoaded', init);
+
+</script>
+</body>
+</html>
