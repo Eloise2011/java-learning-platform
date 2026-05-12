@@ -1469,19 +1469,16 @@ function renderBadges(topic) {
 }
 
 function renderWelcome() {
-    var total = CURRICULUM.length;
-    var phases = Object.keys(PHASES).length;
-    var hasContent = 0, hrs = 0, byPhase = {};
+    var total = CURRICULUM.length, phases = Object.keys(PHASES).length, hasC = 0, hrs = 0, bp = {};
     for (var i = 0; i < CURRICULUM.length; i++) {
         var t = CURRICULUM[i]; hrs += t.hours;
-        if (!byPhase[t.phase]) byPhase[t.phase] = [];
-        byPhase[t.phase].push(t);
+        if (!bp[t.phase]) bp[t.phase] = []; bp[t.phase].push(t);
     }
-    for (var p in PHASES) { if (byPhase[p] && byPhase[p].length > 0) hasContent++; }
-    var sub = document.getElementById('welcome-subtitle');
-    if (sub) sub.textContent = total + ' topics across ' + hasContent + ' active phases (' + phases + ' planned).';
-    var grid = document.getElementById('welcome-summary-grid');
-    if (grid) grid.innerHTML = '<div class="summary-card"><div class="sc-val">' + hasContent + '/' + phases + '</div><div class="sc-label">Phases Active</div></div>' +
+    for (var p in PHASES) { if (bp[p] && bp[p].length > 0) hasC++; }
+    var s = document.getElementById('welcome-subtitle');
+    if (s) s.textContent = total + ' topics across ' + hasC + ' active phases (' + phases + ' planned).';
+    var g = document.getElementById('welcome-summary-grid');
+    if (g) g.innerHTML = '<div class="summary-card"><div class="sc-val">' + hasC + '/' + phases + '</div><div class="sc-label">Phases Active</div></div>' +
         '<div class="summary-card"><div class="sc-val">' + total + '</div><div class="sc-label">Topics</div></div>' +
         '<div class="summary-card"><div class="sc-val">~' + hrs + 'h</div><div class="sc-label">Duration</div></div>';
 }
@@ -1571,15 +1568,14 @@ function switchTab(tabName) {
     if (tab) tab.classList.add('active');
     if (section) section.classList.add('active');
 
-    // Lazy-render Mermaid when Map tab becomes visible
     if (tabName === 'sitemap' && STATE.currentTopicId) {
-        var mermaidEl = document.querySelector('#tab-sitemap .mermaid');
-        if (mermaidEl && !mermaidEl.querySelector('svg')) {
+        var mel = document.querySelector('#tab-sitemap .mermaid');
+        if (mel && !mel.querySelector('svg')) {
             initMermaid();
             if (typeof mermaid !== 'undefined') {
                 setTimeout(function() {
                     try { mermaid.run({ querySelector: '#tab-sitemap .mermaid' }); }
-                    catch(e) { mermaidEl.innerHTML = '<p style="color:var(--text3);padding:20px">Diagram failed to render. Refresh the page.</p>'; }
+                    catch(e) { mel.innerHTML = '<p style="color:var(--text3);padding:20px">Diagram failed to render.</p>'; }
                 }, 100);
             }
         }
@@ -1603,9 +1599,9 @@ function renderLesson(topic) {
     } else {
         html += '<button class="complete-btn" onclick="markComplete(' + topic.id + ')">✓ Mark Complete</button>';
     }
-    var pId = getPrevTopicId(topic.id), nId = getNextTopicId(topic.id);
-    if (pId !== null) html += '<button class="secondary" onclick="selectTopic(' + pId + ')" style="padding:8px 16px;background:transparent;border:1px solid var(--surface3);color:var(--text2);border-radius:6px;cursor:pointer;font-family:var(--font)">← Previous</button>';
-    if (nId !== null) html += '<button class="secondary" onclick="selectTopic(' + nId + ')" style="padding:8px 16px;background:transparent;border:1px solid var(--surface3);color:var(--text2);border-radius:6px;cursor:pointer;font-family:var(--font)">Next →</button>';
+    var pid = getPrevTopicId(topic.id), nid = getNextTopicId(topic.id);
+    if (pid !== null) html += '<button class="secondary" onclick="selectTopic(' + pid + ')" style="padding:8px 16px;background:transparent;border:1px solid var(--surface3);color:var(--text2);border-radius:6px;cursor:pointer;font-family:var(--font)">← Previous</button>';
+    if (nid !== null) html += '<button class="secondary" onclick="selectTopic(' + nid + ')" style="padding:8px 16px;background:transparent;border:1px solid var(--surface3);color:var(--text2);border-radius:6px;cursor:pointer;font-family:var(--font)">Next →</button>';
     html += '</div>';
 
     container.innerHTML = html;
@@ -1761,17 +1757,17 @@ function checkAnswer(topicId, questionIndex, selectedOption) {
         fb.textContent = (isCorrect ? '✓ Correct! ' : '✗ Incorrect. ') + q.explanation;
         fb.classList.add('show', isCorrect ? 'correct' : 'wrong');
     }
-    var retryBtn = document.createElement('button');
-    retryBtn.textContent = 'Try Again';
-    retryBtn.style.cssText = 'margin-top:8px;padding:6px 14px;background:transparent;border:1px solid var(--surface3);color:var(--text2);border-radius:6px;cursor:pointer;font-family:var(--font);font-size:0.78rem';
-    retryBtn.onclick = function(e) {
+    var rb = document.createElement('button');
+    rb.textContent = 'Try Again';
+    rb.style.cssText = 'margin-top:8px;padding:6px 14px;background:transparent;border:1px solid var(--surface3);color:var(--text2);border-radius:6px;cursor:pointer;font-family:var(--font);font-size:0.78rem';
+    rb.onclick = function(e) {
         e.stopPropagation();
-        var opts = questionEl.querySelectorAll('.quiz-option');
-        for (var k = 0; k < opts.length; k++) { opts[k].disabled = false; opts[k].classList.remove('correct', 'wrong'); }
+        var os = questionEl.querySelectorAll('.quiz-option');
+        for (var k = 0; k < os.length; k++) { os[k].disabled = false; os[k].classList.remove('correct', 'wrong'); }
         fb.classList.remove('show', 'correct', 'wrong'); fb.textContent = '';
-        if (retryBtn.parentNode) retryBtn.remove();
+        if (rb.parentNode) rb.remove();
     };
-    fb.appendChild(retryBtn);
+    fb.appendChild(rb);
 }
 
 // ===== CODING EXERCISE LOGIC =====
@@ -2005,7 +2001,7 @@ function submitResource(topicId) {
         return;
     }
     if (url) {
-        try { var p = new URL(url); if (p.protocol !== 'http:' && p.protocol !== 'https:') { showToast('URL must start with http:// or https://', 'warn'); return; } }
+        try { var pu = new URL(url); if (pu.protocol !== 'http:' && pu.protocol !== 'https:') { showToast('URL must start with http:// or https://', 'warn'); return; } }
         catch(e) { showToast('Please enter a valid URL', 'warn'); return; }
     }
     addResource(topicId, type, title, url);
@@ -2113,7 +2109,7 @@ function renderSiteMap(topic) {
 
     container.innerHTML = html;
 
-    // Mermaid rendering deferred to switchTab (lazy)
+    // Mermaid rendering deferred to switchTab (lazy — avoids hidden-container SVG bug)
 }
 
 function buildMermaidDiagram(topic) {
@@ -2127,7 +2123,6 @@ function buildMermaidDiagram(topic) {
         '18. File I/O', '19. Enums & Records', '20. Lambdas',
         '21. Streams API', '22. Optional'
     ];
-
     var lines = ['graph TB'];
     lines.push('  subgraph F[" "]');
     lines.push('    direction TB');
@@ -2138,33 +2133,22 @@ function buildMermaidDiagram(topic) {
     lines.push('    F5["<b>Phase 5</b><br/>Web<br/>Fundamentals<br/><i>(coming soon)</i>"]');
     lines.push('    F6["<b>Phase 6</b><br/>Spring Boot<br/><i>(coming soon)</i>"]');
     lines.push('  end');
-
     lines.push('  subgraph P1["Phase 1: Programming Fundamentals - 22 Topics"]');
     lines.push('    direction TB');
     lines.push('    subgraph Basics["1-9: Java Basics"]');
-    for (var i = 0; i < 9; i++) {
-        lines.push('      T' + (i+1) + '["' + labels[i] + '"]');
-    }
+    for (var i = 0; i < 9; i++) { lines.push('      T' + (i+1) + '["' + labels[i] + '"]'); }
     lines.push('    end');
     lines.push('    subgraph OOP["10-14: Object-Oriented Programming"]');
-    for (var i = 9; i < 14; i++) {
-        lines.push('      T' + (i+1) + '["' + labels[i] + '"]');
-    }
+    for (var i = 9; i < 14; i++) { lines.push('      T' + (i+1) + '["' + labels[i] + '"]'); }
     lines.push('    end');
     lines.push('    subgraph Advanced["15-22: Advanced Java"]');
-    for (var i = 14; i < 22; i++) {
-        lines.push('      T' + (i+1) + '["' + labels[i] + '"]');
-    }
+    for (var i = 14; i < 22; i++) { lines.push('      T' + (i+1) + '["' + labels[i] + '"]'); }
     lines.push('    end');
     lines.push('  end');
-
     lines.push('  Basics --> OOP');
     lines.push('  OOP --> Advanced');
     lines.push('  F1 -.-> F2 -.-> F3 -.-> F4 -.-> F5 -.-> F6');
-
-    // Highlight current topic
     lines.push('  style T' + topic.id + ' fill:#2563eb,color:#fff,stroke:#1d4ed8,stroke-width:2px');
-
     lines.push('  style F fill:#f3f4f6,stroke:#d1d5db,stroke-dasharray:5,color:#9ca3af');
     lines.push('  style F2 fill:#f9fafb,stroke:#e5e7eb,stroke-dasharray:5,color:#9ca3af');
     lines.push('  style F3 fill:#f9fafb,stroke:#e5e7eb,stroke-dasharray:5,color:#9ca3af');
@@ -2176,6 +2160,30 @@ function buildMermaidDiagram(topic) {
     lines.push('  style OOP fill:#fef3c7,stroke:#fde68a');
     lines.push('  style Advanced fill:#fce7f3,stroke:#fbcfe8');
     lines.push('  style F1 fill:#eff6ff,stroke:#bfdbfe');
-
     return lines.join('\n');
-}>
+}
+
+// ===== INITIALIZATION =====
+
+// ===== INITIALIZATION =====
+function init() {
+    loadProgress();
+    loadResources();
+    loadEnhancements();
+    initTabs();
+    renderSidebar();
+
+    if (!STATE.currentTopicId) {
+        renderWelcome();
+        document.getElementById('welcome-screen').style.display = 'block';
+        document.getElementById('lesson-viewer').style.display = 'none';
+        document.getElementById('current-topic-title').textContent = 'Select a topic to begin';
+        document.getElementById('topic-meta-badges').innerHTML = '';
+    }
+}
+
+document.addEventListener('DOMContentLoaded', init);
+
+</script>
+</body>
+</html>
