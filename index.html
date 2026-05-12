@@ -1354,17 +1354,58 @@ const STATE = {
 const STORAGE_KEY = 'java-learning-platform-progress';
 const QUIZ_STORAGE_KEY = 'java-learning-quiz-answers';
 var quizAnswers = {};
+var API_BASE = 'http://localhost:5001/api';
+var apiOnline = false;
+
+function apiFetch(path, options) {
+    if (!options) options = {};
+    return fetch(API_BASE + path, options).then(function(r) {
+        if (!r.ok) throw new Error('API ' + r.status);
+        apiOnline = true;
+        return r.json();
+    }).catch(function(e) {
+        apiOnline = false;
+        throw e;
+    });
+}
+
+// Sync all local state to the server
+function syncToServer() {
+    if (!apiOnline) return;
+    // Sync completed topics
+    var completed = Array.from(STATE.completedTopics);
+    completed.forEach(function(tid) {
+        apiFetch('/progress/' + tid, { method: 'POST' }).catch(function(){});
+    });
+    // Sync quiz answers
+    for (var t in quizAnswers) {
+        apiFetch('/quiz/' + t, { method: 'POST', headers: {'Content-Type':'application/json'}, body: JSON.stringify({answers: quizAnswers[t]}) }).catch(function(){});
+    }
+}
 
 function loadProgress() {
-    try {
-        const raw = localStorage.getItem(STORAGE_KEY);
-        if (raw) {
-            const data = JSON.parse(raw);
-            if (Array.isArray(data.completedTopics)) {
-                STATE.completedTopics = new Set(data.completedTopics);
+    // Try API first
+    apiFetch('/progress').then(function(data) {
+        if (data.completedTopicIds && data.completedTopicIds.length > 0) {
+            STATE.completedTopics = new Set(data.completedTopicIds);
+            renderSidebar();
+            if (STATE.currentTopicId) {
+                var t = getTopicById(STATE.currentTopicId);
+                if (t) { renderLesson(t); renderPractice(t); renderProgressTab(t); }
             }
         }
-    } catch (e) { /* corrupted data, reset */ }
+    }).catch(function() {
+        // Fall back to localStorage
+        try {
+            var raw = localStorage.getItem(STORAGE_KEY);
+            if (raw) {
+                var data = JSON.parse(raw);
+                if (Array.isArray(data.completedTopics)) {
+                    STATE.completedTopics = new Set(data.completedTopics);
+                }
+            }
+        } catch (e) {}
+    });
 }
 
 function saveProgress() {
@@ -1373,7 +1414,24 @@ function saveProgress() {
 }
 
 function loadQuizAnswers() {
-    try { var r = localStorage.getItem(QUIZ_STORAGE_KEY); if (r) quizAnswers = JSON.parse(r); } catch(e) { quizAnswers = {}; }
+    // Try API first for each topic that has progress
+    var completed = Array.from(STATE.completedTopics);
+    var fetched = 0;
+    if (completed.length > 0) {
+        completed.forEach(function(tid) {
+            apiFetch('/quiz/' + tid).then(function(data) {
+                if (data.answers && Object.keys(data.answers).length > 0) {
+                    if (!quizAnswers[tid]) quizAnswers[tid] = {};
+                    for (var qi in data.answers) {
+                        quizAnswers[tid][qi] = data.answers[qi];
+                    }
+                }
+                fetched++;
+            }).catch(function() { fetched++; });
+        });
+    }
+    // Also load from localStorage as immediate fallback
+    try { var r = localStorage.getItem(QUIZ_STORAGE_KEY); if (r) { var local = JSON.parse(r); for (var t in local) { if (!quizAnswers[t]) quizAnswers[t] = local[t]; else { for (var q in local[t]) { if (!quizAnswers[t][q]) quizAnswers[t][q] = local[t][q]; } } } } } catch(e) {}
 }
 function saveQuizAnswers() {
     localStorage.setItem(QUIZ_STORAGE_KEY, JSON.stringify(quizAnswers));
@@ -1382,6 +1440,9 @@ function saveQuizAnswer(topicId, qi, selected, correct) {
     if (!quizAnswers[topicId]) quizAnswers[topicId] = {};
     quizAnswers[topicId][qi] = { selectedOption: selected, isCorrect: correct };
     saveQuizAnswers();
+    // Sync to server
+    var body = {}; body[qi] = { selectedOption: selected, isCorrect: correct };
+    apiFetch('/quiz/' + topicId, { method: 'POST', headers: {'Content-Type':'application/json'}, body: JSON.stringify({answers: body}) }).catch(function(){});
 }
 function getQuizAnswer(topicId, qi) {
     return (quizAnswers[topicId] && quizAnswers[topicId][qi] !== undefined) ? quizAnswers[topicId][qi] : null;
@@ -1850,6 +1911,7 @@ function checkExercise(topicId) {
 function markComplete(id) {
     STATE.completedTopics.add(id);
     saveProgress();
+    apiFetch('/progress/' + id, { method: 'POST' }).catch(function(){});
     var topic = getTopicById(id);
     showToast('✓ Completed: ' + topic.title, 'success');
 
@@ -1878,6 +1940,7 @@ function markComplete(id) {
 function unmarkComplete(id) {
     STATE.completedTopics.delete(id);
     saveProgress();
+    apiFetch('/progress/' + id, { method: 'DELETE' }).catch(function(){});
     var topic = getTopicById(id);
     showToast('↩ Marked incomplete: ' + topic.title, 'warn');
     renderLesson(topic);
@@ -1958,6 +2021,8 @@ function addResource(topicId, type, title, url) {
         addedAt: new Date().toISOString()
     });
     saveResources();
+    // Sync to server
+    apiFetch('/resources/' + topicId, { method: 'POST', headers: {'Content-Type':'application/json'}, body: JSON.stringify({type: type, title: title.trim(), url: url.trim()}) }).catch(function(){});
     var topic = getTopicById(topicId);
     if (topic) renderExtraTab(topic);
     showToast('Resource added: ' + title, 'success');
@@ -2206,6 +2271,9 @@ function init() {
     loadEnhancements();
     initTabs();
     renderSidebar();
+
+    // Sync any localStorage data to server
+    syncToServer();
 
     if (!STATE.currentTopicId) {
         renderWelcome();
