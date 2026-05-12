@@ -2117,8 +2117,16 @@ function renderSiteMap(topic) {
 }
 
 function buildMermaidDiagram(topic) {
-    // Highlight style for current topic
-    // Highlight applied via separate style directive at end of diagram
+    var labels = [
+        '1. How Computers Work', '2. Dev Environment', '3. First Java Program',
+        '4. Variables & Types', '5. Operators', '6. Control Flow',
+        '7. Loops', '8. Methods', '9. Arrays',
+        '10. Classes & Objects', '11. Encapsulation', '12. Inheritance',
+        '13. Polymorphism', '14. Abstract & Interfaces',
+        '15. Exception Handling', '16. Collections', '17. Generics',
+        '18. File I/O', '19. Enums & Records', '20. Lambdas',
+        '21. Streams API', '22. Optional'
+    ];
 
     var lines = ['graph TB'];
     lines.push('  subgraph F[" "]');
@@ -2131,45 +2139,32 @@ function buildMermaidDiagram(topic) {
     lines.push('    F6["<b>Phase 6</b><br/>Spring Boot<br/><i>(coming soon)</i>"]');
     lines.push('  end');
 
-    // Category subgraphs
-    lines.push('  subgraph P1["Phase 1: Programming Fundamentals — 22 Topics"]');
+    lines.push('  subgraph P1["Phase 1: Programming Fundamentals - 22 Topics"]');
     lines.push('    direction TB');
     lines.push('    subgraph Basics["1-9: Java Basics"]');
-    lines.push('      T1["1. How Computers Work''"]');
-    lines.push('      T2["2. Dev Environment''"]');
-    lines.push('      T3["3. First Java Program''"]');
-    lines.push('      T4["4. Variables &amp; Types''"]');
-    lines.push('      T5["5. Operators''"]');
-    lines.push('      T6["6. Control Flow''"]');
-    lines.push('      T7["7. Loops''"]');
-    lines.push('      T8["8. Methods''"]');
-    lines.push('      T9["9. Arrays''"]');
+    for (var i = 0; i < 9; i++) {
+        lines.push('      T' + (i+1) + '["' + labels[i] + '"]');
+    }
     lines.push('    end');
     lines.push('    subgraph OOP["10-14: Object-Oriented Programming"]');
-    lines.push('      T10["10. Classes &amp; Objects''"]');
-    lines.push('      T11["11. Encapsulation''"]');
-    lines.push('      T12["12. Inheritance''"]');
-    lines.push('      T13["13. Polymorphism''"]');
-    lines.push('      T14["14. Abstract &amp; Interfaces''"]');
+    for (var i = 9; i < 14; i++) {
+        lines.push('      T' + (i+1) + '["' + labels[i] + '"]');
+    }
     lines.push('    end');
     lines.push('    subgraph Advanced["15-22: Advanced Java"]');
-    lines.push('      T15["15. Exception Handling''"]');
-    lines.push('      T16["16. Collections''"]');
-    lines.push('      T17["17. Generics''"]');
-    lines.push('      T18["18. File I/O''"]');
-    lines.push('      T19["19. Enums &amp; Records''"]');
-    lines.push('      T20["20. Lambdas''"]');
-    lines.push('      T21["21. Streams API''"]');
-    lines.push('      T22["22. Optional''"]');
+    for (var i = 14; i < 22; i++) {
+        lines.push('      T' + (i+1) + '["' + labels[i] + '"]');
+    }
     lines.push('    end');
     lines.push('  end');
 
-    // Connections showing progression
     lines.push('  Basics --> OOP');
     lines.push('  OOP --> Advanced');
     lines.push('  F1 -.-> F2 -.-> F3 -.-> F4 -.-> F5 -.-> F6');
 
-    // Style future phases to look dimmed
+    // Highlight current topic
+    lines.push('  style T' + topic.id + ' fill:#2563eb,color:#fff,stroke:#1d4ed8,stroke-width:2px');
+
     lines.push('  style F fill:#f3f4f6,stroke:#d1d5db,stroke-dasharray:5,color:#9ca3af');
     lines.push('  style F2 fill:#f9fafb,stroke:#e5e7eb,stroke-dasharray:5,color:#9ca3af');
     lines.push('  style F3 fill:#f9fafb,stroke:#e5e7eb,stroke-dasharray:5,color:#9ca3af');
@@ -2182,33 +2177,5 @@ function buildMermaidDiagram(topic) {
     lines.push('  style Advanced fill:#fce7f3,stroke:#fbcfe8');
     lines.push('  style F1 fill:#eff6ff,stroke:#bfdbfe');
 
-    // Highlight current topic
-    lines.push('  style T' + topic.id + ' fill:#2563eb,color:#fff,stroke:#1d4ed8,stroke-width:2px');
-
-    return lines.join('\\n');
-}
-
-// ===== INITIALIZATION =====
-
-// ===== INITIALIZATION =====
-function init() {
-    loadProgress();
-    loadResources();
-    loadEnhancements();
-    initTabs();
-    renderSidebar();
-
-    if (!STATE.currentTopicId) {
-        renderWelcome();
-        document.getElementById('welcome-screen').style.display = 'block';
-        document.getElementById('lesson-viewer').style.display = 'none';
-        document.getElementById('current-topic-title').textContent = 'Select a topic to begin';
-        document.getElementById('topic-meta-badges').innerHTML = '';
-    }
-}
-
-document.addEventListener('DOMContentLoaded', init);
-
-</script>
-</body>
-</html>
+    return lines.join('\n');
+}>
