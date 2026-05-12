@@ -1346,18 +1346,7 @@ const PHASES = {
 const STATE = {
     currentTopicId: null,
     completedTopics: new Set(),
-    expandedPhases: new Set(['Programming Fundamentals']),
-    activeTab: 'lesson'
-};
-
-// Tab renderer registry — single place to add new tabs
-var TAB_RENDERERS = {
-    lesson: null,
-    practice: null,
-    extra: null,
-    enhancements: null,
-    'progress-view': null,
-    sitemap: null
+    expandedPhases: new Set(['Programming Fundamentals'])
 };
 
 // ===== LOCAL STORAGE =====
@@ -1479,30 +1468,21 @@ function renderBadges(topic) {
 }
 
 function renderWelcome() {
-    var totalTopics = CURRICULUM.length;
-    var totalPhases = Object.keys(PHASES).length;
-    var phasesWithContent = 0;
-    var totalHours = 0;
-    var topicsByPhase = {};
+    var total = CURRICULUM.length;
+    var phases = Object.keys(PHASES).length;
+    var hasContent = 0, hrs = 0, byPhase = {};
     for (var i = 0; i < CURRICULUM.length; i++) {
-        var t = CURRICULUM[i];
-        totalHours += t.hours;
-        if (!topicsByPhase[t.phase]) topicsByPhase[t.phase] = [];
-        topicsByPhase[t.phase].push(t);
+        var t = CURRICULUM[i]; hrs += t.hours;
+        if (!byPhase[t.phase]) byPhase[t.phase] = [];
+        byPhase[t.phase].push(t);
     }
-    for (var p in PHASES) {
-        if (topicsByPhase[p] && topicsByPhase[p].length > 0) phasesWithContent++;
-    }
-    var subtitleEl = document.getElementById('welcome-subtitle');
-    if (subtitleEl) {
-        subtitleEl.textContent = totalTopics + ' topics across ' + phasesWithContent + ' active phases (' + totalPhases + ' planned). From your first line of code to production Spring Boot APIs.';
-    }
-    var gridEl = document.getElementById('welcome-summary-grid');
-    if (gridEl) {
-        gridEl.innerHTML = '<div class="summary-card"><div class="sc-val">' + phasesWithContent + '/' + totalPhases + '</div><div class="sc-label">Phases Active</div></div>' +
-            '<div class="summary-card"><div class="sc-val">' + totalTopics + '</div><div class="sc-label">Topics</div></div>' +
-            '<div class="summary-card"><div class="sc-val">~' + totalHours + 'h</div><div class="sc-label">Duration</div></div>';
-    }
+    for (var p in PHASES) { if (byPhase[p] && byPhase[p].length > 0) hasContent++; }
+    var sub = document.getElementById('welcome-subtitle');
+    if (sub) sub.textContent = total + ' topics across ' + hasContent + ' active phases (' + phases + ' planned).';
+    var grid = document.getElementById('welcome-summary-grid');
+    if (grid) grid.innerHTML = '<div class="summary-card"><div class="sc-val">' + hasContent + '/' + phases + '</div><div class="sc-label">Phases Active</div></div>' +
+        '<div class="summary-card"><div class="sc-val">' + total + '</div><div class="sc-label">Topics</div></div>' +
+        '<div class="summary-card"><div class="sc-val">~' + hrs + 'h</div><div class="sc-label">Duration</div></div>';
 }
 
 function updateSidebarStats() {
@@ -1552,8 +1532,13 @@ function selectTopic(id) {
     document.getElementById('welcome-screen').style.display = 'none';
     document.getElementById('lesson-viewer').style.display = 'block';
 
-    renderAllTabs(topic);
-    switchTab(STATE.activeTab);
+    renderLesson(topic);
+    renderPractice(topic);
+    renderExtraTab(topic);
+    renderEnhancementsTab(topic);
+    renderProgressTab(topic);
+    renderSiteMap(topic);
+    switchTab('lesson');
     renderSidebar();
 
     var activeItem = document.querySelector('.topic-item.active');
@@ -1575,7 +1560,6 @@ function initTabs() {
 }
 
 function switchTab(tabName) {
-    STATE.activeTab = tabName;
     var tabs = document.querySelectorAll('.tab');
     for (var i = 0; i < tabs.length; i++) tabs[i].classList.remove('active');
     var sections = document.querySelectorAll('.lesson-section');
@@ -1586,25 +1570,21 @@ function switchTab(tabName) {
     if (tab) tab.classList.add('active');
     if (section) section.classList.add('active');
 
-    // Lazy-render Mermaid diagram when Map tab becomes visible
+    // Lazy-render Mermaid when Map tab becomes visible
     if (tabName === 'sitemap' && STATE.currentTopicId) {
         var mermaidEl = document.querySelector('#tab-sitemap .mermaid');
         if (mermaidEl && !mermaidEl.querySelector('svg')) {
             initMermaid();
             if (typeof mermaid !== 'undefined') {
                 setTimeout(function() {
-                    try {
-                        mermaid.run({ querySelector: '#tab-sitemap .mermaid' });
-                    } catch(e) {
-                        mermaidEl.innerHTML = '<p style="color:var(--text3);padding:20px;text-align:center">Diagram rendering failed. Refresh or check your connection.</p>';
-                    }
+                    try { mermaid.run({ querySelector: '#tab-sitemap .mermaid' }); }
+                    catch(e) { mermaidEl.innerHTML = '<p style="color:var(--text3);padding:20px">Diagram failed to render. Refresh the page.</p>'; }
                 }, 100);
-            } else {
-                mermaidEl.innerHTML = '<p style="color:var(--text3);padding:20px;text-align:center">Diagram library not loaded. Check your internet connection.</p>';
             }
         }
     }
 }
+
 // ===== LESSON RENDERING =====
 function renderLesson(topic) {
     var container = document.getElementById('tab-lesson');
@@ -1622,14 +1602,9 @@ function renderLesson(topic) {
     } else {
         html += '<button class="complete-btn" onclick="markComplete(' + topic.id + ')">✓ Mark Complete</button>';
     }
-    var prevId = getPrevTopicId(topic.id);
-    var nextId = getNextTopicId(topic.id);
-    if (prevId !== null) {
-        html += '<button class="secondary" onclick="selectTopic(' + prevId + ')" style="padding:8px 16px;background:transparent;border:1px solid var(--surface3);color:var(--text2);border-radius:6px;cursor:pointer;font-family:var(--font)">← Previous</button>';
-    }
-    if (nextId !== null) {
-        html += '<button class="secondary" onclick="selectTopic(' + nextId + ')" style="padding:8px 16px;background:transparent;border:1px solid var(--surface3);color:var(--text2);border-radius:6px;cursor:pointer;font-family:var(--font)">Next →</button>';
-    }
+    var pId = getPrevTopicId(topic.id), nId = getNextTopicId(topic.id);
+    if (pId !== null) html += '<button class="secondary" onclick="selectTopic(' + pId + ')" style="padding:8px 16px;background:transparent;border:1px solid var(--surface3);color:var(--text2);border-radius:6px;cursor:pointer;font-family:var(--font)">← Previous</button>';
+    if (nId !== null) html += '<button class="secondary" onclick="selectTopic(' + nId + ')" style="padding:8px 16px;background:transparent;border:1px solid var(--surface3);color:var(--text2);border-radius:6px;cursor:pointer;font-family:var(--font)">Next →</button>';
     html += '</div>';
 
     container.innerHTML = html;
@@ -1785,20 +1760,14 @@ function checkAnswer(topicId, questionIndex, selectedOption) {
         fb.textContent = (isCorrect ? '✓ Correct! ' : '✗ Incorrect. ') + q.explanation;
         fb.classList.add('show', isCorrect ? 'correct' : 'wrong');
     }
-
-    // Add retry button after answer
     var retryBtn = document.createElement('button');
-    retryBtn.textContent = '🔄 Retry';
+    retryBtn.textContent = 'Try Again';
     retryBtn.style.cssText = 'margin-top:8px;padding:6px 14px;background:transparent;border:1px solid var(--surface3);color:var(--text2);border-radius:6px;cursor:pointer;font-family:var(--font);font-size:0.78rem';
     retryBtn.onclick = function(e) {
         e.stopPropagation();
         var opts = questionEl.querySelectorAll('.quiz-option');
-        for (var k = 0; k < opts.length; k++) {
-            opts[k].disabled = false;
-            opts[k].classList.remove('correct', 'wrong');
-        }
-        fb.classList.remove('show', 'correct', 'wrong');
-        fb.textContent = '';
+        for (var k = 0; k < opts.length; k++) { opts[k].disabled = false; opts[k].classList.remove('correct', 'wrong'); }
+        fb.classList.remove('show', 'correct', 'wrong'); fb.textContent = '';
         if (retryBtn.parentNode) retryBtn.remove();
     };
     fb.appendChild(retryBtn);
@@ -1854,8 +1823,11 @@ function markComplete(id) {
     var topic = getTopicById(id);
     showToast('✓ Completed: ' + topic.title, 'success');
 
-    renderAllTabs(topic);
-    switchTab(STATE.activeTab);
+    renderLesson(topic);
+    renderPractice(topic);
+    renderExtraTab(topic);
+    renderEnhancementsTab(topic);
+    renderProgressTab(topic);
     renderSidebar();
 
     var nextId = getNextTopicId(id);
@@ -1878,8 +1850,11 @@ function unmarkComplete(id) {
     saveProgress();
     var topic = getTopicById(id);
     showToast('↩ Marked incomplete: ' + topic.title, 'warn');
-    renderAllTabs(topic);
-    switchTab(STATE.activeTab);
+    renderLesson(topic);
+    renderPractice(topic);
+    renderExtraTab(topic);
+    renderEnhancementsTab(topic);
+    renderProgressTab(topic);
     renderSidebar();
 }
 
@@ -1889,8 +1864,11 @@ function resetAllProgress() {
         saveProgress();
         var currentTopic = STATE.currentTopicId ? getTopicById(STATE.currentTopicId) : null;
         if (currentTopic) {
-            renderAllTabs(currentTopic);
-            switchTab(STATE.activeTab);
+            renderLesson(currentTopic);
+            renderPractice(currentTopic);
+            renderExtraTab(currentTopic);
+            renderEnhancementsTab(currentTopic);
+            renderProgressTab(currentTopic);
         }
         renderSidebar();
         showToast('All progress reset', 'warn');
@@ -2025,21 +2003,10 @@ function submitResource(topicId) {
         showToast('Please enter a title or description', 'warn');
         return;
     }
-
-    // Validate URL protocol — allow only http: and https:
     if (url) {
-        try {
-            var parsed = new URL(url);
-            if (parsed.protocol !== 'http:' && parsed.protocol !== 'https:') {
-                showToast('URL must start with http:// or https://', 'warn');
-                return;
-            }
-        } catch(e) {
-            showToast('Please enter a valid URL (e.g., https://example.com)', 'warn');
-            return;
-        }
+        try { var p = new URL(url); if (p.protocol !== 'http:' && p.protocol !== 'https:') { showToast('URL must start with http:// or https://', 'warn'); return; } }
+        catch(e) { showToast('Please enter a valid URL', 'warn'); return; }
     }
-
     addResource(topicId, type, title, url);
 
     // Clear inputs
@@ -2145,21 +2112,12 @@ function renderSiteMap(topic) {
 
     container.innerHTML = html;
 
-    // Mermaid rendering deferred to switchTab (lazy — avoids zero-dimension SVG bug)
+    // Mermaid rendering deferred to switchTab (lazy)
 }
 
 function buildMermaidDiagram(topic) {
-    // Clean node labels with separate style directives (correct Mermaid syntax)
-    var labels = [
-        '1. How Computers Work', '2. Dev Environment', '3. First Java Program',
-        '4. Variables & Types', '5. Operators', '6. Control Flow',
-        '7. Loops', '8. Methods', '9. Arrays',
-        '10. Classes & Objects', '11. Encapsulation', '12. Inheritance',
-        '13. Polymorphism', '14. Abstract & Interfaces',
-        '15. Exception Handling', '16. Collections', '17. Generics',
-        '18. File I/O', '19. Enums & Records', '20. Lambdas',
-        '21. Streams API', '22. Optional'
-    ];
+    // Highlight style for current topic
+    // Highlight applied via separate style directive at end of diagram
 
     var lines = ['graph TB'];
     lines.push('  subgraph F[" "]');
@@ -2172,33 +2130,45 @@ function buildMermaidDiagram(topic) {
     lines.push('    F6["<b>Phase 6</b><br/>Spring Boot<br/><i>(coming soon)</i>"]');
     lines.push('  end');
 
-    lines.push('  subgraph P1["Phase 1: Programming Fundamentals - 22 Topics"]');
+    // Category subgraphs
+    lines.push('  subgraph P1["Phase 1: Programming Fundamentals — 22 Topics"]');
     lines.push('    direction TB');
     lines.push('    subgraph Basics["1-9: Java Basics"]');
-    for (var i = 0; i < 9; i++) {
-        lines.push('      T' + (i+1) + '["' + labels[i] + '"]');
-    }
+    lines.push('      T1["1. How Computers Work''"]');
+    lines.push('      T2["2. Dev Environment''"]');
+    lines.push('      T3["3. First Java Program''"]');
+    lines.push('      T4["4. Variables &amp; Types''"]');
+    lines.push('      T5["5. Operators''"]');
+    lines.push('      T6["6. Control Flow''"]');
+    lines.push('      T7["7. Loops''"]');
+    lines.push('      T8["8. Methods''"]');
+    lines.push('      T9["9. Arrays''"]');
     lines.push('    end');
     lines.push('    subgraph OOP["10-14: Object-Oriented Programming"]');
-    for (var i = 9; i < 14; i++) {
-        lines.push('      T' + (i+1) + '["' + labels[i] + '"]');
-    }
+    lines.push('      T10["10. Classes &amp; Objects''"]');
+    lines.push('      T11["11. Encapsulation''"]');
+    lines.push('      T12["12. Inheritance''"]');
+    lines.push('      T13["13. Polymorphism''"]');
+    lines.push('      T14["14. Abstract &amp; Interfaces''"]');
     lines.push('    end');
     lines.push('    subgraph Advanced["15-22: Advanced Java"]');
-    for (var i = 14; i < 22; i++) {
-        lines.push('      T' + (i+1) + '["' + labels[i] + '"]');
-    }
+    lines.push('      T15["15. Exception Handling''"]');
+    lines.push('      T16["16. Collections''"]');
+    lines.push('      T17["17. Generics''"]');
+    lines.push('      T18["18. File I/O''"]');
+    lines.push('      T19["19. Enums &amp; Records''"]');
+    lines.push('      T20["20. Lambdas''"]');
+    lines.push('      T21["21. Streams API''"]');
+    lines.push('      T22["22. Optional''"]');
     lines.push('    end');
     lines.push('  end');
 
+    // Connections showing progression
     lines.push('  Basics --> OOP');
     lines.push('  OOP --> Advanced');
     lines.push('  F1 -.-> F2 -.-> F3 -.-> F4 -.-> F5 -.-> F6');
 
-    // Highlight current topic — CORRECT: separate style directive, not in node label
-    lines.push('  style T' + topic.id + ' fill:#2563eb,color:#fff,stroke:#1d4ed8,stroke-width:2px');
-
-    // Style future phases dimmed
+    // Style future phases to look dimmed
     lines.push('  style F fill:#f3f4f6,stroke:#d1d5db,stroke-dasharray:5,color:#9ca3af');
     lines.push('  style F2 fill:#f9fafb,stroke:#e5e7eb,stroke-dasharray:5,color:#9ca3af');
     lines.push('  style F3 fill:#f9fafb,stroke:#e5e7eb,stroke-dasharray:5,color:#9ca3af');
@@ -2211,5 +2181,33 @@ function buildMermaidDiagram(topic) {
     lines.push('  style Advanced fill:#fce7f3,stroke:#fbcfe8');
     lines.push('  style F1 fill:#eff6ff,stroke:#bfdbfe');
 
-    return lines.join('\n');
-}>
+    // Highlight current topic
+    lines.push('  style T' + topic.id + ' fill:#2563eb,color:#fff,stroke:#1d4ed8,stroke-width:2px');
+
+    return lines.join('\\n');
+}
+
+// ===== INITIALIZATION =====
+
+// ===== INITIALIZATION =====
+function init() {
+    loadProgress();
+    loadResources();
+    loadEnhancements();
+    initTabs();
+    renderSidebar();
+
+    if (!STATE.currentTopicId) {
+        renderWelcome();
+        document.getElementById('welcome-screen').style.display = 'block';
+        document.getElementById('lesson-viewer').style.display = 'none';
+        document.getElementById('current-topic-title').textContent = 'Select a topic to begin';
+        document.getElementById('topic-meta-badges').innerHTML = '';
+    }
+}
+
+document.addEventListener('DOMContentLoaded', init);
+
+</script>
+</body>
+</html>
