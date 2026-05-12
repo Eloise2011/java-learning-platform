@@ -7,8 +7,8 @@
 <style>*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 :root {
   --bg: #faf9f7; --surface: #ffffff; --surface2: #f3f1ee; --surface3: #e2ded8;
-  --text: #1e293b; --text2: #64748b; --text3: #94a3b8;
-  --accent: #2563eb; --accent2: #7c3aed; --success: #059669; --warning: #d97706;
+  --text: #1e293b; --text2: #475569; --text3: #64748b;
+  --accent: #2563eb; --accent2: #7c3aed; --success: #047857; --warning: #d97706;
   --danger: #dc2626;
   --java: #ea580c; --tools: #9333ea; --dsa: #db2777; --db: #2563ea;
   --web: #0284c7; --spring: #4d7c0f;
@@ -150,6 +150,7 @@ body { font-family: var(--font); background: var(--bg); color: var(--text); heig
 .notify-prompt { background: var(--surface); border: 1px solid var(--accent2); border-radius: var(--radius); padding: 14px; margin-top: 12px; text-align: center; }
 .notify-prompt button { padding: 6px 16px; background: var(--accent2); color: white; border: none; border-radius: 6px; font-weight: 700; cursor: pointer; font-family: var(--font); font-size: 0.8rem; margin-top: 6px; }
 ::-webkit-scrollbar { width: 5px; } ::-webkit-scrollbar-track { background: transparent; } ::-webkit-scrollbar-thumb { background: var(--surface3); border-radius: 3px; }
+button:focus-visible, a:focus-visible, input:focus-visible, textarea:focus-visible, select:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
 @media (max-width: 900px) { body { flex-direction: column; } .sidebar { width: 100%; min-width: 100%; max-height: 38vh; } .main { height: 62vh; } .content-area { padding: 16px; } }
 
 .resource-form { background: var(--surface); border: 1px solid var(--surface3); border-radius: var(--radius); padding: 14px; margin-bottom: 12px; }
@@ -1345,7 +1346,18 @@ const PHASES = {
 const STATE = {
     currentTopicId: null,
     completedTopics: new Set(),
-    expandedPhases: new Set(['Programming Fundamentals'])
+    expandedPhases: new Set(['Programming Fundamentals']),
+    activeTab: 'lesson'
+};
+
+// Tab renderer registry — single place to add new tabs
+var TAB_RENDERERS = {
+    lesson: null,
+    practice: null,
+    extra: null,
+    enhancements: null,
+    'progress-view': null,
+    sitemap: null
 };
 
 // ===== LOCAL STORAGE =====
@@ -1540,13 +1552,8 @@ function selectTopic(id) {
     document.getElementById('welcome-screen').style.display = 'none';
     document.getElementById('lesson-viewer').style.display = 'block';
 
-    renderLesson(topic);
-    renderPractice(topic);
-    renderExtraTab(topic);
-    renderEnhancementsTab(topic);
-    renderProgressTab(topic);
-    renderSiteMap(topic);
-    switchTab('lesson');
+    renderAllTabs(topic);
+    switchTab(STATE.activeTab);
     renderSidebar();
 
     var activeItem = document.querySelector('.topic-item.active');
@@ -1568,6 +1575,7 @@ function initTabs() {
 }
 
 function switchTab(tabName) {
+    STATE.activeTab = tabName;
     var tabs = document.querySelectorAll('.tab');
     for (var i = 0; i < tabs.length; i++) tabs[i].classList.remove('active');
     var sections = document.querySelectorAll('.lesson-section');
@@ -1607,12 +1615,20 @@ function renderLesson(topic) {
     html += '<div class="textbook-ref"><strong>📖 Textbook:</strong> <em>' + escapeHTML(topic.textbook) + '</em></div>';
     html += topic.lesson;
 
-    html += '<div style="margin-top:24px;display:flex;gap:10px;align-items:center">';
+    html += '<div style="margin-top:24px;display:flex;gap:10px;align-items:center;flex-wrap:wrap">';
     if (STATE.completedTopics.has(topic.id)) {
         html += '<button class="complete-btn" disabled>✓ Completed</button>';
         html += '<button class="reset-btn" onclick="unmarkComplete(' + topic.id + ')">↩ Mark Incomplete</button>';
     } else {
         html += '<button class="complete-btn" onclick="markComplete(' + topic.id + ')">✓ Mark Complete</button>';
+    }
+    var prevId = getPrevTopicId(topic.id);
+    var nextId = getNextTopicId(topic.id);
+    if (prevId !== null) {
+        html += '<button class="secondary" onclick="selectTopic(' + prevId + ')" style="padding:8px 16px;background:transparent;border:1px solid var(--surface3);color:var(--text2);border-radius:6px;cursor:pointer;font-family:var(--font)">← Previous</button>';
+    }
+    if (nextId !== null) {
+        html += '<button class="secondary" onclick="selectTopic(' + nextId + ')" style="padding:8px 16px;background:transparent;border:1px solid var(--surface3);color:var(--text2);border-radius:6px;cursor:pointer;font-family:var(--font)">Next →</button>';
     }
     html += '</div>';
 
@@ -1769,6 +1785,23 @@ function checkAnswer(topicId, questionIndex, selectedOption) {
         fb.textContent = (isCorrect ? '✓ Correct! ' : '✗ Incorrect. ') + q.explanation;
         fb.classList.add('show', isCorrect ? 'correct' : 'wrong');
     }
+
+    // Add retry button after answer
+    var retryBtn = document.createElement('button');
+    retryBtn.textContent = '🔄 Retry';
+    retryBtn.style.cssText = 'margin-top:8px;padding:6px 14px;background:transparent;border:1px solid var(--surface3);color:var(--text2);border-radius:6px;cursor:pointer;font-family:var(--font);font-size:0.78rem';
+    retryBtn.onclick = function(e) {
+        e.stopPropagation();
+        var opts = questionEl.querySelectorAll('.quiz-option');
+        for (var k = 0; k < opts.length; k++) {
+            opts[k].disabled = false;
+            opts[k].classList.remove('correct', 'wrong');
+        }
+        fb.classList.remove('show', 'correct', 'wrong');
+        fb.textContent = '';
+        if (retryBtn.parentNode) retryBtn.remove();
+    };
+    fb.appendChild(retryBtn);
 }
 
 // ===== CODING EXERCISE LOGIC =====
@@ -1821,11 +1854,8 @@ function markComplete(id) {
     var topic = getTopicById(id);
     showToast('✓ Completed: ' + topic.title, 'success');
 
-    renderLesson(topic);
-    renderPractice(topic);
-    renderExtraTab(topic);
-    renderEnhancementsTab(topic);
-    renderProgressTab(topic);
+    renderAllTabs(topic);
+    switchTab(STATE.activeTab);
     renderSidebar();
 
     var nextId = getNextTopicId(id);
@@ -1848,11 +1878,8 @@ function unmarkComplete(id) {
     saveProgress();
     var topic = getTopicById(id);
     showToast('↩ Marked incomplete: ' + topic.title, 'warn');
-    renderLesson(topic);
-    renderPractice(topic);
-    renderExtraTab(topic);
-    renderEnhancementsTab(topic);
-    renderProgressTab(topic);
+    renderAllTabs(topic);
+    switchTab(STATE.activeTab);
     renderSidebar();
 }
 
@@ -1862,11 +1889,8 @@ function resetAllProgress() {
         saveProgress();
         var currentTopic = STATE.currentTopicId ? getTopicById(STATE.currentTopicId) : null;
         if (currentTopic) {
-            renderLesson(currentTopic);
-            renderPractice(currentTopic);
-            renderExtraTab(currentTopic);
-            renderEnhancementsTab(currentTopic);
-            renderProgressTab(currentTopic);
+            renderAllTabs(currentTopic);
+            switchTab(STATE.activeTab);
         }
         renderSidebar();
         showToast('All progress reset', 'warn');
