@@ -7,22 +7,101 @@ const STATE = {
 
 // ===== LOCAL STORAGE =====
 const STORAGE_KEY = 'java-learning-platform-progress';
+const QUIZ_STORAGE_KEY = 'java-learning-quiz-answers';
+var quizAnswers = {};
+var currentView = 'welcome';  // 'welcome' | 'topic' | 'progress' | 'sitemap'
+var API_BASE = 'http://localhost:5001/api';
+var apiOnline = false;
+
+function apiFetch(path, options) {
+    if (!options) options = {};
+    return fetch(API_BASE + path, options).then(function(r) {
+        if (!r.ok) throw new Error('API ' + r.status);
+        apiOnline = true;
+        return r.json();
+    }).catch(function(e) {
+        apiOnline = false;
+        throw e;
+    });
+}
+
+// Sync all local state to the server
+function syncToServer() {
+    if (!apiOnline) return;
+    // Sync completed topics
+    var completed = Array.from(STATE.completedTopics);
+    completed.forEach(function(tid) {
+        apiFetch('/progress/' + tid, { method: 'POST' }).catch(function(){});
+    });
+    // Sync quiz answers
+    for (var t in quizAnswers) {
+        apiFetch('/quiz/' + t, { method: 'POST', headers: {'Content-Type':'application/json'}, body: JSON.stringify({answers: quizAnswers[t]}) }).catch(function(){});
+    }
+}
 
 function loadProgress() {
-    try {
-        const raw = localStorage.getItem(STORAGE_KEY);
-        if (raw) {
-            const data = JSON.parse(raw);
-            if (Array.isArray(data.completedTopics)) {
-                STATE.completedTopics = new Set(data.completedTopics);
+    // Try API first
+    apiFetch('/progress').then(function(data) {
+        if (data.completedTopicIds && data.completedTopicIds.length > 0) {
+            STATE.completedTopics = new Set(data.completedTopicIds);
+            renderSidebar();
+            if (STATE.currentTopicId) {
+                var t = getTopicById(STATE.currentTopicId);
+                if (t) { renderLesson(t); renderPractice(t); renderProgressTab(t); }
             }
         }
-    } catch (e) { /* corrupted data, reset */ }
+    }).catch(function() {
+        // Fall back to localStorage
+        try {
+            var raw = localStorage.getItem(STORAGE_KEY);
+            if (raw) {
+                var data = JSON.parse(raw);
+                if (Array.isArray(data.completedTopics)) {
+                    STATE.completedTopics = new Set(data.completedTopics);
+                }
+            }
+        } catch (e) {}
+    });
 }
 
 function saveProgress() {
     const data = { completedTopics: Array.from(STATE.completedTopics) };
     localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+}
+
+function loadQuizAnswers() {
+    // Try API first for each topic that has progress
+    var completed = Array.from(STATE.completedTopics);
+    var fetched = 0;
+    if (completed.length > 0) {
+        completed.forEach(function(tid) {
+            apiFetch('/quiz/' + tid).then(function(data) {
+                if (data.answers && Object.keys(data.answers).length > 0) {
+                    if (!quizAnswers[tid]) quizAnswers[tid] = {};
+                    for (var qi in data.answers) {
+                        quizAnswers[tid][qi] = data.answers[qi];
+                    }
+                }
+                fetched++;
+            }).catch(function() { fetched++; });
+        });
+    }
+    // Also load from localStorage as immediate fallback
+    try { var r = localStorage.getItem(QUIZ_STORAGE_KEY); if (r) { var local = JSON.parse(r); for (var t in local) { if (!quizAnswers[t]) quizAnswers[t] = local[t]; else { for (var q in local[t]) { if (!quizAnswers[t][q]) quizAnswers[t][q] = local[t][q]; } } } } } catch(e) {}
+}
+function saveQuizAnswers() {
+    localStorage.setItem(QUIZ_STORAGE_KEY, JSON.stringify(quizAnswers));
+}
+function saveQuizAnswer(topicId, qi, selected, correct) {
+    if (!quizAnswers[topicId]) quizAnswers[topicId] = {};
+    quizAnswers[topicId][qi] = { selectedOption: selected, isCorrect: correct };
+    saveQuizAnswers();
+    // Sync to server
+    var body = {}; body[qi] = { selectedOption: selected, isCorrect: correct };
+    apiFetch('/quiz/' + topicId, { method: 'POST', headers: {'Content-Type':'application/json'}, body: JSON.stringify({answers: body}) }).catch(function(){});
+}
+function getQuizAnswer(topicId, qi) {
+    return (quizAnswers[topicId] && quizAnswers[topicId][qi] !== undefined) ? quizAnswers[topicId][qi] : null;
 }
 
 // ===== HELPER: group topics by phase =====
@@ -124,19 +203,16 @@ function renderBadges(topic) {
 }
 
 function renderWelcome() {
-    var total = CURRICULUM.length;
-    var phases = Object.keys(PHASES).length;
-    var hasContent = 0, hrs = 0, byPhase = {};
+    var total = CURRICULUM.length, phases = Object.keys(PHASES).length, hasC = 0, hrs = 0, bp = {};
     for (var i = 0; i < CURRICULUM.length; i++) {
         var t = CURRICULUM[i]; hrs += t.hours;
-        if (!byPhase[t.phase]) byPhase[t.phase] = [];
-        byPhase[t.phase].push(t);
+        if (!bp[t.phase]) bp[t.phase] = []; bp[t.phase].push(t);
     }
-    for (var p in PHASES) { if (byPhase[p] && byPhase[p].length > 0) hasContent++; }
-    var sub = document.getElementById('welcome-subtitle');
-    if (sub) sub.textContent = total + ' topics across ' + hasContent + ' active phases (' + phases + ' planned).';
-    var grid = document.getElementById('welcome-summary-grid');
-    if (grid) grid.innerHTML = '<div class="summary-card"><div class="sc-val">' + hasContent + '/' + phases + '</div><div class="sc-label">Phases Active</div></div>' +
+    for (var p in PHASES) { if (bp[p] && bp[p].length > 0) hasC++; }
+    var s = document.getElementById('welcome-subtitle');
+    if (s) s.textContent = total + ' topics across ' + hasC + ' active phases (' + phases + ' planned).';
+    var g = document.getElementById('welcome-summary-grid');
+    if (g) g.innerHTML = '<div class="summary-card"><div class="sc-val">' + hasC + '/' + phases + '</div><div class="sc-label">Phases Active</div></div>' +
         '<div class="summary-card"><div class="sc-val">' + total + '</div><div class="sc-label">Topics</div></div>' +
         '<div class="summary-card"><div class="sc-val">~' + hrs + 'h</div><div class="sc-label">Duration</div></div>';
 }
@@ -173,12 +249,63 @@ document.getElementById('sidebar-nav').addEventListener('click', function(e) {
     }
 });
 
+// ===== APP-LEVEL NAVIGATION =====
+document.getElementById('app-nav').addEventListener('click', function(e) {
+    var navItem = e.target.closest('.app-nav-item');
+    if (!navItem) return;
+    var view = navItem.dataset.view;
+    if (view === 'progress') showAppProgress();
+    else if (view === 'sitemap') showAppSiteMap();
+});
+
+function showAppProgress() {
+    currentView = 'progress';
+    STATE.currentTopicId = null;
+    document.getElementById('welcome-screen').style.display = 'none';
+    document.getElementById('lesson-viewer').style.display = 'none';
+    document.getElementById('app-view-progress').style.display = 'block';
+    document.getElementById('app-view-sitemap').style.display = 'none';
+    document.getElementById('current-topic-title').textContent = 'Overall Progress';
+    document.getElementById('topic-meta-badges').innerHTML = '';
+    renderAppProgress();
+    updateAppNavActive('progress');
+    renderSidebar();
+}
+
+function showAppSiteMap() {
+    currentView = 'sitemap';
+    STATE.currentTopicId = null;
+    document.getElementById('welcome-screen').style.display = 'none';
+    document.getElementById('lesson-viewer').style.display = 'none';
+    document.getElementById('app-view-progress').style.display = 'none';
+    document.getElementById('app-view-sitemap').style.display = 'block';
+    document.getElementById('current-topic-title').textContent = 'Java Technology Stack';
+    document.getElementById('topic-meta-badges').innerHTML = '';
+    renderAppSiteMap();
+    updateAppNavActive('sitemap');
+    renderSidebar();
+}
+
+function updateAppNavActive(view) {
+    var items = document.querySelectorAll('.app-nav-item');
+    for (var i = 0; i < items.length; i++) {
+        items[i].classList.toggle('active', items[i].dataset.view === view);
+    }
+}
+
 // ===== TOPIC SELECTION =====
+
 function selectTopic(id) {
+    currentView = 'topic';
     STATE.currentTopicId = id;
     var topic = getTopicById(id);
     if (!topic) return;
 
+    document.getElementById('welcome-screen').style.display = 'none';
+    document.getElementById('lesson-viewer').style.display = 'block';
+    document.getElementById('app-view-progress').style.display = 'none';
+    document.getElementById('app-view-sitemap').style.display = 'none';
+    updateAppNavActive(null);
     document.getElementById('current-topic-title').textContent = topic.title;
     var metaBadges = document.getElementById('topic-meta-badges');
     metaBadges.innerHTML = renderBadges(topic) +
@@ -226,15 +353,14 @@ function switchTab(tabName) {
     if (tab) tab.classList.add('active');
     if (section) section.classList.add('active');
 
-    // Lazy-render Mermaid when Map tab becomes visible
     if (tabName === 'sitemap' && STATE.currentTopicId) {
-        var mermaidEl = document.querySelector('#tab-sitemap .mermaid');
-        if (mermaidEl && !mermaidEl.querySelector('svg')) {
+        var mel = document.querySelector('#tab-sitemap .mermaid');
+        if (mel && !mel.querySelector('svg')) {
             initMermaid();
             if (typeof mermaid !== 'undefined') {
                 setTimeout(function() {
                     try { mermaid.run({ querySelector: '#tab-sitemap .mermaid' }); }
-                    catch(e) { mermaidEl.innerHTML = '<p style="color:var(--text3);padding:20px">Diagram failed to render. Refresh the page.</p>'; }
+                    catch(e) { mel.innerHTML = '<p style="color:var(--text3);padding:20px">Diagram failed to render.</p>'; }
                 }, 100);
             }
         }
@@ -258,9 +384,9 @@ function renderLesson(topic) {
     } else {
         html += '<button class="complete-btn" onclick="markComplete(' + topic.id + ')">✓ Mark Complete</button>';
     }
-    var pId = getPrevTopicId(topic.id), nId = getNextTopicId(topic.id);
-    if (pId !== null) html += '<button class="secondary" onclick="selectTopic(' + pId + ')" style="padding:8px 16px;background:transparent;border:1px solid var(--surface3);color:var(--text2);border-radius:6px;cursor:pointer;font-family:var(--font)">← Previous</button>';
-    if (nId !== null) html += '<button class="secondary" onclick="selectTopic(' + nId + ')" style="padding:8px 16px;background:transparent;border:1px solid var(--surface3);color:var(--text2);border-radius:6px;cursor:pointer;font-family:var(--font)">Next →</button>';
+    var pid = getPrevTopicId(topic.id), nid = getNextTopicId(topic.id);
+    if (pid !== null) html += '<button class="secondary" onclick="selectTopic(' + pid + ')" style="padding:8px 16px;background:transparent;border:1px solid var(--surface3);color:var(--text2);border-radius:6px;cursor:pointer;font-family:var(--font)">← Previous</button>';
+    if (nid !== null) html += '<button class="secondary" onclick="selectTopic(' + nid + ')" style="padding:8px 16px;background:transparent;border:1px solid var(--surface3);color:var(--text2);border-radius:6px;cursor:pointer;font-family:var(--font)">Next →</button>';
     html += '</div>';
 
     container.innerHTML = html;
@@ -275,15 +401,28 @@ function renderPractice(topic) {
         html += '<h3>📝 Quiz: ' + escapeHTML(topic.title) + '</h3>';
         for (var qi = 0; qi < topic.quiz.length; qi++) {
             var q = topic.quiz[qi];
+            var prev = getQuizAnswer(topic.id, qi);
             html += '<div class="quiz-question" id="quiz-' + topic.id + '-' + qi + '">';
             html += '<h4>Q' + (qi + 1) + '. ' + escapeHTML(q.question) + '</h4>';
             for (var oi = 0; oi < q.options.length; oi++) {
-                html += '<button class="quiz-option" onclick="checkAnswer(' + topic.id + ',' + qi + ',' + oi + ')"';
-                html += ' data-topic="' + topic.id + '" data-q="' + qi + '" data-o="' + oi + '">';
+                var cls = 'quiz-option';
+                var dis = '';
+                if (prev) {
+                    dis = ' disabled';
+                    if (oi === q.correct) cls += ' correct';
+                    else if (oi === prev.selectedOption && !prev.isCorrect) cls += ' wrong';
+                }
+                html += '<button class="' + cls + '"' + dis + ' onclick="checkAnswer(' + topic.id + ',' + qi + ',' + oi + ')" data-topic="' + topic.id + '" data-q="' + qi + '" data-o="' + oi + '">';
                 html += escapeHTML(q.options[oi]);
                 html += '</button>';
             }
-            html += '<div class="quiz-feedback" id="quiz-fb-' + topic.id + '-' + qi + '"></div>';
+            html += '<div class="quiz-feedback" id="quiz-fb-' + topic.id + '-' + qi + '"';
+            if (prev) {
+                html += ' class="show ' + (prev.isCorrect ? 'correct' : 'wrong') + '"';
+                html += '>' + (prev.isCorrect ? '✓ Correct! ' : '✗ Incorrect. ') + escapeHTML(q.explanation) + '</div>';
+            } else {
+                html += '></div>';
+            }
             html += '</div>';
         }
     } else {
@@ -411,22 +550,25 @@ function checkAnswer(topicId, questionIndex, selectedOption) {
         }
     }
 
+    saveQuizAnswer(topicId, questionIndex, selectedOption, isCorrect);
+    saveQuizAnswer(topicId, questionIndex, selectedOption, isCorrect);
     var fb = document.getElementById('quiz-fb-' + topicId + '-' + questionIndex);
     if (fb) {
         fb.textContent = (isCorrect ? '✓ Correct! ' : '✗ Incorrect. ') + q.explanation;
         fb.classList.add('show', isCorrect ? 'correct' : 'wrong');
     }
-    var retryBtn = document.createElement('button');
-    retryBtn.textContent = 'Try Again';
-    retryBtn.style.cssText = 'margin-top:8px;padding:6px 14px;background:transparent;border:1px solid var(--surface3);color:var(--text2);border-radius:6px;cursor:pointer;font-family:var(--font);font-size:0.78rem';
-    retryBtn.onclick = function(e) {
+    var rb = document.createElement('button');
+    rb.textContent = 'Try Again';
+    rb.style.cssText = 'margin-top:8px;padding:6px 14px;background:transparent;border:1px solid var(--surface3);color:var(--text2);border-radius:6px;cursor:pointer;font-family:var(--font);font-size:0.78rem';
+    rb.onclick = function(e) {
         e.stopPropagation();
-        var opts = questionEl.querySelectorAll('.quiz-option');
-        for (var k = 0; k < opts.length; k++) { opts[k].disabled = false; opts[k].classList.remove('correct', 'wrong'); }
+        var os = questionEl.querySelectorAll('.quiz-option');
+        for (var k = 0; k < os.length; k++) { os[k].disabled = false; os[k].classList.remove('correct', 'wrong'); }
         fb.classList.remove('show', 'correct', 'wrong'); fb.textContent = '';
-        if (retryBtn.parentNode) retryBtn.remove();
+        if (rb.parentNode) rb.remove();
+        if (quizAnswers[topicId]) { delete quizAnswers[topicId][questionIndex]; saveQuizAnswers(); }
     };
-    fb.appendChild(retryBtn);
+    fb.appendChild(rb);
 }
 
 // ===== CODING EXERCISE LOGIC =====
@@ -476,14 +618,17 @@ function checkExercise(topicId) {
 function markComplete(id) {
     STATE.completedTopics.add(id);
     saveProgress();
+    apiFetch('/progress/' + id, { method: 'POST' }).catch(function(){});
     var topic = getTopicById(id);
     showToast('✓ Completed: ' + topic.title, 'success');
 
-    renderLesson(topic);
-    renderPractice(topic);
-    renderExtraTab(topic);
-    renderEnhancementsTab(topic);
-    renderProgressTab(topic);
+    if (currentView === 'topic') {
+        renderLesson(topic);
+        renderPractice(topic);
+        renderExtraTab(topic);
+        renderEnhancementsTab(topic);
+    }
+    if (currentView === 'progress') renderAppProgress();
     renderSidebar();
 
     var nextId = getNextTopicId(id);
@@ -504,13 +649,16 @@ function markComplete(id) {
 function unmarkComplete(id) {
     STATE.completedTopics.delete(id);
     saveProgress();
+    apiFetch('/progress/' + id, { method: 'DELETE' }).catch(function(){});
     var topic = getTopicById(id);
     showToast('↩ Marked incomplete: ' + topic.title, 'warn');
-    renderLesson(topic);
-    renderPractice(topic);
-    renderExtraTab(topic);
-    renderEnhancementsTab(topic);
-    renderProgressTab(topic);
+    if (currentView === 'topic') {
+        renderLesson(topic);
+        renderPractice(topic);
+        renderExtraTab(topic);
+        renderEnhancementsTab(topic);
+    }
+    if (currentView === 'progress') renderAppProgress();
     renderSidebar();
 }
 
@@ -518,13 +666,11 @@ function resetAllProgress() {
     if (confirm('Reset all progress? This cannot be undone.')) {
         STATE.completedTopics.clear();
         saveProgress();
-        var currentTopic = STATE.currentTopicId ? getTopicById(STATE.currentTopicId) : null;
-        if (currentTopic) {
-            renderLesson(currentTopic);
-            renderPractice(currentTopic);
-            renderExtraTab(currentTopic);
-            renderEnhancementsTab(currentTopic);
-            renderProgressTab(currentTopic);
+        // Update any visible view
+        if (currentView === 'progress') renderAppProgress();
+        if (currentView === 'topic' && STATE.currentTopicId) {
+            var ct = getTopicById(STATE.currentTopicId);
+            if (ct) { renderLesson(ct); renderPractice(ct); renderExtraTab(ct); renderEnhancementsTab(ct); }
         }
         renderSidebar();
         showToast('All progress reset', 'warn');
@@ -575,24 +721,29 @@ function saveResources() {
     localStorage.setItem(RESOURCES_KEY, JSON.stringify(topicResources));
 }
 
-function addResource(topicId, type, title, url) {
+function addResource(topicId, type, title, author, url) {
     if (!topicResources[topicId]) topicResources[topicId] = [];
     topicResources[topicId].push({
         type: type,
         title: title.trim(),
+        author: author.trim(),
         url: url.trim(),
         addedAt: new Date().toISOString()
     });
     saveResources();
+    // Sync to server
+    apiFetch('/resources/' + topicId, { method: 'POST', headers: {'Content-Type':'application/json'}, body: JSON.stringify({type: type, title: title.trim(), author: author.trim(), url: url.trim()}) }).catch(function(){});
     var topic = getTopicById(topicId);
     if (topic) renderExtraTab(topic);
     showToast('Resource added: ' + title, 'success');
 }
 
 function removeResource(topicId, index) {
-    if (topicResources[topicId]) {
+    if (topicResources[topicId] && topicResources[topicId][index]) {
+        var resId = topicResources[topicId][index].id;
         topicResources[topicId].splice(index, 1);
         saveResources();
+        if (resId) apiFetch('/resources/' + resId, { method: 'DELETE' }).catch(function(){});
         var topic = getTopicById(topicId);
         if (topic) renderExtraTab(topic);
         showToast('Resource removed', 'warn');
@@ -615,6 +766,7 @@ function renderExtraTab(topic) {
     html += '<option value="video">🎬 Video</option>';
     html += '</select>';
     html += '<input type="text" id="res-title-' + topic.id + '" placeholder="Title/Description" style="min-width:200px">';
+    html += '<input type="text" id="res-author-' + topic.id + '" placeholder="Author (optional)" style="min-width:150px">';
     html += '<input type="text" id="res-url-' + topic.id + '" placeholder="URL (https://...)" style="min-width:250px">';
     html += '<button onclick="submitResource(' + topic.id + ')">+ Add</button>';
     html += '</div>';
@@ -631,10 +783,12 @@ function renderExtraTab(topic) {
             var icon = {book: '📖', link: '🔗', podcast: '🎙️', video: '🎬'}[r.type] || '📎';
             html += '<li>';
             html += '<span class="res-type ' + typeClass + '">' + icon + ' ' + r.type + '</span>';
+            var label = escapeHTML(r.title);
+            if (r.author) { label += ' <span style="color:var(--text3);font-size:0.75rem;font-weight:400">by ' + escapeHTML(r.author) + '</span>'; }
             if (r.url) {
-                html += '<a href="' + escapeHTML(r.url) + '" target="_blank" rel="noopener">' + escapeHTML(r.title) + '</a>';
+                html += '<a href="' + escapeHTML(r.url) + '" target="_blank" rel="noopener">' + label + '</a>';
             } else {
-                html += '<span style="flex:1">' + escapeHTML(r.title) + '</span>';
+                html += '<span style="flex:1">' + label + '</span>';
             }
             html += '<button class="res-del" onclick="removeResource(' + topic.id + ', ' + i + ')" title="Remove">✕</button>';
             html += '</li>';
@@ -648,11 +802,13 @@ function renderExtraTab(topic) {
 function submitResource(topicId) {
     var typeEl = document.getElementById('res-type-' + topicId);
     var titleEl = document.getElementById('res-title-' + topicId);
+    var authorEl = document.getElementById('res-author-' + topicId);
     var urlEl = document.getElementById('res-url-' + topicId);
     if (!typeEl || !titleEl) return;
 
     var type = typeEl.value;
     var title = titleEl.value.trim();
+    var author = (authorEl ? authorEl.value.trim() : '');
     var url = (urlEl ? urlEl.value.trim() : '');
 
     if (!title) {
@@ -660,13 +816,14 @@ function submitResource(topicId) {
         return;
     }
     if (url) {
-        try { var p = new URL(url); if (p.protocol !== 'http:' && p.protocol !== 'https:') { showToast('URL must start with http:// or https://', 'warn'); return; } }
+        try { var pu = new URL(url); if (pu.protocol !== 'http:' && pu.protocol !== 'https:') { showToast('URL must start with http:// or https://', 'warn'); return; } }
         catch(e) { showToast('Please enter a valid URL', 'warn'); return; }
     }
-    addResource(topicId, type, title, url);
+    addResource(topicId, type, title, author, url);
 
     // Clear inputs
     titleEl.value = '';
+    if (authorEl) authorEl.value = '';
     if (urlEl) urlEl.value = '';
 }
 
@@ -768,13 +925,20 @@ function renderSiteMap(topic) {
 
     container.innerHTML = html;
 
-    // Mermaid rendering deferred to switchTab (lazy)
+    // Mermaid rendering deferred to switchTab (lazy — avoids hidden-container SVG bug)
 }
 
 function buildMermaidDiagram(topic) {
-    // Highlight style for current topic
-    // Highlight applied via separate style directive at end of diagram
-
+    var labels = [
+        '1. How Computers Work', '2. Dev Environment', '3. First Java Program',
+        '4. Variables & Types', '5. Operators', '6. Control Flow',
+        '7. Loops', '8. Methods', '9. Arrays',
+        '10. Classes & Objects', '11. Encapsulation', '12. Inheritance',
+        '13. Polymorphism', '14. Abstract & Interfaces',
+        '15. Exception Handling', '16. Collections', '17. Generics',
+        '18. File I/O', '19. Enums & Records', '20. Lambdas',
+        '21. Streams API', '22. Optional'
+    ];
     var lines = ['graph TB'];
     lines.push('  subgraph F[" "]');
     lines.push('    direction TB');
@@ -785,46 +949,22 @@ function buildMermaidDiagram(topic) {
     lines.push('    F5["<b>Phase 5</b><br/>Web<br/>Fundamentals<br/><i>(coming soon)</i>"]');
     lines.push('    F6["<b>Phase 6</b><br/>Spring Boot<br/><i>(coming soon)</i>"]');
     lines.push('  end');
-
-    // Category subgraphs
-    lines.push('  subgraph P1["Phase 1: Programming Fundamentals — 22 Topics"]');
+    lines.push('  subgraph P1["Phase 1: Programming Fundamentals - 22 Topics"]');
     lines.push('    direction TB');
     lines.push('    subgraph Basics["1-9: Java Basics"]');
-    lines.push('      T1["1. How Computers Work''"]');
-    lines.push('      T2["2. Dev Environment''"]');
-    lines.push('      T3["3. First Java Program''"]');
-    lines.push('      T4["4. Variables &amp; Types''"]');
-    lines.push('      T5["5. Operators''"]');
-    lines.push('      T6["6. Control Flow''"]');
-    lines.push('      T7["7. Loops''"]');
-    lines.push('      T8["8. Methods''"]');
-    lines.push('      T9["9. Arrays''"]');
+    for (var i = 0; i < 9; i++) { lines.push('      T' + (i+1) + '["' + labels[i] + '"]'); }
     lines.push('    end');
     lines.push('    subgraph OOP["10-14: Object-Oriented Programming"]');
-    lines.push('      T10["10. Classes &amp; Objects''"]');
-    lines.push('      T11["11. Encapsulation''"]');
-    lines.push('      T12["12. Inheritance''"]');
-    lines.push('      T13["13. Polymorphism''"]');
-    lines.push('      T14["14. Abstract &amp; Interfaces''"]');
+    for (var i = 9; i < 14; i++) { lines.push('      T' + (i+1) + '["' + labels[i] + '"]'); }
     lines.push('    end');
     lines.push('    subgraph Advanced["15-22: Advanced Java"]');
-    lines.push('      T15["15. Exception Handling''"]');
-    lines.push('      T16["16. Collections''"]');
-    lines.push('      T17["17. Generics''"]');
-    lines.push('      T18["18. File I/O''"]');
-    lines.push('      T19["19. Enums &amp; Records''"]');
-    lines.push('      T20["20. Lambdas''"]');
-    lines.push('      T21["21. Streams API''"]');
-    lines.push('      T22["22. Optional''"]');
+    for (var i = 14; i < 22; i++) { lines.push('      T' + (i+1) + '["' + labels[i] + '"]'); }
     lines.push('    end');
     lines.push('  end');
-
-    // Connections showing progression
     lines.push('  Basics --> OOP');
     lines.push('  OOP --> Advanced');
     lines.push('  F1 -.-> F2 -.-> F3 -.-> F4 -.-> F5 -.-> F6');
-
-    // Style future phases to look dimmed
+    lines.push('  style T' + topic.id + ' fill:#2563eb,color:#fff,stroke:#1d4ed8,stroke-width:2px');
     lines.push('  style F fill:#f3f4f6,stroke:#d1d5db,stroke-dasharray:5,color:#9ca3af');
     lines.push('  style F2 fill:#f9fafb,stroke:#e5e7eb,stroke-dasharray:5,color:#9ca3af');
     lines.push('  style F3 fill:#f9fafb,stroke:#e5e7eb,stroke-dasharray:5,color:#9ca3af');
@@ -836,22 +976,110 @@ function buildMermaidDiagram(topic) {
     lines.push('  style OOP fill:#fef3c7,stroke:#fde68a');
     lines.push('  style Advanced fill:#fce7f3,stroke:#fbcfe8');
     lines.push('  style F1 fill:#eff6ff,stroke:#bfdbfe');
-
-    // Highlight current topic
-    lines.push('  style T' + topic.id + ' fill:#2563eb,color:#fff,stroke:#1d4ed8,stroke-width:2px');
-
-    return lines.join('\\n');
+    return lines.join('\n');
 }
 
 // ===== INITIALIZATION =====
 
+// ===== APP-LEVEL PROGRESS VIEW =====
+function renderAppProgress() {
+    var container = document.getElementById('app-view-progress');
+    if (!container) return;
+    var topicsByPhase = getTopicsByPhase();
+    var phaseOrder = Object.keys(PHASES);
+    var completed = STATE.completedTopics.size;
+    var total = CURRICULUM.length;
+    var pct = total > 0 ? Math.round(completed / total * 100) : 0;
+    var completedHours = 0, totalHours = 0;
+    for (var i = 0; i < CURRICULUM.length; i++) {
+        totalHours += CURRICULUM[i].hours;
+        if (STATE.completedTopics.has(CURRICULUM[i].id)) completedHours += CURRICULUM[i].hours;
+    }
+
+    var html = '<h3>📊 Overall Learning Progress</h3>';
+    html += '<div class="stats-grid">';
+    html += '<div class="stat-card"><div class="stat-value">' + completed + '/' + total + '</div><div class="stat-label">Topics Completed</div></div>';
+    html += '<div class="stat-card"><div class="stat-value">' + pct + '%</div><div class="stat-label">Overall Complete</div></div>';
+    html += '<div class="stat-card"><div class="stat-value">' + completedHours + '/' + totalHours + 'h</div><div class="stat-label">Study Hours</div></div>';
+    html += '<div class="stat-card"><div class="stat-value">' + Object.keys(PHASES).length + '</div><div class="stat-label">Total Phases</div></div>';
+    html += '</div>';
+
+    // Per-phase breakdown
+    for (var pi = 0; pi < phaseOrder.length; pi++) {
+        var phaseName = phaseOrder[pi];
+        var meta = PHASES[phaseName];
+        var topics = topicsByPhase[phaseName] || [];
+        var phaseCompleted = 0, phaseHours = 0;
+        for (var ti = 0; ti < topics.length; ti++) {
+            phaseHours += topics[ti].hours;
+            if (STATE.completedTopics.has(topics[ti].id)) phaseCompleted++;
+        }
+        var phasePct = topics.length > 0 ? Math.round(phaseCompleted / topics.length * 100) : 0;
+        html += '<div class="phase-progress">';
+        html += '<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px">';
+        html += '<h4 style="margin:0">' + meta.icon + ' ' + escapeHTML(phaseName) + '</h4>';
+        html += '<span style="font-size:0.78rem;color:var(--text2)">' + phaseCompleted + '/' + topics.length + ' topics' + (topics.length === 0 ? ' <em style="color:var(--text3)">(coming soon)</em>' : '') + '</span>';
+        html += '</div>';
+        html += '<div class="progress-bar-bg"><div class="progress-bar-fill" style="width:' + phasePct + '%;background:' + meta.color + '"></div></div>';
+        html += '</div>';
+    }
+
+    // Completed topics list
+    html += '<div class="reminder-panel"><h4 style="margin:0 0 10px 0;font-size:0.85rem">✅ Completed Topics</h4>';
+    if (completed === 0) {
+        html += '<p style="color:var(--text3);font-size:0.8rem">None yet. Select a topic from the sidebar to begin learning!</p>';
+    } else {
+        html += '<ul>';
+        for (var ci = 0; ci < CURRICULUM.length; ci++) {
+            var ct = CURRICULUM[ci];
+            if (STATE.completedTopics.has(ct.id)) {
+                html += '<li style="cursor:pointer" onclick="selectTopic(' + ct.id + ')">' + escapeHTML(ct.title) + ' <span class="ok">✓</span></li>';
+            }
+        }
+        html += '</ul>';
+    }
+    html += '</div>';
+
+    if (completed > 0) {
+        html += '<button class="reset-btn" onclick="resetAllProgress()" style="margin-top:12px">⚠ Reset All Progress</button>';
+    }
+
+    container.innerHTML = html;
+}
+
+// ===== APP-LEVEL SITEMAP VIEW =====
+function renderAppSiteMap() {
+    var container = document.getElementById('app-view-sitemap');
+    if (!container) return;
+    var topic = CURRICULUM[0]; // Use first topic for initial diagram context
+
+    var html = '<h3>🗺️ Java Technology Stack — Site Map</h3>';
+    html += '<p style="color:var(--text2);margin-bottom:14px;font-size:0.85rem">Bird\u2019s-eye view of the complete Java ecosystem. Click any topic in the sidebar to see it highlighted here.</p>';
+    html += '<div class="mermaid-container"><div class="mermaid">' + buildMermaidDiagram(topic) + '</div></div>';
+    html += '<p style="color:var(--text3);font-size:0.73rem;margin-top:10px">Phases 2-6 (shaded) are planned for future updates. Phase 1 has 22 active topics.</p>';
+    container.innerHTML = html;
+
+    // Lazy render Mermaid
+    initMermaid();
+    if (typeof mermaid !== 'undefined') {
+        setTimeout(function() {
+            try { mermaid.run({ querySelector: '#app-view-sitemap .mermaid' }); }
+            catch(e) {}
+        }, 100);
+    }
+}
+
 // ===== INITIALIZATION =====
 function init() {
     loadProgress();
+    loadQuizAnswers();
     loadResources();
     loadEnhancements();
     initTabs();
     renderSidebar();
+
+    // Sync any localStorage data to server
+    syncToServer();
 
     if (!STATE.currentTopicId) {
         renderWelcome();

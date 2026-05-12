@@ -24,6 +24,10 @@ body { font-family: var(--font); background: var(--bg); color: var(--text); heig
 .sidebar-header .subtitle { font-size: 0.73rem; color: var(--text2); margin-top: 3px; }
 .sidebar-stats { display: flex; gap: 8px; padding: 10px 18px; border-bottom: 1px solid var(--surface3); flex-shrink: 0; font-size: 0.7rem; color: var(--text2); }
 .sidebar-stats span { color: var(--accent); font-weight: 700; }
+.app-nav { padding: 6px 10px; border-bottom: 1px solid var(--surface3); flex-shrink: 0; display: flex; flex-direction: column; gap: 2px; }
+.app-nav-item { display: flex; align-items: center; gap: 8px; padding: 8px 10px; cursor: pointer; border: none; background: none; width: 100%; text-align: left; font-family: var(--font); font-size: 0.8rem; font-weight: 600; color: var(--text2); border-radius: 6px; transition: all 0.12s; }
+.app-nav-item:hover { background: var(--surface2); color: var(--text); }
+.app-nav-item.active { background: #2563eb10; color: var(--accent); }
 .sidebar-nav { flex: 1; overflow-y: auto; padding: 6px 0 20px 0; }
 .phase-toggle { display: flex; align-items: center; gap: 8px; padding: 10px 18px; cursor: pointer; border: none; background: none; width: 100%; text-align: left; font-family: var(--font); font-size: 0.81rem; font-weight: 700; color: var(--text); transition: background 0.15s; }
 .phase-toggle:hover { background: var(--surface2); }
@@ -68,6 +72,7 @@ body { font-family: var(--font); background: var(--bg); color: var(--text); heig
 .topbar h2 { font-size: 1.05rem; font-weight: 600; flex: 1; min-width: 0; }
 .topbar .meta-badges { display: flex; gap: 6px; flex-shrink: 0; }
 .content-area { flex: 1; overflow-y: auto; padding: 24px 32px; }
+.app-view { padding: 0; }
 .welcome { text-align: center; padding: 60px 20px; color: var(--text2); }
 .welcome .icon { font-size: 3.5rem; margin-bottom: 16px; }
 .welcome h2 { font-size: 1.5rem; color: var(--text); margin-bottom: 8px; }
@@ -183,6 +188,10 @@ button:focus-visible, a:focus-visible, input:focus-visible, textarea:focus-visib
     <p class="subtitle">Programming Fundamentals → Dev Tools → DSA → Databases → Web → Spring Boot</p>
   </div>
   <div class="sidebar-stats"><span id="sb-completed">0</span>/<span id="sb-total">22</span> done · <span id="sb-percent">0%</span> complete</div>
+  <div class="app-nav" id="app-nav">
+    <button class="app-nav-item" data-view="progress" id="btn-app-progress">📊 Overall Progress</button>
+    <button class="app-nav-item" data-view="sitemap" id="btn-app-sitemap">🗺️ Site Map</button>
+  </div>
   <div class="sidebar-nav" id="sidebar-nav"></div>
 </div>
 <div class="main">
@@ -196,22 +205,20 @@ button:focus-visible, a:focus-visible, input:focus-visible, textarea:focus-visib
       <p style="margin-top:20px;font-size:0.85rem"><strong>How to use:</strong> Expand a phase on the left, click any unlocked topic.</p>
     </div>
     <div id="lesson-viewer" style="display:none">
-      <div class="tabs" style="flex-wrap:wrap">
+      <div class="tabs" style="flex-wrap:wrap" id="topic-tabs">
         <button class="tab active" data-tab="lesson">📖 Lesson</button>
         <button class="tab" data-tab="practice">✏️ Practice</button>
         <button class="tab" data-tab="extra">📚 Extra</button>
         <button class="tab" data-tab="enhancements">💬 Notes</button>
-        <button class="tab" data-tab="progress-view">📊 Progress</button>
-        <button class="tab" data-tab="sitemap">🗺️ Map</button>
       </div>
       <div id="tab-lesson" class="lesson-section active"></div>
       <div id="tab-practice" class="lesson-section"></div>
       <div id="tab-extra" class="lesson-section"></div>
       <div id="tab-enhancements" class="lesson-section"></div>
-      <div id="tab-progress-view" class="lesson-section"></div>
-      <div id="tab-sitemap" class="lesson-section"></div>
     </div>
   </div>
+  <div id="app-view-progress" class="app-view" style="display:none"></div>
+  <div id="app-view-sitemap" class="app-view" style="display:none"></div>
 </div>
 <div id="toast-container"></div>
 <script src="https://cdn.jsdelivr.net/npm/mermaid@10.9.3/dist/mermaid.min.js"></script>

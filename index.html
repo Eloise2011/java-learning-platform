@@ -224,8 +224,7 @@ button:focus-visible, a:focus-visible, input:focus-visible, textarea:focus-visib
 <script src="https://cdn.jsdelivr.net/npm/mermaid@10.9.3/dist/mermaid.min.js"></script>
 <script>
 // ===== CURRICULUM DATA =====
-const CURRICULUM = 
-[
+const CURRICULUM = [
   {
     "id": 1,
     "phase": "Programming Fundamentals",
@@ -260,6 +259,138 @@ const CURRICULUM =
         ],
         "correct": 2,
         "explanation": "javac compiles .java to .class (bytecode). The JVM then interprets or JIT-compiles that bytecode to native machine code at runtime."
+      },
+      {
+        "question": "What is the fundamental unit of data storage in a computer?",
+        "options": [
+          "Bit",
+          "Byte",
+          "Nibble",
+          "Word"
+        ],
+        "correct": 0,
+        "explanation": "A bit (binary digit) is the smallest unit of data, representing a 0 or 1. A byte is 8 bits."
+      },
+      {
+        "question": "Which component is responsible for executing instructions in a computer?",
+        "options": [
+          "RAM",
+          "CPU",
+          "Hard Drive",
+          "Bus"
+        ],
+        "correct": 1,
+        "explanation": "The CPU (Central Processing Unit) fetches, decodes, and executes instructions."
+      },
+      {
+        "question": "In the Von Neumann architecture, where are both program instructions AND data stored?",
+        "options": [
+          "Separate memories",
+          "Same memory (RAM)",
+          "CPU registers only",
+          "On the hard disk"
+        ],
+        "correct": 1,
+        "explanation": "Von Neumann's key insight: programs and data share the same addressable memory."
+      },
+      {
+        "question": "What is the function of the system bus?",
+        "options": [
+          "Store data permanently",
+          "Execute mathematical operations",
+          "Connect CPU, RAM, and I/O devices",
+          "Display graphics"
+        ],
+        "correct": 2,
+        "explanation": "The bus is the communication highway connecting all components."
+      },
+      {
+        "question": "Which of the following is a characteristic of RAM?",
+        "options": [
+          "Non-volatile storage",
+          "Volatile storage",
+          "Slower than hard disk",
+          "Used only for graphics"
+        ],
+        "correct": 1,
+        "explanation": "RAM is volatile — it loses all data when power is removed. It's much faster than disk."
+      },
+      {
+        "question": "What is bytecode in the context of Java?",
+        "options": [
+          "Machine code for Intel CPUs",
+          "Human-readable source code",
+          "Platform-neutral intermediate code executed by the JVM",
+          "A type of encryption"
+        ],
+        "correct": 2,
+        "explanation": "Bytecode is platform-neutral instructions for the Java Virtual Machine, not any physical CPU."
+      },
+      {
+        "question": "Which best describes a compiler's function?",
+        "options": [
+          "Executes code line by line",
+          "Translates entire source code to machine code before execution",
+          "Manages memory allocation",
+          "Connects to databases"
+        ],
+        "correct": 1,
+        "explanation": "A compiler translates the entire program before execution begins, unlike an interpreter."
+      },
+      {
+        "question": "What is the binary representation of the decimal number 10?",
+        "options": [
+          "1010",
+          "1100",
+          "1001",
+          "1110"
+        ],
+        "correct": 0,
+        "explanation": "10 in binary: 8+2 = 1010 (1×8 + 0×4 + 1×2 + 0×1)."
+      },
+      {
+        "question": "How many different values can be represented with 8 bits?",
+        "options": [
+          "128",
+          "256",
+          "512",
+          "64"
+        ],
+        "correct": 1,
+        "explanation": "With n bits, you can represent 2^n values. 2^8 = 256 values (0-255)."
+      },
+      {
+        "question": "Which component provides the FASTEST data access for the CPU?",
+        "options": [
+          "RAM",
+          "SSD",
+          "CPU Registers",
+          "Hard Disk"
+        ],
+        "correct": 2,
+        "explanation": "Registers are physically inside the CPU with ~0.3ns access time — orders of magnitude faster than RAM."
+      },
+      {
+        "question": "What distinguishes Java's execution model from purely compiled languages like C?",
+        "options": [
+          "Java is slower for all operations",
+          "Java uses bytecode and a JVM for platform independence",
+          "Java doesn't need compilation",
+          "Java runs directly on hardware"
+        ],
+        "correct": 1,
+        "explanation": "Java compiles to bytecode, which the JVM interprets/JIT-compiles, enabling 'Write Once, Run Anywhere'."
+      },
+      {
+        "question": "What is the primary purpose of cache memory (L1/L2/L3)?",
+        "options": [
+          "Store the operating system",
+          "Permanently save user files",
+          "Reduce the speed gap between CPU and RAM",
+          "Replace RAM entirely"
+        ],
+        "correct": 2,
+        "explanation": "Cache sits between CPU and RAM, storing frequently-used data to mitigate the von Neumann bottleneck."
       }
     ],
     "codingExercise": {
@@ -309,6 +440,94 @@ const CURRICULUM =
         ],
         "correct": 1,
         "explanation": "javac is the Java compiler, translating .java source files into .class bytecode files the JVM can execute."
+      },
+      {
+        "question": "What is the primary purpose of the JAVA_HOME environment variable?",
+        "options": [
+          "Set the default browser",
+          "Point to the JDK installation directory",
+          "Store Java source code",
+          "Configure the text editor"
+        ],
+        "correct": 1,
+        "explanation": "JAVA_HOME tells build tools, IDEs, and application servers where the JDK is installed."
+      },
+      {
+        "question": "Which command is used to compile a Java source file?",
+        "options": [
+          "java",
+          "javac",
+          "javadoc",
+          "jar"
+        ],
+        "correct": 1,
+        "explanation": "javac (Java Compiler) translates .java source files into .class bytecode files."
+      },
+      {
+        "question": "Which component is NOT included in the JDK?",
+        "options": [
+          "javac (compiler)",
+          "java (JVM launcher)",
+          "Web browser",
+          "javadoc (documentation generator)"
+        ],
+        "correct": 2,
+        "explanation": "The JDK includes development tools but not a web browser."
+      },
+      {
+        "question": "What is the difference between JDK and JRE?",
+        "options": [
+          "They are identical",
+          "JDK includes development tools; JRE only runs Java programs",
+          "JRE is newer",
+          "JDK is only for Windows"
+        ],
+        "correct": 1,
+        "explanation": "JDK (Development Kit) = JRE (Runtime Environment) + compiler + development tools."
+      },
+      {
+        "question": "Which tool manages project dependencies and builds in Java?",
+        "options": [
+          "IntelliJ IDEA",
+          "Maven/Gradle",
+          "javac",
+          "Notepad"
+        ],
+        "correct": 1,
+        "explanation": "Maven and Gradle are build tools that manage dependencies, compilation, testing, and packaging."
+      },
+      {
+        "question": "What does the command 'java -version' display?",
+        "options": [
+          "The current time",
+          "Installed JDK version",
+          "Available RAM",
+          "Java file content"
+        ],
+        "correct": 1,
+        "explanation": "java -version shows the installed Java runtime version, confirming a successful JDK installation."
+      },
+      {
+        "question": "Why is it recommended to use an IDE like IntelliJ IDEA instead of a plain text editor?",
+        "options": [
+          "It writes code automatically",
+          "It provides intelligent code completion, refactoring, and debugging",
+          "It is required by law",
+          "It replaces the need for javac"
+        ],
+        "correct": 1,
+        "explanation": "IDEs provide code intelligence, refactoring, debugging, and project management far beyond text editors."
+      },
+      {
+        "question": "What does 'git commit' do?",
+        "options": [
+          "Downloads code from the internet",
+          "Creates a snapshot of staged changes with a message",
+          "Deletes a file permanently",
+          "Merges two branches"
+        ],
+        "correct": 1,
+        "explanation": "A commit records a snapshot of the staged changes in the repository history."
       }
     ],
     "codingExercise": {
@@ -357,6 +576,127 @@ const CURRICULUM =
         ],
         "correct": 1,
         "explanation": "System is in java.lang, which is implicitly imported in every Java source file. String, Integer, and Math are also in java.lang."
+      },
+      {
+        "question": "What is the exact method signature the JVM looks for as the program entry point?",
+        "options": [
+          "public void main(String[] args)",
+          "public static void main(String[] args)",
+          "public static int main(String args)",
+          "private static void main(String[] args)"
+        ],
+        "correct": 1,
+        "explanation": "The JVM requires exactly 'public static void main(String[] args)'. Any deviation causes 'main method not found'."
+      },
+      {
+        "question": "Why must the main method be declared static?",
+        "options": [
+          "It's a Java tradition",
+          "So the JVM can call it without creating an object of the class",
+          "Static methods are faster",
+          "To prevent multiple instances"
+        ],
+        "correct": 1,
+        "explanation": "The JVM calls main() before any objects exist. static means it belongs to the class, not instances."
+      },
+      {
+        "question": "Which package is automatically imported in every Java file?",
+        "options": [
+          "java.util",
+          "java.io",
+          "java.lang",
+          "java.awt"
+        ],
+        "correct": 2,
+        "explanation": "java.lang contains fundamental classes (String, System, Math, Object) and is implicitly imported."
+      },
+      {
+        "question": "What does System.out.println() output?",
+        "options": [
+          "Only strings",
+          "Its argument followed by a newline character",
+          "Only numbers",
+          "Raw binary data"
+        ],
+        "correct": 1,
+        "explanation": "println() prints the argument and then a platform-specific line separator (newline). print() omits the newline."
+      },
+      {
+        "question": "What is the purpose of the 'public' keyword before the class declaration?",
+        "options": [
+          "It makes the class run faster",
+          "It allows the JVM to access the class from outside the package",
+          "It is optional",
+          "It prevents inheritance"
+        ],
+        "correct": 1,
+        "explanation": "A public class is accessible to all other classes, including the JVM which loads it externally."
+      },
+      {
+        "question": "What happens if a .java file has a class named 'HelloWorld' but the file is saved as 'hello.java'?",
+        "options": [
+          "It works fine",
+          "Compile error: class name must match filename (case-sensitive)",
+          "Runtime error",
+          "It compiles but won't run"
+        ],
+        "correct": 1,
+        "explanation": "Java is case-sensitive and the public class name must exactly match the filename."
+      },
+      {
+        "question": "What are 'String[] args' in the main method for?",
+        "options": [
+          "Debugging",
+          "Receiving command-line arguments",
+          "Storing output",
+          "Configuring the JVM"
+        ],
+        "correct": 1,
+        "explanation": "The args array receives command-line arguments passed when running the program: java MyApp arg1 arg2."
+      },
+      {
+        "question": "What does the semicolon (;) signify in Java?",
+        "options": [
+          "A comment",
+          "End of a statement",
+          "Beginning of a block",
+          "A separator between class names"
+        ],
+        "correct": 1,
+        "explanation": "The semicolon is the statement terminator in Java. Forgetting it is a common syntax error."
+      },
+      {
+        "question": "Which keyword declares that a method returns no value?",
+        "options": [
+          "null",
+          "empty",
+          "void",
+          "none"
+        ],
+        "correct": 2,
+        "explanation": "void means 'this method returns nothing'. The method may still produce side effects like printing."
+      },
+      {
+        "question": "What is the purpose of the 'class' keyword?",
+        "options": [
+          "To create a loop",
+          "To define a new type that encapsulates state and behavior",
+          "To import libraries",
+          "To declare variables"
+        ],
+        "correct": 1,
+        "explanation": "class defines a blueprint for objects. Everything in Java lives inside a class."
+      },
+      {
+        "question": "What is the output of: System.out.println(5 + 3 + 'Hello')?",
+        "options": [
+          "8Hello",
+          "53Hello",
+          "Hello8",
+          "Compile error"
+        ],
+        "correct": 0,
+        "explanation": "5+3 evaluates to 8 (integer addition), then 'Hello' is concatenated to produce '8Hello'."
       }
     ],
     "codingExercise": {
@@ -405,6 +745,138 @@ const CURRICULUM =
         ],
         "correct": 1,
         "explanation": "Casting from floating-point to integer truncates toward zero — the fractional part is discarded. Use Math.round() for proper rounding."
+      },
+      {
+        "question": "Which of the following is a valid declaration of a float variable?",
+        "options": [
+          "float f = 3.14;",
+          "float f = 3.14f;",
+          "float f = 3.14d;",
+          "Float f = 3.14;"
+        ],
+        "correct": 1,
+        "explanation": "Floating-point literals default to double. The 'f' suffix explicitly marks a float literal."
+      },
+      {
+        "question": "What is the default value of an int field in a class?",
+        "options": [
+          "null",
+          "undefined",
+          "0",
+          "Garbage value"
+        ],
+        "correct": 2,
+        "explanation": "Java initializes numeric fields to 0, booleans to false, and reference fields to null automatically."
+      },
+      {
+        "question": "What is the range of a byte variable in Java?",
+        "options": [
+          "0 to 255",
+          "-128 to 127",
+          "-256 to 255",
+          "-127 to 128"
+        ],
+        "correct": 1,
+        "explanation": "byte is an 8-bit signed two's complement integer: -128 to 127 inclusive."
+      },
+      {
+        "question": "What happens when you add 1 to Integer.MAX_VALUE?",
+        "options": [
+          "It throws an exception",
+          "It stays at MAX_VALUE",
+          "It wraps to Integer.MIN_VALUE (overflow)",
+          "The program crashes"
+        ],
+        "correct": 2,
+        "explanation": "Java integer arithmetic silently overflows. MAX_VALUE + 1 = MIN_VALUE due to two's complement wrapping."
+      },
+      {
+        "question": "Which is NOT a primitive type in Java?",
+        "options": [
+          "int",
+          "boolean",
+          "String",
+          "char"
+        ],
+        "correct": 2,
+        "explanation": "String is a reference type (a class), not a primitive. The 8 primitives are: byte, short, int, long, float, double, char, boolean."
+      },
+      {
+        "question": "What is the result of (int) 3.99?",
+        "options": [
+          "4 (rounded)",
+          "3 (truncated towards zero)",
+          "3.99",
+          "Compile error"
+        ],
+        "correct": 1,
+        "explanation": "Casting from floating-point to integer truncates toward zero — the fractional part is discarded. Use Math.round() for proper rounding."
+      },
+      {
+        "question": "What is the difference between a primitive type and a reference type?",
+        "options": [
+          "There is no difference",
+          "Primitives store values directly; references store memory addresses of objects",
+          "Primitives are used only in loops",
+          "References cannot be null"
+        ],
+        "correct": 1,
+        "explanation": "Primitives hold raw values (stack-allocated). Reference variables hold pointers to heap objects."
+      },
+      {
+        "question": "Which keyword is used to declare a constant in Java?",
+        "options": [
+          "const",
+          "final",
+          "static",
+          "constant"
+        ],
+        "correct": 1,
+        "explanation": "The 'final' keyword makes a variable unchangeable after initialization. By convention, constants use UPPER_CASE."
+      },
+      {
+        "question": "What is the size of a char in Java?",
+        "options": [
+          "8 bits",
+          "16 bits",
+          "32 bits",
+          "Depends on the platform"
+        ],
+        "correct": 1,
+        "explanation": "Java's char is always 16 bits (2 bytes), representing a UTF-16 code unit."
+      },
+      {
+        "question": "Why should BigDecimal be used instead of double for financial calculations?",
+        "options": [
+          "Double is too slow",
+          "BigDecimal provides exact decimal arithmetic without rounding errors",
+          "Double doesn't support decimals",
+          "They are identical for money"
+        ],
+        "correct": 1,
+        "explanation": "double uses binary floating-point (IEEE 754) which cannot precisely represent many decimal values like 0.1. BigDecimal provides exact decimal precision."
+      },
+      {
+        "question": "What is type promotion in Java?",
+        "options": [
+          "Manually converting types",
+          "Automatic widening of smaller types to larger types in expressions",
+          "A compiler error",
+          "Creating new types"
+        ],
+        "correct": 1,
+        "explanation": "Java automatically promotes byte/short/char to int in arithmetic expressions, and int to long/float/double as needed."
+      },
+      {
+        "question": "What is the default type for decimal literals like 3.14 in Java?",
+        "options": [
+          "float",
+          "double",
+          "int",
+          "BigDecimal"
+        ],
+        "correct": 1,
+        "explanation": "Decimal literals without a suffix are double by default. Use 'f' suffix for float."
       }
     ],
     "codingExercise": {
@@ -458,6 +930,127 @@ const CURRICULUM =
         ],
         "correct": 1,
         "explanation": "== compares whether two references point to the same object in memory. .equals() compares the actual character content."
+      },
+      {
+        "question": "What is the value of: 5 + 3 * 2?",
+        "options": [
+          "16",
+          "11",
+          "10",
+          "13"
+        ],
+        "correct": 1,
+        "explanation": "Multiplication has higher precedence: 3 * 2 = 6, then 5 + 6 = 11."
+      },
+      {
+        "question": "What is the result of 10 / 3 in Java?",
+        "options": [
+          "3.333...",
+          "3",
+          "3.0",
+          "1"
+        ],
+        "correct": 1,
+        "explanation": "Both operands are int, so Java performs integer division: 10/3 = 3 (truncated)."
+      },
+      {
+        "question": "Which operator is used for string concatenation in Java?",
+        "options": [
+          "&",
+          "+",
+          ".",
+          "concat"
+        ],
+        "correct": 1,
+        "explanation": "The + operator concatenates strings. When one operand is a String, the other is converted via toString()."
+      },
+      {
+        "question": "What does the % operator compute?",
+        "options": [
+          "Percentage",
+          "Remainder after division",
+          "Multiplication",
+          "Power"
+        ],
+        "correct": 1,
+        "explanation": "% returns the remainder of division. Example: 17 % 5 = 2."
+      },
+      {
+        "question": "Why does 'if (obj != null && obj.getValue() > 0)' not throw NullPointerException?",
+        "options": [
+          "Java handles null automatically",
+          "Short-circuit evaluation: obj.getValue() is only called if obj != null",
+          "It always throws NPE",
+          "&& catches the exception"
+        ],
+        "correct": 1,
+        "explanation": "&& short-circuits: if the left operand is false, the right operand is never evaluated."
+      },
+      {
+        "question": "What is the difference between == and .equals() for String comparison?",
+        "options": [
+          "They are identical",
+          "== compares references (memory addresses); .equals() compares character content",
+          "== is for content, .equals() is for reference",
+          ".equals() is deprecated"
+        ],
+        "correct": 1,
+        "explanation": "== checks if two references point to the same object. .equals() checks if two objects have the same content."
+      },
+      {
+        "question": "What is the result of: int x = 5; int y = x++; ?",
+        "options": [
+          "x=5, y=5",
+          "x=6, y=5",
+          "x=5, y=6",
+          "x=6, y=6"
+        ],
+        "correct": 1,
+        "explanation": "Post-increment: y gets the old value of x (5), then x increments to 6."
+      },
+      {
+        "question": "Which logical operator has the HIGHEST precedence?",
+        "options": [
+          "&&",
+          "||",
+          "! (NOT)",
+          "=="
+        ],
+        "correct": 2,
+        "explanation": "! (logical NOT) is a unary operator and has higher precedence than binary logical operators."
+      },
+      {
+        "question": "What does the expression: true || false && false evaluate to?",
+        "options": [
+          "true",
+          "false",
+          "Compile error",
+          "null"
+        ],
+        "correct": 0,
+        "explanation": "&& has higher precedence than ||, so: false && false = false, then true || false = true."
+      },
+      {
+        "question": "What is the result of: byte a = 1; byte b = 2; byte c = a + b; ?",
+        "options": [
+          "c = 3",
+          "Compile error: possible lossy conversion from int to byte",
+          "Runtime error",
+          "c = 0"
+        ],
+        "correct": 1,
+        "explanation": "Arithmetic on bytes promotes to int. The result of a+b is int, which cannot be assigned to byte without explicit cast: byte c = (byte)(a + b)."
+      },
+      {
+        "question": "What is the value of: 10 > 5 ? 'A' : 'B' ?",
+        "options": [
+          "10",
+          "true",
+          "'A'",
+          "'B'"
+        ],
+        "correct": 2,
+        "explanation": "The ternary operator: condition (10 > 5 = true) returns the first value 'A'."
       }
     ],
     "codingExercise": {
@@ -507,6 +1100,105 @@ const CURRICULUM =
         ],
         "correct": 1,
         "explanation": "Braces make the block explicit. Without braces, adding a second line silently falls outside the conditional."
+      },
+      {
+        "question": "Which statement is true about switch expressions in Java 14+?",
+        "options": [
+          "break is still required",
+          "Arrow syntax (->) eliminates fall-through",
+          "Switch can only handle integers",
+          "Switch replaced all if-else"
+        ],
+        "correct": 1,
+        "explanation": "Java 14+ arrow syntax removes the fall-through problem and enables switch to return values."
+      },
+      {
+        "question": "What is the 'dangling else' problem?",
+        "options": [
+          "Multiple else clauses",
+          "An else that ambiguously belongs to the nearest unmatched if",
+          "No else clause",
+          "Too many braces"
+        ],
+        "correct": 1,
+        "explanation": "Without braces, else binds to the nearest unmatched if, which may not be what the programmer intended."
+      },
+      {
+        "question": "What does the following print: if (false); { System.out.println('Hello'); } ?",
+        "options": [
+          "Nothing",
+          "Hello",
+          "Compile error",
+          "Runtime error"
+        ],
+        "correct": 1,
+        "explanation": "The semicolon after if(false) is an empty statement — the block {} is NOT part of the if. It always executes."
+      },
+      {
+        "question": "In a switch statement, what happens if no case matches and there is no default?",
+        "options": [
+          "Compile error",
+          "Nothing — execution skips the switch entirely",
+          "The first case executes",
+          "Runtime error"
+        ],
+        "correct": 1,
+        "explanation": "If no case matches and no default exists, the switch body is skipped entirely."
+      },
+      {
+        "question": "What keyword is used to exit a switch case in traditional (colon) syntax?",
+        "options": [
+          "continue",
+          "exit",
+          "break",
+          "return"
+        ],
+        "correct": 2,
+        "explanation": "break terminates the switch block. Without break, execution falls through to the next case."
+      },
+      {
+        "question": "Which of the following is the correct way to use if-else?",
+        "options": [
+          "if x > 0 { ... }",
+          "if (x > 0) { ... }",
+          "if x > 0 then { ... }",
+          "if [x > 0] { ... }"
+        ],
+        "correct": 1,
+        "explanation": "Java requires parentheses around the condition and braces around the body."
+      },
+      {
+        "question": "What is pattern matching in switch (Java 17+)?",
+        "options": [
+          "A regular expression for strings",
+          "Matching values by type and destructuring in case labels",
+          "A faster switch implementation",
+          "Matching only integers"
+        ],
+        "correct": 1,
+        "explanation": "Pattern matching enables type checks and destructuring directly in case labels."
+      },
+      {
+        "question": "Which operator can replace a simple if-else that assigns one of two values?",
+        "options": [
+          "Ternary operator ? :",
+          "Assignment operator =",
+          "Logical AND &&",
+          "Bitwise OR |"
+        ],
+        "correct": 0,
+        "explanation": "Ternary operator provides compact conditional value selection: condition ? valueIfTrue : valueIfFalse."
+      },
+      {
+        "question": "Why do both Google and Oracle style guides require braces on all if/else blocks?",
+        "options": [
+          "They look better",
+          "To prevent bugs when adding statements later to what appears to be a conditional block",
+          "Braces make code run faster",
+          "It's just tradition"
+        ],
+        "correct": 1,
+        "explanation": "Braces prevent the dangling-else problem and make it safe to add more lines to a conditional block later."
       }
     ],
     "codingExercise": {
@@ -555,6 +1247,116 @@ const CURRICULUM =
         ],
         "correct": 1,
         "explanation": "In a for loop, continue jumps to the update statement (i++), then checks the condition. In while loops, it jumps directly to the condition check."
+      },
+      {
+        "question": "How many times does: for(int i=0; i<5; i++) { } execute its body?",
+        "options": [
+          "4",
+          "5",
+          "6",
+          "Infinite"
+        ],
+        "correct": 1,
+        "explanation": "i takes values 0, 1, 2, 3, 4 — exactly 5 iterations. Condition i<5 is checked before each iteration."
+      },
+      {
+        "question": "Which loop guarantees the body executes at least once?",
+        "options": [
+          "for",
+          "while",
+          "do-while",
+          "for-each"
+        ],
+        "correct": 2,
+        "explanation": "do-while checks the condition AFTER the body, guaranteeing at least one execution."
+      },
+      {
+        "question": "What does 'break' do inside a loop?",
+        "options": [
+          "Skips the current iteration",
+          "Terminates the loop immediately",
+          "Pauses the loop",
+          "Restarts the loop"
+        ],
+        "correct": 1,
+        "explanation": "break immediately exits the innermost enclosing loop. Execution continues after the loop."
+      },
+      {
+        "question": "What does 'continue' do inside a loop?",
+        "options": [
+          "Exits the loop",
+          "Skips the rest of the current iteration and proceeds to the next",
+          "Restarts from the first iteration",
+          "Pauses execution"
+        ],
+        "correct": 1,
+        "explanation": "continue jumps to the next iteration check (and in a for loop, the update statement still runs)."
+      },
+      {
+        "question": "Which loop is best when iterating over an entire array or collection without needing the index?",
+        "options": [
+          "Traditional for loop",
+          "while loop",
+          "Enhanced for-each loop",
+          "do-while loop"
+        ],
+        "correct": 2,
+        "explanation": "for-each provides the cleanest syntax when you need every element without index access."
+      },
+      {
+        "question": "How many times does: do { } while (false); execute?",
+        "options": [
+          "0",
+          "1",
+          "Infinite",
+          "Compile error"
+        ],
+        "correct": 1,
+        "explanation": "The body executes once before the condition is checked. do-while always executes at least once."
+      },
+      {
+        "question": "What is the output of: for(int i=0; i<3; i++) { if(i==1) continue; System.out.print(i); } ?",
+        "options": [
+          "012",
+          "02",
+          "01",
+          "12"
+        ],
+        "correct": 1,
+        "explanation": "When i=1, continue skips the print. Output: 0 and 2 (prints '02')."
+      },
+      {
+        "question": "What is an off-by-one error?",
+        "options": [
+          "When a loop uses wrong data types",
+          "When a loop iterates one too many or one too few times",
+          "When two loops are nested",
+          "A compiler error code"
+        ],
+        "correct": 1,
+        "explanation": "The most common loop bug: using <= instead of < (or vice versa), causing one extra or missing iteration."
+      },
+      {
+        "question": "What happens if a while loop's condition never becomes false?",
+        "options": [
+          "Java detects and stops it",
+          "Infinite loop — program hangs",
+          "Compile error",
+          "Loop exits after 1000 iterations"
+        ],
+        "correct": 1,
+        "explanation": "An infinite loop runs forever unless externally interrupted. The JVM does not detect logical infinite loops."
+      },
+      {
+        "question": "Which for loop header is valid Java?",
+        "options": [
+          "for(int i=0; i<10; i++)",
+          "for i=0; i<10; i++",
+          "for i in range(10)",
+          "for(i=0; i<10)"
+        ],
+        "correct": 0,
+        "explanation": "Java's for loop syntax requires parentheses and semicolons: for(init; condition; update)."
       }
     ],
     "codingExercise": {
@@ -603,6 +1405,116 @@ const CURRICULUM =
         ],
         "correct": 1,
         "explanation": "The compiler distinguishes overloads by parameter types. Return type is not part of the method signature and cannot disambiguate calls."
+      },
+      {
+        "question": "How does Java pass arguments to methods?",
+        "options": [
+          "By reference for objects, by value for primitives",
+          "Always by value (pass-by-value)",
+          "Always by reference",
+          "Depends on the method modifier"
+        ],
+        "correct": 1,
+        "explanation": "Java is ALWAYS pass-by-value. For objects, the VALUE being passed is the reference (memory address)."
+      },
+      {
+        "question": "Can a method change the caller's int variable by reassigning the parameter?",
+        "options": [
+          "Yes",
+          "No — only the local copy is changed",
+          "Only for static methods",
+          "Depends on access modifier"
+        ],
+        "correct": 1,
+        "explanation": "Parameters are copies. Reassigning a primitive parameter only changes the local copy, not the caller's variable."
+      },
+      {
+        "question": "What is method overloading?",
+        "options": [
+          "Having too many methods",
+          "Multiple methods with the same name but different parameter lists",
+          "Overriding a parent method",
+          "Calling a method repeatedly"
+        ],
+        "correct": 1,
+        "explanation": "Overloading allows different methods to share the same name, distinguished by parameter types, count, or order."
+      },
+      {
+        "question": "Can you overload a method by only changing the return type?",
+        "options": [
+          "Yes",
+          "No — the parameter list must differ",
+          "Only for void methods",
+          "Only in abstract classes"
+        ],
+        "correct": 1,
+        "explanation": "The compiler cannot determine which overload to call based solely on return type — parameters must differ."
+      },
+      {
+        "question": "What is a stack frame?",
+        "options": [
+          "A UI window",
+          "Memory allocated for each method call containing parameters and local variables",
+          "A data structure for trees",
+          "A type of array"
+        ],
+        "correct": 1,
+        "explanation": "Each method invocation pushes a stack frame onto the call stack. It holds parameters, locals, and return address."
+      },
+      {
+        "question": "What happens when the call stack overflows?",
+        "options": [
+          "The program continues normally",
+          "StackOverflowError is thrown",
+          "Memory is freed automatically",
+          "The JVM restarts"
+        ],
+        "correct": 1,
+        "explanation": "Too many nested method calls (typically from infinite recursion) exhaust the stack, causing StackOverflowError."
+      },
+      {
+        "question": "What is varargs in Java?",
+        "options": [
+          "Variable arguments — allows passing zero or more arguments of a type",
+          "Very large arguments",
+          "Variable return types",
+          "A deprecated feature"
+        ],
+        "correct": 0,
+        "explanation": "Varargs (type... name) lets callers pass any number of arguments. The method receives them as an array."
+      },
+      {
+        "question": "Which keyword is used to return a value from a method?",
+        "options": [
+          "break",
+          "exit",
+          "return",
+          "yield"
+        ],
+        "correct": 2,
+        "explanation": "return sends a value back to the caller and exits the method. A void method can use return; (no value)."
+      },
+      {
+        "question": "What is the scope of a method parameter?",
+        "options": [
+          "The entire class",
+          "The entire program",
+          "Only within the method body",
+          "All methods in the same class"
+        ],
+        "correct": 2,
+        "explanation": "Parameters are local variables scoped to the method body. They cannot be accessed outside the method."
+      },
+      {
+        "question": "What is recursion?",
+        "options": [
+          "Calling a method from another class",
+          "A method that calls itself",
+          "Running multiple methods simultaneously",
+          "A type of loop"
+        ],
+        "correct": 1,
+        "explanation": "Recursion is when a method calls itself to solve a smaller instance of the same problem. Requires a base case to terminate."
       }
     ],
     "codingExercise": {
@@ -652,6 +1564,116 @@ const CURRICULUM =
         ],
         "correct": 1,
         "explanation": "Java initializes numeric arrays to 0, boolean arrays to false, and object arrays to null. Unlike C/C++, there are no garbage values."
+      },
+      {
+        "question": "Why is array access O(1)?",
+        "options": [
+          "Arrays are sorted",
+          "Address of arr[i] is calculated as base + i * elementSize",
+          "Arrays use hash tables",
+          "It depends on array size"
+        ],
+        "correct": 1,
+        "explanation": "The address is a simple arithmetic computation — constant time regardless of array size."
+      },
+      {
+        "question": "What is the default value of elements in a newly created int[5]?",
+        "options": [
+          "null",
+          "undefined",
+          "0",
+          "Depends on the JVM"
+        ],
+        "correct": 2,
+        "explanation": "Java initializes numeric arrays to 0, boolean arrays to false, and object arrays to null."
+      },
+      {
+        "question": "How do you get the length of an array named 'arr'?",
+        "options": [
+          "arr.length()",
+          "arr.size()",
+          "arr.length",
+          "arr.count()"
+        ],
+        "correct": 2,
+        "explanation": "length is a public final field on arrays, not a method — no parentheses."
+      },
+      {
+        "question": "What happens when you access arr[arr.length]?",
+        "options": [
+          "Returns the last element",
+          "Returns null",
+          "Throws ArrayIndexOutOfBoundsException",
+          "Returns 0"
+        ],
+        "correct": 2,
+        "explanation": "Valid indices are 0 to length-1. Accessing index length is out of bounds."
+      },
+      {
+        "question": "Which method sorts an array in-place?",
+        "options": [
+          "Arrays.sort()",
+          "Arrays.order()",
+          "Arrays.arrange()",
+          "Arrays.quicksort()"
+        ],
+        "correct": 0,
+        "explanation": "Arrays.sort() uses dual-pivot quicksort for primitives and Timsort for objects. It modifies the array in-place."
+      },
+      {
+        "question": "What is a jagged array in Java?",
+        "options": [
+          "An array with all null elements",
+          "A multi-dimensional array where rows have different lengths",
+          "A sorted array",
+          "An array of primitives"
+        ],
+        "correct": 1,
+        "explanation": "In Java, a 2D array is an array of arrays — each row can have a different length, forming a 'jagged' shape."
+      },
+      {
+        "question": "Where are array objects stored in memory?",
+        "options": [
+          "On the stack",
+          "On the heap",
+          "In CPU registers",
+          "In the method area"
+        ],
+        "correct": 1,
+        "explanation": "Arrays are objects and live on the heap, regardless of whether they contain primitives or references."
+      },
+      {
+        "question": "What does Arrays.binarySearch() require before calling?",
+        "options": [
+          "The array must be sorted",
+          "The array must be non-empty",
+          "The array must be of type int",
+          "No requirements"
+        ],
+        "correct": 0,
+        "explanation": "binarySearch requires a sorted array. Results are unpredictable if the array is not sorted."
+      },
+      {
+        "question": "How do you correctly copy an array?",
+        "options": [
+          "arr2 = arr1;",
+          "arr2 = Arrays.copyOf(arr1, arr1.length);",
+          "arr2 = arr1.clone[];",
+          "Arrays cannot be copied"
+        ],
+        "correct": 1,
+        "explanation": "copyOf creates a new array. Simple assignment (arr2 = arr1) only copies the reference, not the content."
+      },
+      {
+        "question": "What is the time complexity of inserting an element in the middle of an array?",
+        "options": [
+          "O(1)",
+          "O(log n)",
+          "O(n)",
+          "O(n^2)"
+        ],
+        "correct": 2,
+        "explanation": "Inserting in the middle requires shifting all subsequent elements right — O(n) in the worst case."
       }
     ],
     "codingExercise": {
@@ -701,6 +1723,116 @@ const CURRICULUM =
         ],
         "correct": 1,
         "explanation": "this is a reference to the current instance — the specific object being created or the object on which the method was called."
+      },
+      {
+        "question": "What is the relationship between a class and an object?",
+        "options": [
+          "They are identical",
+          "A class is a blueprint; an object is an instance of that blueprint",
+          "An object is a blueprint; a class is an instance",
+          "They are unrelated concepts"
+        ],
+        "correct": 1,
+        "explanation": "A class defines the structure and behavior. An object is a concrete instance created from that class using 'new'."
+      },
+      {
+        "question": "What three things does the 'new' keyword do?",
+        "options": [
+          "Compile, run, debug",
+          "Allocate memory, invoke constructor, return reference",
+          "Create, copy, delete",
+          "Import, declare, initialize"
+        ],
+        "correct": 1,
+        "explanation": "new allocates heap memory, calls the constructor to initialize the object, and returns a reference to it."
+      },
+      {
+        "question": "What is 'this' in a constructor?",
+        "options": [
+          "The parent class",
+          "A reference to the current object being constructed",
+          "The previous object created",
+          "A static variable"
+        ],
+        "correct": 1,
+        "explanation": "'this' refers to the specific object instance being created or the object on which a method was invoked."
+      },
+      {
+        "question": "Which of the following is NOT one of the four OOP pillars?",
+        "options": [
+          "Encapsulation",
+          "Inheritance",
+          "Polymorphism",
+          "Serialization"
+        ],
+        "correct": 3,
+        "explanation": "The four pillars are: Encapsulation, Inheritance, Polymorphism, and Abstraction. Serialization is a feature, not a pillar."
+      },
+      {
+        "question": "What is a constructor's primary job?",
+        "options": [
+          "To destroy objects",
+          "To establish the object's invariants and initialize its state",
+          "To free memory",
+          "To override methods"
+        ],
+        "correct": 1,
+        "explanation": "A constructor establishes valid initial state. After construction, the object's invariants must hold."
+      },
+      {
+        "question": "What happens if you don't define any constructor in a class?",
+        "options": [
+          "The class can't be instantiated",
+          "Java provides a default no-argument constructor",
+          "Compile error",
+          "Objects get random values"
+        ],
+        "correct": 1,
+        "explanation": "If no constructor is defined, the compiler generates a default no-arg constructor that calls super()."
+      },
+      {
+        "question": "What is encapsulation's main benefit?",
+        "options": [
+          "Faster execution",
+          "Hiding internal state and enforcing invariants through controlled access",
+          "Less memory usage",
+          "Automatic code generation"
+        ],
+        "correct": 1,
+        "explanation": "Encapsulation protects invariants by forcing all state changes through validated methods, preventing invalid states."
+      },
+      {
+        "question": "What is the difference between instance variables and local variables?",
+        "options": [
+          "No difference",
+          "Instance variables belong to objects (heap); local variables are method-scoped (stack)",
+          "Instance variables are faster",
+          "Local variables can be public"
+        ],
+        "correct": 1,
+        "explanation": "Instance variables live as long as the object exists. Local variables are destroyed when the method returns."
+      },
+      {
+        "question": "What does 'abstraction' mean in OOP?",
+        "options": [
+          "Making everything public",
+          "Hiding complex implementation details behind a simple interface",
+          "Creating many classes",
+          "Using inheritance everywhere"
+        ],
+        "correct": 1,
+        "explanation": "Abstraction exposes what an object does while hiding how it does it, reducing cognitive load for users of the class."
+      },
+      {
+        "question": "Which access modifier should fields typically have for good encapsulation?",
+        "options": [
+          "public",
+          "private",
+          "protected",
+          "default (package-private)"
+        ],
+        "correct": 1,
+        "explanation": "Fields should be private. Provide public getters/setters only when necessary, following the principle of least privilege."
       }
     ],
     "codingExercise": {
@@ -751,6 +1883,94 @@ const CURRICULUM =
         ],
         "correct": 1,
         "explanation": "Encapsulation lets you change internal representation without breaking callers. It also enables validation and computed properties."
+      },
+      {
+        "question": "Which access modifier makes a member visible only within its own class?",
+        "options": [
+          "public",
+          "protected",
+          "private",
+          "default"
+        ],
+        "correct": 2,
+        "explanation": "private is the most restrictive — accessible only within the declaring class itself."
+      },
+      {
+        "question": "What is the default access level when no modifier is specified?",
+        "options": [
+          "public",
+          "private",
+          "package-private (visible within the same package)",
+          "protected"
+        ],
+        "correct": 2,
+        "explanation": "No modifier means package-private: accessible to all classes in the same package, but not outside."
+      },
+      {
+        "question": "Why should fields generally be private?",
+        "options": [
+          "It's a Java requirement",
+          "To enable validation, maintain invariants, and allow internal representation changes without breaking callers",
+          "Private fields are faster",
+          "To save memory"
+        ],
+        "correct": 1,
+        "explanation": "Private fields with public getters/setters enable controlled access, validation, and future refactoring."
+      },
+      {
+        "question": "Which access level allows subclasses in different packages to access the member?",
+        "options": [
+          "private",
+          "default",
+          "protected",
+          "public"
+        ],
+        "correct": 2,
+        "explanation": "protected allows access within the same package AND by subclasses, even in different packages."
+      },
+      {
+        "question": "What is Bloch's rule from Effective Java Item 15?",
+        "options": [
+          "Make all fields public",
+          "Minimize accessibility — make each class/member as inaccessible as possible",
+          "Always use protected",
+          "Never use private"
+        ],
+        "correct": 1,
+        "explanation": "Start with private and relax only when necessary. You can always open access later; you can never close it without breaking clients."
+      },
+      {
+        "question": "Which access modifier should be used for constants (public static final fields)?",
+        "options": [
+          "private",
+          "default",
+          "public",
+          "They should not exist"
+        ],
+        "correct": 2,
+        "explanation": "Constants are typically public because they're part of the API and immutable (final prevents modification)."
+      },
+      {
+        "question": "What is the main advantage of using getters/setters instead of public fields?",
+        "options": [
+          "They look more professional",
+          "They allow validation, lazy initialization, logging, and internal changes without affecting callers",
+          "They are faster",
+          "Java requires them"
+        ],
+        "correct": 1,
+        "explanation": "Getters/setters provide an abstraction layer — you can change the internal representation without breaking any code that uses the class."
+      },
+      {
+        "question": "Can a subclass access a private field of its parent class?",
+        "options": [
+          "Yes, directly",
+          "No — private fields are not inherited/accessible by subclasses",
+          "Only through reflection",
+          "Only in the same package"
+        ],
+        "correct": 1,
+        "explanation": "private members are visible only within the declaring class. Subclasses must use protected/public getters if available."
       }
     ],
     "codingExercise": {
@@ -800,6 +2020,105 @@ const CURRICULUM =
         ],
         "correct": 1,
         "explanation": "super() invokes the parent constructor. It must be the first statement in the child constructor. If omitted, Java inserts super() automatically."
+      },
+      {
+        "question": "What keyword does a subclass use to call the parent class constructor?",
+        "options": [
+          "this",
+          "super",
+          "parent",
+          "base"
+        ],
+        "correct": 1,
+        "explanation": "super(args) calls the parent constructor and MUST be the first statement in the subclass constructor."
+      },
+      {
+        "question": "Why does Java only support single class inheritance?",
+        "options": [
+          "Performance reasons",
+          "To avoid the diamond problem (ambiguity from multiple parent implementations)",
+          "Historical accident",
+          "It does support multiple inheritance"
+        ],
+        "correct": 1,
+        "explanation": "The diamond problem occurs when two parents define the same method. Java uses interfaces for multiple type inheritance."
+      },
+      {
+        "question": "What does the @Override annotation do?",
+        "options": [
+          "Nothing — it's just a comment",
+          "Tells the compiler to verify this method actually overrides a parent method",
+          "Makes the method run faster",
+          "Hides the method"
+        ],
+        "correct": 1,
+        "explanation": "@Override causes a compile error if the method doesn't actually override anything — catching typos and signature mismatches."
+      },
+      {
+        "question": "Which class is the root of the Java class hierarchy?",
+        "options": [
+          "String",
+          "System",
+          "Object",
+          "Class"
+        ],
+        "correct": 2,
+        "explanation": "java.lang.Object is the ultimate superclass. Every Java class implicitly extends Object if no other parent is specified."
+      },
+      {
+        "question": "What methods does every Java class inherit from Object?",
+        "options": [
+          "Only toString()",
+          "toString(), equals(), hashCode(), getClass(), and more",
+          "Only equals()",
+          "Only clone()"
+        ],
+        "correct": 1,
+        "explanation": "Object provides toString(), equals(Object), hashCode(), getClass(), notify(), notifyAll(), wait(), and the deprecated clone()/finalize()."
+      },
+      {
+        "question": "What is Bloch's Item 18 advice about inheritance?",
+        "options": [
+          "Always use inheritance",
+          "Favor composition over inheritance",
+          "Never use inheritance",
+          "Use only multiple inheritance"
+        ],
+        "correct": 1,
+        "explanation": "Composition (giving a class a private field of another type) is more flexible and less fragile than extending a class."
+      },
+      {
+        "question": "What is the diamond problem in multiple inheritance?",
+        "options": [
+          "A shape with four sides",
+          "Ambiguity when a class inherits from two parents that define the same method",
+          "A memory leak",
+          "A compiler bug"
+        ],
+        "correct": 1,
+        "explanation": "If both parents define doSomething(), which version does the child inherit? Java prevents this by allowing only single class inheritance."
+      },
+      {
+        "question": "Can a final class be extended?",
+        "options": [
+          "Yes",
+          "No — a final class cannot be subclassed",
+          "Only within the same package",
+          "Only if it has no constructors"
+        ],
+        "correct": 1,
+        "explanation": "The final keyword on a class prevents inheritance. String is a final class — you cannot extend it."
+      },
+      {
+        "question": "What is constructor chaining?",
+        "options": [
+          "Creating multiple objects",
+          "One constructor calling another constructor of the same class (this) or parent (super)",
+          "A design pattern",
+          "A type of loop"
+        ],
+        "correct": 1,
+        "explanation": "Every constructor must begin with either this(args) or super(args). This chains constructor calls up the hierarchy."
       }
     ],
     "codingExercise": {
@@ -850,6 +2169,105 @@ const CURRICULUM =
         ],
         "correct": 1,
         "explanation": "Use the most abstract type that provides the needed functionality. Declare as List, not ArrayList. This makes code flexible."
+      },
+      {
+        "question": "Which method is called: Animal a = new Dog(); a.speak(); ?",
+        "options": [
+          "Animal.speak()",
+          "Dog.speak() — the actual object type determines the method at runtime",
+          "Object.speak()",
+          "Compile error"
+        ],
+        "correct": 1,
+        "explanation": "Dynamic method dispatch: the JVM looks at the ACTUAL object type (Dog), not the declared reference type (Animal)."
+      },
+      {
+        "question": "What is upcasting in Java?",
+        "options": [
+          "Converting a parent reference to a child reference",
+          "Treating a subclass object as its superclass type — always safe",
+          "Converting int to double",
+          "A type of exception"
+        ],
+        "correct": 1,
+        "explanation": "Upcasting (subclass → superclass) is implicit and always safe: Animal a = new Dog()."
+      },
+      {
+        "question": "What is downcasting in Java?",
+        "options": [
+          "Converting int to byte",
+          "Casting a superclass reference to a subclass type — requires explicit cast and may throw ClassCastException",
+          "Always safe and automatic",
+          "A deprecated feature"
+        ],
+        "correct": 1,
+        "explanation": "Downcasting is potentially unsafe. Use instanceof before casting, or prefer pattern matching (Java 16+)."
+      },
+      {
+        "question": "What principle says 'program to an interface, not an implementation'?",
+        "options": [
+          "Use abstract classes always",
+          "Declare variables as the most abstract type that meets requirements (e.g., List, not ArrayList)",
+          "Always use concrete classes",
+          "Never use interfaces"
+        ],
+        "correct": 1,
+        "explanation": "Programming to List instead of ArrayList lets you swap implementations (LinkedList, etc.) without changing method signatures."
+      },
+      {
+        "question": "How does pattern matching with instanceof work in Java 16+?",
+        "options": [
+          "It doesn't exist",
+          "Combines type check and variable binding: if (obj instanceof String s) — no cast needed",
+          "It's slower than traditional instanceof",
+          "It only works for primitives"
+        ],
+        "correct": 1,
+        "explanation": "Pattern matching eliminates the separate declaration and cast: if (obj instanceof String s) { /* s is already typed */ }."
+      },
+      {
+        "question": "What is the Open-Closed Principle?",
+        "options": [
+          "Classes should be open for modification and closed for extension",
+          "Modules should be open for extension but closed for modification",
+          "All code should be public",
+          "A principle about file I/O"
+        ],
+        "correct": 1,
+        "explanation": "Code should allow new functionality to be added (open for extension) without changing existing code (closed for modification). Polymorphism enables this."
+      },
+      {
+        "question": "What determines which overridden method is called at runtime?",
+        "options": [
+          "The reference variable's declared type",
+          "The actual type of the object on the heap",
+          "The compiler's choice",
+          "Random selection"
+        ],
+        "correct": 1,
+        "explanation": "The JVM checks the actual object's class and walks the method table. This is dynamic dispatch / late binding."
+      },
+      {
+        "question": "Which keyword prevents a method from being overridden?",
+        "options": [
+          "static",
+          "final",
+          "private",
+          "abstract"
+        ],
+        "correct": 1,
+        "explanation": "final methods cannot be overridden by subclasses. final classes cannot be extended at all."
+      },
+      {
+        "question": "What is the advantage of polymorphic code?",
+        "options": [
+          "It runs faster",
+          "New subclasses can be added without modifying existing code that uses the superclass",
+          "It uses less memory",
+          "It prevents all bugs"
+        ],
+        "correct": 1,
+        "explanation": "Polymorphism enables extensibility — code written against an interface works with any present or future implementation."
       }
     ],
     "codingExercise": {
@@ -899,6 +2317,105 @@ const CURRICULUM =
         ],
         "correct": 3,
         "explanation": "A class can implement as many interfaces as needed. This is Java's answer to multiple inheritance."
+      },
+      {
+        "question": "Can an abstract class be instantiated directly?",
+        "options": [
+          "Yes",
+          "No — it must be subclassed and all abstract methods implemented first",
+          "Only if it has no abstract methods",
+          "Only through reflection"
+        ],
+        "correct": 1,
+        "explanation": "Abstract classes are incomplete by definition. Concrete subclasses must implement all abstract methods before instantiation."
+      },
+      {
+        "question": "How many interfaces can a Java class implement?",
+        "options": [
+          "Only one",
+          "Up to five",
+          "Unlimited",
+          "Only two"
+        ],
+        "correct": 2,
+        "explanation": "A class can implement any number of interfaces. This is Java's solution for multiple inheritance of type."
+      },
+      {
+        "question": "What is a default method in an interface (Java 8+)?",
+        "options": [
+          "A method that is deprecated",
+          "A method with a body in an interface — provides a default implementation that implementors can override",
+          "The first method in an interface",
+          "A private method"
+        ],
+        "correct": 1,
+        "explanation": "Default methods allow adding new methods to interfaces without breaking existing implementations."
+      },
+      {
+        "question": "Can an interface have a constructor?",
+        "options": [
+          "Yes, like any class",
+          "No — interfaces cannot be instantiated and have no constructors",
+          "Only if it has default methods",
+          "Only in Java 17+"
+        ],
+        "correct": 1,
+        "explanation": "Interfaces define contracts, not implementations. They have no state and no constructors."
+      },
+      {
+        "question": "What keyword is used to implement an interface?",
+        "options": [
+          "extends",
+          "implements",
+          "inherits",
+          "uses"
+        ],
+        "correct": 1,
+        "explanation": "A class 'extends' a parent class but 'implements' an interface. Both establish an is-a relationship."
+      },
+      {
+        "question": "What is Bloch's guidance on abstract classes vs interfaces (Item 20)?",
+        "options": [
+          "Always use abstract classes",
+          "Prefer interfaces to abstract classes",
+          "They are identical",
+          "Never use either"
+        ],
+        "correct": 1,
+        "explanation": "Interfaces are more flexible, enable mixins, and allow non-hierarchical type frameworks."
+      },
+      {
+        "question": "Can an abstract class have concrete (non-abstract) methods?",
+        "options": [
+          "No",
+          "Yes — abstract classes can have both abstract and concrete methods",
+          "Only static methods",
+          "Only private methods"
+        ],
+        "correct": 1,
+        "explanation": "Abstract classes can provide partial implementation through concrete methods, which subclasses inherit."
+      },
+      {
+        "question": "What happens if two interfaces define the same default method and a class implements both?",
+        "options": [
+          "It compiles fine",
+          "Compile error — the class must override the method to resolve the ambiguity",
+          "One is chosen randomly",
+          "The program crashes"
+        ],
+        "correct": 1,
+        "explanation": "Java forces the developer to resolve conflicts explicitly by overriding the method in the implementing class."
+      },
+      {
+        "question": "What access modifier are interface methods implicitly?",
+        "options": [
+          "private",
+          "protected",
+          "public",
+          "default"
+        ],
+        "correct": 2,
+        "explanation": "Interface methods are implicitly public. Fields in interfaces are implicitly public static final (constants)."
       }
     ],
     "codingExercise": {
@@ -948,6 +2465,105 @@ const CURRICULUM =
         ],
         "correct": 1,
         "explanation": "try-with-resources correctly handles multiple resources, suppressed exceptions, and guarantees close() even when both the try block and close() throw exceptions."
+      },
+      {
+        "question": "What is the difference between checked and unchecked exceptions?",
+        "options": [
+          "No difference",
+          "Checked exceptions must be caught or declared; unchecked exceptions are not enforced by the compiler",
+          "Checked exceptions are more serious",
+          "Unchecked only happen at runtime"
+        ],
+        "correct": 1,
+        "explanation": "The compiler enforces handling of checked exceptions (IOException, SQLException). Unchecked (RuntimeException subclasses) are not enforced."
+      },
+      {
+        "question": "What does try-with-resources guarantee?",
+        "options": [
+          "Faster execution",
+          "Resources implementing AutoCloseable are automatically closed after the try block, even if exceptions occur",
+          "No exceptions are thrown",
+          "Memory is freed"
+        ],
+        "correct": 1,
+        "explanation": "try-with-resources guarantees close() is called, handling suppressed exceptions correctly. Never manually close resources."
+      },
+      {
+        "question": "Which is NOT a RuntimeException?",
+        "options": [
+          "NullPointerException",
+          "ArrayIndexOutOfBoundsException",
+          "IOException",
+          "IllegalArgumentException"
+        ],
+        "correct": 2,
+        "explanation": "IOException is a checked exception — it must be caught or declared. The others are unchecked RuntimeExceptions."
+      },
+      {
+        "question": "What keyword is used to explicitly raise an exception?",
+        "options": [
+          "catch",
+          "raise",
+          "throw",
+          "throws"
+        ],
+        "correct": 2,
+        "explanation": "throw is used to raise an exception: throw new IllegalArgumentException()."
+      },
+      {
+        "question": "What is the purpose of the 'throws' clause in a method signature?",
+        "options": [
+          "It actually throws the exception",
+          "It declares that the method might throw checked exceptions, requiring callers to handle them",
+          "It catches exceptions",
+          "It is deprecated"
+        ],
+        "correct": 1,
+        "explanation": "throws declares that a method may propagate checked exceptions to its callers, forcing them to handle or re-declare."
+      },
+      {
+        "question": "Should you catch Throwable or Error?",
+        "options": [
+          "Yes, always",
+          "No — Errors represent serious JVM problems (OutOfMemoryError, StackOverflowError) you typically can't recover from",
+          "Only in main()",
+          "Only in testing"
+        ],
+        "correct": 1,
+        "explanation": "Catching Error is almost always wrong — these indicate conditions the application cannot meaningfully recover from."
+      },
+      {
+        "question": "What is exception chaining?",
+        "options": [
+          "Creating multiple exceptions",
+          "Wrapping a lower-level exception in a higher-level one, preserving the original as the 'cause'",
+          "A loop of exceptions",
+          "Catching all exceptions"
+        ],
+        "correct": 1,
+        "explanation": "When translating exceptions, pass the original as the cause: throw new ServiceException(msg, originalIOException). Preserves the full stack trace."
+      },
+      {
+        "question": "What's wrong with an empty catch block?",
+        "options": [
+          "Nothing — it's fine",
+          "It silently swallows exceptions, hiding bugs and making debugging nearly impossible",
+          "It improves performance",
+          "Java doesn't allow it"
+        ],
+        "correct": 1,
+        "explanation": "Swallowing exceptions is one of the worst practices in Java. At minimum, log the exception. Never leave a catch block empty."
+      },
+      {
+        "question": "What is a finally block used for?",
+        "options": [
+          "Code that executes only on success",
+          "Code that ALWAYS executes after try/catch, regardless of exception — used for cleanup",
+          "Code that replaces the catch block",
+          "It is optional and rarely used"
+        ],
+        "correct": 1,
+        "explanation": "finally runs regardless of whether an exception occurred. However, try-with-resources is preferred for resource cleanup."
       }
     ],
     "codingExercise": {
@@ -997,6 +2613,116 @@ const CURRICULUM =
         ],
         "correct": 1,
         "explanation": "HashMap uses hashCode() to find the bucket and equals() to find the exact key. If two equal objects have different hashCodes, HashMap literally cannot find them."
+      },
+      {
+        "question": "What is the default load factor of HashMap?",
+        "options": [
+          "0.5",
+          "0.75",
+          "1.0",
+          "0.25"
+        ],
+        "correct": 1,
+        "explanation": "When the map is 75% full, it resizes (doubles bucket array). This balances memory usage with collision probability."
+      },
+      {
+        "question": "Which collection allows duplicate elements?",
+        "options": [
+          "Set",
+          "List",
+          "Map keys",
+          "TreeSet"
+        ],
+        "correct": 1,
+        "explanation": "List (ArrayList, LinkedList) preserves insertion order and allows duplicates. Set enforces uniqueness."
+      },
+      {
+        "question": "What happens if hashCode() returns different values for two equal objects?",
+        "options": [
+          "Nothing — it works fine",
+          "HashMap/HashSet will behave incorrectly — equal objects might not be found",
+          "Compile error",
+          "Runtime exception"
+        ],
+        "correct": 1,
+        "explanation": "The contract: equal objects MUST have equal hash codes. Violating this corrupts hash-based collections silently."
+      },
+      {
+        "question": "What is the time complexity of ArrayList.get(index)?",
+        "options": [
+          "O(1)",
+          "O(log n)",
+          "O(n)",
+          "O(n^2)"
+        ],
+        "correct": 0,
+        "explanation": "ArrayList provides constant-time random access via direct index calculation — same as arrays."
+      },
+      {
+        "question": "Which collection stores elements in sorted order?",
+        "options": [
+          "HashSet",
+          "ArrayList",
+          "TreeSet",
+          "LinkedList"
+        ],
+        "correct": 2,
+        "explanation": "TreeSet (and TreeMap) use a red-black tree to maintain elements in sorted order, providing O(log n) operations."
+      },
+      {
+        "question": "What interface do both ArrayList and LinkedList implement?",
+        "options": [
+          "Collection only",
+          "List",
+          "Set",
+          "Map"
+        ],
+        "correct": 1,
+        "explanation": "Both implement the List interface, enabling polymorphic use: List<String> list = new ArrayList<>()."
+      },
+      {
+        "question": "What is the difference between HashMap and LinkedHashMap?",
+        "options": [
+          "No difference",
+          "LinkedHashMap maintains insertion order; HashMap does not guarantee any order",
+          "LinkedHashMap is faster",
+          "HashMap is sorted"
+        ],
+        "correct": 1,
+        "explanation": "LinkedHashMap adds a doubly-linked list to track insertion order at a small memory cost."
+      },
+      {
+        "question": "What is the initial capacity of HashMap by default?",
+        "options": [
+          "8",
+          "16",
+          "32",
+          "10"
+        ],
+        "correct": 1,
+        "explanation": "Default initial capacity is 16 buckets. This doubles when the load factor is exceeded."
+      },
+      {
+        "question": "Which of the following is NOT a valid way to iterate over a List?",
+        "options": [
+          "Enhanced for-each loop",
+          "Traditional for loop with index",
+          "Iterator",
+          "Using a Map.forEach()"
+        ],
+        "correct": 3,
+        "explanation": "Map.forEach() works on Maps, not Lists. Lists can be iterated with for-each, indexed for, Iterator, or stream()."
+      },
+      {
+        "question": "When should LinkedList be preferred over ArrayList?",
+        "options": [
+          "For random access",
+          "For frequent insertions/removals at the beginning or middle, especially with large datasets",
+          "Always",
+          "When memory is not a concern"
+        ],
+        "correct": 1,
+        "explanation": "LinkedList provides O(1) insertion at ends. However, ArrayList is faster for most use cases due to cache locality."
       }
     ],
     "codingExercise": {
@@ -1045,6 +2771,105 @@ const CURRICULUM =
         ],
         "correct": 1,
         "explanation": "Generics exist only at compile time. The JVM sees raw types. You cannot do instanceof List<String> or new T() — type info is gone at runtime."
+      },
+      {
+        "question": "What is the primary benefit of generics in Java?",
+        "options": [
+          "Faster code execution",
+          "Compile-time type safety — catching type errors before runtime",
+          "Less memory usage",
+          "Automatic code generation"
+        ],
+        "correct": 1,
+        "explanation": "Generics move type errors from runtime (ClassCastException) to compile time, where they're cheaper to fix."
+      },
+      {
+        "question": "What does PECS stand for in the context of generics?",
+        "options": [
+          "Nothing meaningful",
+          "Producer Extends, Consumer Super — a mnemonic for wildcard usage",
+          "Public Extends Class Super",
+          "Parent Extends Child Specifier"
+        ],
+        "correct": 1,
+        "explanation": "PECS: use ? extends T for reading (producing), ? super T for writing (consuming). From Bloch's Effective Java Item 31."
+      },
+      {
+        "question": "What is type erasure in Java?",
+        "options": [
+          "A compiler bug",
+          "Removal of generic type information at runtime for backward compatibility with pre-generics code",
+          "A performance optimization",
+          "A way to add types at runtime"
+        ],
+        "correct": 1,
+        "explanation": "Generic type information exists only at compile time. At runtime, List<String> and List<Integer> are both just List."
+      },
+      {
+        "question": "Which of the following is a consequence of type erasure?",
+        "options": [
+          "You can create arrays of generic types",
+          "You cannot do instanceof List<String> — type info is gone at runtime",
+          "Generics work with primitives",
+          "Type erasure improves runtime performance"
+        ],
+        "correct": 1,
+        "explanation": "Type erasure means runtime type checks on parameterized types are impossible. You can check instanceof List (raw), but not List<String>."
+      },
+      {
+        "question": "What is a bounded type parameter?",
+        "options": [
+          "A parameter with no restrictions",
+          "A type parameter restricted to a specific type or its subtypes: <T extends Number>",
+          "A parameter that can be null",
+          "A parameter with a default value"
+        ],
+        "correct": 1,
+        "explanation": "Bounded type parameters constrain what types can be used: <T extends Comparable<T>> ensures T can be compared."
+      },
+      {
+        "question": "Why can't you use primitives with generics (e.g., List<int>)?",
+        "options": [
+          "It is a design oversight",
+          "Generics work via type erasure, and primitives are not Objects — use wrapper classes (List<Integer>)",
+          "It would be too slow",
+          "Java doesn't support this syntax"
+        ],
+        "correct": 1,
+        "explanation": "Type parameters must be reference types because generics are implemented via type erasure, which depends on Object."
+      },
+      {
+        "question": "What wildcard would you use for a method that only READS from a List of numbers?",
+        "options": [
+          "List<Number>",
+          "List<? extends Number>",
+          "List<? super Number>",
+          "List<?>"
+        ],
+        "correct": 1,
+        "explanation": "? extends Number allows reading as Number from List<Integer>, List<Double>, etc. — producer of Number values."
+      },
+      {
+        "question": "What wildcard would you use for a method that only WRITES Integers to a List?",
+        "options": [
+          "List<Integer>",
+          "List<? extends Integer>",
+          "List<? super Integer>",
+          "List<?>"
+        ],
+        "correct": 2,
+        "explanation": "? super Integer allows adding Integer to List<Integer>, List<Number>, List<Object> — consumer of Integer values."
+      },
+      {
+        "question": "What is a raw type?",
+        "options": [
+          "A generic type used without type parameters (e.g., List instead of List<String>)",
+          "A primitive type",
+          "A type with no methods",
+          "A broken type"
+        ],
+        "correct": 0,
+        "explanation": "Raw types exist for backward compatibility. Don't use them in new code — they bypass generic type safety."
       }
     ],
     "codingExercise": {
@@ -1095,6 +2920,105 @@ const CURRICULUM =
         ],
         "correct": 0,
         "explanation": "java.nio.file.Path (Java 7+) is the modern path abstraction with better error messages, immutability, and richer Files helper methods."
+      },
+      {
+        "question": "Which class is the modern replacement for java.io.File?",
+        "options": [
+          "java.nio.file.Path",
+          "java.util.File",
+          "java.io.FileStream",
+          "No replacement exists"
+        ],
+        "correct": 0,
+        "explanation": "Path (java.nio.file, Java 7+) is immutable, has better error messages, and integrates with the Files utility class."
+      },
+      {
+        "question": "Why must you always use try-with-resources for file I/O?",
+        "options": [
+          "It's faster",
+          "File handles are limited OS resources — try-with-resources guarantees close() even if exceptions occur",
+          "It's required by the compiler",
+          "To prevent memory leaks"
+        ],
+        "correct": 1,
+        "explanation": "Leaking file handles causes 'Too many open files' errors that crash applications. try-with-resources prevents this."
+      },
+      {
+        "question": "What does Files.readString() do?",
+        "options": [
+          "Reads a file character by character",
+          "Reads the entire file content into a single String",
+          "Reads only the first line",
+          "Counts characters in a file"
+        ],
+        "correct": 1,
+        "explanation": "Files.readString(Path) (Java 11+) loads the entire file into memory. Use BufferedReader for large files."
+      },
+      {
+        "question": "Why is buffered reading preferred for large files?",
+        "options": [
+          "It's simpler to write",
+          "It processes the file line-by-line with constant memory usage, avoiding OutOfMemoryError",
+          "It's faster for all file sizes",
+          "Buffered reading is deprecated"
+        ],
+        "correct": 1,
+        "explanation": "BufferedReader processes one line at a time. Files.readString() loads everything into memory — fatal for large files."
+      },
+      {
+        "question": "What does the Files.walk() method do?",
+        "options": [
+          "Opens a file for reading",
+          "Lazily traverses a directory tree, returning a Stream<Path>",
+          "Copies files",
+          "Deletes directories"
+        ],
+        "correct": 1,
+        "explanation": "Files.walk() provides a lazy stream of all files/directories under a given path. Use with try-with-resources."
+      },
+      {
+        "question": "What exception is commonly thrown by file operations?",
+        "options": [
+          "NullPointerException",
+          "IOException",
+          "ClassNotFoundException",
+          "RuntimeException"
+        ],
+        "correct": 1,
+        "explanation": "IOException is the parent of most file-related exceptions (file not found, access denied, disk full, etc.)."
+      },
+      {
+        "question": "What is the difference between absolute and relative paths?",
+        "options": [
+          "No difference",
+          "Absolute starts from root (/ or C:\\); relative is relative to the current working directory",
+          "Absolute paths are shorter",
+          "Relative paths only work on Windows"
+        ],
+        "correct": 1,
+        "explanation": "Absolute paths specify the full location. Relative paths are resolved against the program's working directory."
+      },
+      {
+        "question": "Which method creates all non-existent parent directories?",
+        "options": [
+          "Files.createDirectory()",
+          "Files.createDirectories()",
+          "Files.mkdir()",
+          "Files.makeDirs()"
+        ],
+        "correct": 1,
+        "explanation": "Files.createDirectories() is like 'mkdir -p' — it creates all intermediate directories if they don't exist."
+      },
+      {
+        "question": "How should you handle the case where a file might not exist?",
+        "options": [
+          "Assume it exists",
+          "Check Files.exists() or catch NoSuchFileException",
+          "Ignore the error",
+          "Use a default file always"
+        ],
+        "correct": 1,
+        "explanation": "Check Files.exists() or Files.isReadable() before reading, or catch NoSuchFileException specifically."
       }
     ],
     "codingExercise": {
@@ -1144,6 +3068,105 @@ const CURRICULUM =
         ],
         "correct": 1,
         "explanation": "Java enums are full-fledged classes. They can have private constructors, instance fields, methods, and implement interfaces."
+      },
+      {
+        "question": "How are Java enums different from C/C++ enums?",
+        "options": [
+          "They are identical",
+          "Java enums are full classes with fields, methods, and constructors — not just integer constants",
+          "Java enums are slower",
+          "Java doesn't have enums"
+        ],
+        "correct": 1,
+        "explanation": "Java enums are singleton objects that can have fields, methods, constructors, and implement interfaces."
+      },
+      {
+        "question": "What does a Java record automatically provide?",
+        "options": [
+          "Only a toString() method",
+          "Constructor, accessors, equals(), hashCode(), and toString() — all auto-generated",
+          "Only getters",
+          "Just a shorter class syntax"
+        ],
+        "correct": 1,
+        "explanation": "Records eliminate ~100 lines of boilerplate. All component accessors and Object methods are auto-generated."
+      },
+      {
+        "question": "Can an enum have a constructor?",
+        "options": [
+          "No",
+          "Yes — but only private constructors",
+          "Yes — public constructors",
+          "Only in Java 17+"
+        ],
+        "correct": 1,
+        "explanation": "Enum constructors are implicitly private. They're called automatically for each enum constant."
+      },
+      {
+        "question": "Can a record extend another class?",
+        "options": [
+          "Yes",
+          "No — records implicitly extend java.lang.Record and cannot extend other classes",
+          "Only abstract classes",
+          "Only if all fields are final"
+        ],
+        "correct": 1,
+        "explanation": "Records have a fixed superclass (java.lang.Record). They can implement interfaces but not extend other classes."
+      },
+      {
+        "question": "What method does the enum values() method return?",
+        "options": [
+          "A single enum value",
+          "An array of all enum constants in declaration order",
+          "The first enum constant",
+          "The ordinal number"
+        ],
+        "correct": 1,
+        "explanation": "DayOfWeek.values() returns [MONDAY, TUESDAY, ..., SUNDAY] in the order they were declared."
+      },
+      {
+        "question": "What is a compact constructor in a record?",
+        "options": [
+          "A constructor without parameters",
+          "A constructor that omits the parameter list and explicit field assignments — validation only",
+          "A deprecated feature",
+          "A constructor with only one parameter"
+        ],
+        "correct": 1,
+        "explanation": "Compact constructors validate invariants. Field assignments are implicit after the constructor body."
+      },
+      {
+        "question": "When should you use an enum vs constants (public static final int)?",
+        "options": [
+          "They are identical",
+          "Always prefer enums — they provide type safety, behavior, and prevent mixing incompatible constants",
+          "Never use enums",
+          "Only for large sets"
+        ],
+        "correct": 1,
+        "explanation": "Enums provide compile-time type safety. You can't accidentally pass a Day value where a Month is expected."
+      },
+      {
+        "question": "Can a record have additional methods beyond the auto-generated ones?",
+        "options": [
+          "No",
+          "Yes — records can have instance methods, static methods, and static fields",
+          "Only static methods",
+          "Only private methods"
+        ],
+        "correct": 1,
+        "explanation": "Records can define additional methods for derived computations, formatting, conversions, etc."
+      },
+      {
+        "question": "What happens if you try to assign a value to a record's component field?",
+        "options": [
+          "It works normally",
+          "Compile error — record fields are implicitly final",
+          "Runtime exception",
+          "The value is ignored"
+        ],
+        "correct": 1,
+        "explanation": "Records are immutable by design. All component fields are final and cannot be modified after construction."
       }
     ],
     "codingExercise": {
@@ -1193,6 +3216,105 @@ const CURRICULUM =
         ],
         "correct": 1,
         "explanation": "Method references are syntactic sugar for lambdas that simply call an existing method. Preferred when applicable for readability."
+      },
+      {
+        "question": "What is a lambda expression in Java?",
+        "options": [
+          "A type of loop",
+          "A concise way to represent an anonymous function — parameters, arrow, body",
+          "A special variable",
+          "A class declaration"
+        ],
+        "correct": 1,
+        "explanation": "Lambdas enable passing behavior as arguments: (a, b) -> a + b. They implement functional interfaces."
+      },
+      {
+        "question": "What is a functional interface?",
+        "options": [
+          "Any interface",
+          "An interface with exactly one abstract method",
+          "An interface with no methods",
+          "A deprecated interface type"
+        ],
+        "correct": 1,
+        "explanation": "A functional interface has exactly one abstract method. @FunctionalInterface annotation enforces this contract."
+      },
+      {
+        "question": "Which functional interface takes a value and returns a boolean?",
+        "options": [
+          "Function<T,R>",
+          "Consumer<T>",
+          "Predicate<T>",
+          "Supplier<T>"
+        ],
+        "correct": 2,
+        "explanation": "Predicate<T> has method test(T) returning boolean. Used for filtering, validation, and conditional logic."
+      },
+      {
+        "question": "Which functional interface takes no input and returns a value?",
+        "options": [
+          "Consumer<T>",
+          "Supplier<T>",
+          "Function<T,R>",
+          "Predicate<T>"
+        ],
+        "correct": 1,
+        "explanation": "Supplier<T> has method get() returning T. Used for lazy creation, factories, and deferred computation."
+      },
+      {
+        "question": "What is a method reference?",
+        "options": [
+          "A deprecated feature",
+          "Shorthand for a lambda that calls an existing method: String::toUpperCase",
+          "A way to declare methods",
+          "A type of interface"
+        ],
+        "correct": 1,
+        "explanation": "Method references are cleaner than equivalent lambdas: s -> s.toUpperCase() becomes String::toUpperCase."
+      },
+      {
+        "question": "What does 'this' refer to inside a lambda?",
+        "options": [
+          "The lambda itself",
+          "The enclosing class instance (unlike anonymous classes where 'this' refers to the anonymous class)",
+          "Null",
+          "The functional interface"
+        ],
+        "correct": 1,
+        "explanation": "Lambdas are not objects themselves — 'this' refers to the enclosing instance, not the lambda."
+      },
+      {
+        "question": "Which functional interface accepts a value and returns nothing (void)?",
+        "options": [
+          "Supplier<T>",
+          "Function<T,R>",
+          "Consumer<T>",
+          "Predicate<T>"
+        ],
+        "correct": 2,
+        "explanation": "Consumer<T> has method accept(T) returning void. Used for side effects: printing, logging, storing values."
+      },
+      {
+        "question": "Can a lambda access local variables from the enclosing method?",
+        "options": [
+          "No",
+          "Yes — but only if they are final or effectively final",
+          "Yes — any local variable",
+          "Only static variables"
+        ],
+        "correct": 1,
+        "explanation": "Lambdas can capture effectively final local variables — those that are never reassigned after initialization."
+      },
+      {
+        "question": "What is the advantage of using standard functional interfaces from java.util.function?",
+        "options": [
+          "They are faster",
+          "Interoperability — your code works with the entire Java ecosystem of stream, optional, and library methods",
+          "They use less memory",
+          "No advantage"
+        ],
+        "correct": 1,
+        "explanation": "Using Predicate, Function, Consumer, Supplier makes your APIs compatible with streams, Optional, and third-party libraries."
       }
     ],
     "codingExercise": {
@@ -1243,6 +3365,105 @@ const CURRICULUM =
         ],
         "correct": 1,
         "explanation": "After a terminal operation, the stream is consumed. Create a new stream from the source for another pass."
+      },
+      {
+        "question": "When does a stream pipeline actually execute?",
+        "options": [
+          "Immediately on creation",
+          "When a terminal operation is called — intermediate operations are lazy",
+          "At compile time",
+          "When the JVM starts"
+        ],
+        "correct": 1,
+        "explanation": "Intermediate operations (filter, map) build a pipeline. Only terminal operations (collect, forEach, count) trigger execution."
+      },
+      {
+        "question": "Can a stream be reused after a terminal operation?",
+        "options": [
+          "Yes",
+          "No — streams are single-use and consumed after terminal operations",
+          "Only parallel streams",
+          "Only empty streams"
+        ],
+        "correct": 1,
+        "explanation": "After a terminal operation, the stream is consumed. Create a new stream from the source for another pass."
+      },
+      {
+        "question": "What does Collectors.groupingBy() do?",
+        "options": [
+          "Sorts elements",
+          "Classifies elements into groups, returning a Map<K, List<V>> — like SQL GROUP BY",
+          "Filters elements",
+          "Counts elements"
+        ],
+        "correct": 1,
+        "explanation": "groupingBy is a powerful collector that categorizes stream elements by a classifier function."
+      },
+      {
+        "question": "What is the difference between intermediate and terminal operations?",
+        "options": [
+          "No difference",
+          "Intermediate operations return a Stream (lazy); terminal operations return a result or produce a side effect",
+          "Intermediate operations are faster",
+          "Terminal operations are optional"
+        ],
+        "correct": 1,
+        "explanation": "filter, map, sorted are intermediate (lazy). collect, forEach, count, findFirst are terminal (trigger execution)."
+      },
+      {
+        "question": "Which terminal operation returns the first element of a stream?",
+        "options": [
+          "collect()",
+          "reduce()",
+          "findFirst()",
+          "forEach()"
+        ],
+        "correct": 2,
+        "explanation": "findFirst() returns Optional<T> with the first element. findAny() returns any element (useful for parallel streams)."
+      },
+      {
+        "question": "When should you NOT use streams?",
+        "options": [
+          "For all collection processing",
+          "When you need to modify local variables, handle checked exceptions in lambdas, or when a for-loop is clearer",
+          "Streams should always replace loops",
+          "Only for small collections"
+        ],
+        "correct": 1,
+        "explanation": "Streams shouldn't mutate state, struggle with checked exceptions, and can be less readable than a simple for-loop in some cases."
+      },
+      {
+        "question": "What does .filter() do in a stream?",
+        "options": [
+          "Sorts elements",
+          "Keeps only elements matching a Predicate",
+          "Transforms elements",
+          "Counts elements"
+        ],
+        "correct": 1,
+        "explanation": "filter(Predicate) is an intermediate operation that retains only elements satisfying the condition."
+      },
+      {
+        "question": "What does .map() do in a stream?",
+        "options": [
+          "Removes elements",
+          "Transforms each element using a Function, producing a stream of transformed values",
+          "Sorts elements",
+          "Filters elements"
+        ],
+        "correct": 1,
+        "explanation": "map(Function<T,R>) applies a transformation to each element, producing a Stream<R>."
+      },
+      {
+        "question": "How do you convert a Stream to a List?",
+        "options": [
+          "stream.asList()",
+          "stream.collect(Collectors.toList()) or stream.toList() (Java 16+)",
+          "stream.toArray()",
+          "Automatically"
+        ],
+        "correct": 1,
+        "explanation": "collect(Collectors.toList()) is the classic approach. Java 16+ added stream.toList() returning an immutable list."
       }
     ],
     "codingExercise": {
@@ -1293,6 +3514,105 @@ const CURRICULUM =
         ],
         "correct": 1,
         "explanation": "Calling get() on empty Optional throws NoSuchElementException — just as bad as NPE. Use orElse, orElseGet, orElseThrow, or ifPresent instead."
+      },
+      {
+        "question": "Who called null references the 'billion-dollar mistake'?",
+        "options": [
+          "Bill Gates",
+          "Tony Hoare (the inventor of null references in 1965)",
+          "James Gosling",
+          "Linus Torvalds"
+        ],
+        "correct": 1,
+        "explanation": "Tony Hoare introduced null to ALGOL W in 1965. He later apologized, calling it his billion-dollar mistake."
+      },
+      {
+        "question": "When should you use orElseGet() instead of orElse()?",
+        "options": [
+          "They are identical",
+          "When the default value is expensive to compute — orElseGet is lazy, orElse is eager",
+          "Only for strings",
+          "Never"
+        ],
+        "correct": 1,
+        "explanation": "orElse() always evaluates its argument. orElseGet(Supplier) only evaluates when Optional is empty — use for expensive defaults."
+      },
+      {
+        "question": "Why is Optional.get() discouraged?",
+        "options": [
+          "It's slow",
+          "It throws NoSuchElementException if empty — the same class of bug as NPE. Use orElse/orElseThrow instead.",
+          "It's deprecated",
+          "It only works in streams"
+        ],
+        "correct": 1,
+        "explanation": "get() without checking defeats the purpose of Optional. orElseThrow() at least gives a meaningful exception."
+      },
+      {
+        "question": "What is the correct use of Optional?",
+        "options": [
+          "As a field type",
+          "As a return type for methods that may not return a value",
+          "As a method parameter type",
+          "As a replacement for all null checks"
+        ],
+        "correct": 1,
+        "explanation": "Optional is designed as a return type to signal 'no result possible.' It should NOT be used as a field or parameter."
+      },
+      {
+        "question": "What does flatMap() do on an Optional?",
+        "options": [
+          "Transforms the value",
+          "Flattens Optional<Optional<T>> into Optional<T> — used when a transformation itself returns Optional",
+          "Maps to a boolean",
+          "Deletes the value"
+        ],
+        "correct": 1,
+        "explanation": "flatMap prevents nested Optionals. If findEmployee returns Optional, .flatMap(Employee::department) chains without nesting."
+      },
+      {
+        "question": "How do you create an Optional that may contain null?",
+        "options": [
+          "Optional.of(value)",
+          "Optional.ofNullable(value)",
+          "Optional.empty()",
+          "new Optional(value)"
+        ],
+        "correct": 1,
+        "explanation": "ofNullable() returns Optional.empty() if the value is null. of() throws NPE if the value is null — use only when certain."
+      },
+      {
+        "question": "Should Optional be used as a method parameter?",
+        "options": [
+          "Yes",
+          "No — it forces callers to wrap values unnecessarily. Overload the method instead.",
+          "Only for String parameters",
+          "Only in abstract classes"
+        ],
+        "correct": 1,
+        "explanation": "Bloch and the JDK team advise against Optional parameters. Overload the method (with and without the parameter) instead."
+      },
+      {
+        "question": "What does Optional.filter() do?",
+        "options": [
+          "Removes elements from a list",
+          "Returns the Optional if the predicate matches, Optional.empty() otherwise",
+          "Sorts the Optional",
+          "Transforms the value"
+        ],
+        "correct": 1,
+        "explanation": "filter(Predicate) conditionally retains the value: opt.filter(s -> s.length() > 3)."
+      },
+      {
+        "question": "What is the key insight behind Optional?",
+        "options": [
+          "It's faster than null checks",
+          "It makes the possibility of absence explicit in the type system, forcing callers to handle it",
+          "It eliminates all NullPointerExceptions",
+          "It replaces error handling"
+        ],
+        "correct": 1,
+        "explanation": "Optional communicates 'this method may not return a result' through the type signature. Callers can't ignore it."
       }
     ],
     "codingExercise": {
