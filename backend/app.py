@@ -80,7 +80,7 @@ def save_quiz_answers(topic_id):
 @app.route('/api/resources/<int:topic_id>', methods=['GET'])
 def get_resources(topic_id):
     rows = query(
-        'SELECT id, resource_type, title, url, created_at FROM topic_resources '
+        'SELECT id, resource_type, title, author, url, created_at FROM topic_resources '
         'WHERE user_id = %s AND topic_id = %s ORDER BY created_at DESC',
         (DEFAULT_USER, topic_id)
     )
@@ -90,6 +90,7 @@ def get_resources(topic_id):
             'id': r['id'],
             'type': r['resource_type'],
             'title': r['title'],
+            'author': r['author'] or '',
             'url': r['url'],
             'addedAt': r['created_at'].isoformat() if r['created_at'] else None
         })
@@ -100,9 +101,9 @@ def get_resources(topic_id):
 def add_resource(topic_id):
     data = request.get_json()
     rid = query(
-        'INSERT INTO topic_resources (user_id, topic_id, resource_type, title, url) '
-        'VALUES (%s, %s, %s, %s, %s)',
-        (DEFAULT_USER, topic_id, data['type'], data['title'], data.get('url', '')),
+        'INSERT INTO topic_resources (user_id, topic_id, resource_type, title, author, url) '
+        'VALUES (%s, %s, %s, %s, %s, %s)',
+        (DEFAULT_USER, topic_id, data['type'], data['title'], data.get('author', ''), data.get('url', '')),
         fetch=False
     )
     return jsonify({'status': 'ok', 'id': rid, 'topicId': topic_id})

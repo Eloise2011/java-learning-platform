@@ -2012,26 +2012,29 @@ function saveResources() {
     localStorage.setItem(RESOURCES_KEY, JSON.stringify(topicResources));
 }
 
-function addResource(topicId, type, title, url) {
+function addResource(topicId, type, title, author, url) {
     if (!topicResources[topicId]) topicResources[topicId] = [];
     topicResources[topicId].push({
         type: type,
         title: title.trim(),
+        author: author.trim(),
         url: url.trim(),
         addedAt: new Date().toISOString()
     });
     saveResources();
     // Sync to server
-    apiFetch('/resources/' + topicId, { method: 'POST', headers: {'Content-Type':'application/json'}, body: JSON.stringify({type: type, title: title.trim(), url: url.trim()}) }).catch(function(){});
+    apiFetch('/resources/' + topicId, { method: 'POST', headers: {'Content-Type':'application/json'}, body: JSON.stringify({type: type, title: title.trim(), author: author.trim(), url: url.trim()}) }).catch(function(){});
     var topic = getTopicById(topicId);
     if (topic) renderExtraTab(topic);
     showToast('Resource added: ' + title, 'success');
 }
 
 function removeResource(topicId, index) {
-    if (topicResources[topicId]) {
+    if (topicResources[topicId] && topicResources[topicId][index]) {
+        var resId = topicResources[topicId][index].id;
         topicResources[topicId].splice(index, 1);
         saveResources();
+        if (resId) apiFetch('/resources/' + resId, { method: 'DELETE' }).catch(function(){});
         var topic = getTopicById(topicId);
         if (topic) renderExtraTab(topic);
         showToast('Resource removed', 'warn');
@@ -2054,6 +2057,7 @@ function renderExtraTab(topic) {
     html += '<option value="video">🎬 Video</option>';
     html += '</select>';
     html += '<input type="text" id="res-title-' + topic.id + '" placeholder="Title/Description" style="min-width:200px">';
+    html += '<input type="text" id="res-author-' + topic.id + '" placeholder="Author (optional)" style="min-width:150px">';
     html += '<input type="text" id="res-url-' + topic.id + '" placeholder="URL (https://...)" style="min-width:250px">';
     html += '<button onclick="submitResource(' + topic.id + ')">+ Add</button>';
     html += '</div>';
@@ -2070,10 +2074,12 @@ function renderExtraTab(topic) {
             var icon = {book: '📖', link: '🔗', podcast: '🎙️', video: '🎬'}[r.type] || '📎';
             html += '<li>';
             html += '<span class="res-type ' + typeClass + '">' + icon + ' ' + r.type + '</span>';
+            var label = escapeHTML(r.title);
+            if (r.author) { label += ' <span style="color:var(--text3);font-size:0.75rem;font-weight:400">by ' + escapeHTML(r.author) + '</span>'; }
             if (r.url) {
-                html += '<a href="' + escapeHTML(r.url) + '" target="_blank" rel="noopener">' + escapeHTML(r.title) + '</a>';
+                html += '<a href="' + escapeHTML(r.url) + '" target="_blank" rel="noopener">' + label + '</a>';
             } else {
-                html += '<span style="flex:1">' + escapeHTML(r.title) + '</span>';
+                html += '<span style="flex:1">' + label + '</span>';
             }
             html += '<button class="res-del" onclick="removeResource(' + topic.id + ', ' + i + ')" title="Remove">✕</button>';
             html += '</li>';
@@ -2087,11 +2093,13 @@ function renderExtraTab(topic) {
 function submitResource(topicId) {
     var typeEl = document.getElementById('res-type-' + topicId);
     var titleEl = document.getElementById('res-title-' + topicId);
+    var authorEl = document.getElementById('res-author-' + topicId);
     var urlEl = document.getElementById('res-url-' + topicId);
     if (!typeEl || !titleEl) return;
 
     var type = typeEl.value;
     var title = titleEl.value.trim();
+    var author = (authorEl ? authorEl.value.trim() : '');
     var url = (urlEl ? urlEl.value.trim() : '');
 
     if (!title) {
@@ -2102,10 +2110,11 @@ function submitResource(topicId) {
         try { var pu = new URL(url); if (pu.protocol !== 'http:' && pu.protocol !== 'https:') { showToast('URL must start with http:// or https://', 'warn'); return; } }
         catch(e) { showToast('Please enter a valid URL', 'warn'); return; }
     }
-    addResource(topicId, type, title, url);
+    addResource(topicId, type, title, author, url);
 
     // Clear inputs
     titleEl.value = '';
+    if (authorEl) authorEl.value = '';
     if (urlEl) urlEl.value = '';
 }
 
