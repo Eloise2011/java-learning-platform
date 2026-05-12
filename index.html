@@ -1352,6 +1352,8 @@ const STATE = {
 
 // ===== LOCAL STORAGE =====
 const STORAGE_KEY = 'java-learning-platform-progress';
+const QUIZ_STORAGE_KEY = 'java-learning-quiz-answers';
+var quizAnswers = {};
 
 function loadProgress() {
     try {
@@ -1368,6 +1370,21 @@ function loadProgress() {
 function saveProgress() {
     const data = { completedTopics: Array.from(STATE.completedTopics) };
     localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+}
+
+function loadQuizAnswers() {
+    try { var r = localStorage.getItem(QUIZ_STORAGE_KEY); if (r) quizAnswers = JSON.parse(r); } catch(e) { quizAnswers = {}; }
+}
+function saveQuizAnswers() {
+    localStorage.setItem(QUIZ_STORAGE_KEY, JSON.stringify(quizAnswers));
+}
+function saveQuizAnswer(topicId, qi, selected, correct) {
+    if (!quizAnswers[topicId]) quizAnswers[topicId] = {};
+    quizAnswers[topicId][qi] = { selectedOption: selected, isCorrect: correct };
+    saveQuizAnswers();
+}
+function getQuizAnswer(topicId, qi) {
+    return (quizAnswers[topicId] && quizAnswers[topicId][qi] !== undefined) ? quizAnswers[topicId][qi] : null;
 }
 
 // ===== HELPER: group topics by phase =====
@@ -1616,15 +1633,28 @@ function renderPractice(topic) {
         html += '<h3>📝 Quiz: ' + escapeHTML(topic.title) + '</h3>';
         for (var qi = 0; qi < topic.quiz.length; qi++) {
             var q = topic.quiz[qi];
+            var prev = getQuizAnswer(topic.id, qi);
             html += '<div class="quiz-question" id="quiz-' + topic.id + '-' + qi + '">';
             html += '<h4>Q' + (qi + 1) + '. ' + escapeHTML(q.question) + '</h4>';
             for (var oi = 0; oi < q.options.length; oi++) {
-                html += '<button class="quiz-option" onclick="checkAnswer(' + topic.id + ',' + qi + ',' + oi + ')"';
-                html += ' data-topic="' + topic.id + '" data-q="' + qi + '" data-o="' + oi + '">';
+                var cls = 'quiz-option';
+                var dis = '';
+                if (prev) {
+                    dis = ' disabled';
+                    if (oi === q.correct) cls += ' correct';
+                    else if (oi === prev.selectedOption && !prev.isCorrect) cls += ' wrong';
+                }
+                html += '<button class="' + cls + '"' + dis + ' onclick="checkAnswer(' + topic.id + ',' + qi + ',' + oi + ')" data-topic="' + topic.id + '" data-q="' + qi + '" data-o="' + oi + '">';
                 html += escapeHTML(q.options[oi]);
                 html += '</button>';
             }
-            html += '<div class="quiz-feedback" id="quiz-fb-' + topic.id + '-' + qi + '"></div>';
+            html += '<div class="quiz-feedback" id="quiz-fb-' + topic.id + '-' + qi + '"';
+            if (prev) {
+                html += ' class="show ' + (prev.isCorrect ? 'correct' : 'wrong') + '"';
+                html += '>' + (prev.isCorrect ? '✓ Correct! ' : '✗ Incorrect. ') + escapeHTML(q.explanation) + '</div>';
+            } else {
+                html += '></div>';
+            }
             html += '</div>';
         }
     } else {
@@ -1752,6 +1782,8 @@ function checkAnswer(topicId, questionIndex, selectedOption) {
         }
     }
 
+    saveQuizAnswer(topicId, questionIndex, selectedOption, isCorrect);
+    saveQuizAnswer(topicId, questionIndex, selectedOption, isCorrect);
     var fb = document.getElementById('quiz-fb-' + topicId + '-' + questionIndex);
     if (fb) {
         fb.textContent = (isCorrect ? '✓ Correct! ' : '✗ Incorrect. ') + q.explanation;
@@ -1766,6 +1798,7 @@ function checkAnswer(topicId, questionIndex, selectedOption) {
         for (var k = 0; k < os.length; k++) { os[k].disabled = false; os[k].classList.remove('correct', 'wrong'); }
         fb.classList.remove('show', 'correct', 'wrong'); fb.textContent = '';
         if (rb.parentNode) rb.remove();
+        if (quizAnswers[topicId]) { delete quizAnswers[topicId][questionIndex]; saveQuizAnswers(); }
     };
     fb.appendChild(rb);
 }
@@ -2168,6 +2201,7 @@ function buildMermaidDiagram(topic) {
 // ===== INITIALIZATION =====
 function init() {
     loadProgress();
+    loadQuizAnswers();
     loadResources();
     loadEnhancements();
     initTabs();
