@@ -181,7 +181,7 @@ body { font-family: var(--font); background: var(--bg); color: var(--text); heig
     <h1>☕ Java <span class="accent">Learning Path</span></h1>
     <p class="subtitle">Programming Fundamentals → Dev Tools → DSA → Databases → Web → Spring Boot</p>
   </div>
-  <div class="sidebar-stats"><span id="sb-completed">0</span>/<span id="sb-total">65</span> done · <span id="sb-percent">0%</span> complete</div>
+  <div class="sidebar-stats"><span id="sb-completed">0</span>/<span id="sb-total">22</span> done · <span id="sb-percent">0%</span> complete</div>
   <div class="sidebar-nav" id="sidebar-nav"></div>
 </div>
 <div class="main">
@@ -190,12 +190,8 @@ body { font-family: var(--font); background: var(--bg); color: var(--text); heig
     <div class="welcome" id="welcome-screen">
       <div class="icon">📚</div>
       <h2>Complete Java Developer Roadmap</h2>
-      <p>65 topics across 6 phases. From your first line of code to production Spring Boot APIs. Nothing mandatory is left out.</p>
-      <div class="summary-grid">
-        <div class="summary-card"><div class="sc-val">6</div><div class="sc-label">Phases</div></div>
-        <div class="summary-card"><div class="sc-val">65</div><div class="sc-label">Topics</div></div>
-        <div class="summary-card"><div class="sc-val">~220h</div><div class="sc-label">Duration</div></div>
-      </div>
+      <p id="welcome-subtitle"></p>
+      <div class="summary-grid" id="welcome-summary-grid"></div>
       <p style="margin-top:20px;font-size:0.85rem"><strong>How to use:</strong> Expand a phase on the left, click any unlocked topic.</p>
     </div>
     <div id="lesson-viewer" style="display:none">
@@ -217,7 +213,7 @@ body { font-family: var(--font); background: var(--bg); color: var(--text); heig
   </div>
 </div>
 <div id="toast-container"></div>
-<script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/mermaid@10.9.3/dist/mermaid.min.js"></script>
 <script>
 // ===== CURRICULUM DATA =====
 const CURRICULUM = 
@@ -1471,6 +1467,33 @@ function renderBadges(topic) {
     return badges;
 }
 
+function renderWelcome() {
+    var totalTopics = CURRICULUM.length;
+    var totalPhases = Object.keys(PHASES).length;
+    var phasesWithContent = 0;
+    var totalHours = 0;
+    var topicsByPhase = {};
+    for (var i = 0; i < CURRICULUM.length; i++) {
+        var t = CURRICULUM[i];
+        totalHours += t.hours;
+        if (!topicsByPhase[t.phase]) topicsByPhase[t.phase] = [];
+        topicsByPhase[t.phase].push(t);
+    }
+    for (var p in PHASES) {
+        if (topicsByPhase[p] && topicsByPhase[p].length > 0) phasesWithContent++;
+    }
+    var subtitleEl = document.getElementById('welcome-subtitle');
+    if (subtitleEl) {
+        subtitleEl.textContent = totalTopics + ' topics across ' + phasesWithContent + ' active phases (' + totalPhases + ' planned). From your first line of code to production Spring Boot APIs.';
+    }
+    var gridEl = document.getElementById('welcome-summary-grid');
+    if (gridEl) {
+        gridEl.innerHTML = '<div class="summary-card"><div class="sc-val">' + phasesWithContent + '/' + totalPhases + '</div><div class="sc-label">Phases Active</div></div>' +
+            '<div class="summary-card"><div class="sc-val">' + totalTopics + '</div><div class="sc-label">Topics</div></div>' +
+            '<div class="summary-card"><div class="sc-val">~' + totalHours + 'h</div><div class="sc-label">Duration</div></div>';
+    }
+}
+
 function updateSidebarStats() {
     var completed = STATE.completedTopics.size;
     var total = CURRICULUM.length;
@@ -1555,8 +1578,26 @@ function switchTab(tabName) {
     var section = document.getElementById('tab-' + tabName);
     if (tab) tab.classList.add('active');
     if (section) section.classList.add('active');
-}
 
+    // Lazy-render Mermaid diagram when Map tab becomes visible
+    if (tabName === 'sitemap' && STATE.currentTopicId) {
+        var mermaidEl = document.querySelector('#tab-sitemap .mermaid');
+        if (mermaidEl && !mermaidEl.querySelector('svg')) {
+            initMermaid();
+            if (typeof mermaid !== 'undefined') {
+                setTimeout(function() {
+                    try {
+                        mermaid.run({ querySelector: '#tab-sitemap .mermaid' });
+                    } catch(e) {
+                        mermaidEl.innerHTML = '<p style="color:var(--text3);padding:20px;text-align:center">Diagram rendering failed. Refresh or check your connection.</p>';
+                    }
+                }, 100);
+            } else {
+                mermaidEl.innerHTML = '<p style="color:var(--text3);padding:20px;text-align:center">Diagram library not loaded. Check your internet connection.</p>';
+            }
+        }
+    }
+}
 // ===== LESSON RENDERING =====
 function renderLesson(topic) {
     var container = document.getElementById('tab-lesson');
@@ -1962,6 +2003,20 @@ function submitResource(topicId) {
         return;
     }
 
+    // Validate URL protocol — allow only http: and https:
+    if (url) {
+        try {
+            var parsed = new URL(url);
+            if (parsed.protocol !== 'http:' && parsed.protocol !== 'https:') {
+                showToast('URL must start with http:// or https://', 'warn');
+                return;
+            }
+        } catch(e) {
+            showToast('Please enter a valid URL (e.g., https://example.com)', 'warn');
+            return;
+        }
+    }
+
     addResource(topicId, type, title, url);
 
     // Clear inputs
@@ -2045,8 +2100,8 @@ function initMermaid() {
         mermaid.initialize({ 
             startOnLoad: false, 
             theme: 'neutral',
-            securityLevel: 'loose',
-            flowchart: { useMaxWidth: true, htmlLabels: true, curve: 'basis' }
+            securityLevel: 'strict',
+            flowchart: { useMaxWidth: true, htmlLabels: false, curve: 'basis' }
         });
         mermaidInitialized = true;
     }
@@ -2067,24 +2122,21 @@ function renderSiteMap(topic) {
 
     container.innerHTML = html;
 
-    // Render mermaid
-    initMermaid();
-    if (typeof mermaid !== 'undefined') {
-        try {
-            mermaid.run({ querySelector: '#tab-sitemap .mermaid' });
-        } catch(e) {
-            console.log('Mermaid render error (will retry):', e);
-            // Retry after a short delay (CDN might not have loaded yet)
-            setTimeout(function() {
-                try { mermaid.run({ querySelector: '#tab-sitemap .mermaid' }); } catch(e2) {}
-            }, 500);
-        }
-    }
+    // Mermaid rendering deferred to switchTab (lazy — avoids zero-dimension SVG bug)
 }
 
 function buildMermaidDiagram(topic) {
-    // Highlight style for current topic
-    var hl = function(id) { return id === topic.id ? ' fill:#2563eb,color:#fff,stroke:#1d4ed8,stroke-width:2px' : ''; };
+    // Clean node labels with separate style directives (correct Mermaid syntax)
+    var labels = [
+        '1. How Computers Work', '2. Dev Environment', '3. First Java Program',
+        '4. Variables & Types', '5. Operators', '6. Control Flow',
+        '7. Loops', '8. Methods', '9. Arrays',
+        '10. Classes & Objects', '11. Encapsulation', '12. Inheritance',
+        '13. Polymorphism', '14. Abstract & Interfaces',
+        '15. Exception Handling', '16. Collections', '17. Generics',
+        '18. File I/O', '19. Enums & Records', '20. Lambdas',
+        '21. Streams API', '22. Optional'
+    ];
 
     var lines = ['graph TB'];
     lines.push('  subgraph F[" "]');
@@ -2097,45 +2149,33 @@ function buildMermaidDiagram(topic) {
     lines.push('    F6["<b>Phase 6</b><br/>Spring Boot<br/><i>(coming soon)</i>"]');
     lines.push('  end');
 
-    // Category subgraphs
-    lines.push('  subgraph P1["Phase 1: Programming Fundamentals — 22 Topics"]');
+    lines.push('  subgraph P1["Phase 1: Programming Fundamentals - 22 Topics"]');
     lines.push('    direction TB');
     lines.push('    subgraph Basics["1-9: Java Basics"]');
-    lines.push('      T1["1. How Computers Work' + hl(1) + '"]');
-    lines.push('      T2["2. Dev Environment' + hl(2) + '"]');
-    lines.push('      T3["3. First Java Program' + hl(3) + '"]');
-    lines.push('      T4["4. Variables &amp; Types' + hl(4) + '"]');
-    lines.push('      T5["5. Operators' + hl(5) + '"]');
-    lines.push('      T6["6. Control Flow' + hl(6) + '"]');
-    lines.push('      T7["7. Loops' + hl(7) + '"]');
-    lines.push('      T8["8. Methods' + hl(8) + '"]');
-    lines.push('      T9["9. Arrays' + hl(9) + '"]');
+    for (var i = 0; i < 9; i++) {
+        lines.push('      T' + (i+1) + '["' + labels[i] + '"]');
+    }
     lines.push('    end');
     lines.push('    subgraph OOP["10-14: Object-Oriented Programming"]');
-    lines.push('      T10["10. Classes &amp; Objects' + hl(10) + '"]');
-    lines.push('      T11["11. Encapsulation' + hl(11) + '"]');
-    lines.push('      T12["12. Inheritance' + hl(12) + '"]');
-    lines.push('      T13["13. Polymorphism' + hl(13) + '"]');
-    lines.push('      T14["14. Abstract &amp; Interfaces' + hl(14) + '"]');
+    for (var i = 9; i < 14; i++) {
+        lines.push('      T' + (i+1) + '["' + labels[i] + '"]');
+    }
     lines.push('    end');
     lines.push('    subgraph Advanced["15-22: Advanced Java"]');
-    lines.push('      T15["15. Exception Handling' + hl(15) + '"]');
-    lines.push('      T16["16. Collections' + hl(16) + '"]');
-    lines.push('      T17["17. Generics' + hl(17) + '"]');
-    lines.push('      T18["18. File I/O' + hl(18) + '"]');
-    lines.push('      T19["19. Enums &amp; Records' + hl(19) + '"]');
-    lines.push('      T20["20. Lambdas' + hl(20) + '"]');
-    lines.push('      T21["21. Streams API' + hl(21) + '"]');
-    lines.push('      T22["22. Optional' + hl(22) + '"]');
+    for (var i = 14; i < 22; i++) {
+        lines.push('      T' + (i+1) + '["' + labels[i] + '"]');
+    }
     lines.push('    end');
     lines.push('  end');
 
-    // Connections showing progression
     lines.push('  Basics --> OOP');
     lines.push('  OOP --> Advanced');
     lines.push('  F1 -.-> F2 -.-> F3 -.-> F4 -.-> F5 -.-> F6');
 
-    // Style future phases to look dimmed
+    // Highlight current topic — CORRECT: separate style directive, not in node label
+    lines.push('  style T' + topic.id + ' fill:#2563eb,color:#fff,stroke:#1d4ed8,stroke-width:2px');
+
+    // Style future phases dimmed
     lines.push('  style F fill:#f3f4f6,stroke:#d1d5db,stroke-dasharray:5,color:#9ca3af');
     lines.push('  style F2 fill:#f9fafb,stroke:#e5e7eb,stroke-dasharray:5,color:#9ca3af');
     lines.push('  style F3 fill:#f9fafb,stroke:#e5e7eb,stroke-dasharray:5,color:#9ca3af');
@@ -2148,30 +2188,5 @@ function buildMermaidDiagram(topic) {
     lines.push('  style Advanced fill:#fce7f3,stroke:#fbcfe8');
     lines.push('  style F1 fill:#eff6ff,stroke:#bfdbfe');
 
-    return lines.join('\\n');
-}
-
-// ===== INITIALIZATION =====
-
-// ===== INITIALIZATION =====
-function init() {
-    loadProgress();
-    loadResources();
-    loadEnhancements();
-    initTabs();
-    initMermaid();
-    renderSidebar();
-
-    if (!STATE.currentTopicId) {
-        document.getElementById('welcome-screen').style.display = 'block';
-        document.getElementById('lesson-viewer').style.display = 'none';
-        document.getElementById('current-topic-title').textContent = 'Select a topic to begin';
-        document.getElementById('topic-meta-badges').innerHTML = '';
-    }
-}
-
-document.addEventListener('DOMContentLoaded', init);
-
-</script>
-</body>
-</html>
+    return lines.join('\n');
+}>
