@@ -81,7 +81,7 @@ def save_quiz_answers(topic_id):
 def get_resources(topic_id):
     rows = query(
         'SELECT id, resource_type, title, author, url, created_at FROM topic_resources '
-        'WHERE user_id = %s AND topic_id = %s ORDER BY created_at DESC',
+        'WHERE user_id = %s AND topic_id = %s AND deleted_at IS NULL ORDER BY created_at DESC',
         (DEFAULT_USER, topic_id)
     )
     resources = []
@@ -112,11 +112,11 @@ def add_resource(topic_id):
 @app.route('/api/resources/<int:resource_id>', methods=['DELETE'])
 def delete_resource(resource_id):
     query(
-        'DELETE FROM topic_resources WHERE id = %s AND user_id = %s',
+        'UPDATE topic_resources SET deleted_at = NOW() WHERE id = %s AND user_id = %s AND deleted_at IS NULL',
         (resource_id, DEFAULT_USER),
         fetch=False
     )
-    return jsonify({'status': 'ok', 'id': resource_id})
+    return jsonify({'status': 'ok', 'id': resource_id, 'deleted': True})
 
 
 # ── Enhancements ────────────────────────────────────────
