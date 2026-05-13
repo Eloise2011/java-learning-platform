@@ -221,7 +221,6 @@ button:focus-visible, a:focus-visible, input:focus-visible, textarea:focus-visib
   <div id="app-view-progress" class="app-view" style="display:none"></div>
   <div id="app-view-sitemap" class="app-view" style="display:none"></div>
   <div id="app-view-textbooks" class="app-view" style="display:none"></div>
-  <div id="app-view-textbooks" class="app-view" style="display:none"></div>
 </div>
 <div id="toast-container"></div>
 <script src="https://cdn.jsdelivr.net/npm/mermaid@10.9.3/dist/mermaid.min.js"></script>
@@ -13865,7 +13864,6 @@ document.getElementById('app-nav').addEventListener('click', function(e) {
     if (view === 'progress') showAppProgress();
     else if (view === 'sitemap') showAppSiteMap();
     else if (view === 'textbooks') showAppTextbooks();
-    else if (view === 'textbooks') showAppTextbooks();
 });
 
 function showAppProgress() {
@@ -14787,51 +14785,7 @@ function renderAppTextbooks() {
         html += '</div></div>';
     }
     container.innerHTML = html;
-}
-
-// ===== APP-LEVEL TEXTBOOKS VIEW =====
-function showAppTextbooks() {
-    currentView = 'textbooks';
-    STATE.currentTopicId = null;
-    document.getElementById('welcome-screen').style.display = 'none';
-    document.getElementById('lesson-viewer').style.display = 'none';
-    document.getElementById('app-view-progress').style.display = 'none';
-    document.getElementById('app-view-sitemap').style.display = 'none';
-    document.getElementById('app-view-textbooks').style.display = 'block';
-    document.getElementById('current-topic-title').textContent = 'Textbook References';
-    document.getElementById('topic-meta-badges').innerHTML = '';
-    renderAppTextbooks();
-    updateAppNavActive('textbooks');
-    renderSidebar();
-}
-
-function renderAppTextbooks() {
-    var container = document.getElementById('app-view-textbooks');
-    if (!container) return;
-    var textbookMap = {};
-    for (var i = 0; i < CURRICULUM.length; i++) {
-        var t = CURRICULUM[i], tb = t.textbook;
-        if (!textbookMap[tb]) textbookMap[tb] = [];
-        textbookMap[tb].push({id: t.id, title: t.title});
-    }
-    var textbooks = Object.keys(textbookMap).sort();
-    var html = '<h3>Textbook Reference Library</h3>';
-    html += '<p style="color:var(--text2);margin-bottom:16px;font-size:0.85rem">All recommended textbooks for the Java Learning Path, with topics that reference each book.</p>';
-    for (var bi = 0; bi < textbooks.length; bi++) {
-        var book = textbooks[bi], refs = textbookMap[book];
-        html += '<div style="background:var(--surface);border:1px solid var(--surface3);border-radius:var(--radius);padding:14px 18px;margin-bottom:10px">';
-        html += '<h4 style="margin:0 0 4px 0;font-size:0.95rem">' + escapeHTML(book) + '</h4>';
-        html += '<p style="margin:0 0 6px 0;font-size:0.78rem;color:var(--text2)">Referenced in ' + refs.length + ' topic(s):</p>';
-        html += '<div style="display:flex;flex-wrap:wrap;gap:6px">';
-        for (var ri = 0; ri < refs.length; ri++) {
-            html += '<a href="javascript:void(0)" onclick="selectTopic(' + refs[ri].id + ')" style="font-size:0.78rem;color:var(--accent);text-decoration:none;padding:4px 10px;background:var(--bg);border-radius:12px">' + refs[ri].id + '. ' + escapeHTML(refs[ri].title) + '</a>';
-        }
-        html += '</div></div>';
-    }
-    container.innerHTML = html;
-}
-
-// ===== INITIALIZATION =====
+}// ===== INITIALIZATION =====
 function init() {
     loadProgress();
     loadQuizAnswers();
