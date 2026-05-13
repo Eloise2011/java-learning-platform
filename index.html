@@ -14103,6 +14103,7 @@ function renderPractice(topic) {
 // ===== PROGRESS TAB =====
 function renderProgressTab(topic) {
     var container = document.getElementById('tab-progress-view');
+    if (!container) return;
     var topicsByPhase = getTopicsByPhase();
     var phaseOrder = Object.keys(PHASES);
 
@@ -14588,6 +14589,7 @@ function initMermaid() {
 
 function renderSiteMap(topic) {
     var container = document.getElementById('tab-sitemap');
+    if (!container) return;
     if (!container) return;
 
     var html = '<h3>🗺️ Java Technology Stack — Site Map</h3>';
