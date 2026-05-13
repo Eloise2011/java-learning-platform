@@ -13931,35 +13931,8 @@ function selectTopic(id) {
     renderEnhancementsTab(topic);
     renderProgressTab(topic);
     renderSiteMap(topic);
-    // Force Lesson tab — explicitly hide practice/extra/notes, show lesson
-    var allTabs = document.querySelectorAll('.tab');
-    for (var ti = 0; ti < allTabs.length; ti++) allTabs[ti].classList.remove('active');
-    var lessonTab = document.querySelector('[data-tab="lesson"]');
-    if (lessonTab) lessonTab.classList.add('active');
-    document.getElementById('tab-lesson').classList.add('active');
-    document.getElementById('tab-lesson').style.display = 'block';
-    document.getElementById('tab-practice').classList.remove('active');
-    document.getElementById('tab-practice').style.display = 'none';
-    document.getElementById('tab-extra').classList.remove('active');
-    document.getElementById('tab-extra').style.display = 'none';
-    document.getElementById('tab-enhancements').classList.remove('active');
-    document.getElementById('tab-enhancements').style.display = 'none';
-    STATE.activeTab = 'lesson';
+    switchTab('lesson');
     renderSidebar();
-
-    // Deferred: force lesson tab after all rendering completes
-    setTimeout(function() {
-        var tabs = document.querySelectorAll('.tab');
-        for (var i = 0; i < tabs.length; i++) tabs[i].classList.remove('active');
-        var ltab = document.querySelector('[data-tab="lesson"]');
-        if (ltab) ltab.classList.add('active');
-        ['tab-practice','tab-extra','tab-enhancements'].forEach(function(id) {
-            var el = document.getElementById(id);
-            if (el) { el.classList.remove('active'); el.style.display = 'none'; }
-        });
-        var lsection = document.getElementById('tab-lesson');
-        if (lsection) { lsection.classList.add('active'); lsection.style.display = 'block'; }
-    }, 50);
 
     var activeItem = document.querySelector('.topic-item.active');
     if (activeItem) {

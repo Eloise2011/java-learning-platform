@@ -257,7 +257,6 @@ document.getElementById('app-nav').addEventListener('click', function(e) {
     if (view === 'progress') showAppProgress();
     else if (view === 'sitemap') showAppSiteMap();
     else if (view === 'textbooks') showAppTextbooks();
-    else if (view === 'textbooks') showAppTextbooks();
 });
 
 function showAppProgress() {
@@ -267,6 +266,7 @@ function showAppProgress() {
     document.getElementById('lesson-viewer').style.display = 'none';
     document.getElementById('app-view-progress').style.display = 'block';
     document.getElementById('app-view-sitemap').style.display = 'none';
+    document.getElementById('app-view-textbooks').style.display = 'none';
     document.getElementById('current-topic-title').textContent = 'Overall Progress';
     document.getElementById('topic-meta-badges').innerHTML = '';
     renderAppProgress();
@@ -281,6 +281,7 @@ function showAppSiteMap() {
     document.getElementById('lesson-viewer').style.display = 'none';
     document.getElementById('app-view-progress').style.display = 'none';
     document.getElementById('app-view-sitemap').style.display = 'block';
+    document.getElementById('app-view-textbooks').style.display = 'none';
     document.getElementById('current-topic-title').textContent = 'Java Technology Stack';
     document.getElementById('topic-meta-badges').innerHTML = '';
     renderAppSiteMap();
@@ -323,8 +324,35 @@ function selectTopic(id) {
     renderEnhancementsTab(topic);
     renderProgressTab(topic);
     renderSiteMap(topic);
-    switchTab('lesson');
+    // Force Lesson tab — explicitly hide practice/extra/notes, show lesson
+    var allTabs = document.querySelectorAll('.tab');
+    for (var ti = 0; ti < allTabs.length; ti++) allTabs[ti].classList.remove('active');
+    var lessonTab = document.querySelector('[data-tab="lesson"]');
+    if (lessonTab) lessonTab.classList.add('active');
+    document.getElementById('tab-lesson').classList.add('active');
+    document.getElementById('tab-lesson').style.display = 'block';
+    document.getElementById('tab-practice').classList.remove('active');
+    document.getElementById('tab-practice').style.display = 'none';
+    document.getElementById('tab-extra').classList.remove('active');
+    document.getElementById('tab-extra').style.display = 'none';
+    document.getElementById('tab-enhancements').classList.remove('active');
+    document.getElementById('tab-enhancements').style.display = 'none';
+    STATE.activeTab = 'lesson';
     renderSidebar();
+
+    // Deferred: force lesson tab after all rendering completes
+    setTimeout(function() {
+        var tabs = document.querySelectorAll('.tab');
+        for (var i = 0; i < tabs.length; i++) tabs[i].classList.remove('active');
+        var ltab = document.querySelector('[data-tab="lesson"]');
+        if (ltab) ltab.classList.add('active');
+        ['tab-practice','tab-extra','tab-enhancements'].forEach(function(id) {
+            var el = document.getElementById(id);
+            if (el) { el.classList.remove('active'); el.style.display = 'none'; }
+        });
+        var lsection = document.getElementById('tab-lesson');
+        if (lsection) { lsection.classList.add('active'); lsection.style.display = 'block'; }
+    }, 50);
 
     var activeItem = document.querySelector('.topic-item.active');
     if (activeItem) {
@@ -468,6 +496,7 @@ function renderPractice(topic) {
 // ===== PROGRESS TAB =====
 function renderProgressTab(topic) {
     var container = document.getElementById('tab-progress-view');
+    if (!container) return;
     var topicsByPhase = getTopicsByPhase();
     var phaseOrder = Object.keys(PHASES);
 
@@ -722,7 +751,7 @@ function loadResources() {
         var ctid = STATE.currentTopicId;
         apiFetch('/resources/' + ctid).then(function(data) {
             if (data.resources && data.resources.length > 0) {
-                if (!topicResources[ctid]) topicResources[ctid] = [];
+                topicResources[ctid] = [];
                 for (var j = 0; j < data.resources.length; j++) {
                     var sr = data.resources[j], found = false;
                     for (var k = 0; k < topicResources[ctid].length; k++) {
@@ -775,27 +804,25 @@ function renderExtraTab(topic) {
     var container = document.getElementById('tab-extra');
     if (!container) return;
 
-    // Fetch resources from server for this topic
-    apiFetch('/resources/' + topic.id).then(function(data) {
+    // Fetch resources from server (once per topic select)
+    if (!topic._resourcesLoaded) {
+        topic._resourcesLoaded = true;
+        apiFetch('/resources/' + topic.id).then(function(data) {
         if (data.resources && data.resources.length > 0) {
-            if (!topicResources[topic.id]) topicResources[topic.id] = [];
+            topicResources[topic.id] = [];
             for (var j = 0; j < data.resources.length; j++) {
-                var sr = data.resources[j], found = false;
-                for (var k = 0; k < topicResources[topic.id].length; k++) {
-                    if (topicResources[topic.id][k].id === sr.id) { found = true; break; }
-                }
-                if (!found) {
-                    topicResources[topic.id].push({
-                        id: sr.id, type: sr.type, title: sr.title,
-                        author: sr.author || '', url: sr.url, addedAt: sr.addedAt
-                    });
-                }
+                var sr = data.resources[j];
+                topicResources[topic.id].push({
+                    id: sr.id, type: sr.type, title: sr.title,
+                    author: sr.author || '', url: sr.url, addedAt: sr.addedAt
+                });
             }
             saveResources();
             // Re-render with fresh data
             renderExtraTab(topic);
         }
-    }).catch(function() {});
+    }).catch(function() { topic._resourcesLoaded = false; });
+    }
 
     var html = '<h3>📚 Extra-Curriculum Resources</h3>';
     html += '<p style="color:var(--text2);margin-bottom:14px;font-size:0.85rem">Attach books, articles, podcasts, and videos for deeper learning on this topic.</p>';
@@ -955,6 +982,7 @@ function initMermaid() {
 
 function renderSiteMap(topic) {
     var container = document.getElementById('tab-sitemap');
+    if (!container) return;
     if (!container) return;
 
     var html = '<h3>🗺️ Java Technology Stack — Site Map</h3>';
@@ -1120,46 +1148,6 @@ function showAppTextbooks() {
     document.getElementById('lesson-viewer').style.display = 'none';
     document.getElementById('app-view-progress').style.display = 'none';
     document.getElementById('app-view-sitemap').style.display = 'none';
-    document.getElementById('app-view-textbooks').style.display = 'block';
-    document.getElementById('current-topic-title').textContent = 'Textbook References';
-    document.getElementById('topic-meta-badges').innerHTML = '';
-    renderAppTextbooks();
-    updateAppNavActive('textbooks');
-    renderSidebar();
-}
-
-function renderAppTextbooks() {
-    var container = document.getElementById('app-view-textbooks');
-    if (!container) return;
-    var textbookMap = {};
-    for (var i = 0; i < CURRICULUM.length; i++) {
-        var t = CURRICULUM[i], tb = t.textbook;
-        if (!textbookMap[tb]) textbookMap[tb] = [];
-        textbookMap[tb].push({id: t.id, title: t.title});
-    }
-    var textbooks = Object.keys(textbookMap).sort();
-    var html = '<h3>Textbook Reference Library</h3>';
-    html += '<p style="color:var(--text2);margin-bottom:16px;font-size:0.85rem">All recommended textbooks for the Java Learning Path, with topics that reference each book.</p>';
-    for (var bi = 0; bi < textbooks.length; bi++) {
-        var book = textbooks[bi], refs = textbookMap[book];
-        html += '<div style="background:var(--surface);border:1px solid var(--surface3);border-radius:var(--radius);padding:14px 18px;margin-bottom:10px">';
-        html += '<h4 style="margin:0 0 4px 0;font-size:0.95rem">' + escapeHTML(book) + '</h4>';
-        html += '<p style="margin:0 0 6px 0;font-size:0.78rem;color:var(--text2)">Referenced in ' + refs.length + ' topic(s):</p>';
-        html += '<div style="display:flex;flex-wrap:wrap;gap:6px">';
-        for (var ri = 0; ri < refs.length; ri++) {
-            html += '<a href="javascript:void(0)" onclick="selectTopic(' + refs[ri].id + ')" style="font-size:0.78rem;color:var(--accent);text-decoration:none;padding:4px 10px;background:var(--bg);border-radius:12px">' + refs[ri].id + '. ' + escapeHTML(refs[ri].title) + '</a>';
-        }
-        html += '</div></div>';
-    }
-    container.innerHTML = html;
-}
-
-// ===== APP-LEVEL TEXTBOOKS VIEW =====
-function showAppTextbooks() {
-    currentView = 'textbooks';
-    STATE.currentTopicId = null;
-    document.getElementById('welcome-screen').style.display = 'none';
-    document.getElementById('lesson-viewer').style.display = 'none';
     document.getElementById('app-view-progress').style.display = 'none';
     document.getElementById('app-view-sitemap').style.display = 'none';
     document.getElementById('app-view-textbooks').style.display = 'block';
@@ -1194,9 +1182,7 @@ function renderAppTextbooks() {
         html += '</div></div>';
     }
     container.innerHTML = html;
-}
-
-// ===== INITIALIZATION =====
+}// ===== INITIALIZATION =====
 function init() {
     loadProgress();
     loadQuizAnswers();
