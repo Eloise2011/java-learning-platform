@@ -5557,6 +5557,182 @@ const CURRICULUM = [
         ],
         "correct": 1,
         "explanation": "Arrays.compare() (Java 9+) provides lexicographic comparison like String.compareTo(). Useful for sorting and ordering of arrays."
+      },
+      {
+        "question": "What is the difference between array and ArrayList memory usage?",
+        "options": [
+          "Same",
+          "Array: fixed overhead. ArrayList: ~30% extra for capacity buffer + object header",
+          "ArrayList uses less",
+          "Array uses more"
+        ],
+        "correct": 1,
+        "explanation": "ArrayList maintains extra capacity (default +50%) to amortize resizing cost, plus object headers. Arrays have exactly the needed size."
+      },
+      {
+        "question": "What character terminates every String in C that Java doesn't need?",
+        "options": [
+          ";",
+          "\\0 (null terminator)",
+          "\\n",
+          "."
+        ],
+        "correct": 1,
+        "explanation": "C strings use null-terminated char arrays. Java String stores length separately — no sentinel character needed."
+      },
+      {
+        "question": "What is a circular buffer (ring buffer)?",
+        "options": [
+          "Square array",
+          "Array-based FIFO where head and tail wrap around using modulo — efficient for streaming data",
+          "Linked list",
+          "Deprecated"
+        ],
+        "correct": 1,
+        "explanation": "Circular buffer: fixed-size array with head/tail pointers that wrap. Used in audio/video streaming, network buffers, and event queues."
+      },
+      {
+        "question": "Can you sort an array of objects that don't implement Comparable?",
+        "options": [
+          "No",
+          "Yes — provide a Comparator: Arrays.sort(arr, (a,b) -> a.field - b.field)",
+          "Only with TreeSet",
+          "Only primitives"
+        ],
+        "correct": 1,
+        "explanation": "Comparator<T> provides external comparison logic. Lambdas make this concise: Arrays.sort(people, (a,b) -> a.age - b.age)."
+      },
+      {
+        "question": "How do you create an empty array?",
+        "options": [
+          "new int[1]",
+          "new int[0] — zero-length array (not null)",
+          "int[] arr = null",
+          "Can't create empty"
+        ],
+        "correct": 1,
+        "explanation": "Zero-length arrays (new int[0]) are valid. They're immutable and can be safely iterated (zero iterations). Use instead of null for 'no elements'."
+      },
+      {
+        "question": "What is an array's time complexity for insertion at the end (with space)?",
+        "options": [
+          "O(n)",
+          "O(1) — direct index assignment if within bounds",
+          "O(log n)",
+          "O(n^2)"
+        ],
+        "correct": 1,
+        "explanation": "If array has capacity: O(1). If resizing needed: O(n) to copy all elements. ArrayList amortizes this to O(1) overall."
+      },
+      {
+        "question": "How do you find the index of an element in an array?",
+        "options": [
+          "arr.indexOf(x)",
+          "Manual loop or Arrays.binarySearch() (if sorted). No built-in for unsorted arrays.",
+          "arr.find(x)",
+          "arr.search(x)"
+        ],
+        "correct": 1,
+        "explanation": "Arrays have no indexOf method. Use manual loop for unsorted, binarySearch for sorted. Convert to List via Arrays.asList() for indexOf()."
+      },
+      {
+        "question": "What does Arrays.setAll() do?",
+        "options": [
+          "Sets all to same value",
+          "Sets each element using a generator function of index: Arrays.setAll(arr, i -> i*i)",
+          "Same as fill()",
+          "Deprecated"
+        ],
+        "correct": 1,
+        "explanation": "Arrays.setAll(arr, generator) computes each element from its index. Useful for populating arrays with computed values: arr[i] = i*i, i*2, etc."
+      },
+      {
+        "question": "What is the difference between a 1D array and a 2D array memory layout in Java?",
+        "options": [
+          "Same layout",
+          "1D = contiguous. 2D = array of row pointers to rows scattered in heap",
+          "2D is more contiguous",
+          "1D is scattered"
+        ],
+        "correct": 1,
+        "explanation": "Java 2D arrays are arrays of references. Each row is a separate heap object. Not a single contiguous block like C's int matrix[][]."
+      },
+      {
+        "question": "What hack can make a 2D array more cache-friendly?",
+        "options": [
+          "Can't optimize",
+          "Use 1D array with manual indexing: arr[row*cols+col] — single contiguous block",
+          "Use LinkedList",
+          "Use more rows"
+        ],
+        "correct": 1,
+        "explanation": "Flattening 2D to 1D improves cache locality because all elements are contiguous. Access arr[row*cols+col] instead of matrix[row][col]."
+      },
+      {
+        "question": "What happens when you pass an array to a method that modifies it?",
+        "options": [
+          "Original unchanged",
+          "Original modified — array reference is copied but points to same heap object",
+          "Compile error",
+          "Runtime exception"
+        ],
+        "correct": 1,
+        "explanation": "Method receives copy of reference, but both copies point to same heap array. Mutations affect original. Can't replace original reference variable."
+      },
+      {
+        "question": "How do you reverse an array in-place?",
+        "options": [
+          "reverse(arr)",
+          "Loop: swap arr[i] with arr[len-1-i] for i=0 to len/2",
+          "arr.reversed()",
+          "Collections.reverse(arr)"
+        ],
+        "correct": 1,
+        "explanation": "In-place reverse: for(i=0; i<len/2; i++) { tmp=arr[i]; arr[i]=arr[len-1-i]; arr[len-1-i]=tmp; }. O(n/2) time, O(1) space."
+      },
+      {
+        "question": "How does Java check array bounds?",
+        "options": [
+          "It doesn't",
+          "JVM checks every array access at runtime — ArrayIndexOutOfBoundsException if index < 0 or >= length",
+          "At compile time only",
+          "Only in debug mode"
+        ],
+        "correct": 1,
+        "explanation": "Every array access is bounds-checked at runtime. This prevents buffer overflow attacks common in C/C++. The JIT may eliminate checks it can prove are unnecessary."
+      },
+      {
+        "question": "What is System.arraycopy() used for?",
+        "options": [
+          "Creating arrays",
+          "Efficient native implementation for bulk array copying — faster than manual loop",
+          "Array sorting",
+          "Array searching"
+        ],
+        "correct": 1,
+        "explanation": "System.arraycopy() is a native (JVM-level) method for bulk array copying. Uses optimized memory copying."
+      },
+      {
+        "question": "How do you convert an array to a List?",
+        "options": [
+          "arr.toList()",
+          "Arrays.asList(arr) — returns fixed-size List backed by the original array",
+          "arr.asList()",
+          "list(arr)"
+        ],
+        "correct": 1,
+        "explanation": "Arrays.asList() wraps the array (no copy). Changes to the List reflect in the array and vice versa. The returned List has fixed size — no add/remove."
+      },
+      {
+        "question": "How do you convert a List to an array?",
+        "options": [
+          "list.toArray()",
+          "list.toArray(new String[0]) — idiomatic way to get a properly-typed array",
+          "list.asArray()",
+          "(String[]) list.cast()"
+        ],
+        "correct": 1,
+        "explanation": "toArray(T[] a) returns a typed array. new String[0] is preferred over new String[list.size()] — the JVM optimizes the zero-length allocation."
       }
     ],
     "codingExercise": {
@@ -5892,6 +6068,259 @@ const CURRICULUM = [
         ],
         "correct": 1,
         "explanation": "Local classes are defined within methods. They can access effectively-final local variables of the enclosing method."
+      },
+      {
+        "question": "What is the difference between instanceof and getClass() for type checking?",
+        "options": [
+          "No difference",
+          "instanceof matches subclasses. getClass() compares EXACT class. getClass()==other.getClass() is exact match",
+          "getClass is slower",
+          "instanceof is deprecated"
+        ],
+        "correct": 1,
+        "explanation": "instanceof Dog matches Dog AND subclasses (Poodle). getClass() == Dog.class matches ONLY Dog. Use instanceof for polymorphic checks."
+      },
+      {
+        "question": "What is the 'this' keyword in a static method?",
+        "options": [
+          "Refers to class",
+          "Compile error — 'this' doesn't exist in static context",
+          "Refers to object",
+          "Refers to super"
+        ],
+        "correct": 1,
+        "explanation": "Static methods have no 'this' — they belong to the class, not instances. Only instance methods have an implicit 'this' reference."
+      },
+      {
+        "question": "What is a nested class?",
+        "options": [
+          "Class in another file",
+          "Class defined inside another class — static nested or inner (non-static)",
+          "Deprecated feature",
+          "A type of interface"
+        ],
+        "correct": 1,
+        "explanation": "Nested classes: static (doesn't need enclosing instance) and inner (non-static, has implicit reference to enclosing instance)."
+      },
+      {
+        "question": "What is a static nested class?",
+        "options": [
+          "Inner class",
+          "Static class defined inside another — doesn't need enclosing instance; just namespacing",
+          "Deprecated",
+          "Interface"
+        ],
+        "correct": 1,
+        "explanation": "Static nested class: independent of enclosing instance. Instantiated as new Outer.Inner(). Used for logical grouping and encapsulation."
+      },
+      {
+        "question": "What is an inner class?",
+        "options": [
+          "Static nested",
+          "Non-static nested class with implicit reference to enclosing instance — can access outer's fields",
+          "Top-level class",
+          "Deprecated"
+        ],
+        "correct": 1,
+        "explanation": "Inner class has Outer.this reference. Must be created via outerInstance.new Inner(). Can access private members of enclosing class."
+      },
+      {
+        "question": "What is a local class?",
+        "options": [
+          "Class in another file",
+          "Class defined INSIDE a method body — scoped to that method, can access effectively-final locals",
+          "Top-level class",
+          "Deprecated"
+        ],
+        "correct": 1,
+        "explanation": "Local classes capture effectively-final local variables. Rarely used now — lambdas are preferred for simple behavior. Useful for complex multi-method implementations."
+      },
+      {
+        "question": "What is an anonymous class?",
+        "options": [
+          "Named class",
+          "Inline class without name — new InterfaceOrClass() { /* body */ }",
+          "Static class",
+          "Deprecated"
+        ],
+        "correct": 1,
+        "explanation": "Anonymous classes implement interfaces/extend classes inline. Used for one-off implementations. Largely replaced by lambdas for single-method interfaces."
+      },
+      {
+        "question": "What is a method's natural ordering (Comparable)?",
+        "options": [
+          "Random order",
+          "The ordering defined by compareTo() — 'this' compared to another instance",
+          "External order",
+          "Hash-based order"
+        ],
+        "correct": 1,
+        "explanation": "Comparable<T>.compareTo(T o) defines natural ordering: negative=less, zero=equal, positive=greater. Consistent with equals() for sorted collections."
+      },
+      {
+        "question": "What does Object's finalize() method do?",
+        "options": [
+          "Cleans up memory",
+          "Called by GC before object is reclaimed — NEVER rely on it; deprecated in Java 9, removed for removal",
+          "Forces GC",
+          "Creates objects"
+        ],
+        "correct": 1,
+        "explanation": "finalize() is unreliable (no timing guarantee, may never run). Use try-with-resources or Cleaner (Java 9+) instead. Deprecated for removal."
+      },
+      {
+        "question": "What is a type's identity vs equality?",
+        "options": [
+          "Same concept",
+          "Identity (==): same memory location. Equality (equals()): same logical value",
+          "Java only has identity",
+          "Java only has equality"
+        ],
+        "correct": 1,
+        "explanation": "Two distinct String objects with value 'hello' have different identities (different heap addresses) but are equal (same characters)."
+      },
+      {
+        "question": "What is the difference between Class.forName() and .class literal?",
+        "options": [
+          "No difference",
+          ".class is compile-time (faster). Class.forName() is runtime (loads class dynamically by string name)",
+          ".class is deprecated",
+          "forName is for primitives only"
+        ],
+        "correct": 1,
+        "explanation": "String.class is resolved at compile time. Class.forName('com.mysql.Driver') loads at runtime — used for JDBC drivers, plugins."
+      },
+      {
+        "question": "What is a static factory method advantage over constructors?",
+        "options": [
+          "None",
+          "Can return cached instances, subclasses, have descriptive names, and avoid creating new objects unnecessarily",
+          "Constructors are deprecated",
+          "Static methods are slower"
+        ],
+        "correct": 1,
+        "explanation": "Integer.valueOf(42) caches small values. LocalDate.of(2026,5,13) is more readable than new LocalDate(...). Factory methods enable instance control."
+      },
+      {
+        "question": "What is a marker annotation?",
+        "options": [
+          "Annotates code",
+          "Annotation with no elements — used as a tag: @Override, @Deprecated, @FunctionalInterface",
+          "Complex annotation",
+          "Deprecated"
+        ],
+        "correct": 1,
+        "explanation": "Marker annotations (no members) signal intent to compiler/tools. @Override tells compiler 'this should override'. @FunctionalInterface enforces SAM rule."
+      },
+      {
+        "question": "What is a transient field?",
+        "options": [
+          "Permanent field",
+          "Field excluded from default serialization — not written/read during serialize/deserialize",
+          "Static field",
+          "Final field"
+        ],
+        "correct": 1,
+        "explanation": "transient fields skip serialization. After deserialization, they get default values (0, false, null). Useful for derived/cached/sensitive data."
+      },
+      {
+        "question": "What is a volatile field?",
+        "options": [
+          "Non-changing field",
+          "Field whose value is always read from/written to main memory — visibility guarantee across threads",
+          "Static field",
+          "Deprecated"
+        ],
+        "correct": 1,
+        "explanation": "volatile ensures changes are immediately visible to all threads. No caching in thread-local memory. Does NOT guarantee atomicity (use synchronized/AtomicInteger for that)."
+      },
+      {
+        "question": "What is a native method?",
+        "options": [
+          "Java method",
+          "Method implemented in another language (C/C++) via JNI — marked with 'native' keyword, no body",
+          "Default method",
+          "Deprecated"
+        ],
+        "correct": 1,
+        "explanation": "native methods interface with platform-specific code. The JDK uses them for OS-level operations (file I/O, threading). JNI is complex and should be avoided when possible."
+      },
+      {
+        "question": "What is the difference between Class and Object in Java?",
+        "options": [
+          "No difference",
+          "Class = metadata describing a type (java.lang.Class). Object = an instance of some class",
+          "Class is an Object",
+          "Object is a Class"
+        ],
+        "correct": 1,
+        "explanation": "String.class returns Class<String> — metadata. new String('hi') returns a String object — instance. Each class has exactly one Class object per ClassLoader."
+      },
+      {
+        "question": "What is a JavaBean convention?",
+        "options": [
+          "Coffee preparation",
+          "No-arg constructor, private fields, getX/isX setters, Serializable — enables tool/reflection-based manipulation",
+          "A type of coffee",
+          "Deprecated"
+        ],
+        "correct": 1,
+        "explanation": "JavaBeans convention enables frameworks (Spring, Hibernate) to discover properties via reflection. getProperty()/setProperty() naming is key."
+      },
+      {
+        "question": "What is a POJO?",
+        "options": [
+          "A type of Java class",
+          "Plain Old Java Object — no framework dependencies, no special interfaces. Simple, clean Java object.",
+          "Deprecated term",
+          "A Spring-only concept"
+        ],
+        "correct": 1,
+        "explanation": "POJO: ordinary Java object without framework ties. Opposite of EJB (Enterprise JavaBeans) which required specific interfaces and base classes."
+      },
+      {
+        "question": "What is the telescoping constructor anti-pattern?",
+        "options": [
+          "Good pattern",
+          "Multiple constructors with increasing parameter counts — hard to read and error-prone. Use Builder pattern instead.",
+          "Required by Java",
+          "Deprecated"
+        ],
+        "correct": 1,
+        "explanation": "Telescoping: Class(a), Class(a,b), Class(a,b,c), ... Hard to remember parameter order. Builder: new Builder().a(x).b(y).c(z).build() — clear and flexible."
+      },
+      {
+        "question": "What is the meaning of 'program to an interface, not an implementation'?",
+        "options": [
+          "Use only interfaces",
+          "Declare variables/parameters as abstract type (List) not concrete (ArrayList). Swap implementations freely.",
+          "Never use concrete classes",
+          "Only for collections"
+        ],
+        "correct": 1,
+        "explanation": "List<String> list = new ArrayList<>() allows changing to LinkedList in one place. Method accepting List works with ANY List implementation."
+      },
+      {
+        "question": "What is the difference between Serializable and Externalizable?",
+        "options": [
+          "No difference",
+          "Serializable: automatic serialization. Externalizable: manual control over what and how to serialize",
+          "Externalizable is older",
+          "Serializable is deprecated"
+        ],
+        "correct": 1,
+        "explanation": "Externalizable extends Serializable requiring writeExternal()/readExternal() implementation. Provides complete control over serialization format."
+      },
+      {
+        "question": "What is serialVersionUID?",
+        "options": [
+          "Random number",
+          "Version identifier for Serializable classes — ensures serialized bytes match class version during deserialization",
+          "Object hash",
+          "Deprecated"
+        ],
+        "correct": 1,
+        "explanation": "serialVersionUID verifies compatibility. If not declared, JVM computes one that may change with any class modification, causing InvalidClassException."
       }
     ],
     "codingExercise": {
@@ -6195,6 +6624,336 @@ const CURRICULUM = [
         ],
         "correct": 1,
         "explanation": "When receiving or returning mutable objects (Date, List), create copies to protect internal state from unintended modification."
+      },
+      {
+        "question": "What is composition in OOP?",
+        "options": [
+          "Inheritance",
+          "Giving a class a private field of another type (HAS-A) rather than extending it (IS-A)",
+          "A type of method",
+          "Deprecated"
+        ],
+        "correct": 1,
+        "explanation": "Composition: class Car { private Engine engine; }. More flexible than inheritance."
+      },
+      {
+        "question": "What is delegation?",
+        "options": [
+          "Inheritance",
+          "Passing responsibility to a composed object: wrapper method calls delegate.doSomething()",
+          "A type of exception",
+          "Deprecated"
+        ],
+        "correct": 1,
+        "explanation": "Delegation = composition + forwarding methods. The outer class delegates work to its composed object."
+      },
+      {
+        "question": "What is tight coupling vs loose coupling?",
+        "options": [
+          "No difference",
+          "Tight: classes know concrete implementations. Loose: classes depend on abstractions",
+          "Loose coupling is worse",
+          "Tight coupling is preferred"
+        ],
+        "correct": 1,
+        "explanation": "Loose coupling via interfaces enables independent development and testing."
+      },
+      {
+        "question": "What is a value object vs entity?",
+        "options": [
+          "No difference",
+          "Entity: has identity (ID), mutable. Value object: no identity, defined by attributes, immutable",
+          "Value objects have IDs",
+          "Entities are always immutable"
+        ],
+        "correct": 1,
+        "explanation": "User is entity (identified by ID). Money (amount+currency) is value object."
+      },
+      {
+        "question": "What is the aggregate pattern in DDD?",
+        "options": [
+          "Database function",
+          "Cluster of domain objects treated as single unit - accessed only through aggregate root",
+          "A collection type",
+          "Deprecated"
+        ],
+        "correct": 1,
+        "explanation": "Order is aggregate root; OrderLine items accessed only through Order."
+      },
+      {
+        "question": "What is a repository pattern?",
+        "options": [
+          "Database query",
+          "Mediates between domain and data mapping - collection-like interface for accessing aggregates",
+          "A collection type",
+          "Deprecated"
+        ],
+        "correct": 1,
+        "explanation": "Repository provides collection-like access: save(), findById(), findAll(). Hides persistence details."
+      },
+      {
+        "question": "What is hexagonal architecture?",
+        "options": [
+          "Six-sided classes",
+          "Domain at center, ports (interfaces) define interactions, adapters connect to external systems",
+          "A UI pattern",
+          "Deprecated"
+        ],
+        "correct": 1,
+        "explanation": "Domain independent of database, UI, messaging. Swap adapters without changing domain."
+      },
+      {
+        "question": "How do access modifiers interact with JPMS?",
+        "options": [
+          "Same as before",
+          "public alone not enough - package must ALSO be exported by its module. Two-level access control.",
+          "More permissive",
+          "Less permissive"
+        ],
+        "correct": 1,
+        "explanation": "Even a public class is inaccessible outside its module unless the package is exported."
+      },
+      {
+        "question": "What is a service loader (SPI)?",
+        "options": [
+          "Boot process",
+          "Mechanism for discovering and loading service implementations at runtime",
+          "A classloader type",
+          "Deprecated"
+        ],
+        "correct": 1,
+        "explanation": "ServiceLoader.load() finds all implementations. Enables plugin architectures."
+      },
+      {
+        "question": "What is encapsulation at architectural level?",
+        "options": [
+          "Only for classes",
+          "Modules, contexts, services encapsulate internals behind APIs - same principle at every scale",
+          "Only for methods",
+          "Deprecated"
+        ],
+        "correct": 1,
+        "explanation": "Encapsulation scales: private fields, package-private classes, exported packages, bounded contexts."
+      },
+      {
+        "question": "What is an invariant in OOP?",
+        "options": [
+          "A variable that changes",
+          "Condition that must always be true - established by constructor, preserved by every method",
+          "An exception type",
+          "A design pattern"
+        ],
+        "correct": 1,
+        "explanation": "BankAccount balance never negative. Constructor enforces >=0. Every method preserves."
+      },
+      {
+        "question": "What is information hiding vs data hiding?",
+        "options": [
+          "Same concept",
+          "Information hiding = hide design decisions. Data hiding = hide variables. Data hiding is subset.",
+          "Data hiding is broader",
+          "Neither exists"
+        ],
+        "correct": 1,
+        "explanation": "Information hiding: algorithms, structures, choices. Data hiding: private fields specifically."
+      },
+      {
+        "question": "What is a bounded context in DDD?",
+        "options": [
+          "An interface type",
+          "Boundary where a domain model applies - different contexts model same concept differently",
+          "A Java feature",
+          "A database concept"
+        ],
+        "correct": 1,
+        "explanation": "Customer means paying user in one context, support requester in another."
+      },
+      {
+        "question": "What is an anti-corruption layer?",
+        "options": [
+          "Security feature",
+          "Isolation layer translating between two bounded contexts, preventing model leakage",
+          "A firewall type",
+          "Deprecated"
+        ],
+        "correct": 1,
+        "explanation": "Translates external models to internal ones. Protects domain from external system changes."
+      },
+      {
+        "question": "What is a domain event?",
+        "options": [
+          "An exception type",
+          "Something meaningful that happened in the domain - triggers reactions in other system parts",
+          "A UI event",
+          "A database trigger"
+        ],
+        "correct": 1,
+        "explanation": "OrderPlaced, PaymentReceived decouple bounded contexts via publish-subscribe."
+      },
+      {
+        "question": "What is a specification pattern?",
+        "options": [
+          "A JVM spec",
+          "Encapsulates business rules as reusable, composable predicates",
+          "An interface type",
+          "Deprecated"
+        ],
+        "correct": 1,
+        "explanation": "Specification: encapsulate rules as objects that combine (AND, OR, NOT)."
+      },
+      {
+        "question": "What is the unnamed module in JPMS?",
+        "options": [
+          "Module with no name",
+          "All classes on classpath belong to unnamed module - can access all exported modules",
+          "Special named module",
+          "Deprecated"
+        ],
+        "correct": 1,
+        "explanation": "Contains all non-modular JARs and classes. Can read all named modules."
+      },
+      {
+        "question": "What is the automatic module in JPMS?",
+        "options": [
+          "Self-configuring",
+          "JAR without module-info on module path - module name from filename",
+          "A reflection type",
+          "Deprecated"
+        ],
+        "correct": 1,
+        "explanation": "Bridges legacy JARs to module system. Transitional mechanism during migration."
+      },
+      {
+        "question": "What is dependency inversion principle?",
+        "options": [
+          "Invert control flow",
+          "High-level modules depend on abstractions, not low-level implementations",
+          "Make everything concrete",
+          "Avoid all dependencies"
+        ],
+        "correct": 1,
+        "explanation": "DIP: depend on interfaces, not concrete classes. Enables swapping implementations."
+      },
+      {
+        "question": "What is single responsibility principle?",
+        "options": [
+          "One method per class",
+          "A class should have only ONE reason to change",
+          "One field per class",
+          "One line per method"
+        ],
+        "correct": 1,
+        "explanation": "SRP: each class handles single concern. Split if class does data access AND business logic."
+      },
+      {
+        "question": "What is interface segregation principle?",
+        "options": [
+          "One big interface",
+          "Many small, specific interfaces better than one general-purpose interface",
+          "All methods together",
+          "No interfaces"
+        ],
+        "correct": 1,
+        "explanation": "ISP: Clients should not depend on methods they do not use. Split fat interfaces."
+      },
+      {
+        "question": "What is open-closed principle?",
+        "options": [
+          "Open to modification",
+          "Open for extension, closed for modification - new behavior without changing existing code",
+          "Always open source",
+          "Closed for extension"
+        ],
+        "correct": 1,
+        "explanation": "Add behavior via inheritance/composition without modifying existing tested code."
+      },
+      {
+        "question": "What are SOLID principles?",
+        "options": [
+          "A database type",
+          "SRP, OCP, LSP, ISP, DIP - five design principles for maintainable OOP",
+          "A programming language",
+          "A design pattern"
+        ],
+        "correct": 1,
+        "explanation": "SOLID: foundation of clean object-oriented design by Robert C. Martin."
+      },
+      {
+        "question": "What is a domain service vs application service?",
+        "options": [
+          "Same",
+          "Domain: business rules. Application: orchestration (transactions, security)",
+          "Application is domain",
+          "Neither exists"
+        ],
+        "correct": 1,
+        "explanation": "Domain: pure business logic. Application: coordinates domain objects with infrastructure."
+      },
+      {
+        "question": "What is the difference between module and package?",
+        "options": [
+          "Same",
+          "Package = namespace (folder). Module = named collection of packages with explicit dependencies",
+          "Packages deprecated",
+          "Modules are smaller"
+        ],
+        "correct": 1,
+        "explanation": "Packages organize code within JAR. Modules (JPMS) control visibility across JARs."
+      },
+      {
+        "question": "What are module directives in JPMS?",
+        "options": [
+          "SQL queries",
+          "exports, requires, provides...with, uses - control module visibility and dependencies",
+          "Package names",
+          "Deprecated"
+        ],
+        "correct": 1,
+        "explanation": "exports com.foo.api makes visible. requires com.bar declares dependency."
+      },
+      {
+        "question": "What is a factory in DDD?",
+        "options": [
+          "A class type",
+          "Creates complex aggregates/entities ensuring they are always created in valid state",
+          "A method",
+          "Deprecated"
+        ],
+        "correct": 1,
+        "explanation": "Factory encapsulates complex creation logic. Validates across multiple fields."
+      },
+      {
+        "question": "How does encapsulation support thread safety?",
+        "options": [
+          "No relationship",
+          "Private mutable state accessed only through synchronized methods guarantees controlled access",
+          "Thread safety unnecessary",
+          "Only for distributed systems"
+        ],
+        "correct": 1,
+        "explanation": "Encapsulation + synchronized accessors = thread-safe design. Public fields make safety impossible."
+      },
+      {
+        "question": "What is defensive copying?",
+        "options": [
+          "Copying when attacked",
+          "Creating copies of mutable objects to prevent external modification of internal state",
+          "Security vulnerability",
+          "Copying files"
+        ],
+        "correct": 1,
+        "explanation": "When receiving/returning mutable objects, create copies to protect internal state."
+      },
+      {
+        "question": "What is the difference between public and published API?",
+        "options": [
+          "Same",
+          "Public = technically accessible. Published = documented, committed to remain stable",
+          "Published deprecated",
+          "API always published"
+        ],
+        "correct": 1,
+        "explanation": "Method can be public without being published. Only publish what you will support forever."
       }
     ],
     "codingExercise": {
@@ -6409,6 +7168,424 @@ const CURRICULUM = [
         ],
         "correct": 1,
         "explanation": "protected extends package-private by also granting access to subclasses outside the package. This is a commitment — anyone can extend your class and access protected members."
+      },
+      {
+        "question": "Can subclass throw broader checked exception than parent?",
+        "options": [
+          "Yes",
+          "No - override cannot throw broader checked exceptions",
+          "Only RuntimeException",
+          "JVM dependent"
+        ],
+        "correct": 1,
+        "explanation": "LSP requires subclasses be substitutable. Broader exceptions would surprise callers."
+      },
+      {
+        "question": "What is fragile base class problem?",
+        "options": [
+          "No solution",
+          "Design for inheritance or prohibit it. Document self-use. Prefer composition.",
+          "Only C++ issue",
+          "Never a problem"
+        ],
+        "correct": 1,
+        "explanation": "Parent changes break subclasses. Solutions: design for inheritance or use composition."
+      },
+      {
+        "question": "Can enum extend a class?",
+        "options": [
+          "Yes",
+          "No - all enums implicitly extend java.lang.Enum. Enums can implement interfaces.",
+          "Only abstract classes",
+          "Only final classes"
+        ],
+        "correct": 1,
+        "explanation": "Enums already extend Enum<E>. They can implement interfaces for shared behavior."
+      },
+      {
+        "question": "What does super.super allow?",
+        "options": [
+          "Access grandparent",
+          "NOT allowed in Java - only direct parent methods accessible via super",
+          "Access any ancestor",
+          "Only constructors"
+        ],
+        "correct": 1,
+        "explanation": "Java prevents super.super.method(). Each class only sees its direct parent."
+      },
+      {
+        "question": "Can record extend a class?",
+        "options": [
+          "Yes to both",
+          "No - records extend Record and are final. Can implement interfaces.",
+          "Only extend",
+          "Only be extended"
+        ],
+        "correct": 1,
+        "explanation": "Records are final with fixed parent (java.lang.Record). Ensures immutability."
+      },
+      {
+        "question": "What is inheritance impact on coupling?",
+        "options": [
+          "Reduces coupling",
+          "Inheritance creates tight coupling - subclass depends on parent implementation",
+          "No impact",
+          "Always improves"
+        ],
+        "correct": 1,
+        "explanation": "Subclass coupled to parent internals. Composition provides looser coupling."
+      },
+      {
+        "question": "What is IS-A vs IS-LIKE-A?",
+        "options": [
+          "Same",
+          "IS-A = true inheritance. IS-LIKE-A = implements interface. Prefer IS-LIKE-A.",
+          "IS-LIKE-A uses extends",
+          "Neither uses Java"
+        ],
+        "correct": 1,
+        "explanation": "IS-A (extends): taxonomic. IS-LIKE-A (implements): capability. Interfaces more flexible."
+      },
+      {
+        "question": "Can constructor throw exceptions?",
+        "options": [
+          "No",
+          "Yes. Partially constructed object becomes GC eligible. Subclass constructor never runs.",
+          "Only checked",
+          "Object persists"
+        ],
+        "correct": 1,
+        "explanation": "Resources allocated before throw must be cleaned up in try-finally within constructor."
+      },
+      {
+        "question": "What is a mixin in Java?",
+        "options": [
+          "A variable type",
+          "Capability added via interface default methods - reusable behavior without inheritance",
+          "Concrete class",
+          "Deprecated"
+        ],
+        "correct": 1,
+        "explanation": "interface Loggable { default void log(String msg) { ... } }. Class gains logging by implementing."
+      },
+      {
+        "question": "What is Template Method pattern?",
+        "options": [
+          "Creates templates",
+          "Abstract class defines skeleton algorithm; subclasses fill in specific steps",
+          "Constructor type",
+          "Deprecated"
+        ],
+        "correct": 1,
+        "explanation": "Parent final templateMethod() calls abstract step1(), step2(). Subclasses implement steps."
+      },
+      {
+        "question": "How is diamond problem resolved in Java?",
+        "options": [
+          "Multiple inheritance",
+          "Single class inheritance + multiple interfaces. Conflicting defaults must be explicitly overridden.",
+          "Not resolved",
+          "Randomly"
+        ],
+        "correct": 1,
+        "explanation": "Java avoids diamond via single class inheritance. Interface conflicts must be manually resolved."
+      },
+      {
+        "question": "What is implementation vs interface inheritance?",
+        "options": [
+          "Same",
+          "Implementation (extends class): inherits code. Interface (implements): inherits contract only.",
+          "Interface inherits code",
+          "Neither exists"
+        ],
+        "correct": 1,
+        "explanation": "Extending class inherits API+implementation. Implementing interface inherits API contract only."
+      },
+      {
+        "question": "What does @Inherited annotation do?",
+        "options": [
+          "Nothing",
+          "Meta-annotation: causes class-level annotation to be inherited by subclasses",
+          "Marks deprecated",
+          "Only for methods"
+        ],
+        "correct": 1,
+        "explanation": "@Inherited on annotation definition means subclasses inherit the annotation."
+      },
+      {
+        "question": "What is sealed class hierarchy?",
+        "options": [
+          "Same as open",
+          "Sealed (Java 17+): explicitly lists permitted subclasses. Enables exhaustive pattern matching.",
+          "Sealed is open",
+          "Open is sealed"
+        ],
+        "correct": 1,
+        "explanation": "sealed class Shape permits Circle, Rectangle restricts hierarchy. Compiler verifies coverage."
+      },
+      {
+        "question": "What is the difference between protected and default for inheritance?",
+        "options": [
+          "Same",
+          "protected allows subclass access across packages. default restricts to same package only.",
+          "Default is wider",
+          "Protected is deprecated"
+        ],
+        "correct": 1,
+        "explanation": "protected is designed for inheritance across package boundaries. default only same package."
+      },
+      {
+        "question": "Can final class have abstract methods?",
+        "options": [
+          "Yes",
+          "No - final class cannot be extended, so abstract methods could never be implemented",
+          "Only static",
+          "Only private"
+        ],
+        "correct": 1,
+        "explanation": "Abstract methods need subclass implementation. Final prevents subclassing. Contradiction."
+      },
+      {
+        "question": "What is constructor invocation order in deep hierarchy?",
+        "options": [
+          "Child first",
+          "Object() first, then parent, then child - top-down constructor chaining",
+          "Random order",
+          "Only child runs"
+        ],
+        "correct": 1,
+        "explanation": "Constructors execute top-down: Object -> Parent -> Child. Each calls super() as first statement."
+      },
+      {
+        "question": "What happens if parent has no no-arg constructor?",
+        "options": [
+          "Nothing",
+          "Subclass MUST explicitly call super(args) - implicit super() will not compile",
+          "Compile error always",
+          "Auto-generated"
+        ],
+        "correct": 1,
+        "explanation": "Child must call super(args) as first statement when parent lacks no-arg constructor."
+      },
+      {
+        "question": "Can final class have abstract methods?",
+        "options": [
+          "Yes",
+          "No - final prevents subclassing, so abstract methods could never be implemented",
+          "Only static",
+          "Only private"
+        ],
+        "correct": 1,
+        "explanation": "Abstract methods need subclass implementation. Final prevents subclassing. Logical contradiction."
+      },
+      {
+        "question": "What is constructor invocation order?",
+        "options": [
+          "Child first",
+          "Object() first, then parent, then child - top-down via super()",
+          "Random",
+          "Only child"
+        ],
+        "correct": 1,
+        "explanation": "Constructors execute top-down: Object->Parent->Child. Each calls super() as first statement."
+      },
+      {
+        "question": "What happens if parent lacks no-arg constructor?",
+        "options": [
+          "Nothing",
+          "Subclass MUST explicitly call super(args) - implicit super() will not compile",
+          "Compile error always",
+          "Auto-generated"
+        ],
+        "correct": 1,
+        "explanation": "Child must call super(args) as first statement when parent lacks no-arg constructor."
+      },
+      {
+        "question": "What is difference between protected and default for inheritance?",
+        "options": [
+          "Same",
+          "protected allows subclass access across packages. default restricts to same package only.",
+          "Default is wider",
+          "Protected deprecated"
+        ],
+        "correct": 1,
+        "explanation": "protected is designed for inheritance across package boundaries. default only same package."
+      },
+      {
+        "question": "What is difference between deep and shallow cloning with inheritance?",
+        "options": [
+          "Same",
+          "Shallow: copy fields but share referenced objects. Deep: recursively clone all fields including parent hierarchy.",
+          "Deep is default",
+          "Shallow is Java default"
+        ],
+        "correct": 1,
+        "explanation": "Object.clone() does shallow copy. Deep requires manually cloning every mutable field and all parent fields."
+      },
+      {
+        "question": "What is a mixin via interfaces?",
+        "options": [
+          "Variable type",
+          "Capability added via interface default methods - reusable behavior without inheritance",
+          "Concrete class",
+          "Deprecated"
+        ],
+        "correct": 1,
+        "explanation": "interface Loggable { default void log(String msg) {...} }. Class gains logging by implementing interface."
+      },
+      {
+        "question": "What is Template Method pattern relation to inheritance?",
+        "options": [
+          "No relation",
+          "Parent defines skeleton algorithm (final template method); subclasses override specific steps",
+          "Composition pattern",
+          "Deprecated"
+        ],
+        "correct": 1,
+        "explanation": "Template Method: parent final method calls abstract step1(), step2(). Subclasses implement steps."
+      },
+      {
+        "question": "How does sealed class differ from final class?",
+        "options": [
+          "Same",
+          "Sealed: restricted but allows listed subclasses. Final: no subclasses at all.",
+          "Final is sealed",
+          "Sealed is final"
+        ],
+        "correct": 1,
+        "explanation": "sealed permits specific subclasses. final prevents all subclassing. Sealed enables exhaustive pattern matching."
+      },
+      {
+        "question": "What is non-reifiable type?",
+        "options": [
+          "Fully available at runtime",
+          "Type whose information is erased at runtime (generic types like List<String>)",
+          "Primitive types",
+          "Raw types"
+        ],
+        "correct": 1,
+        "explanation": "Non-reifiable: type info lost via erasure. Cannot use instanceof or create arrays of non-reifiable types."
+      },
+      {
+        "question": "What is type variance in generics vs arrays?",
+        "options": [
+          "Same",
+          "Arrays are covariant (String[] is Object[]). Generics are invariant (List<String> NOT a List<Object>)",
+          "Generics are covariant",
+          "Arrays are invariant"
+        ],
+        "correct": 1,
+        "explanation": "Arrays are covariant (runtime check). Generics are invariant (compile-time check). Generics are safer."
+      },
+      {
+        "question": "What is bridge method?",
+        "options": [
+          "Connecting systems",
+          "Compiler-generated synthetic method ensuring type erasure does not break polymorphism",
+          "Networking method",
+          "Deprecated"
+        ],
+        "correct": 1,
+        "explanation": "Bridge methods maintain override semantics after erasure. Generated by compiler, visible via reflection."
+      },
+      {
+        "question": "What is the diamond problem in C++ vs Java solution?",
+        "options": [
+          "Same solutions",
+          "C++: multiple inheritance with virtual base classes. Java: single class inheritance + multiple interfaces.",
+          "Java has same problem",
+          "C++ solved it better"
+        ],
+        "correct": 1,
+        "explanation": "Java avoids diamond entirely via single class inheritance. Interface default conflicts must be manually resolved."
+      },
+      {
+        "question": "Can override change return type to void?",
+        "options": [
+          "Yes",
+          "No - override must return same type or subtype (covariant). Cannot change to void or unrelated type.",
+          "Only for abstract",
+          "In Java 17+"
+        ],
+        "correct": 1,
+        "explanation": "Covariant return types allow more specific return. void is not a subtype of any type."
+      },
+      {
+        "question": "What is the difference between extends Object and no extends clause?",
+        "options": [
+          "Different behavior",
+          "Identical - every class implicitly extends Object if no other parent specified",
+          "Object extension is explicit",
+          "No extends means no parent"
+        ],
+        "correct": 1,
+        "explanation": "All classes ultimately extend Object. Explicit and implicit are functionally identical."
+      },
+      {
+        "question": "What is reification in type systems?",
+        "options": [
+          "Removing types",
+          "Full type information available at runtime. Java primitives are reified; generic types are not.",
+          "Adding types",
+          "Compile-time only"
+        ],
+        "correct": 1,
+        "explanation": "Reified types have complete runtime type info. Non-reified (generics) lose type parameters at runtime."
+      },
+      {
+        "question": "Can static methods be overridden?",
+        "options": [
+          "Yes",
+          "No - static methods are hidden, not overridden. Reference type determines which version is called.",
+          "Only in interfaces",
+          "Only in abstract classes"
+        ],
+        "correct": 1,
+        "explanation": "Static method resolution is compile-time based on reference type. Instance method resolution is runtime based on object type."
+      },
+      {
+        "question": "What is the @Override annotation benefit?",
+        "options": [
+          "Just documentation",
+          "Compiler verification: ensures method actually overrides parent. Catches typos and signature mismatches.",
+          "Performance boost",
+          "Deprecated"
+        ],
+        "correct": 1,
+        "explanation": "Without @Override, a typo silently creates new method instead of overriding. Always use @Override."
+      },
+      {
+        "question": "What is the super keyword in method context?",
+        "options": [
+          "This class",
+          "Call parent class version of overridden method - enables extending behavior, not just replacing",
+          "Current object",
+          "Deprecated"
+        ],
+        "correct": 1,
+        "explanation": "super.method() calls parent implementation. Useful when override wants to add to (not replace) parent behavior."
+      },
+      {
+        "question": "What happens when overriding method changes parameters?",
+        "options": [
+          "Overrides parent",
+          "Creates overload, not override. @Override would catch this - compile error since no matching parent method.",
+          "Creates override",
+          "Compile error always"
+        ],
+        "correct": 1,
+        "explanation": "Different parameters = overloading, not overriding. @Override annotation catches this mistake at compile time."
+      },
+      {
+        "question": "Can interface inherit from class?",
+        "options": [
+          "Yes",
+          "No - interfaces can only extend other interfaces. Classes extend classes. Interfaces are separate hierarchy.",
+          "Only in Java 17+",
+          "Only for sealed classes"
+        ],
+        "correct": 1,
+        "explanation": "Interfaces form separate type hierarchy. They can extend multiple interfaces but cannot extend classes."
       }
     ],
     "codingExercise": {
@@ -6668,6 +7845,358 @@ const CURRICULUM = [
         ],
         "correct": 1,
         "explanation": "Visitor lets you add new operations to object structures without changing the elements. Double dispatch: element.accept(visitor); visitor.visit(element)."
+      },
+      {
+        "question": "What is dynamic method dispatch?",
+        "options": [
+          "Compile-time resolution",
+          "Runtime method resolution based on actual object type - mechanism behind polymorphism",
+          "Static calls",
+          "Deprecated"
+        ],
+        "correct": 1,
+        "explanation": "JVM looks at actual object class in method table at runtime to find correct overridden method."
+      },
+      {
+        "question": "What is the Strategy pattern?",
+        "options": [
+          "Military pattern",
+          "Define family of algorithms, encapsulate each, make interchangeable at runtime",
+          "A loop type",
+          "Deprecated"
+        ],
+        "correct": 1,
+        "explanation": "Strategy uses composition+polymorphism. Pass different behaviors to change object behavior."
+      },
+      {
+        "question": "What is the Visitor pattern?",
+        "options": [
+          "Website visitor",
+          "Separate algorithm from object structure - add operations without modifying elements",
+          "A loop type",
+          "Deprecated"
+        ],
+        "correct": 1,
+        "explanation": "Visitor: element.accept(visitor) calls visitor.visit(element). Double dispatch."
+      },
+      {
+        "question": "What is virtual vs non-virtual method calls?",
+        "options": [
+          "No difference",
+          "Virtual = runtime resolution. Non-virtual = compile-time (static, private, final)",
+          "Non-virtual deprecated",
+          "All are virtual"
+        ],
+        "correct": 1,
+        "explanation": "Virtual calls use method table. Non-virtual are direct. final methods are non-virtual."
+      },
+      {
+        "question": "What is covariant return type?",
+        "options": [
+          "Same return",
+          "Overriding method can return MORE SPECIFIC type than parent",
+          "More general type",
+          "Void only"
+        ],
+        "correct": 1,
+        "explanation": "Parent: Animal getPet(). Child: Dog getPet(). Compiler verifies type safety."
+      },
+      {
+        "question": "What is Factory Method pattern?",
+        "options": [
+          "Constructor",
+          "Define interface for creating objects, let subclasses decide which class to instantiate",
+          "Loop type",
+          "Deprecated"
+        ],
+        "correct": 1,
+        "explanation": "Factory Method: abstract createProduct(). ConcreteCreator overrides to return ConcreteProduct."
+      },
+      {
+        "question": "What is Command pattern?",
+        "options": [
+          "Military command",
+          "Encapsulate request as object - enables queuing, logging, undo/redo via polymorphism",
+          "Loop type",
+          "Deprecated"
+        ],
+        "correct": 1,
+        "explanation": "Command: interface Command { void execute(); }. Concrete commands encapsulate actions."
+      },
+      {
+        "question": "What is Observer pattern?",
+        "options": [
+          "Watching code",
+          "Define one-to-many dependency - when one object changes, all dependents notified",
+          "Loop type",
+          "Deprecated"
+        ],
+        "correct": 1,
+        "explanation": "Observer: Subject maintains list of Observers. When state changes, calls observer.update()."
+      },
+      {
+        "question": "What is Decorator pattern?",
+        "options": [
+          "Home decoration",
+          "Attach additional responsibilities dynamically - wrapper implements same interface",
+          "Loop type",
+          "Deprecated"
+        ],
+        "correct": 1,
+        "explanation": "Decorator wraps component with same interface. new BufferedInputStream(new FileInputStream(f))."
+      },
+      {
+        "question": "What is Chain of Responsibility?",
+        "options": [
+          "Chain of command",
+          "Pass request along chain of handlers - each decides to process or pass to next",
+          "Loop type",
+          "Deprecated"
+        ],
+        "correct": 1,
+        "explanation": "Chain: each handler has reference to next. Polymorphic handle() on each handler."
+      },
+      {
+        "question": "What is polymorphism relationship to OCP?",
+        "options": [
+          "No relationship",
+          "Polymorphism enables OCP: new implementations added without modifying existing code",
+          "Polymorphism violates OCP",
+          "OCP needs no polymorphism"
+        ],
+        "correct": 1,
+        "explanation": "Polymorphism makes OCP possible. Add new Animal subtype without changing feedAll()."
+      },
+      {
+        "question": "What is abstract method role in polymorphism?",
+        "options": [
+          "No role",
+          "Abstract methods define contract - subclasses MUST implement, enabling polymorphic dispatch",
+          "Only documentation",
+          "Deprecated"
+        ],
+        "correct": 1,
+        "explanation": "Abstract methods guarantee subclasses have method, enabling polymorphic calls through abstract type."
+      },
+      {
+        "question": "What is double dispatch?",
+        "options": [
+          "Two method calls",
+          "Technique where method call depends on runtime types of TWO objects - used in Visitor pattern",
+          "Static dispatch",
+          "Deprecated"
+        ],
+        "correct": 1,
+        "explanation": "double dispatch: element.accept(visitor) dispatches to correct accept(), which calls visitor.visit(this) - second dispatch."
+      },
+      {
+        "question": "What is single dispatch in Java?",
+        "options": [
+          "Multiple method calls",
+          "Java supports single dispatch: method selected based on ONE receiver object type. Parameters use static types.",
+          "Double dispatch default",
+          "Not supported"
+        ],
+        "correct": 1,
+        "explanation": "Java methods are dispatched on the receiver (object before dot). Parameter types use compile-time (overloaded) resolution."
+      },
+      {
+        "question": "What is the difference between polymorphism and inheritance?",
+        "options": [
+          "Same concept",
+          "Inheritance = code reuse mechanism. Polymorphism = ability to use different types through common interface. Related but distinct.",
+          "Polymorphism is inheritance",
+          "No relationship"
+        ],
+        "correct": 1,
+        "explanation": "Inheritance enables code reuse. Polymorphism enables flexible design. You can have polymorphism without inheritance (interfaces)."
+      },
+      {
+        "question": "What is composition over inheritance principle?",
+        "options": [
+          "Always use inheritance",
+          "Favor HAS-A (composition) over IS-A (inheritance) for code reuse - more flexible and less fragile",
+          "Always use composition",
+          "Neither matters"
+        ],
+        "correct": 1,
+        "explanation": "Composition: give class private field of another type. More flexible than inheriting - can change behavior at runtime."
+      },
+      {
+        "question": "What is the State pattern?",
+        "options": [
+          "Country state",
+          "Object behavior changes when internal state changes - appears as if object changed class",
+          "A loop type",
+          "Deprecated"
+        ],
+        "correct": 1,
+        "explanation": "State pattern: context delegates to state object. State changes trigger different behavior. Uses composition + polymorphism."
+      },
+      {
+        "question": "What is the Iterator pattern?",
+        "options": [
+          "A loop",
+          "Sequentially access elements of collection without exposing underlying structure",
+          "A state type",
+          "Deprecated"
+        ],
+        "correct": 1,
+        "explanation": "Iterator provides hasNext()/next() interface. Different collections provide different iterators - polymorphic traversal."
+      },
+      {
+        "question": "What is the Adapter pattern?",
+        "options": [
+          "Power adapter",
+          "Convert interface of class into another interface clients expect - enables incompatible interfaces to work together",
+          "Loop type",
+          "Deprecated"
+        ],
+        "correct": 1,
+        "explanation": "Adapter wraps class with different interface. Like power adapter converting plug shape while keeping electricity the same."
+      },
+      {
+        "question": "What is the Proxy pattern?",
+        "options": [
+          "Network proxy",
+          "Provide surrogate/placeholder for another object to control access - same interface as real object",
+          "Loop type",
+          "Deprecated"
+        ],
+        "correct": 1,
+        "explanation": "Proxy implements same interface as real subject. Controls access: lazy loading, access control, logging, remote calls."
+      },
+      {
+        "question": "What is the difference between composition and aggregation?",
+        "options": [
+          "Same",
+          "Composition: strong ownership (part dies with whole). Aggregation: weak (part exists independently)",
+          "Aggregation is stronger",
+          "Composition is deprecated"
+        ],
+        "correct": 1,
+        "explanation": "Car HAS Engine (composition: engine dies with car). Course HAS Students (aggregation: students exist without course)."
+      },
+      {
+        "question": "What is the Mediator pattern?",
+        "options": [
+          "Negotiation",
+          "Central object that coordinates communication between components - they only know mediator, not each other",
+          "Loop type",
+          "Deprecated"
+        ],
+        "correct": 1,
+        "explanation": "Mediator reduces direct coupling between components. ChatRoom mediates between Users instead of Users knowing each other."
+      },
+      {
+        "question": "What is the Memento pattern?",
+        "options": [
+          "Memory",
+          "Capture and restore object internal state without violating encapsulation - enables undo functionality",
+          "Loop type",
+          "Deprecated"
+        ],
+        "correct": 1,
+        "explanation": "Originator creates Memento containing state snapshot. Caretaker stores Mementos. Enables undo/redo."
+      },
+      {
+        "question": "What is the Flyweight pattern?",
+        "options": [
+          "Flying weight",
+          "Share common state across many objects to reduce memory - intrinsic vs extrinsic state",
+          "Loop type",
+          "Deprecated"
+        ],
+        "correct": 1,
+        "explanation": "Flyweight shares immutable intrinsic state. Extrinsic state passed by client. Used for character glyphs in text editors."
+      },
+      {
+        "question": "What is the Interpreter pattern?",
+        "options": [
+          "Language translator",
+          "Define grammar representation and interpreter for simple languages/expressions",
+          "Loop type",
+          "Deprecated"
+        ],
+        "correct": 1,
+        "explanation": "Interpreter builds AST for simple DSL. Each node type implements interpret(). Used for SQL parsers, expression evaluators."
+      },
+      {
+        "question": "What is the Builder pattern?",
+        "options": [
+          "Construction",
+          "Separate construction of complex object from its representation - step-by-step with fluent API",
+          "Loop type",
+          "Deprecated"
+        ],
+        "correct": 1,
+        "explanation": "new Pizza.Builder().size(12).cheese(true).build(). Solves telescoping constructor problem."
+      },
+      {
+        "question": "What is the Prototype pattern?",
+        "options": [
+          "First version",
+          "Create new objects by cloning existing prototype instead of calling constructor",
+          "Loop type",
+          "Deprecated"
+        ],
+        "correct": 1,
+        "explanation": "Prototype: clone existing object (prototype) instead of new. Useful when construction is expensive or complex."
+      },
+      {
+        "question": "What is the Abstract Factory pattern?",
+        "options": [
+          "Concrete factory",
+          "Provide interface for creating FAMILIES of related objects without specifying concrete classes",
+          "Loop type",
+          "Deprecated"
+        ],
+        "correct": 1,
+        "explanation": "GUIFactory creates Button+Checkbox. WindowsFactory returns WindowsButton+WindowsCheckbox. MacFactory returns Mac variants."
+      },
+      {
+        "question": "What is the Bridge pattern?",
+        "options": [
+          "Structural connection",
+          "Separate abstraction from implementation so both can vary independently",
+          "Loop type",
+          "Deprecated"
+        ],
+        "correct": 1,
+        "explanation": "Bridge: Shape abstraction has Color implementation. Circle+Red, Circle+Blue without CircleRed, CircleBlue classes."
+      },
+      {
+        "question": "What is the Facade pattern?",
+        "options": [
+          "Building front",
+          "Provide simplified interface to complex subsystem - single entry point for common operations",
+          "Loop type",
+          "Deprecated"
+        ],
+        "correct": 1,
+        "explanation": "Facade: simple interface hiding complexity. HomeTheater.watchMovie() hides DVD, Projector, Speakers interactions."
+      },
+      {
+        "question": "What is late binding?",
+        "options": [
+          "Compile-time binding",
+          "Same as dynamic binding - method resolution at runtime based on actual object type",
+          "Static binding",
+          "Early binding"
+        ],
+        "correct": 1,
+        "explanation": "Late binding = dynamic dispatch. The specific method to call is determined at runtime based on object type."
+      },
+      {
+        "question": "What is covariance vs contravariance?",
+        "options": [
+          "Same",
+          "Covariance: more specific return type OK. Contravariance: more general parameter type OK (not supported in Java overrides)",
+          "Contravariance in returns",
+          "Covariance in parameters"
+        ],
+        "correct": 1,
+        "explanation": "Java supports covariant return types in overrides. Parameter types must be identical (invariant) for overrides."
       }
     ],
     "codingExercise": {
@@ -6926,6 +8455,380 @@ const CURRICULUM = [
         ],
         "correct": 1,
         "explanation": "When two interfaces provide the same default method, the implementing class must resolve the conflict by overriding. Class method wins over interface default."
+      },
+      {
+        "question": "Can interface have static methods?",
+        "options": [
+          "No",
+          "Yes since Java 8. Static methods belong to interface, not instances",
+          "Only Java 17+",
+          "Only private static"
+        ],
+        "correct": 1,
+        "explanation": "InterfaceName.staticMethod(). Used for utility methods related to interface contract."
+      },
+      {
+        "question": "Can interface have private methods?",
+        "options": [
+          "No",
+          "Yes since Java 9. Share code between default methods without exposing implementation",
+          "Only Java 17+",
+          "Only static"
+        ],
+        "correct": 1,
+        "explanation": "Private methods avoid code duplication between default methods."
+      },
+      {
+        "question": "What is a functional interface?",
+        "options": [
+          "Any interface",
+          "Interface with exactly one abstract method - can be implemented by lambdas",
+          "No methods",
+          "Deprecated"
+        ],
+        "correct": 1,
+        "explanation": "SAM interfaces enable lambda expressions. @FunctionalInterface enforces the contract."
+      },
+      {
+        "question": "What is sealed interface (Java 17+)?",
+        "options": [
+          "Cannot be used",
+          "Interface restricting which classes can implement it using permits clause",
+          "Deprecated",
+          "Only internal use"
+        ],
+        "correct": 1,
+        "explanation": "sealed interface permits ClassA, ClassB restricts implementations. Enables exhaustive matching."
+      },
+      {
+        "question": "What is constant interface anti-pattern?",
+        "options": [
+          "Using interfaces for all",
+          "Interface with only constants - pollutes implementing classes namespace",
+          "Best practice",
+          "Required by Java"
+        ],
+        "correct": 1,
+        "explanation": "Use final class with private constructor or enum instead of constant-only interface."
+      },
+      {
+        "question": "What is diamond problem in defaults?",
+        "options": [
+          "Four-sided shape",
+          "Class inherits two conflicting default methods - must override to resolve",
+          "Memory leak",
+          "Exception type"
+        ],
+        "correct": 1,
+        "explanation": "When two interfaces provide same default method, class must override to resolve ambiguity."
+      },
+      {
+        "question": "What is skeletal implementation pattern?",
+        "options": [
+          "Bone structure",
+          "Interface defines contract + Abstract class provides skeletal implementation",
+          "Deprecated",
+          "Only for Lists"
+        ],
+        "correct": 1,
+        "explanation": "AbstractCollection, AbstractList: interface+abstract class. Best of both worlds."
+      },
+      {
+        "question": "Can interface extend multiple interfaces?",
+        "options": [
+          "No",
+          "Yes - interfaces support multiple inheritance of type (extends A, B)",
+          "Only one",
+          "Only Java 8+"
+        ],
+        "correct": 1,
+        "explanation": "Interfaces can extend multiple interfaces. Child interface inherits all method contracts."
+      },
+      {
+        "question": "What is a marker interface?",
+        "options": [
+          "Default methods",
+          "Interface with no methods - tags classes: Serializable, Cloneable, Remote",
+          "Complex interface",
+          "Deprecated"
+        ],
+        "correct": 1,
+        "explanation": "Marker interfaces signal JVM/framework about class properties without requiring methods."
+      },
+      {
+        "question": "What happens if class implements two interfaces with same method?",
+        "options": [
+          "Compile error",
+          "If compatible contracts, one implementation satisfies both. Conflicting returns = error.",
+          "Only first works",
+          "Random"
+        ],
+        "correct": 1,
+        "explanation": "If signatures and returns match, one implementation works for both. Covariant returns may also work."
+      },
+      {
+        "question": "Can you create instance of interface?",
+        "options": [
+          "Yes: new MyInterface()",
+          "No - but you can instantiate anonymous class implementing it",
+          "Only with defaults",
+          "Java 17+"
+        ],
+        "correct": 1,
+        "explanation": "new MyInterface() { /* implement */ } creates anonymous class, not interface instance."
+      },
+      {
+        "question": "What is @FunctionalInterface for?",
+        "options": [
+          "Documentation only",
+          "Compiler-checked: ensures interface has exactly one abstract method",
+          "Performance",
+          "Deprecated"
+        ],
+        "correct": 1,
+        "explanation": "@FunctionalInterface makes SAM contract explicit. Compiler rejects multiple abstract methods."
+      },
+      {
+        "question": "What is abstract vs default methods?",
+        "options": [
+          "No difference",
+          "Abstract: MUST implement. Default: HAS implementation, CAN override.",
+          "Defaults are abstract",
+          "Abstract have bodies"
+        ],
+        "correct": 1,
+        "explanation": "Abstract defines contract. Default provides optional convenience implementation (Java 8+)."
+      },
+      {
+        "question": "What are interface implicit modifiers?",
+        "options": [
+          "Nothing implicit",
+          "Methods: public abstract. Fields: public static final. Java 9+ allows private methods.",
+          "Private by default",
+          "Protected by default"
+        ],
+        "correct": 1,
+        "explanation": "All interface methods implicitly public. Fields are constants. Java 9+ allows private helper methods."
+      },
+      {
+        "question": "What is interface vs fully abstract class?",
+        "options": [
+          "No difference",
+          "Interface: multiple inheritance, no state. Abstract class: single, can have state and constructors.",
+          "Abstract is interface",
+          "Interface has constructors"
+        ],
+        "correct": 1,
+        "explanation": "Multiple interfaces vs single abstract class. Interface for contracts; abstract class for shared state."
+      },
+      {
+        "question": "What is functional interface commonly used with?",
+        "options": [
+          "Classes only",
+          "Lambdas, method references, and streams - the backbone of Java functional programming",
+          "Abstract classes",
+          "Deprecated features"
+        ],
+        "correct": 1,
+        "explanation": "Predicate, Function, Consumer, Supplier - functional interfaces power streams, Optional, and reactive Java."
+      },
+      {
+        "question": "What is the difference between Comparator and Comparable interfaces?",
+        "options": [
+          "No difference",
+          "Comparable: natural order (class implements). Comparator: external order (separate class/lambda)",
+          "Comparator deprecated",
+          "Comparable for external"
+        ],
+        "correct": 1,
+        "explanation": "Comparable: object compares itself. Comparator: external strategy. Comparator more flexible."
+      },
+      {
+        "question": "What is functional interface commonly used with?",
+        "options": [
+          "Classes only",
+          "Lambdas, method references, and streams - backbone of Java functional programming",
+          "Abstract classes",
+          "Deprecated"
+        ],
+        "correct": 1,
+        "explanation": "Predicate, Function, Consumer, Supplier power streams, Optional, and reactive Java."
+      },
+      {
+        "question": "What is Comparator vs Comparable?",
+        "options": [
+          "No difference",
+          "Comparable: natural order (class implements). Comparator: external order (separate class/lambda)",
+          "Comparator deprecated",
+          "Comparable for external"
+        ],
+        "correct": 1,
+        "explanation": "Comparable: object compares itself. Comparator: external strategy. Comparator is more flexible."
+      },
+      {
+        "question": "What is interface default method resolution order?",
+        "options": [
+          "Random",
+          "(1) Class/abstract class wins. (2) More specific interface wins. (3) Ambiguity forces explicit override.",
+          "Interface always wins",
+          "Class never wins"
+        ],
+        "correct": 1,
+        "explanation": "Class methods take priority over interface defaults. Ambiguity must be manually resolved."
+      },
+      {
+        "question": "What is java.lang.Iterable relationship to interfaces?",
+        "options": [
+          "No relation",
+          "Iterable is interface with iterator() method. Enables for-each loop. Collections implement Iterable.",
+          "Iterable is class",
+          "Deprecated"
+        ],
+        "correct": 1,
+        "explanation": "Implementing Iterable allows objects to be used in for-each loops. Requires iterator() returning Iterator."
+      },
+      {
+        "question": "What is the difference between Iterator and Iterable?",
+        "options": [
+          "Same",
+          "Iterable: HAS iterator (can be iterated). Iterator: DOES iteration (hasNext/next). Iterable creates Iterator.",
+          "Iterator is Iterable",
+          "Neither exists"
+        ],
+        "correct": 1,
+        "explanation": "Collection implements Iterable (has iterator() method). Iterator performs the actual traversal."
+      },
+      {
+        "question": "What is the AutoCloseable interface?",
+        "options": [
+          "Auto cleanup",
+          "Interface with close() method - enables try-with-resources. Supertype of Closeable.",
+          "Deprecated",
+          "Only for files"
+        ],
+        "correct": 1,
+        "explanation": "AutoCloseable.close() called automatically by try-with-resources. Exception can be thrown; Closeable restricts to IOException."
+      },
+      {
+        "question": "What is Cloneable interface?",
+        "options": [
+          "Generic cloning",
+          "Marker interface indicating Object.clone() is supported. Without it, clone() throws CloneNotSupportedException.",
+          "Deprecated",
+          "Not needed"
+        ],
+        "correct": 1,
+        "explanation": "Cloneable is a marker interface. It does NOT contain clone() method - clone() is from Object. Controversial design."
+      },
+      {
+        "question": "What is Readable interface?",
+        "options": [
+          "For files",
+          "Interface with read(CharBuffer) method - used by Scanner and other text processors",
+          "Deprecated",
+          "Marker interface"
+        ],
+        "correct": 1,
+        "explanation": "Readable provides read() into CharBuffer. Enables Scanner to read from diverse sources implementing Readable."
+      },
+      {
+        "question": "What is Appendable interface?",
+        "options": [
+          "Adding",
+          "Interface with append() methods - implemented by StringBuilder, Writer, PrintStream",
+          "Deprecated",
+          "Marker interface"
+        ],
+        "correct": 1,
+        "explanation": "Appendable provides append(char), append(CharSequence), append(CharSequence,start,end). Used by Formatter class."
+      },
+      {
+        "question": "What is the difference between interface and @interface?",
+        "options": [
+          "Same",
+          "interface = type contract. @interface = annotation definition (custom annotation). Completely different concepts.",
+          "@interface deprecated",
+          "interface is annotation"
+        ],
+        "correct": 1,
+        "explanation": "@interface defines custom annotations. @Override, @Deprecated are predefined annotations. @interface MyAnnotation {}."
+      },
+      {
+        "question": "Can annotation extend interface?",
+        "options": [
+          "Yes",
+          "No - annotations cannot extend interfaces. All annotations implicitly extend java.lang.annotation.Annotation.",
+          "Only in Java 17+",
+          "Only marker annotations"
+        ],
+        "correct": 1,
+        "explanation": "Annotations form separate type hierarchy. They cannot extend interfaces or classes."
+      },
+      {
+        "question": "What is default method backward compatibility purpose?",
+        "options": [
+          "No purpose",
+          "Adding new methods to existing interfaces without breaking all implementors - primary reason for Java 8 default methods",
+          "Performance",
+          "Deprecated"
+        ],
+        "correct": 1,
+        "explanation": "Before default methods, adding method to interface broke ALL implementations. Default methods solve this."
+      },
+      {
+        "question": "What is the java.util.function package?",
+        "options": [
+          "No such package",
+          "Standard functional interfaces: Predicate, Function, Consumer, Supplier, and 39 variants",
+          "A class",
+          "Deprecated"
+        ],
+        "correct": 1,
+        "explanation": "java.util.function provides reusable functional interfaces. Use standard ones instead of creating custom SAM interfaces."
+      },
+      {
+        "question": "What is a BiFunction?",
+        "options": [
+          "Binary function",
+          "Function that accepts TWO arguments and produces result: BiFunction<T,U,R>",
+          "Single argument",
+          "No return"
+        ],
+        "correct": 1,
+        "explanation": "BiFunction<T,U,R>: apply(T t, U u) returns R. Used when lambda/function needs two inputs."
+      },
+      {
+        "question": "What is UnaryOperator?",
+        "options": [
+          "Two arguments",
+          "Special case of Function where input and output types are same: UnaryOperator<T> extends Function<T,T>",
+          "No return",
+          "Binary"
+        ],
+        "correct": 1,
+        "explanation": "UnaryOperator<T>: apply(T) returns T. Used for same-type transformations. BinaryOperator<T> for two-arg version."
+      },
+      {
+        "question": "What is Type Erasure impact on interface generic methods?",
+        "options": [
+          "No impact",
+          "Compiler generates bridge methods to maintain polymorphism after erasure. May see synthetic methods in stack traces.",
+          "Interfaces erased completely",
+          "No generic interfaces allowed"
+        ],
+        "correct": 1,
+        "explanation": "Type erasure requires bridge methods when generic interface methods are implemented. Visible via reflection but transparent in normal use."
+      },
+      {
+        "question": "What is SAM (Single Abstract Method) rule?",
+        "options": [
+          "Multiple abstract OK",
+          "Exactly ONE abstract method. Default/static methods do not count. Object methods do not count.",
+          "Two abstract methods",
+          "Zero abstract methods"
+        ],
+        "correct": 1,
+        "explanation": "SAM = single abstract method. Enables lambda implementation. @FunctionalInterface enforces this contract at compile time."
       }
     ],
     "codingExercise": {

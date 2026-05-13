@@ -1,6 +1,4 @@
-# Phase 1 with expanded quiz banks
-
-TOPICS = [
+# Phase 1\n\nTOPICS = [
   {
     "id": 1,
     "phase": "Programming Fundamentals",
@@ -5333,6 +5331,182 @@ TOPICS = [
         ],
         "correct": 1,
         "explanation": "Arrays.compare() (Java 9+) provides lexicographic comparison like String.compareTo(). Useful for sorting and ordering of arrays."
+      },
+      {
+        "question": "What is the difference between array and ArrayList memory usage?",
+        "options": [
+          "Same",
+          "Array: fixed overhead. ArrayList: ~30% extra for capacity buffer + object header",
+          "ArrayList uses less",
+          "Array uses more"
+        ],
+        "correct": 1,
+        "explanation": "ArrayList maintains extra capacity (default +50%) to amortize resizing cost, plus object headers. Arrays have exactly the needed size."
+      },
+      {
+        "question": "What character terminates every String in C that Java doesn't need?",
+        "options": [
+          ";",
+          "\\0 (null terminator)",
+          "\\n",
+          "."
+        ],
+        "correct": 1,
+        "explanation": "C strings use null-terminated char arrays. Java String stores length separately — no sentinel character needed."
+      },
+      {
+        "question": "What is a circular buffer (ring buffer)?",
+        "options": [
+          "Square array",
+          "Array-based FIFO where head and tail wrap around using modulo — efficient for streaming data",
+          "Linked list",
+          "Deprecated"
+        ],
+        "correct": 1,
+        "explanation": "Circular buffer: fixed-size array with head/tail pointers that wrap. Used in audio/video streaming, network buffers, and event queues."
+      },
+      {
+        "question": "Can you sort an array of objects that don't implement Comparable?",
+        "options": [
+          "No",
+          "Yes — provide a Comparator: Arrays.sort(arr, (a,b) -> a.field - b.field)",
+          "Only with TreeSet",
+          "Only primitives"
+        ],
+        "correct": 1,
+        "explanation": "Comparator<T> provides external comparison logic. Lambdas make this concise: Arrays.sort(people, (a,b) -> a.age - b.age)."
+      },
+      {
+        "question": "How do you create an empty array?",
+        "options": [
+          "new int[1]",
+          "new int[0] — zero-length array (not null)",
+          "int[] arr = null",
+          "Can't create empty"
+        ],
+        "correct": 1,
+        "explanation": "Zero-length arrays (new int[0]) are valid. They're immutable and can be safely iterated (zero iterations). Use instead of null for 'no elements'."
+      },
+      {
+        "question": "What is an array's time complexity for insertion at the end (with space)?",
+        "options": [
+          "O(n)",
+          "O(1) — direct index assignment if within bounds",
+          "O(log n)",
+          "O(n^2)"
+        ],
+        "correct": 1,
+        "explanation": "If array has capacity: O(1). If resizing needed: O(n) to copy all elements. ArrayList amortizes this to O(1) overall."
+      },
+      {
+        "question": "How do you find the index of an element in an array?",
+        "options": [
+          "arr.indexOf(x)",
+          "Manual loop or Arrays.binarySearch() (if sorted). No built-in for unsorted arrays.",
+          "arr.find(x)",
+          "arr.search(x)"
+        ],
+        "correct": 1,
+        "explanation": "Arrays have no indexOf method. Use manual loop for unsorted, binarySearch for sorted. Convert to List via Arrays.asList() for indexOf()."
+      },
+      {
+        "question": "What does Arrays.setAll() do?",
+        "options": [
+          "Sets all to same value",
+          "Sets each element using a generator function of index: Arrays.setAll(arr, i -> i*i)",
+          "Same as fill()",
+          "Deprecated"
+        ],
+        "correct": 1,
+        "explanation": "Arrays.setAll(arr, generator) computes each element from its index. Useful for populating arrays with computed values: arr[i] = i*i, i*2, etc."
+      },
+      {
+        "question": "What is the difference between a 1D array and a 2D array memory layout in Java?",
+        "options": [
+          "Same layout",
+          "1D = contiguous. 2D = array of row pointers to rows scattered in heap",
+          "2D is more contiguous",
+          "1D is scattered"
+        ],
+        "correct": 1,
+        "explanation": "Java 2D arrays are arrays of references. Each row is a separate heap object. Not a single contiguous block like C's int matrix[][]."
+      },
+      {
+        "question": "What hack can make a 2D array more cache-friendly?",
+        "options": [
+          "Can't optimize",
+          "Use 1D array with manual indexing: arr[row*cols+col] — single contiguous block",
+          "Use LinkedList",
+          "Use more rows"
+        ],
+        "correct": 1,
+        "explanation": "Flattening 2D to 1D improves cache locality because all elements are contiguous. Access arr[row*cols+col] instead of matrix[row][col]."
+      },
+      {
+        "question": "What happens when you pass an array to a method that modifies it?",
+        "options": [
+          "Original unchanged",
+          "Original modified — array reference is copied but points to same heap object",
+          "Compile error",
+          "Runtime exception"
+        ],
+        "correct": 1,
+        "explanation": "Method receives copy of reference, but both copies point to same heap array. Mutations affect original. Can't replace original reference variable."
+      },
+      {
+        "question": "How do you reverse an array in-place?",
+        "options": [
+          "reverse(arr)",
+          "Loop: swap arr[i] with arr[len-1-i] for i=0 to len/2",
+          "arr.reversed()",
+          "Collections.reverse(arr)"
+        ],
+        "correct": 1,
+        "explanation": "In-place reverse: for(i=0; i<len/2; i++) { tmp=arr[i]; arr[i]=arr[len-1-i]; arr[len-1-i]=tmp; }. O(n/2) time, O(1) space."
+      },
+      {
+        "question": "How does Java check array bounds?",
+        "options": [
+          "It doesn't",
+          "JVM checks every array access at runtime — ArrayIndexOutOfBoundsException if index < 0 or >= length",
+          "At compile time only",
+          "Only in debug mode"
+        ],
+        "correct": 1,
+        "explanation": "Every array access is bounds-checked at runtime. This prevents buffer overflow attacks common in C/C++. The JIT may eliminate checks it can prove are unnecessary."
+      },
+      {
+        "question": "What is System.arraycopy() used for?",
+        "options": [
+          "Creating arrays",
+          "Efficient native implementation for bulk array copying — faster than manual loop",
+          "Array sorting",
+          "Array searching"
+        ],
+        "correct": 1,
+        "explanation": "System.arraycopy() is a native (JVM-level) method for bulk array copying. Uses optimized memory copying."
+      },
+      {
+        "question": "How do you convert an array to a List?",
+        "options": [
+          "arr.toList()",
+          "Arrays.asList(arr) — returns fixed-size List backed by the original array",
+          "arr.asList()",
+          "list(arr)"
+        ],
+        "correct": 1,
+        "explanation": "Arrays.asList() wraps the array (no copy). Changes to the List reflect in the array and vice versa. The returned List has fixed size — no add/remove."
+      },
+      {
+        "question": "How do you convert a List to an array?",
+        "options": [
+          "list.toArray()",
+          "list.toArray(new String[0]) — idiomatic way to get a properly-typed array",
+          "list.asArray()",
+          "(String[]) list.cast()"
+        ],
+        "correct": 1,
+        "explanation": "toArray(T[] a) returns a typed array. new String[0] is preferred over new String[list.size()] — the JVM optimizes the zero-length allocation."
       }
     ],
     "codingExercise": {
@@ -5668,6 +5842,259 @@ TOPICS = [
         ],
         "correct": 1,
         "explanation": "Local classes are defined within methods. They can access effectively-final local variables of the enclosing method."
+      },
+      {
+        "question": "What is the difference between instanceof and getClass() for type checking?",
+        "options": [
+          "No difference",
+          "instanceof matches subclasses. getClass() compares EXACT class. getClass()==other.getClass() is exact match",
+          "getClass is slower",
+          "instanceof is deprecated"
+        ],
+        "correct": 1,
+        "explanation": "instanceof Dog matches Dog AND subclasses (Poodle). getClass() == Dog.class matches ONLY Dog. Use instanceof for polymorphic checks."
+      },
+      {
+        "question": "What is the 'this' keyword in a static method?",
+        "options": [
+          "Refers to class",
+          "Compile error — 'this' doesn't exist in static context",
+          "Refers to object",
+          "Refers to super"
+        ],
+        "correct": 1,
+        "explanation": "Static methods have no 'this' — they belong to the class, not instances. Only instance methods have an implicit 'this' reference."
+      },
+      {
+        "question": "What is a nested class?",
+        "options": [
+          "Class in another file",
+          "Class defined inside another class — static nested or inner (non-static)",
+          "Deprecated feature",
+          "A type of interface"
+        ],
+        "correct": 1,
+        "explanation": "Nested classes: static (doesn't need enclosing instance) and inner (non-static, has implicit reference to enclosing instance)."
+      },
+      {
+        "question": "What is a static nested class?",
+        "options": [
+          "Inner class",
+          "Static class defined inside another — doesn't need enclosing instance; just namespacing",
+          "Deprecated",
+          "Interface"
+        ],
+        "correct": 1,
+        "explanation": "Static nested class: independent of enclosing instance. Instantiated as new Outer.Inner(). Used for logical grouping and encapsulation."
+      },
+      {
+        "question": "What is an inner class?",
+        "options": [
+          "Static nested",
+          "Non-static nested class with implicit reference to enclosing instance — can access outer's fields",
+          "Top-level class",
+          "Deprecated"
+        ],
+        "correct": 1,
+        "explanation": "Inner class has Outer.this reference. Must be created via outerInstance.new Inner(). Can access private members of enclosing class."
+      },
+      {
+        "question": "What is a local class?",
+        "options": [
+          "Class in another file",
+          "Class defined INSIDE a method body — scoped to that method, can access effectively-final locals",
+          "Top-level class",
+          "Deprecated"
+        ],
+        "correct": 1,
+        "explanation": "Local classes capture effectively-final local variables. Rarely used now — lambdas are preferred for simple behavior. Useful for complex multi-method implementations."
+      },
+      {
+        "question": "What is an anonymous class?",
+        "options": [
+          "Named class",
+          "Inline class without name — new InterfaceOrClass() { /* body */ }",
+          "Static class",
+          "Deprecated"
+        ],
+        "correct": 1,
+        "explanation": "Anonymous classes implement interfaces/extend classes inline. Used for one-off implementations. Largely replaced by lambdas for single-method interfaces."
+      },
+      {
+        "question": "What is a method's natural ordering (Comparable)?",
+        "options": [
+          "Random order",
+          "The ordering defined by compareTo() — 'this' compared to another instance",
+          "External order",
+          "Hash-based order"
+        ],
+        "correct": 1,
+        "explanation": "Comparable<T>.compareTo(T o) defines natural ordering: negative=less, zero=equal, positive=greater. Consistent with equals() for sorted collections."
+      },
+      {
+        "question": "What does Object's finalize() method do?",
+        "options": [
+          "Cleans up memory",
+          "Called by GC before object is reclaimed — NEVER rely on it; deprecated in Java 9, removed for removal",
+          "Forces GC",
+          "Creates objects"
+        ],
+        "correct": 1,
+        "explanation": "finalize() is unreliable (no timing guarantee, may never run). Use try-with-resources or Cleaner (Java 9+) instead. Deprecated for removal."
+      },
+      {
+        "question": "What is a type's identity vs equality?",
+        "options": [
+          "Same concept",
+          "Identity (==): same memory location. Equality (equals()): same logical value",
+          "Java only has identity",
+          "Java only has equality"
+        ],
+        "correct": 1,
+        "explanation": "Two distinct String objects with value 'hello' have different identities (different heap addresses) but are equal (same characters)."
+      },
+      {
+        "question": "What is the difference between Class.forName() and .class literal?",
+        "options": [
+          "No difference",
+          ".class is compile-time (faster). Class.forName() is runtime (loads class dynamically by string name)",
+          ".class is deprecated",
+          "forName is for primitives only"
+        ],
+        "correct": 1,
+        "explanation": "String.class is resolved at compile time. Class.forName('com.mysql.Driver') loads at runtime — used for JDBC drivers, plugins."
+      },
+      {
+        "question": "What is a static factory method advantage over constructors?",
+        "options": [
+          "None",
+          "Can return cached instances, subclasses, have descriptive names, and avoid creating new objects unnecessarily",
+          "Constructors are deprecated",
+          "Static methods are slower"
+        ],
+        "correct": 1,
+        "explanation": "Integer.valueOf(42) caches small values. LocalDate.of(2026,5,13) is more readable than new LocalDate(...). Factory methods enable instance control."
+      },
+      {
+        "question": "What is a marker annotation?",
+        "options": [
+          "Annotates code",
+          "Annotation with no elements — used as a tag: @Override, @Deprecated, @FunctionalInterface",
+          "Complex annotation",
+          "Deprecated"
+        ],
+        "correct": 1,
+        "explanation": "Marker annotations (no members) signal intent to compiler/tools. @Override tells compiler 'this should override'. @FunctionalInterface enforces SAM rule."
+      },
+      {
+        "question": "What is a transient field?",
+        "options": [
+          "Permanent field",
+          "Field excluded from default serialization — not written/read during serialize/deserialize",
+          "Static field",
+          "Final field"
+        ],
+        "correct": 1,
+        "explanation": "transient fields skip serialization. After deserialization, they get default values (0, false, null). Useful for derived/cached/sensitive data."
+      },
+      {
+        "question": "What is a volatile field?",
+        "options": [
+          "Non-changing field",
+          "Field whose value is always read from/written to main memory — visibility guarantee across threads",
+          "Static field",
+          "Deprecated"
+        ],
+        "correct": 1,
+        "explanation": "volatile ensures changes are immediately visible to all threads. No caching in thread-local memory. Does NOT guarantee atomicity (use synchronized/AtomicInteger for that)."
+      },
+      {
+        "question": "What is a native method?",
+        "options": [
+          "Java method",
+          "Method implemented in another language (C/C++) via JNI — marked with 'native' keyword, no body",
+          "Default method",
+          "Deprecated"
+        ],
+        "correct": 1,
+        "explanation": "native methods interface with platform-specific code. The JDK uses them for OS-level operations (file I/O, threading). JNI is complex and should be avoided when possible."
+      },
+      {
+        "question": "What is the difference between Class and Object in Java?",
+        "options": [
+          "No difference",
+          "Class = metadata describing a type (java.lang.Class). Object = an instance of some class",
+          "Class is an Object",
+          "Object is a Class"
+        ],
+        "correct": 1,
+        "explanation": "String.class returns Class<String> — metadata. new String('hi') returns a String object — instance. Each class has exactly one Class object per ClassLoader."
+      },
+      {
+        "question": "What is a JavaBean convention?",
+        "options": [
+          "Coffee preparation",
+          "No-arg constructor, private fields, getX/isX setters, Serializable — enables tool/reflection-based manipulation",
+          "A type of coffee",
+          "Deprecated"
+        ],
+        "correct": 1,
+        "explanation": "JavaBeans convention enables frameworks (Spring, Hibernate) to discover properties via reflection. getProperty()/setProperty() naming is key."
+      },
+      {
+        "question": "What is a POJO?",
+        "options": [
+          "A type of Java class",
+          "Plain Old Java Object — no framework dependencies, no special interfaces. Simple, clean Java object.",
+          "Deprecated term",
+          "A Spring-only concept"
+        ],
+        "correct": 1,
+        "explanation": "POJO: ordinary Java object without framework ties. Opposite of EJB (Enterprise JavaBeans) which required specific interfaces and base classes."
+      },
+      {
+        "question": "What is the telescoping constructor anti-pattern?",
+        "options": [
+          "Good pattern",
+          "Multiple constructors with increasing parameter counts — hard to read and error-prone. Use Builder pattern instead.",
+          "Required by Java",
+          "Deprecated"
+        ],
+        "correct": 1,
+        "explanation": "Telescoping: Class(a), Class(a,b), Class(a,b,c), ... Hard to remember parameter order. Builder: new Builder().a(x).b(y).c(z).build() — clear and flexible."
+      },
+      {
+        "question": "What is the meaning of 'program to an interface, not an implementation'?",
+        "options": [
+          "Use only interfaces",
+          "Declare variables/parameters as abstract type (List) not concrete (ArrayList). Swap implementations freely.",
+          "Never use concrete classes",
+          "Only for collections"
+        ],
+        "correct": 1,
+        "explanation": "List<String> list = new ArrayList<>() allows changing to LinkedList in one place. Method accepting List works with ANY List implementation."
+      },
+      {
+        "question": "What is the difference between Serializable and Externalizable?",
+        "options": [
+          "No difference",
+          "Serializable: automatic serialization. Externalizable: manual control over what and how to serialize",
+          "Externalizable is older",
+          "Serializable is deprecated"
+        ],
+        "correct": 1,
+        "explanation": "Externalizable extends Serializable requiring writeExternal()/readExternal() implementation. Provides complete control over serialization format."
+      },
+      {
+        "question": "What is serialVersionUID?",
+        "options": [
+          "Random number",
+          "Version identifier for Serializable classes — ensures serialized bytes match class version during deserialization",
+          "Object hash",
+          "Deprecated"
+        ],
+        "correct": 1,
+        "explanation": "serialVersionUID verifies compatibility. If not declared, JVM computes one that may change with any class modification, causing InvalidClassException."
       }
     ],
     "codingExercise": {
@@ -5971,6 +6398,336 @@ TOPICS = [
         ],
         "correct": 1,
         "explanation": "When receiving or returning mutable objects (Date, List), create copies to protect internal state from unintended modification."
+      },
+      {
+        "question": "What is composition in OOP?",
+        "options": [
+          "Inheritance",
+          "Giving a class a private field of another type (HAS-A) rather than extending it (IS-A)",
+          "A type of method",
+          "Deprecated"
+        ],
+        "correct": 1,
+        "explanation": "Composition: class Car { private Engine engine; }. More flexible than inheritance."
+      },
+      {
+        "question": "What is delegation?",
+        "options": [
+          "Inheritance",
+          "Passing responsibility to a composed object: wrapper method calls delegate.doSomething()",
+          "A type of exception",
+          "Deprecated"
+        ],
+        "correct": 1,
+        "explanation": "Delegation = composition + forwarding methods. The outer class delegates work to its composed object."
+      },
+      {
+        "question": "What is tight coupling vs loose coupling?",
+        "options": [
+          "No difference",
+          "Tight: classes know concrete implementations. Loose: classes depend on abstractions",
+          "Loose coupling is worse",
+          "Tight coupling is preferred"
+        ],
+        "correct": 1,
+        "explanation": "Loose coupling via interfaces enables independent development and testing."
+      },
+      {
+        "question": "What is a value object vs entity?",
+        "options": [
+          "No difference",
+          "Entity: has identity (ID), mutable. Value object: no identity, defined by attributes, immutable",
+          "Value objects have IDs",
+          "Entities are always immutable"
+        ],
+        "correct": 1,
+        "explanation": "User is entity (identified by ID). Money (amount+currency) is value object."
+      },
+      {
+        "question": "What is the aggregate pattern in DDD?",
+        "options": [
+          "Database function",
+          "Cluster of domain objects treated as single unit - accessed only through aggregate root",
+          "A collection type",
+          "Deprecated"
+        ],
+        "correct": 1,
+        "explanation": "Order is aggregate root; OrderLine items accessed only through Order."
+      },
+      {
+        "question": "What is a repository pattern?",
+        "options": [
+          "Database query",
+          "Mediates between domain and data mapping - collection-like interface for accessing aggregates",
+          "A collection type",
+          "Deprecated"
+        ],
+        "correct": 1,
+        "explanation": "Repository provides collection-like access: save(), findById(), findAll(). Hides persistence details."
+      },
+      {
+        "question": "What is hexagonal architecture?",
+        "options": [
+          "Six-sided classes",
+          "Domain at center, ports (interfaces) define interactions, adapters connect to external systems",
+          "A UI pattern",
+          "Deprecated"
+        ],
+        "correct": 1,
+        "explanation": "Domain independent of database, UI, messaging. Swap adapters without changing domain."
+      },
+      {
+        "question": "How do access modifiers interact with JPMS?",
+        "options": [
+          "Same as before",
+          "public alone not enough - package must ALSO be exported by its module. Two-level access control.",
+          "More permissive",
+          "Less permissive"
+        ],
+        "correct": 1,
+        "explanation": "Even a public class is inaccessible outside its module unless the package is exported."
+      },
+      {
+        "question": "What is a service loader (SPI)?",
+        "options": [
+          "Boot process",
+          "Mechanism for discovering and loading service implementations at runtime",
+          "A classloader type",
+          "Deprecated"
+        ],
+        "correct": 1,
+        "explanation": "ServiceLoader.load() finds all implementations. Enables plugin architectures."
+      },
+      {
+        "question": "What is encapsulation at architectural level?",
+        "options": [
+          "Only for classes",
+          "Modules, contexts, services encapsulate internals behind APIs - same principle at every scale",
+          "Only for methods",
+          "Deprecated"
+        ],
+        "correct": 1,
+        "explanation": "Encapsulation scales: private fields, package-private classes, exported packages, bounded contexts."
+      },
+      {
+        "question": "What is an invariant in OOP?",
+        "options": [
+          "A variable that changes",
+          "Condition that must always be true - established by constructor, preserved by every method",
+          "An exception type",
+          "A design pattern"
+        ],
+        "correct": 1,
+        "explanation": "BankAccount balance never negative. Constructor enforces >=0. Every method preserves."
+      },
+      {
+        "question": "What is information hiding vs data hiding?",
+        "options": [
+          "Same concept",
+          "Information hiding = hide design decisions. Data hiding = hide variables. Data hiding is subset.",
+          "Data hiding is broader",
+          "Neither exists"
+        ],
+        "correct": 1,
+        "explanation": "Information hiding: algorithms, structures, choices. Data hiding: private fields specifically."
+      },
+      {
+        "question": "What is a bounded context in DDD?",
+        "options": [
+          "An interface type",
+          "Boundary where a domain model applies - different contexts model same concept differently",
+          "A Java feature",
+          "A database concept"
+        ],
+        "correct": 1,
+        "explanation": "Customer means paying user in one context, support requester in another."
+      },
+      {
+        "question": "What is an anti-corruption layer?",
+        "options": [
+          "Security feature",
+          "Isolation layer translating between two bounded contexts, preventing model leakage",
+          "A firewall type",
+          "Deprecated"
+        ],
+        "correct": 1,
+        "explanation": "Translates external models to internal ones. Protects domain from external system changes."
+      },
+      {
+        "question": "What is a domain event?",
+        "options": [
+          "An exception type",
+          "Something meaningful that happened in the domain - triggers reactions in other system parts",
+          "A UI event",
+          "A database trigger"
+        ],
+        "correct": 1,
+        "explanation": "OrderPlaced, PaymentReceived decouple bounded contexts via publish-subscribe."
+      },
+      {
+        "question": "What is a specification pattern?",
+        "options": [
+          "A JVM spec",
+          "Encapsulates business rules as reusable, composable predicates",
+          "An interface type",
+          "Deprecated"
+        ],
+        "correct": 1,
+        "explanation": "Specification: encapsulate rules as objects that combine (AND, OR, NOT)."
+      },
+      {
+        "question": "What is the unnamed module in JPMS?",
+        "options": [
+          "Module with no name",
+          "All classes on classpath belong to unnamed module - can access all exported modules",
+          "Special named module",
+          "Deprecated"
+        ],
+        "correct": 1,
+        "explanation": "Contains all non-modular JARs and classes. Can read all named modules."
+      },
+      {
+        "question": "What is the automatic module in JPMS?",
+        "options": [
+          "Self-configuring",
+          "JAR without module-info on module path - module name from filename",
+          "A reflection type",
+          "Deprecated"
+        ],
+        "correct": 1,
+        "explanation": "Bridges legacy JARs to module system. Transitional mechanism during migration."
+      },
+      {
+        "question": "What is dependency inversion principle?",
+        "options": [
+          "Invert control flow",
+          "High-level modules depend on abstractions, not low-level implementations",
+          "Make everything concrete",
+          "Avoid all dependencies"
+        ],
+        "correct": 1,
+        "explanation": "DIP: depend on interfaces, not concrete classes. Enables swapping implementations."
+      },
+      {
+        "question": "What is single responsibility principle?",
+        "options": [
+          "One method per class",
+          "A class should have only ONE reason to change",
+          "One field per class",
+          "One line per method"
+        ],
+        "correct": 1,
+        "explanation": "SRP: each class handles single concern. Split if class does data access AND business logic."
+      },
+      {
+        "question": "What is interface segregation principle?",
+        "options": [
+          "One big interface",
+          "Many small, specific interfaces better than one general-purpose interface",
+          "All methods together",
+          "No interfaces"
+        ],
+        "correct": 1,
+        "explanation": "ISP: Clients should not depend on methods they do not use. Split fat interfaces."
+      },
+      {
+        "question": "What is open-closed principle?",
+        "options": [
+          "Open to modification",
+          "Open for extension, closed for modification - new behavior without changing existing code",
+          "Always open source",
+          "Closed for extension"
+        ],
+        "correct": 1,
+        "explanation": "Add behavior via inheritance/composition without modifying existing tested code."
+      },
+      {
+        "question": "What are SOLID principles?",
+        "options": [
+          "A database type",
+          "SRP, OCP, LSP, ISP, DIP - five design principles for maintainable OOP",
+          "A programming language",
+          "A design pattern"
+        ],
+        "correct": 1,
+        "explanation": "SOLID: foundation of clean object-oriented design by Robert C. Martin."
+      },
+      {
+        "question": "What is a domain service vs application service?",
+        "options": [
+          "Same",
+          "Domain: business rules. Application: orchestration (transactions, security)",
+          "Application is domain",
+          "Neither exists"
+        ],
+        "correct": 1,
+        "explanation": "Domain: pure business logic. Application: coordinates domain objects with infrastructure."
+      },
+      {
+        "question": "What is the difference between module and package?",
+        "options": [
+          "Same",
+          "Package = namespace (folder). Module = named collection of packages with explicit dependencies",
+          "Packages deprecated",
+          "Modules are smaller"
+        ],
+        "correct": 1,
+        "explanation": "Packages organize code within JAR. Modules (JPMS) control visibility across JARs."
+      },
+      {
+        "question": "What are module directives in JPMS?",
+        "options": [
+          "SQL queries",
+          "exports, requires, provides...with, uses - control module visibility and dependencies",
+          "Package names",
+          "Deprecated"
+        ],
+        "correct": 1,
+        "explanation": "exports com.foo.api makes visible. requires com.bar declares dependency."
+      },
+      {
+        "question": "What is a factory in DDD?",
+        "options": [
+          "A class type",
+          "Creates complex aggregates/entities ensuring they are always created in valid state",
+          "A method",
+          "Deprecated"
+        ],
+        "correct": 1,
+        "explanation": "Factory encapsulates complex creation logic. Validates across multiple fields."
+      },
+      {
+        "question": "How does encapsulation support thread safety?",
+        "options": [
+          "No relationship",
+          "Private mutable state accessed only through synchronized methods guarantees controlled access",
+          "Thread safety unnecessary",
+          "Only for distributed systems"
+        ],
+        "correct": 1,
+        "explanation": "Encapsulation + synchronized accessors = thread-safe design. Public fields make safety impossible."
+      },
+      {
+        "question": "What is defensive copying?",
+        "options": [
+          "Copying when attacked",
+          "Creating copies of mutable objects to prevent external modification of internal state",
+          "Security vulnerability",
+          "Copying files"
+        ],
+        "correct": 1,
+        "explanation": "When receiving/returning mutable objects, create copies to protect internal state."
+      },
+      {
+        "question": "What is the difference between public and published API?",
+        "options": [
+          "Same",
+          "Public = technically accessible. Published = documented, committed to remain stable",
+          "Published deprecated",
+          "API always published"
+        ],
+        "correct": 1,
+        "explanation": "Method can be public without being published. Only publish what you will support forever."
       }
     ],
     "codingExercise": {
@@ -6185,6 +6942,424 @@ TOPICS = [
         ],
         "correct": 1,
         "explanation": "protected extends package-private by also granting access to subclasses outside the package. This is a commitment — anyone can extend your class and access protected members."
+      },
+      {
+        "question": "Can subclass throw broader checked exception than parent?",
+        "options": [
+          "Yes",
+          "No - override cannot throw broader checked exceptions",
+          "Only RuntimeException",
+          "JVM dependent"
+        ],
+        "correct": 1,
+        "explanation": "LSP requires subclasses be substitutable. Broader exceptions would surprise callers."
+      },
+      {
+        "question": "What is fragile base class problem?",
+        "options": [
+          "No solution",
+          "Design for inheritance or prohibit it. Document self-use. Prefer composition.",
+          "Only C++ issue",
+          "Never a problem"
+        ],
+        "correct": 1,
+        "explanation": "Parent changes break subclasses. Solutions: design for inheritance or use composition."
+      },
+      {
+        "question": "Can enum extend a class?",
+        "options": [
+          "Yes",
+          "No - all enums implicitly extend java.lang.Enum. Enums can implement interfaces.",
+          "Only abstract classes",
+          "Only final classes"
+        ],
+        "correct": 1,
+        "explanation": "Enums already extend Enum<E>. They can implement interfaces for shared behavior."
+      },
+      {
+        "question": "What does super.super allow?",
+        "options": [
+          "Access grandparent",
+          "NOT allowed in Java - only direct parent methods accessible via super",
+          "Access any ancestor",
+          "Only constructors"
+        ],
+        "correct": 1,
+        "explanation": "Java prevents super.super.method(). Each class only sees its direct parent."
+      },
+      {
+        "question": "Can record extend a class?",
+        "options": [
+          "Yes to both",
+          "No - records extend Record and are final. Can implement interfaces.",
+          "Only extend",
+          "Only be extended"
+        ],
+        "correct": 1,
+        "explanation": "Records are final with fixed parent (java.lang.Record). Ensures immutability."
+      },
+      {
+        "question": "What is inheritance impact on coupling?",
+        "options": [
+          "Reduces coupling",
+          "Inheritance creates tight coupling - subclass depends on parent implementation",
+          "No impact",
+          "Always improves"
+        ],
+        "correct": 1,
+        "explanation": "Subclass coupled to parent internals. Composition provides looser coupling."
+      },
+      {
+        "question": "What is IS-A vs IS-LIKE-A?",
+        "options": [
+          "Same",
+          "IS-A = true inheritance. IS-LIKE-A = implements interface. Prefer IS-LIKE-A.",
+          "IS-LIKE-A uses extends",
+          "Neither uses Java"
+        ],
+        "correct": 1,
+        "explanation": "IS-A (extends): taxonomic. IS-LIKE-A (implements): capability. Interfaces more flexible."
+      },
+      {
+        "question": "Can constructor throw exceptions?",
+        "options": [
+          "No",
+          "Yes. Partially constructed object becomes GC eligible. Subclass constructor never runs.",
+          "Only checked",
+          "Object persists"
+        ],
+        "correct": 1,
+        "explanation": "Resources allocated before throw must be cleaned up in try-finally within constructor."
+      },
+      {
+        "question": "What is a mixin in Java?",
+        "options": [
+          "A variable type",
+          "Capability added via interface default methods - reusable behavior without inheritance",
+          "Concrete class",
+          "Deprecated"
+        ],
+        "correct": 1,
+        "explanation": "interface Loggable { default void log(String msg) { ... } }. Class gains logging by implementing."
+      },
+      {
+        "question": "What is Template Method pattern?",
+        "options": [
+          "Creates templates",
+          "Abstract class defines skeleton algorithm; subclasses fill in specific steps",
+          "Constructor type",
+          "Deprecated"
+        ],
+        "correct": 1,
+        "explanation": "Parent final templateMethod() calls abstract step1(), step2(). Subclasses implement steps."
+      },
+      {
+        "question": "How is diamond problem resolved in Java?",
+        "options": [
+          "Multiple inheritance",
+          "Single class inheritance + multiple interfaces. Conflicting defaults must be explicitly overridden.",
+          "Not resolved",
+          "Randomly"
+        ],
+        "correct": 1,
+        "explanation": "Java avoids diamond via single class inheritance. Interface conflicts must be manually resolved."
+      },
+      {
+        "question": "What is implementation vs interface inheritance?",
+        "options": [
+          "Same",
+          "Implementation (extends class): inherits code. Interface (implements): inherits contract only.",
+          "Interface inherits code",
+          "Neither exists"
+        ],
+        "correct": 1,
+        "explanation": "Extending class inherits API+implementation. Implementing interface inherits API contract only."
+      },
+      {
+        "question": "What does @Inherited annotation do?",
+        "options": [
+          "Nothing",
+          "Meta-annotation: causes class-level annotation to be inherited by subclasses",
+          "Marks deprecated",
+          "Only for methods"
+        ],
+        "correct": 1,
+        "explanation": "@Inherited on annotation definition means subclasses inherit the annotation."
+      },
+      {
+        "question": "What is sealed class hierarchy?",
+        "options": [
+          "Same as open",
+          "Sealed (Java 17+): explicitly lists permitted subclasses. Enables exhaustive pattern matching.",
+          "Sealed is open",
+          "Open is sealed"
+        ],
+        "correct": 1,
+        "explanation": "sealed class Shape permits Circle, Rectangle restricts hierarchy. Compiler verifies coverage."
+      },
+      {
+        "question": "What is the difference between protected and default for inheritance?",
+        "options": [
+          "Same",
+          "protected allows subclass access across packages. default restricts to same package only.",
+          "Default is wider",
+          "Protected is deprecated"
+        ],
+        "correct": 1,
+        "explanation": "protected is designed for inheritance across package boundaries. default only same package."
+      },
+      {
+        "question": "Can final class have abstract methods?",
+        "options": [
+          "Yes",
+          "No - final class cannot be extended, so abstract methods could never be implemented",
+          "Only static",
+          "Only private"
+        ],
+        "correct": 1,
+        "explanation": "Abstract methods need subclass implementation. Final prevents subclassing. Contradiction."
+      },
+      {
+        "question": "What is constructor invocation order in deep hierarchy?",
+        "options": [
+          "Child first",
+          "Object() first, then parent, then child - top-down constructor chaining",
+          "Random order",
+          "Only child runs"
+        ],
+        "correct": 1,
+        "explanation": "Constructors execute top-down: Object -> Parent -> Child. Each calls super() as first statement."
+      },
+      {
+        "question": "What happens if parent has no no-arg constructor?",
+        "options": [
+          "Nothing",
+          "Subclass MUST explicitly call super(args) - implicit super() will not compile",
+          "Compile error always",
+          "Auto-generated"
+        ],
+        "correct": 1,
+        "explanation": "Child must call super(args) as first statement when parent lacks no-arg constructor."
+      },
+      {
+        "question": "Can final class have abstract methods?",
+        "options": [
+          "Yes",
+          "No - final prevents subclassing, so abstract methods could never be implemented",
+          "Only static",
+          "Only private"
+        ],
+        "correct": 1,
+        "explanation": "Abstract methods need subclass implementation. Final prevents subclassing. Logical contradiction."
+      },
+      {
+        "question": "What is constructor invocation order?",
+        "options": [
+          "Child first",
+          "Object() first, then parent, then child - top-down via super()",
+          "Random",
+          "Only child"
+        ],
+        "correct": 1,
+        "explanation": "Constructors execute top-down: Object->Parent->Child. Each calls super() as first statement."
+      },
+      {
+        "question": "What happens if parent lacks no-arg constructor?",
+        "options": [
+          "Nothing",
+          "Subclass MUST explicitly call super(args) - implicit super() will not compile",
+          "Compile error always",
+          "Auto-generated"
+        ],
+        "correct": 1,
+        "explanation": "Child must call super(args) as first statement when parent lacks no-arg constructor."
+      },
+      {
+        "question": "What is difference between protected and default for inheritance?",
+        "options": [
+          "Same",
+          "protected allows subclass access across packages. default restricts to same package only.",
+          "Default is wider",
+          "Protected deprecated"
+        ],
+        "correct": 1,
+        "explanation": "protected is designed for inheritance across package boundaries. default only same package."
+      },
+      {
+        "question": "What is difference between deep and shallow cloning with inheritance?",
+        "options": [
+          "Same",
+          "Shallow: copy fields but share referenced objects. Deep: recursively clone all fields including parent hierarchy.",
+          "Deep is default",
+          "Shallow is Java default"
+        ],
+        "correct": 1,
+        "explanation": "Object.clone() does shallow copy. Deep requires manually cloning every mutable field and all parent fields."
+      },
+      {
+        "question": "What is a mixin via interfaces?",
+        "options": [
+          "Variable type",
+          "Capability added via interface default methods - reusable behavior without inheritance",
+          "Concrete class",
+          "Deprecated"
+        ],
+        "correct": 1,
+        "explanation": "interface Loggable { default void log(String msg) {...} }. Class gains logging by implementing interface."
+      },
+      {
+        "question": "What is Template Method pattern relation to inheritance?",
+        "options": [
+          "No relation",
+          "Parent defines skeleton algorithm (final template method); subclasses override specific steps",
+          "Composition pattern",
+          "Deprecated"
+        ],
+        "correct": 1,
+        "explanation": "Template Method: parent final method calls abstract step1(), step2(). Subclasses implement steps."
+      },
+      {
+        "question": "How does sealed class differ from final class?",
+        "options": [
+          "Same",
+          "Sealed: restricted but allows listed subclasses. Final: no subclasses at all.",
+          "Final is sealed",
+          "Sealed is final"
+        ],
+        "correct": 1,
+        "explanation": "sealed permits specific subclasses. final prevents all subclassing. Sealed enables exhaustive pattern matching."
+      },
+      {
+        "question": "What is non-reifiable type?",
+        "options": [
+          "Fully available at runtime",
+          "Type whose information is erased at runtime (generic types like List<String>)",
+          "Primitive types",
+          "Raw types"
+        ],
+        "correct": 1,
+        "explanation": "Non-reifiable: type info lost via erasure. Cannot use instanceof or create arrays of non-reifiable types."
+      },
+      {
+        "question": "What is type variance in generics vs arrays?",
+        "options": [
+          "Same",
+          "Arrays are covariant (String[] is Object[]). Generics are invariant (List<String> NOT a List<Object>)",
+          "Generics are covariant",
+          "Arrays are invariant"
+        ],
+        "correct": 1,
+        "explanation": "Arrays are covariant (runtime check). Generics are invariant (compile-time check). Generics are safer."
+      },
+      {
+        "question": "What is bridge method?",
+        "options": [
+          "Connecting systems",
+          "Compiler-generated synthetic method ensuring type erasure does not break polymorphism",
+          "Networking method",
+          "Deprecated"
+        ],
+        "correct": 1,
+        "explanation": "Bridge methods maintain override semantics after erasure. Generated by compiler, visible via reflection."
+      },
+      {
+        "question": "What is the diamond problem in C++ vs Java solution?",
+        "options": [
+          "Same solutions",
+          "C++: multiple inheritance with virtual base classes. Java: single class inheritance + multiple interfaces.",
+          "Java has same problem",
+          "C++ solved it better"
+        ],
+        "correct": 1,
+        "explanation": "Java avoids diamond entirely via single class inheritance. Interface default conflicts must be manually resolved."
+      },
+      {
+        "question": "Can override change return type to void?",
+        "options": [
+          "Yes",
+          "No - override must return same type or subtype (covariant). Cannot change to void or unrelated type.",
+          "Only for abstract",
+          "In Java 17+"
+        ],
+        "correct": 1,
+        "explanation": "Covariant return types allow more specific return. void is not a subtype of any type."
+      },
+      {
+        "question": "What is the difference between extends Object and no extends clause?",
+        "options": [
+          "Different behavior",
+          "Identical - every class implicitly extends Object if no other parent specified",
+          "Object extension is explicit",
+          "No extends means no parent"
+        ],
+        "correct": 1,
+        "explanation": "All classes ultimately extend Object. Explicit and implicit are functionally identical."
+      },
+      {
+        "question": "What is reification in type systems?",
+        "options": [
+          "Removing types",
+          "Full type information available at runtime. Java primitives are reified; generic types are not.",
+          "Adding types",
+          "Compile-time only"
+        ],
+        "correct": 1,
+        "explanation": "Reified types have complete runtime type info. Non-reified (generics) lose type parameters at runtime."
+      },
+      {
+        "question": "Can static methods be overridden?",
+        "options": [
+          "Yes",
+          "No - static methods are hidden, not overridden. Reference type determines which version is called.",
+          "Only in interfaces",
+          "Only in abstract classes"
+        ],
+        "correct": 1,
+        "explanation": "Static method resolution is compile-time based on reference type. Instance method resolution is runtime based on object type."
+      },
+      {
+        "question": "What is the @Override annotation benefit?",
+        "options": [
+          "Just documentation",
+          "Compiler verification: ensures method actually overrides parent. Catches typos and signature mismatches.",
+          "Performance boost",
+          "Deprecated"
+        ],
+        "correct": 1,
+        "explanation": "Without @Override, a typo silently creates new method instead of overriding. Always use @Override."
+      },
+      {
+        "question": "What is the super keyword in method context?",
+        "options": [
+          "This class",
+          "Call parent class version of overridden method - enables extending behavior, not just replacing",
+          "Current object",
+          "Deprecated"
+        ],
+        "correct": 1,
+        "explanation": "super.method() calls parent implementation. Useful when override wants to add to (not replace) parent behavior."
+      },
+      {
+        "question": "What happens when overriding method changes parameters?",
+        "options": [
+          "Overrides parent",
+          "Creates overload, not override. @Override would catch this - compile error since no matching parent method.",
+          "Creates override",
+          "Compile error always"
+        ],
+        "correct": 1,
+        "explanation": "Different parameters = overloading, not overriding. @Override annotation catches this mistake at compile time."
+      },
+      {
+        "question": "Can interface inherit from class?",
+        "options": [
+          "Yes",
+          "No - interfaces can only extend other interfaces. Classes extend classes. Interfaces are separate hierarchy.",
+          "Only in Java 17+",
+          "Only for sealed classes"
+        ],
+        "correct": 1,
+        "explanation": "Interfaces form separate type hierarchy. They can extend multiple interfaces but cannot extend classes."
       }
     ],
     "codingExercise": {
@@ -6444,6 +7619,358 @@ TOPICS = [
         ],
         "correct": 1,
         "explanation": "Visitor lets you add new operations to object structures without changing the elements. Double dispatch: element.accept(visitor); visitor.visit(element)."
+      },
+      {
+        "question": "What is dynamic method dispatch?",
+        "options": [
+          "Compile-time resolution",
+          "Runtime method resolution based on actual object type - mechanism behind polymorphism",
+          "Static calls",
+          "Deprecated"
+        ],
+        "correct": 1,
+        "explanation": "JVM looks at actual object class in method table at runtime to find correct overridden method."
+      },
+      {
+        "question": "What is the Strategy pattern?",
+        "options": [
+          "Military pattern",
+          "Define family of algorithms, encapsulate each, make interchangeable at runtime",
+          "A loop type",
+          "Deprecated"
+        ],
+        "correct": 1,
+        "explanation": "Strategy uses composition+polymorphism. Pass different behaviors to change object behavior."
+      },
+      {
+        "question": "What is the Visitor pattern?",
+        "options": [
+          "Website visitor",
+          "Separate algorithm from object structure - add operations without modifying elements",
+          "A loop type",
+          "Deprecated"
+        ],
+        "correct": 1,
+        "explanation": "Visitor: element.accept(visitor) calls visitor.visit(element). Double dispatch."
+      },
+      {
+        "question": "What is virtual vs non-virtual method calls?",
+        "options": [
+          "No difference",
+          "Virtual = runtime resolution. Non-virtual = compile-time (static, private, final)",
+          "Non-virtual deprecated",
+          "All are virtual"
+        ],
+        "correct": 1,
+        "explanation": "Virtual calls use method table. Non-virtual are direct. final methods are non-virtual."
+      },
+      {
+        "question": "What is covariant return type?",
+        "options": [
+          "Same return",
+          "Overriding method can return MORE SPECIFIC type than parent",
+          "More general type",
+          "Void only"
+        ],
+        "correct": 1,
+        "explanation": "Parent: Animal getPet(). Child: Dog getPet(). Compiler verifies type safety."
+      },
+      {
+        "question": "What is Factory Method pattern?",
+        "options": [
+          "Constructor",
+          "Define interface for creating objects, let subclasses decide which class to instantiate",
+          "Loop type",
+          "Deprecated"
+        ],
+        "correct": 1,
+        "explanation": "Factory Method: abstract createProduct(). ConcreteCreator overrides to return ConcreteProduct."
+      },
+      {
+        "question": "What is Command pattern?",
+        "options": [
+          "Military command",
+          "Encapsulate request as object - enables queuing, logging, undo/redo via polymorphism",
+          "Loop type",
+          "Deprecated"
+        ],
+        "correct": 1,
+        "explanation": "Command: interface Command { void execute(); }. Concrete commands encapsulate actions."
+      },
+      {
+        "question": "What is Observer pattern?",
+        "options": [
+          "Watching code",
+          "Define one-to-many dependency - when one object changes, all dependents notified",
+          "Loop type",
+          "Deprecated"
+        ],
+        "correct": 1,
+        "explanation": "Observer: Subject maintains list of Observers. When state changes, calls observer.update()."
+      },
+      {
+        "question": "What is Decorator pattern?",
+        "options": [
+          "Home decoration",
+          "Attach additional responsibilities dynamically - wrapper implements same interface",
+          "Loop type",
+          "Deprecated"
+        ],
+        "correct": 1,
+        "explanation": "Decorator wraps component with same interface. new BufferedInputStream(new FileInputStream(f))."
+      },
+      {
+        "question": "What is Chain of Responsibility?",
+        "options": [
+          "Chain of command",
+          "Pass request along chain of handlers - each decides to process or pass to next",
+          "Loop type",
+          "Deprecated"
+        ],
+        "correct": 1,
+        "explanation": "Chain: each handler has reference to next. Polymorphic handle() on each handler."
+      },
+      {
+        "question": "What is polymorphism relationship to OCP?",
+        "options": [
+          "No relationship",
+          "Polymorphism enables OCP: new implementations added without modifying existing code",
+          "Polymorphism violates OCP",
+          "OCP needs no polymorphism"
+        ],
+        "correct": 1,
+        "explanation": "Polymorphism makes OCP possible. Add new Animal subtype without changing feedAll()."
+      },
+      {
+        "question": "What is abstract method role in polymorphism?",
+        "options": [
+          "No role",
+          "Abstract methods define contract - subclasses MUST implement, enabling polymorphic dispatch",
+          "Only documentation",
+          "Deprecated"
+        ],
+        "correct": 1,
+        "explanation": "Abstract methods guarantee subclasses have method, enabling polymorphic calls through abstract type."
+      },
+      {
+        "question": "What is double dispatch?",
+        "options": [
+          "Two method calls",
+          "Technique where method call depends on runtime types of TWO objects - used in Visitor pattern",
+          "Static dispatch",
+          "Deprecated"
+        ],
+        "correct": 1,
+        "explanation": "double dispatch: element.accept(visitor) dispatches to correct accept(), which calls visitor.visit(this) - second dispatch."
+      },
+      {
+        "question": "What is single dispatch in Java?",
+        "options": [
+          "Multiple method calls",
+          "Java supports single dispatch: method selected based on ONE receiver object type. Parameters use static types.",
+          "Double dispatch default",
+          "Not supported"
+        ],
+        "correct": 1,
+        "explanation": "Java methods are dispatched on the receiver (object before dot). Parameter types use compile-time (overloaded) resolution."
+      },
+      {
+        "question": "What is the difference between polymorphism and inheritance?",
+        "options": [
+          "Same concept",
+          "Inheritance = code reuse mechanism. Polymorphism = ability to use different types through common interface. Related but distinct.",
+          "Polymorphism is inheritance",
+          "No relationship"
+        ],
+        "correct": 1,
+        "explanation": "Inheritance enables code reuse. Polymorphism enables flexible design. You can have polymorphism without inheritance (interfaces)."
+      },
+      {
+        "question": "What is composition over inheritance principle?",
+        "options": [
+          "Always use inheritance",
+          "Favor HAS-A (composition) over IS-A (inheritance) for code reuse - more flexible and less fragile",
+          "Always use composition",
+          "Neither matters"
+        ],
+        "correct": 1,
+        "explanation": "Composition: give class private field of another type. More flexible than inheriting - can change behavior at runtime."
+      },
+      {
+        "question": "What is the State pattern?",
+        "options": [
+          "Country state",
+          "Object behavior changes when internal state changes - appears as if object changed class",
+          "A loop type",
+          "Deprecated"
+        ],
+        "correct": 1,
+        "explanation": "State pattern: context delegates to state object. State changes trigger different behavior. Uses composition + polymorphism."
+      },
+      {
+        "question": "What is the Iterator pattern?",
+        "options": [
+          "A loop",
+          "Sequentially access elements of collection without exposing underlying structure",
+          "A state type",
+          "Deprecated"
+        ],
+        "correct": 1,
+        "explanation": "Iterator provides hasNext()/next() interface. Different collections provide different iterators - polymorphic traversal."
+      },
+      {
+        "question": "What is the Adapter pattern?",
+        "options": [
+          "Power adapter",
+          "Convert interface of class into another interface clients expect - enables incompatible interfaces to work together",
+          "Loop type",
+          "Deprecated"
+        ],
+        "correct": 1,
+        "explanation": "Adapter wraps class with different interface. Like power adapter converting plug shape while keeping electricity the same."
+      },
+      {
+        "question": "What is the Proxy pattern?",
+        "options": [
+          "Network proxy",
+          "Provide surrogate/placeholder for another object to control access - same interface as real object",
+          "Loop type",
+          "Deprecated"
+        ],
+        "correct": 1,
+        "explanation": "Proxy implements same interface as real subject. Controls access: lazy loading, access control, logging, remote calls."
+      },
+      {
+        "question": "What is the difference between composition and aggregation?",
+        "options": [
+          "Same",
+          "Composition: strong ownership (part dies with whole). Aggregation: weak (part exists independently)",
+          "Aggregation is stronger",
+          "Composition is deprecated"
+        ],
+        "correct": 1,
+        "explanation": "Car HAS Engine (composition: engine dies with car). Course HAS Students (aggregation: students exist without course)."
+      },
+      {
+        "question": "What is the Mediator pattern?",
+        "options": [
+          "Negotiation",
+          "Central object that coordinates communication between components - they only know mediator, not each other",
+          "Loop type",
+          "Deprecated"
+        ],
+        "correct": 1,
+        "explanation": "Mediator reduces direct coupling between components. ChatRoom mediates between Users instead of Users knowing each other."
+      },
+      {
+        "question": "What is the Memento pattern?",
+        "options": [
+          "Memory",
+          "Capture and restore object internal state without violating encapsulation - enables undo functionality",
+          "Loop type",
+          "Deprecated"
+        ],
+        "correct": 1,
+        "explanation": "Originator creates Memento containing state snapshot. Caretaker stores Mementos. Enables undo/redo."
+      },
+      {
+        "question": "What is the Flyweight pattern?",
+        "options": [
+          "Flying weight",
+          "Share common state across many objects to reduce memory - intrinsic vs extrinsic state",
+          "Loop type",
+          "Deprecated"
+        ],
+        "correct": 1,
+        "explanation": "Flyweight shares immutable intrinsic state. Extrinsic state passed by client. Used for character glyphs in text editors."
+      },
+      {
+        "question": "What is the Interpreter pattern?",
+        "options": [
+          "Language translator",
+          "Define grammar representation and interpreter for simple languages/expressions",
+          "Loop type",
+          "Deprecated"
+        ],
+        "correct": 1,
+        "explanation": "Interpreter builds AST for simple DSL. Each node type implements interpret(). Used for SQL parsers, expression evaluators."
+      },
+      {
+        "question": "What is the Builder pattern?",
+        "options": [
+          "Construction",
+          "Separate construction of complex object from its representation - step-by-step with fluent API",
+          "Loop type",
+          "Deprecated"
+        ],
+        "correct": 1,
+        "explanation": "new Pizza.Builder().size(12).cheese(true).build(). Solves telescoping constructor problem."
+      },
+      {
+        "question": "What is the Prototype pattern?",
+        "options": [
+          "First version",
+          "Create new objects by cloning existing prototype instead of calling constructor",
+          "Loop type",
+          "Deprecated"
+        ],
+        "correct": 1,
+        "explanation": "Prototype: clone existing object (prototype) instead of new. Useful when construction is expensive or complex."
+      },
+      {
+        "question": "What is the Abstract Factory pattern?",
+        "options": [
+          "Concrete factory",
+          "Provide interface for creating FAMILIES of related objects without specifying concrete classes",
+          "Loop type",
+          "Deprecated"
+        ],
+        "correct": 1,
+        "explanation": "GUIFactory creates Button+Checkbox. WindowsFactory returns WindowsButton+WindowsCheckbox. MacFactory returns Mac variants."
+      },
+      {
+        "question": "What is the Bridge pattern?",
+        "options": [
+          "Structural connection",
+          "Separate abstraction from implementation so both can vary independently",
+          "Loop type",
+          "Deprecated"
+        ],
+        "correct": 1,
+        "explanation": "Bridge: Shape abstraction has Color implementation. Circle+Red, Circle+Blue without CircleRed, CircleBlue classes."
+      },
+      {
+        "question": "What is the Facade pattern?",
+        "options": [
+          "Building front",
+          "Provide simplified interface to complex subsystem - single entry point for common operations",
+          "Loop type",
+          "Deprecated"
+        ],
+        "correct": 1,
+        "explanation": "Facade: simple interface hiding complexity. HomeTheater.watchMovie() hides DVD, Projector, Speakers interactions."
+      },
+      {
+        "question": "What is late binding?",
+        "options": [
+          "Compile-time binding",
+          "Same as dynamic binding - method resolution at runtime based on actual object type",
+          "Static binding",
+          "Early binding"
+        ],
+        "correct": 1,
+        "explanation": "Late binding = dynamic dispatch. The specific method to call is determined at runtime based on object type."
+      },
+      {
+        "question": "What is covariance vs contravariance?",
+        "options": [
+          "Same",
+          "Covariance: more specific return type OK. Contravariance: more general parameter type OK (not supported in Java overrides)",
+          "Contravariance in returns",
+          "Covariance in parameters"
+        ],
+        "correct": 1,
+        "explanation": "Java supports covariant return types in overrides. Parameter types must be identical (invariant) for overrides."
       }
     ],
     "codingExercise": {
@@ -6702,6 +8229,380 @@ TOPICS = [
         ],
         "correct": 1,
         "explanation": "When two interfaces provide the same default method, the implementing class must resolve the conflict by overriding. Class method wins over interface default."
+      },
+      {
+        "question": "Can interface have static methods?",
+        "options": [
+          "No",
+          "Yes since Java 8. Static methods belong to interface, not instances",
+          "Only Java 17+",
+          "Only private static"
+        ],
+        "correct": 1,
+        "explanation": "InterfaceName.staticMethod(). Used for utility methods related to interface contract."
+      },
+      {
+        "question": "Can interface have private methods?",
+        "options": [
+          "No",
+          "Yes since Java 9. Share code between default methods without exposing implementation",
+          "Only Java 17+",
+          "Only static"
+        ],
+        "correct": 1,
+        "explanation": "Private methods avoid code duplication between default methods."
+      },
+      {
+        "question": "What is a functional interface?",
+        "options": [
+          "Any interface",
+          "Interface with exactly one abstract method - can be implemented by lambdas",
+          "No methods",
+          "Deprecated"
+        ],
+        "correct": 1,
+        "explanation": "SAM interfaces enable lambda expressions. @FunctionalInterface enforces the contract."
+      },
+      {
+        "question": "What is sealed interface (Java 17+)?",
+        "options": [
+          "Cannot be used",
+          "Interface restricting which classes can implement it using permits clause",
+          "Deprecated",
+          "Only internal use"
+        ],
+        "correct": 1,
+        "explanation": "sealed interface permits ClassA, ClassB restricts implementations. Enables exhaustive matching."
+      },
+      {
+        "question": "What is constant interface anti-pattern?",
+        "options": [
+          "Using interfaces for all",
+          "Interface with only constants - pollutes implementing classes namespace",
+          "Best practice",
+          "Required by Java"
+        ],
+        "correct": 1,
+        "explanation": "Use final class with private constructor or enum instead of constant-only interface."
+      },
+      {
+        "question": "What is diamond problem in defaults?",
+        "options": [
+          "Four-sided shape",
+          "Class inherits two conflicting default methods - must override to resolve",
+          "Memory leak",
+          "Exception type"
+        ],
+        "correct": 1,
+        "explanation": "When two interfaces provide same default method, class must override to resolve ambiguity."
+      },
+      {
+        "question": "What is skeletal implementation pattern?",
+        "options": [
+          "Bone structure",
+          "Interface defines contract + Abstract class provides skeletal implementation",
+          "Deprecated",
+          "Only for Lists"
+        ],
+        "correct": 1,
+        "explanation": "AbstractCollection, AbstractList: interface+abstract class. Best of both worlds."
+      },
+      {
+        "question": "Can interface extend multiple interfaces?",
+        "options": [
+          "No",
+          "Yes - interfaces support multiple inheritance of type (extends A, B)",
+          "Only one",
+          "Only Java 8+"
+        ],
+        "correct": 1,
+        "explanation": "Interfaces can extend multiple interfaces. Child interface inherits all method contracts."
+      },
+      {
+        "question": "What is a marker interface?",
+        "options": [
+          "Default methods",
+          "Interface with no methods - tags classes: Serializable, Cloneable, Remote",
+          "Complex interface",
+          "Deprecated"
+        ],
+        "correct": 1,
+        "explanation": "Marker interfaces signal JVM/framework about class properties without requiring methods."
+      },
+      {
+        "question": "What happens if class implements two interfaces with same method?",
+        "options": [
+          "Compile error",
+          "If compatible contracts, one implementation satisfies both. Conflicting returns = error.",
+          "Only first works",
+          "Random"
+        ],
+        "correct": 1,
+        "explanation": "If signatures and returns match, one implementation works for both. Covariant returns may also work."
+      },
+      {
+        "question": "Can you create instance of interface?",
+        "options": [
+          "Yes: new MyInterface()",
+          "No - but you can instantiate anonymous class implementing it",
+          "Only with defaults",
+          "Java 17+"
+        ],
+        "correct": 1,
+        "explanation": "new MyInterface() { /* implement */ } creates anonymous class, not interface instance."
+      },
+      {
+        "question": "What is @FunctionalInterface for?",
+        "options": [
+          "Documentation only",
+          "Compiler-checked: ensures interface has exactly one abstract method",
+          "Performance",
+          "Deprecated"
+        ],
+        "correct": 1,
+        "explanation": "@FunctionalInterface makes SAM contract explicit. Compiler rejects multiple abstract methods."
+      },
+      {
+        "question": "What is abstract vs default methods?",
+        "options": [
+          "No difference",
+          "Abstract: MUST implement. Default: HAS implementation, CAN override.",
+          "Defaults are abstract",
+          "Abstract have bodies"
+        ],
+        "correct": 1,
+        "explanation": "Abstract defines contract. Default provides optional convenience implementation (Java 8+)."
+      },
+      {
+        "question": "What are interface implicit modifiers?",
+        "options": [
+          "Nothing implicit",
+          "Methods: public abstract. Fields: public static final. Java 9+ allows private methods.",
+          "Private by default",
+          "Protected by default"
+        ],
+        "correct": 1,
+        "explanation": "All interface methods implicitly public. Fields are constants. Java 9+ allows private helper methods."
+      },
+      {
+        "question": "What is interface vs fully abstract class?",
+        "options": [
+          "No difference",
+          "Interface: multiple inheritance, no state. Abstract class: single, can have state and constructors.",
+          "Abstract is interface",
+          "Interface has constructors"
+        ],
+        "correct": 1,
+        "explanation": "Multiple interfaces vs single abstract class. Interface for contracts; abstract class for shared state."
+      },
+      {
+        "question": "What is functional interface commonly used with?",
+        "options": [
+          "Classes only",
+          "Lambdas, method references, and streams - the backbone of Java functional programming",
+          "Abstract classes",
+          "Deprecated features"
+        ],
+        "correct": 1,
+        "explanation": "Predicate, Function, Consumer, Supplier - functional interfaces power streams, Optional, and reactive Java."
+      },
+      {
+        "question": "What is the difference between Comparator and Comparable interfaces?",
+        "options": [
+          "No difference",
+          "Comparable: natural order (class implements). Comparator: external order (separate class/lambda)",
+          "Comparator deprecated",
+          "Comparable for external"
+        ],
+        "correct": 1,
+        "explanation": "Comparable: object compares itself. Comparator: external strategy. Comparator more flexible."
+      },
+      {
+        "question": "What is functional interface commonly used with?",
+        "options": [
+          "Classes only",
+          "Lambdas, method references, and streams - backbone of Java functional programming",
+          "Abstract classes",
+          "Deprecated"
+        ],
+        "correct": 1,
+        "explanation": "Predicate, Function, Consumer, Supplier power streams, Optional, and reactive Java."
+      },
+      {
+        "question": "What is Comparator vs Comparable?",
+        "options": [
+          "No difference",
+          "Comparable: natural order (class implements). Comparator: external order (separate class/lambda)",
+          "Comparator deprecated",
+          "Comparable for external"
+        ],
+        "correct": 1,
+        "explanation": "Comparable: object compares itself. Comparator: external strategy. Comparator is more flexible."
+      },
+      {
+        "question": "What is interface default method resolution order?",
+        "options": [
+          "Random",
+          "(1) Class/abstract class wins. (2) More specific interface wins. (3) Ambiguity forces explicit override.",
+          "Interface always wins",
+          "Class never wins"
+        ],
+        "correct": 1,
+        "explanation": "Class methods take priority over interface defaults. Ambiguity must be manually resolved."
+      },
+      {
+        "question": "What is java.lang.Iterable relationship to interfaces?",
+        "options": [
+          "No relation",
+          "Iterable is interface with iterator() method. Enables for-each loop. Collections implement Iterable.",
+          "Iterable is class",
+          "Deprecated"
+        ],
+        "correct": 1,
+        "explanation": "Implementing Iterable allows objects to be used in for-each loops. Requires iterator() returning Iterator."
+      },
+      {
+        "question": "What is the difference between Iterator and Iterable?",
+        "options": [
+          "Same",
+          "Iterable: HAS iterator (can be iterated). Iterator: DOES iteration (hasNext/next). Iterable creates Iterator.",
+          "Iterator is Iterable",
+          "Neither exists"
+        ],
+        "correct": 1,
+        "explanation": "Collection implements Iterable (has iterator() method). Iterator performs the actual traversal."
+      },
+      {
+        "question": "What is the AutoCloseable interface?",
+        "options": [
+          "Auto cleanup",
+          "Interface with close() method - enables try-with-resources. Supertype of Closeable.",
+          "Deprecated",
+          "Only for files"
+        ],
+        "correct": 1,
+        "explanation": "AutoCloseable.close() called automatically by try-with-resources. Exception can be thrown; Closeable restricts to IOException."
+      },
+      {
+        "question": "What is Cloneable interface?",
+        "options": [
+          "Generic cloning",
+          "Marker interface indicating Object.clone() is supported. Without it, clone() throws CloneNotSupportedException.",
+          "Deprecated",
+          "Not needed"
+        ],
+        "correct": 1,
+        "explanation": "Cloneable is a marker interface. It does NOT contain clone() method - clone() is from Object. Controversial design."
+      },
+      {
+        "question": "What is Readable interface?",
+        "options": [
+          "For files",
+          "Interface with read(CharBuffer) method - used by Scanner and other text processors",
+          "Deprecated",
+          "Marker interface"
+        ],
+        "correct": 1,
+        "explanation": "Readable provides read() into CharBuffer. Enables Scanner to read from diverse sources implementing Readable."
+      },
+      {
+        "question": "What is Appendable interface?",
+        "options": [
+          "Adding",
+          "Interface with append() methods - implemented by StringBuilder, Writer, PrintStream",
+          "Deprecated",
+          "Marker interface"
+        ],
+        "correct": 1,
+        "explanation": "Appendable provides append(char), append(CharSequence), append(CharSequence,start,end). Used by Formatter class."
+      },
+      {
+        "question": "What is the difference between interface and @interface?",
+        "options": [
+          "Same",
+          "interface = type contract. @interface = annotation definition (custom annotation). Completely different concepts.",
+          "@interface deprecated",
+          "interface is annotation"
+        ],
+        "correct": 1,
+        "explanation": "@interface defines custom annotations. @Override, @Deprecated are predefined annotations. @interface MyAnnotation {}."
+      },
+      {
+        "question": "Can annotation extend interface?",
+        "options": [
+          "Yes",
+          "No - annotations cannot extend interfaces. All annotations implicitly extend java.lang.annotation.Annotation.",
+          "Only in Java 17+",
+          "Only marker annotations"
+        ],
+        "correct": 1,
+        "explanation": "Annotations form separate type hierarchy. They cannot extend interfaces or classes."
+      },
+      {
+        "question": "What is default method backward compatibility purpose?",
+        "options": [
+          "No purpose",
+          "Adding new methods to existing interfaces without breaking all implementors - primary reason for Java 8 default methods",
+          "Performance",
+          "Deprecated"
+        ],
+        "correct": 1,
+        "explanation": "Before default methods, adding method to interface broke ALL implementations. Default methods solve this."
+      },
+      {
+        "question": "What is the java.util.function package?",
+        "options": [
+          "No such package",
+          "Standard functional interfaces: Predicate, Function, Consumer, Supplier, and 39 variants",
+          "A class",
+          "Deprecated"
+        ],
+        "correct": 1,
+        "explanation": "java.util.function provides reusable functional interfaces. Use standard ones instead of creating custom SAM interfaces."
+      },
+      {
+        "question": "What is a BiFunction?",
+        "options": [
+          "Binary function",
+          "Function that accepts TWO arguments and produces result: BiFunction<T,U,R>",
+          "Single argument",
+          "No return"
+        ],
+        "correct": 1,
+        "explanation": "BiFunction<T,U,R>: apply(T t, U u) returns R. Used when lambda/function needs two inputs."
+      },
+      {
+        "question": "What is UnaryOperator?",
+        "options": [
+          "Two arguments",
+          "Special case of Function where input and output types are same: UnaryOperator<T> extends Function<T,T>",
+          "No return",
+          "Binary"
+        ],
+        "correct": 1,
+        "explanation": "UnaryOperator<T>: apply(T) returns T. Used for same-type transformations. BinaryOperator<T> for two-arg version."
+      },
+      {
+        "question": "What is Type Erasure impact on interface generic methods?",
+        "options": [
+          "No impact",
+          "Compiler generates bridge methods to maintain polymorphism after erasure. May see synthetic methods in stack traces.",
+          "Interfaces erased completely",
+          "No generic interfaces allowed"
+        ],
+        "correct": 1,
+        "explanation": "Type erasure requires bridge methods when generic interface methods are implemented. Visible via reflection but transparent in normal use."
+      },
+      {
+        "question": "What is SAM (Single Abstract Method) rule?",
+        "options": [
+          "Multiple abstract OK",
+          "Exactly ONE abstract method. Default/static methods do not count. Object methods do not count.",
+          "Two abstract methods",
+          "Zero abstract methods"
+        ],
+        "correct": 1,
+        "explanation": "SAM = single abstract method. Enables lambda implementation. @FunctionalInterface enforces this contract at compile time."
       }
     ],
     "codingExercise": {
@@ -6960,6 +8861,336 @@ TOPICS = [
         ],
         "correct": 1,
         "explanation": "Unchecked = NullPointerException, IllegalArgumentException (preventable bugs). Checked = IOException, SQLException (recoverable conditions)."
+      },
+      {
+        "question": "What is difference between Error and Exception?",
+        "options": [
+          "Same",
+          "Error=JVM problems (do not catch). Exception=application problems (can recover)",
+          "Error less severe",
+          "Exception is for JVM"
+        ],
+        "correct": 1,
+        "explanation": "Errors: OutOfMemoryError, StackOverflow. Exceptions: IOException. Never catch Errors."
+      },
+      {
+        "question": "What is suppressed exception?",
+        "options": [
+          "Hidden exception",
+          "Exception from try-with-resources close() attached to primary via addSuppressed()",
+          "Compile-time",
+          "Deprecated"
+        ],
+        "correct": 1,
+        "explanation": "When both try body and close() throw, close exception is SUPPRESSED. Access via getSuppressed()."
+      },
+      {
+        "question": "What is difference between throw and throws?",
+        "options": [
+          "Same",
+          "throw: raises exception. throws: declares possible exceptions in method signature",
+          "throws deprecated",
+          "throw for checked only"
+        ],
+        "correct": 1,
+        "explanation": "throw new Exception() creates and throws. void m() throws Exception declares callers must handle."
+      },
+      {
+        "question": "What is exception chaining?",
+        "options": [
+          "Multiple exceptions",
+          "Wrapping lower-level exception in higher-level one preserving original as cause",
+          "Loop type",
+          "Deprecated"
+        ],
+        "correct": 1,
+        "explanation": "catch(SQLException e){throw new DataAccessException(msg,e);} Preserves full stack trace."
+      },
+      {
+        "question": "What prevents finally from executing?",
+        "options": [
+          "Nothing",
+          "System.exit(), JVM crash, thread death, infinite loop in try/catch",
+          "Power outage only",
+          "Finally never executes"
+        ],
+        "correct": 1,
+        "explanation": "System.exit(0) kills JVM immediately. No finally, no stack unwinding."
+      },
+      {
+        "question": "What is try-with-resources requirement?",
+        "options": [
+          "Any object",
+          "Resource must implement AutoCloseable (or Closeable) with close() method",
+          "Only File objects",
+          "Only Stream objects"
+        ],
+        "correct": 1,
+        "explanation": "Any AutoCloseable class works. close() called automatically in reverse declaration order."
+      },
+      {
+        "question": "What is multi-catch block?",
+        "options": [
+          "Nested try/catch",
+          "catch(IOException|SQLException e) handles both types with single handler",
+          "Catching all",
+          "Deprecated"
+        ],
+        "correct": 1,
+        "explanation": "Multi-catch reduces duplication. Variable e is implicitly final. Types must be disjoint."
+      },
+      {
+        "question": "What is wrong with empty catch block?",
+        "options": [
+          "Nothing",
+          "Silently swallows exceptions hiding bugs. Worst Java practice. Always log or handle.",
+          "Required",
+          "Best practice"
+        ],
+        "correct": 1,
+        "explanation": "Empty catch blocks are bug factories. At minimum log the exception."
+      },
+      {
+        "question": "What is difference between RuntimeException and checked Exception?",
+        "options": [
+          "Same",
+          "RuntimeException=unchecked (bugs). Checked=must be caught or declared.",
+          "Runtime more severe",
+          "Checked for bugs"
+        ],
+        "correct": 1,
+        "explanation": "Unchecked: NPE, IAE (preventable bugs). Checked: IOException, SQLException (recoverable)."
+      },
+      {
+        "question": "What is exception translation?",
+        "options": [
+          "Converting types",
+          "Catching low-level exception and throwing domain-appropriate one",
+          "Type casting",
+          "Deprecated"
+        ],
+        "correct": 1,
+        "explanation": "Translation hides implementation details. Higher layers should not know about SQL specifics."
+      },
+      {
+        "question": "What is finally vs try-with-resources?",
+        "options": [
+          "Same",
+          "finally=manual cleanup (error-prone). TWR=automatic cleanup (safer). Always prefer TWR.",
+          "finally is preferred",
+          "TWR deprecated"
+        ],
+        "correct": 1,
+        "explanation": "TWR handles suppressed exceptions correctly. finally requires manual exception handling."
+      },
+      {
+        "question": "What is catch vs finally execution order?",
+        "options": [
+          "catch last",
+          "try->catch(if exception)->finally (always). If catch throws, finally still runs.",
+          "finally first",
+          "random"
+        ],
+        "correct": 1,
+        "explanation": "finally ALWAYS runs after try/catch. Even if catch throws, finally executes before propagation."
+      },
+      {
+        "question": "Can you have try without catch?",
+        "options": [
+          "No",
+          "Yes - try-with-resources or try-finally. try MUST have either catch or finally.",
+          "Only in Java 17+",
+          "Only with resources"
+        ],
+        "correct": 1,
+        "explanation": "try{}finally{} is valid. try(resource){} is valid. try{} alone is compile error."
+      },
+      {
+        "question": "What is best practice for custom exceptions?",
+        "options": [
+          "Extend Throwable",
+          "Extend RuntimeException (unchecked) or Exception (checked). Provide message+cause constructors.",
+          "Extend Error",
+          "Always unchecked"
+        ],
+        "correct": 1,
+        "explanation": "Custom exceptions should be meaningful. Include relevant state. Always chain the cause."
+      },
+      {
+        "question": "What is difference between getMessage() and toString() on exception?",
+        "options": [
+          "Same",
+          "getMessage()=detail message. toString()=class name + message. printStackTrace() includes stack trace.",
+          "toString deprecated",
+          "getMessage shows stack"
+        ],
+        "correct": 1,
+        "explanation": "getMessage() returns message string. toString() returns classname: message."
+      },
+      {
+        "question": "What is try-catch performance overhead?",
+        "options": [
+          "No overhead",
+          "Creating exception (filling stack trace) is expensive. Try-catch without throwing is nearly free.",
+          "Always expensive",
+          "Only at compile time"
+        ],
+        "correct": 1,
+        "explanation": "Throwing exceptions is expensive (stack capture). Normal flow in try-catch is cheap."
+      },
+      {
+        "question": "What is exception handling anti-pattern: catch-log-return-null?",
+        "options": [
+          "Good pattern",
+          "Swallows exception and returns null. Throw or use Optional instead.",
+          "Required",
+          "Best practice"
+        ],
+        "correct": 1,
+        "explanation": "Returning null after catching hides the error. Use Optional or rethrow with context."
+      },
+      {
+        "question": "What is difference between Error and Throwable?",
+        "options": [
+          "Same",
+          "Throwable is superclass of both Error and Exception. Never catch Throwable.",
+          "Error is superclass",
+          "Throwable deprecated"
+        ],
+        "correct": 1,
+        "explanation": "Throwable > Error + Exception. Catching Throwable catches Errors which should never be caught."
+      },
+      {
+        "question": "What is exception in static initializer?",
+        "options": [
+          "Compile error",
+          "Throws ExceptionInInitializerError wrapping original. Class becomes unusable (NoClassDefFoundError).",
+          "Silently ignored",
+          "Only warning"
+        ],
+        "correct": 1,
+        "explanation": "Static init exceptions wrap in ExceptionInInitializerError. Class fails to load permanently."
+      },
+      {
+        "question": "What is use of Objects.requireNonNull()?",
+        "options": [
+          "Null check only",
+          "Fail-fast null validation: throws NPE with message if null, returns value if not null.",
+          "Deprecated",
+          "For collections only"
+        ],
+        "correct": 1,
+        "explanation": "this.field = Objects.requireNonNull(field,msg); Fail fast with clear message."
+      },
+      {
+        "question": "What is difference between close() and finalize() for cleanup?",
+        "options": [
+          "Same",
+          "close()=deterministic via TWR. finalize()=non-deterministic GC callback (deprecated). Always use close().",
+          "finalize is preferred",
+          "Neither works"
+        ],
+        "correct": 1,
+        "explanation": "close() is deterministic and immediate. finalize() timing is unpredictable. TWR makes close() automatic."
+      },
+      {
+        "question": "What is try-catch scope best practice?",
+        "options": [
+          "Catch everywhere",
+          "Narrow scope: wrap only statements that can throw. Avoid wrapping entire method body.",
+          "Catch nothing",
+          "Catch all at main"
+        ],
+        "correct": 1,
+        "explanation": "Narrow try blocks make it clear which operation failed. Broad try blocks obscure the error source."
+      },
+      {
+        "question": "What is difference between ClassNotFoundException and NoClassDefFoundError?",
+        "options": [
+          "Same",
+          "CNFE: class not found by Class.forName() (checked). NCDFE: class present at compile but missing at runtime (Error).",
+          "Both are same",
+          "NCDFE is Exception"
+        ],
+        "correct": 1,
+        "explanation": "CNFE: dynamic loading failure. NCDFE: class was there during compilation but gone at runtime."
+      },
+      {
+        "question": "What is exception in finally block?",
+        "options": [
+          "Silently suppressed",
+          "Finally exception overrides try/catch exception. Original exception is lost unless suppressed.",
+          "Caught automatically",
+          "Ignored"
+        ],
+        "correct": 1,
+        "explanation": "If finally throws, it replaces any pending exception. Use try-with-resources for proper handling."
+      },
+      {
+        "question": "What is the try-with-resources reverse close order?",
+        "options": [
+          "Random",
+          "Resources closed in reverse declaration order. Last declared = first closed.",
+          "First declared first",
+          "No order"
+        ],
+        "correct": 1,
+        "explanation": "try(a;b;c) closes c first, then b, then a. Reverse order prevents dependency issues."
+      },
+      {
+        "question": "What is difference between printStackTrace() and logging framework?",
+        "options": [
+          "Same",
+          "printStackTrace() goes to stderr (uncontrolled). Logging framework provides levels, formatting, routing.",
+          "logging deprecated",
+          "printStackTrace is better"
+        ],
+        "correct": 1,
+        "explanation": "Always use logging framework (SLF4J, Log4j) in production. printStackTrace() for quick debugging only."
+      },
+      {
+        "question": "What is exception handling in streams/lambdas?",
+        "options": [
+          "Not possible",
+          "Lambdas cannot throw checked exceptions. Wrap in RuntimeException or use functional interfaces with throws.",
+          "Works normally",
+          "Streams handle exceptions"
+        ],
+        "correct": 1,
+        "explanation": "Functional interfaces do not declare checked exceptions. Common workaround: wrap in runtime or use custom throwing functional interfaces."
+      },
+      {
+        "question": "What is a RuntimeException subclass common naming?",
+        "options": [
+          "No convention",
+          "Usually ends with 'Exception': IllegalArgumentException, IllegalStateException, NullPointerException",
+          "Ends with Error",
+          "Ends with Throwable"
+        ],
+        "correct": 1,
+        "explanation": "RuntimeException subclasses follow standard naming. Unchecked exceptions signal programming errors."
+      },
+      {
+        "question": "What is difference between assert and exception?",
+        "options": [
+          "Same",
+          "assert=development-time invariant check (disabled by default). exception=production error handling.",
+          "assert is for production",
+          "Exception is for development"
+        ],
+        "correct": 1,
+        "explanation": "assert validates assumptions during development. Enable with -ea. Exceptions handle runtime errors in production."
+      },
+      {
+        "question": "What is try-with-resources with multiple resources syntax?",
+        "options": [
+          "Multiple try blocks",
+          "try(Resource a=...; Resource b=...){} - semicolon-separated, all auto-closed in reverse order",
+          "Nested try only",
+          "Not possible"
+        ],
+        "correct": 1,
+        "explanation": "try(var a=new FileInputStream(f1); var b=new FileInputStream(f2)){}. Both auto-closed."
       }
     ],
     "codingExercise": {
@@ -7229,6 +9460,336 @@ TOPICS = [
         ],
         "correct": 1,
         "explanation": "Set.of()/List.of()/Map.of() create truly immutable collections. They're more memory-efficient and thread-safe. Use for constants and fixed data."
+      },
+      {
+        "question": "What is difference between Collection and Collections?",
+        "options": [
+          "Same",
+          "Collection=interface. Collections=utility class with static methods",
+          "Collections is interface",
+          "Collection is utility"
+        ],
+        "correct": 1,
+        "explanation": "Collection<E> is root interface. java.util.Collections provides static utility methods like sort, binarySearch."
+      },
+      {
+        "question": "What is unmodifiable collection?",
+        "options": [
+          "Mutable collection",
+          "Wrapper preventing modification: Collections.unmodifiableList(list)",
+          "Deprecated",
+          "Thread-safe"
+        ],
+        "correct": 1,
+        "explanation": "Unmodifiable wrappers prevent add/remove. For truly immutable, use List.of()/Set.of() (Java 9+)."
+      },
+      {
+        "question": "What is difference between HashMap and Hashtable?",
+        "options": [
+          "Same",
+          "HashMap: not synchronized, allows null. Hashtable: synchronized, no nulls, legacy",
+          "Hashtable is newer",
+          "HashMap is thread-safe"
+        ],
+        "correct": 1,
+        "explanation": "HashMap is modern choice. Hashtable is legacy. For concurrent: ConcurrentHashMap."
+      },
+      {
+        "question": "What is ConcurrentHashMap?",
+        "options": [
+          "Slower HashMap",
+          "Thread-safe HashMap using lock striping - multiple threads read/write concurrently",
+          "Deprecated",
+          "Synchronized HashMap"
+        ],
+        "correct": 1,
+        "explanation": "ConcurrentHashMap uses segment-level locking for high concurrency."
+      },
+      {
+        "question": "What is ConcurrentModificationException?",
+        "options": [
+          "Compile error",
+          "Thrown when iterating collection structurally modified (except via Iterator.remove)",
+          "Network error",
+          "File error"
+        ],
+        "correct": 1,
+        "explanation": "Modifying collection during for-each throws CME. Use Iterator.remove() or concurrent collections."
+      },
+      {
+        "question": "What is fail-fast vs fail-safe iterators?",
+        "options": [
+          "Same",
+          "Fail-fast: throw CME on modification. Fail-safe: work on snapshot (CopyOnWriteArrayList)",
+          "Fail-safe deprecated",
+          "Fail-fast never throws"
+        ],
+        "correct": 1,
+        "explanation": "Most collections are fail-fast. COWAL provides fail-safe (weakly consistent) iterators."
+      },
+      {
+        "question": "What is PriorityQueue?",
+        "options": [
+          "FIFO queue",
+          "Queue ordered by natural order or Comparator - poll() returns smallest element",
+          "LIFO queue",
+          "Deprecated"
+        ],
+        "correct": 1,
+        "explanation": "PriorityQueue implements binary heap. O(log n) insert/poll. O(1) peek. Not thread-safe."
+      },
+      {
+        "question": "What is Deque?",
+        "options": [
+          "List type",
+          "Double-ended queue - add/remove from both ends. ArrayDeque preferred.",
+          "Deprecated",
+          "Only for sets"
+        ],
+        "correct": 1,
+        "explanation": "Deque supports FIFO and LIFO. ArrayDeque faster than Stack and LinkedList."
+      },
+      {
+        "question": "What is difference between Set.of() and new HashSet<>()?",
+        "options": [
+          "Same",
+          "Set.of()=immutable (Java 9+). new HashSet()=mutable",
+          "Set.of() mutable",
+          "HashSet immutable"
+        ],
+        "correct": 1,
+        "explanation": "Set.of()/List.of()/Map.of() create truly immutable collections. Thread-safe and memory-efficient."
+      },
+      {
+        "question": "What is LinkedHashMap access-order mode?",
+        "options": [
+          "No such mode",
+          "new LinkedHashMap(16,0.75f,true) orders by last access, implementing LRU cache",
+          "Deprecated",
+          "Only for sorted maps"
+        ],
+        "correct": 1,
+        "explanation": "Access-order LinkedHashMap is simplest LRU cache. Override removeEldestEntry() to evict."
+      },
+      {
+        "question": "What is EnumMap?",
+        "options": [
+          "Map with enum keys",
+          "Highly optimized Map for enum keys - uses array internally. Much faster than HashMap.",
+          "Deprecated",
+          "Only for string keys"
+        ],
+        "correct": 1,
+        "explanation": "EnumMap uses ordinal as array index. O(1), minimal memory. Always prefer over HashMap for enum keys."
+      },
+      {
+        "question": "What is EnumSet?",
+        "options": [
+          "Set of enums",
+          "Highly optimized Set for enum values - uses bit vector internally",
+          "Deprecated",
+          "Only for strings"
+        ],
+        "correct": 1,
+        "explanation": "EnumSet uses bit flags (one bit per constant). All operations O(1). Use EnumSet.of()/allOf()."
+      },
+      {
+        "question": "What is IdentityHashMap?",
+        "options": [
+          "Normal HashMap",
+          "Map using reference equality (==) instead of equals() for keys",
+          "Deprecated",
+          "Same as HashMap"
+        ],
+        "correct": 1,
+        "explanation": "IdentityHashMap uses System.identityHashCode() and ==. For proxy objects and graph algorithms."
+      },
+      {
+        "question": "What is WeakHashMap?",
+        "options": [
+          "Strong references",
+          "Map with weak reference keys - entries GC when key no longer referenced elsewhere",
+          "Deprecated",
+          "Same as HashMap"
+        ],
+        "correct": 1,
+        "explanation": "WeakHashMap entries auto-removed when key is only weakly reachable. For canonicalization."
+      },
+      {
+        "question": "What is Collections.synchronizedList vs CopyOnWriteArrayList?",
+        "options": [
+          "Same",
+          "syncList: locks entire list. COWAL: copies on write, no locks for reads",
+          "COWAL deprecated",
+          "syncList faster"
+        ],
+        "correct": 1,
+        "explanation": "COWAL copies array on mutation. Excellent for read-heavy. Poor for frequent writes."
+      },
+      {
+        "question": "What is BlockingQueue?",
+        "options": [
+          "Regular queue",
+          "Thread-safe queue with blocking: put() waits if full, take() waits if empty",
+          "Deprecated",
+          "Non-thread-safe"
+        ],
+        "correct": 1,
+        "explanation": "BlockingQueue enables producer-consumer. ArrayBlockingQueue (bounded), LinkedBlockingQueue."
+      },
+      {
+        "question": "What is difference between poll(), remove(), take() on BlockingQueue?",
+        "options": [
+          "Same",
+          "poll()=null if empty. remove()=throw if empty. take()=block/wait if empty",
+          "remove() blocks",
+          "take() returns null"
+        ],
+        "correct": 1,
+        "explanation": "poll() non-blocking. remove() throws. take() blocks until element available."
+      },
+      {
+        "question": "What is Collections.emptyList() vs new ArrayList<>()?",
+        "options": [
+          "Same",
+          "emptyList() returns immutable empty singleton. new ArrayList() creates new mutable instance.",
+          "emptyList mutable",
+          "new ArrayList immutable"
+        ],
+        "correct": 1,
+        "explanation": "emptyList() returns same instance every call. Never try to modify it."
+      },
+      {
+        "question": "What is Arrays.asList() caveat?",
+        "options": [
+          "No caveats",
+          "Returns fixed-size List backed by array. Cannot add/remove. Changes affect both.",
+          "Mutable size",
+          "Independent copy"
+        ],
+        "correct": 1,
+        "explanation": "Arrays.asList() wraps without copying. add()/remove() throw UnsupportedOperationException."
+      },
+      {
+        "question": "What is difference between List.of() and Arrays.asList()?",
+        "options": [
+          "Same",
+          "List.of()=truly immutable, rejects nulls. Arrays.asList()=fixed-size but mutable elements, allows nulls.",
+          "Arrays.asList immutable",
+          "List.of allows null"
+        ],
+        "correct": 1,
+        "explanation": "List.of() (Java 9+) is truly immutable. Arrays.asList() is a view wrapper (changes propagate)."
+      },
+      {
+        "question": "What is difference between HashSet and LinkedHashSet?",
+        "options": [
+          "Same",
+          "LinkedHashSet maintains insertion order via doubly-linked list. Slightly more memory than HashSet.",
+          "LinkedHashSet sorted",
+          "HashSet ordered"
+        ],
+        "correct": 1,
+        "explanation": "LinkedHashSet = HashSet + insertion-order linked list. Use when iteration order matters."
+      },
+      {
+        "question": "What is TreeSet vs HashSet performance?",
+        "options": [
+          "Same",
+          "TreeSet O(log n) for add/contains/remove (red-black tree). HashSet O(1) (hash table).",
+          "TreeSet always faster",
+          "HashSet O(log n)"
+        ],
+        "correct": 1,
+        "explanation": "HashSet is faster for basic operations. TreeSet maintains sorted order at O(log n) cost."
+      },
+      {
+        "question": "What is NavigableSet?",
+        "options": [
+          "Regular Set",
+          "SortedSet extension with navigation: lower(), floor(), ceiling(), higher(), subSet()",
+          "Deprecated",
+          "Only for lists"
+        ],
+        "correct": 1,
+        "explanation": "TreeSet implements NavigableSet. Provides efficient range queries and nearest-element lookups."
+      },
+      {
+        "question": "What is NavigableMap?",
+        "options": [
+          "Regular Map",
+          "SortedMap extension with navigation: lowerKey(), floorKey(), ceilingKey(), higherKey()",
+          "Deprecated",
+          "Only for sets"
+        ],
+        "correct": 1,
+        "explanation": "TreeMap implements NavigableMap. Provides efficient key-range queries and nearest-key lookups."
+      },
+      {
+        "question": "What is Collections.sort() algorithm?",
+        "options": [
+          "Bubble sort",
+          "Dual-pivot quicksort for primitives, Timsort for objects (stable, adaptive)",
+          "Merge sort always",
+          "Insertion sort"
+        ],
+        "correct": 1,
+        "explanation": "Dual-pivot quicksort (primitives, O(n log n)). Timsort (objects, stable, O(n) on nearly-sorted data)."
+      },
+      {
+        "question": "What is difference between shuffle() and reverse()?",
+        "options": [
+          "Same",
+          "shuffle() randomizes order (Fisher-Yates). reverse() inverts order.",
+          "reverse randomizes",
+          "shuffle reverses"
+        ],
+        "correct": 1,
+        "explanation": "Collections.shuffle() randomizes. Collections.reverse() inverts current order. Both modify in-place."
+      },
+      {
+        "question": "What is Collections.frequency()?",
+        "options": [
+          "Count of nulls",
+          "Returns count of elements equal to specified object using equals()",
+          "Random frequency",
+          "Deprecated"
+        ],
+        "correct": 1,
+        "explanation": "Collections.frequency(collection, element) counts occurrences. O(n) for all collection types."
+      },
+      {
+        "question": "What is Collections.disjoint()?",
+        "options": [
+          "Joins collections",
+          "Returns true if two collections have NO elements in common",
+          "Finds intersection",
+          "Deprecated"
+        ],
+        "correct": 1,
+        "explanation": "Collections.disjoint(a, b) returns true if a and b share no elements. O(n*m) worst case."
+      },
+      {
+        "question": "What is Collections.rotate()?",
+        "options": [
+          "Randomizes",
+          "Rotates elements by specified distance. Positive = right, negative = left. O(n).",
+          "Reverses",
+          "Shuffles"
+        ],
+        "correct": 1,
+        "explanation": "Collections.rotate(list, 2) moves each element 2 positions right. Elements at end wrap to front."
+      },
+      {
+        "question": "What is Collections.swap()?",
+        "options": [
+          "Permanent exchange",
+          "Swaps elements at two specified positions in a list",
+          "Copies elements",
+          "Deprecated"
+        ],
+        "correct": 1,
+        "explanation": "Collections.swap(list, i, j) exchanges elements at positions i and j. O(1). Modifies in-place."
       }
     ],
     "codingExercise": {
@@ -7486,6 +10047,336 @@ TOPICS = [
         ],
         "correct": 1,
         "explanation": "Reifiable types have full runtime type info. Non-reifiable types (List<String>) lose type info via erasure. Can use instanceof only with reifiable types."
+      },
+      {
+        "question": "What is a generic method?",
+        "options": [
+          "Method in generic class",
+          "Method with its own type parameter: <T> T method(T param)",
+          "Method without parameters",
+          "Deprecated"
+        ],
+        "correct": 1,
+        "explanation": "Generic methods declare type parameters BEFORE return type. The <T> introduces the type variable."
+      },
+      {
+        "question": "What is type witness?",
+        "options": [
+          "A wildcard type",
+          "Explicitly specifying type argument: ClassName.<String>method(args)",
+          "Compiler error",
+          "Only for wildcards"
+        ],
+        "correct": 1,
+        "explanation": "When inference fails: Collections.<String>emptyList(). Rarely needed since Java 8."
+      },
+      {
+        "question": "What is recursive type bound?",
+        "options": [
+          "Infinite recursion",
+          "<T extends Comparable<T>> - T must be comparable to itself",
+          "Compiler error",
+          "Deprecated"
+        ],
+        "correct": 1,
+        "explanation": "<T extends Comparable<T>> enables generic max/min methods comparing objects of same type."
+      },
+      {
+        "question": "What is heap pollution?",
+        "options": [
+          "Memory leak",
+          "Variable of parameterized type refers to object of different parameterized type",
+          "Exception type",
+          "Only for arrays"
+        ],
+        "correct": 1,
+        "explanation": "Heap pollution causes unchecked warnings. May cause ClassCastException at runtime."
+      },
+      {
+        "question": "What is intersection type?",
+        "options": [
+          "Two types combined",
+          "T extends A & B & C - T must satisfy all bounds",
+          "Union of types",
+          "Deprecated"
+        ],
+        "correct": 1,
+        "explanation": "<T extends Comparable<T> & Serializable> - T implements both. First bound can be class, rest interfaces."
+      },
+      {
+        "question": "Can generics be used in instanceof?",
+        "options": [
+          "Yes: instanceof List<String>",
+          "No - erasure prevents. Only raw instanceof List or unbounded List<?> valid",
+          "Only for wildcards",
+          "In Java 17+"
+        ],
+        "correct": 1,
+        "explanation": "Type erasure removes generic arguments at runtime. instanceof List<?> is valid (unbounded wildcard)."
+      },
+      {
+        "question": "What is diamond operator (<>)?",
+        "options": [
+          "Wildcard type",
+          "Type inference shortcut: new ArrayList<>() instead of new ArrayList<String>()",
+          "Bitwise operator",
+          "Deprecated"
+        ],
+        "correct": 1,
+        "explanation": "Diamond infers type from context. Java 7+. Reduces verbosity significantly."
+      },
+      {
+        "question": "What is difference between List<Object> and List<?>?",
+        "options": [
+          "Same",
+          "List<Object>: can add any Object. List<?>: read-only, cannot add (except null)",
+          "List<?> is mutable",
+          "List<Object> read-only"
+        ],
+        "correct": 1,
+        "explanation": "List<Object> accepts any Object to add. List<?> is unknown type - read as Object, cannot add."
+      },
+      {
+        "question": "What is difference between List and List<?> vs List<Object>?",
+        "options": [
+          "All identical",
+          "List(raw)=no safety. List<?>=unknown type(read-only). List<Object>=explicitly Object(can add)",
+          "List<?> safest for writing",
+          "List is preferred"
+        ],
+        "correct": 1,
+        "explanation": "Never use raw List. Use List<?> for read-only, List<Object> for writing Objects, specific type for safety."
+      },
+      {
+        "question": "What are reifiable types?",
+        "options": [
+          "Types fully at runtime",
+          "Types whose info fully available at runtime (primitives, raw types, non-generic classes)",
+          "Generic types",
+          "Abstract types"
+        ],
+        "correct": 1,
+        "explanation": "Reifiable types have complete runtime info. Non-reifiable (List<String>) lose info via erasure."
+      },
+      {
+        "question": "What is bounded type parameter?",
+        "options": [
+          "Unrestricted",
+          "<T extends Number> restricts T to Number or its subtypes",
+          "Nullable type",
+          "Default value"
+        ],
+        "correct": 1,
+        "explanation": "Bounded parameters constrain what types can be used. T must extend/implements the bound."
+      },
+      {
+        "question": "What is wildcard capture?",
+        "options": [
+          "Capturing exceptions",
+          "Compiler internally assigns specific type to wildcard - sometimes causes confusing errors",
+          "A design pattern",
+          "Deprecated"
+        ],
+        "correct": 1,
+        "explanation": "Wildcard capture: compiler assigns internal type to ?. Can cause 'capture of ?' error messages."
+      },
+      {
+        "question": "What is generic type inference in Java 8+?",
+        "options": [
+          "Manual type args",
+          "Compiler infers type arguments from context - much improved in Java 8 for method chains",
+          "Deprecated",
+          "Not available"
+        ],
+        "correct": 1,
+        "explanation": "Java 8+ improved inference significantly. Complex chains like stream().filter().map().collect() work without explicit types."
+      },
+      {
+        "question": "What is the getClass() of generic objects?",
+        "options": [
+          "Returns generic type",
+          "Returns raw Class object - erasure means List<String>.class is invalid, only List.class exists",
+          "Compile error",
+          "Null"
+        ],
+        "correct": 1,
+        "explanation": "Generic type info erased at runtime. ArrayList<String>.getClass() == ArrayList.class. Only one Class object."
+      },
+      {
+        "question": "What is type token pattern?",
+        "options": [
+          "Authentication token",
+          "Pass Class<T> to capture generic type at runtime: method(Class<T> type)",
+          "Compile error",
+          "Deprecated"
+        ],
+        "correct": 1,
+        "explanation": "Type token preserves type info past erasure. Used by libraries like Jackson for deserialization."
+      },
+      {
+        "question": "What is @SuppressWarnings('unchecked')?",
+        "options": [
+          "Fixes type errors",
+          "Suppresses compiler warning for unchecked casts - use only when cast is provably safe",
+          "Creates warnings",
+          "Deprecated"
+        ],
+        "correct": 1,
+        "explanation": "Use sparingly on smallest possible scope. Document WHY the cast is safe. Prefer eliminating the warning over suppressing."
+      },
+      {
+        "question": "What is heterogeneous container pattern?",
+        "options": [
+          "Single type",
+          "Typesafe heterogeneous container: Map<Class<?>, Object> with checked get/put using Class.cast()",
+          "Deprecated",
+          "Only for collections"
+        ],
+        "correct": 1,
+        "explanation": "Heterogeneous container stores values of different types keyed by Class. Favorite example: Bloch's typesafe EnumMap."
+      },
+      {
+        "question": "What is generic singleton factory?",
+        "options": [
+          "Single instance",
+          "Returns same instance for all type parameters: Collections.emptyList() returns shared immutable singleton",
+          "Deprecated",
+          "Not possible"
+        ],
+        "correct": 1,
+        "explanation": "Unmodifiable empty collections are generic singletons. Same instance returned regardless of T due to erasure."
+      },
+      {
+        "question": "What is the difference between <? extends T> and <? super T>?",
+        "options": [
+          "Same",
+          "<? extends T>=read as T (producer). <? super T>=write T (consumer). PECS mnemonic.",
+          "<? super> is for reading",
+          "<? extends> is for writing"
+        ],
+        "correct": 1,
+        "explanation": "PECS: Producer Extends, Consumer Super. Read from extends, write to super. Both for different use cases."
+      },
+      {
+        "question": "What is array covariance vs generic invariance?",
+        "options": [
+          "Same",
+          "String[] IS-A Object[] (covariant, runtime check). List<String> NOT IS-A List<Object> (invariant, compile check)",
+          "Generics covariant",
+          "Arrays invariant"
+        ],
+        "correct": 1,
+        "explanation": "Arrays are covariant (unsafe at compile time). Generics are invariant (safer). Generics catch errors earlier."
+      },
+      {
+        "question": "What is the new MyClass<>() vs new MyClass() difference?",
+        "options": [
+          "Same since Java 7",
+          "Diamond infers type. Without diamond = raw type (unsafe). Always use diamond with generics.",
+          "Without diamond is safer",
+          "No difference"
+        ],
+        "correct": 1,
+        "explanation": "new ArrayList<>() uses diamond (generic). new ArrayList() uses raw type (unsafe, warning). Always use diamond."
+      },
+      {
+        "question": "What is the difference between generic class and generic method type parameter scope?",
+        "options": [
+          "Same scope",
+          "Class type parameter: entire class. Method type parameter: that method only. Method parameter shadows class parameter.",
+          "Method scope is class-wide",
+          "No difference"
+        ],
+        "correct": 1,
+        "explanation": "Class-level <T> visible to all members. Method-level <T> shadows class <T> within that method only."
+      },
+      {
+        "question": "What is a type parameter naming convention?",
+        "options": [
+          "Any name",
+          "Single uppercase: E(Element), K(Key), V(Value), N(Number), T(Type), S/U/V(additional)",
+          "Lowercase only",
+          "Full words"
+        ],
+        "correct": 1,
+        "explanation": "Conventions from JLS: E for collections, K/V for maps, T for general purpose. Makes generics more readable."
+      },
+      {
+        "question": "What is generic type erasure default bound?",
+        "options": [
+          "String",
+          "Object - unbounded T erases to Object. Bounded <T extends Number> erases to Number",
+          "int",
+          "void"
+        ],
+        "correct": 1,
+        "explanation": "Type parameters erase to their leftmost bound. <T> erases to Object. <T extends Comparable> erases to Comparable."
+      },
+      {
+        "question": "What is bridge method in generic subclass?",
+        "options": [
+          "Networking",
+          "Compiler generates bridge method when override signature changes due to erasure - ensures polymorphism works",
+          "Deprecated",
+          "Not needed"
+        ],
+        "correct": 1,
+        "explanation": "Bridge methods maintain override correctness after erasure. Generated by compiler, visible in stack traces and reflection."
+      },
+      {
+        "question": "What is the difference between raw type and parameterized type?",
+        "options": [
+          "Same",
+          "Raw: List (no generics, unsafe). Parameterized: List<String> (type-safe). Raw exists for backward compatibility.",
+          "Raw is safer",
+          "Parameterized deprecated"
+        ],
+        "correct": 1,
+        "explanation": "Never use raw types in new code. They exist only for pre-Java-5 compatibility. Enable -Xlint:unchecked to find."
+      },
+      {
+        "question": "What is @SafeVarargs annotation?",
+        "options": [
+          "Safe to use",
+          "Suppresses heap pollution warnings for provably typesafe varargs methods",
+          "Deprecated",
+          "For primitives only"
+        ],
+        "correct": 1,
+        "explanation": "Use only on final/static/private methods where varargs are definitely safe. Incorrect use can cause heap pollution."
+      },
+      {
+        "question": "What is the difference between Class<T> and Class<?>?",
+        "options": [
+          "Same",
+          "Class<T> = specific type. Class<?> = unknown type (safer than raw Class). Class<?> allows read but not typed write.",
+          "Class<?> is raw",
+          "Class<T> deprecated"
+        ],
+        "correct": 1,
+        "explanation": "Class<String> = specific. Class<?> = unbounded wildcard (any class). Class (raw) = no type safety."
+      },
+      {
+        "question": "What is generics wildcard capture error?",
+        "options": [
+          "No such error",
+          "When compiler assigns internal type to wildcard causing confusing error messages in certain operations",
+          "Runtime exception",
+          "Deprecated"
+        ],
+        "correct": 1,
+        "explanation": "'capture of ?' errors occur when trying to use wildcard type where specific type is needed. Add helper method to resolve."
+      },
+      {
+        "question": "What is the generic method type inference priority?",
+        "options": [
+          "Random",
+          "Compiler tries: exact match, then boxing/unboxing, then varargs. Most specific applicable method wins.",
+          "Varargs first",
+          "Exact match last"
+        ],
+        "correct": 1,
+        "explanation": "Overload resolution: exact types first, then boxing, then varargs. Ambiguity causes compile error."
       }
     ],
     "codingExercise": {
@@ -7635,6 +10526,446 @@ TOPICS = [
         ],
         "correct": 1,
         "explanation": "Check Files.exists() or Files.isReadable() before reading, or catch NoSuchFileException specifically."
+      },
+      {
+        "question": "What is difference between java.io and java.nio.file?",
+        "options": [
+          "Same",
+          "io=legacy (pre-Java 7). nio=modern, better error messages, Path abstraction, async I/O",
+          "nio is legacy",
+          "io is modern"
+        ],
+        "correct": 1,
+        "explanation": "java.nio.file (Java 7+) is modern API. Path replaces File. Files utility class provides concise operations."
+      },
+      {
+        "question": "What is Path vs File?",
+        "options": [
+          "Same",
+          "Path: immutable, better errors, rich manipulation. File: mutable, legacy, pre-Java 7. Always prefer Path.",
+          "File is modern",
+          "Path is deprecated"
+        ],
+        "correct": 1,
+        "explanation": "Path.of() creates Path instances. Path is immutable - operations return new Path objects."
+      },
+      {
+        "question": "What is Files.readString()?",
+        "options": [
+          "Reads bytes",
+          "Reads entire file content into a String (Java 11+). Use for small files only (config, JSON).",
+          "Reads first line",
+          "Deprecated"
+        ],
+        "correct": 1,
+        "explanation": "Files.readString(Path) loads entire file into memory. For large files, use BufferedReader for line-by-line."
+      },
+      {
+        "question": "What is Files.readAllLines()?",
+        "options": [
+          "Reads one line",
+          "Returns List<String> of all lines. Alternative to readString() when line-level access needed.",
+          "Reads bytes",
+          "Deprecated"
+        ],
+        "correct": 1,
+        "explanation": "readAllLines() returns List<String>. Still loads everything into memory. Use lines() stream for large files."
+      },
+      {
+        "question": "What is Files.lines()?",
+        "options": [
+          "Reads as string",
+          "Returns Stream<String> - lazy line-by-line processing. Use try-with-resources to close stream.",
+          "Deprecated",
+          "Reads bytes"
+        ],
+        "correct": 1,
+        "explanation": "Files.lines() returns lazy Stream<String>. Process large files with constant memory. Must close via try-with-resources."
+      },
+      {
+        "question": "What is Files.walk()?",
+        "options": [
+          "File walking",
+          "Lazily traverses directory tree returning Stream<Path>. Use with try-with-resources.",
+          "Runs files",
+          "Deprecated"
+        ],
+        "correct": 1,
+        "explanation": "Files.walk(start, maxDepth) walks directory tree. Files.walk(start) visits all descendants. Filter with stream operations."
+      },
+      {
+        "question": "What is Files.find()?",
+        "options": [
+          "Searches file content",
+          "Walks tree and filters entries by file attributes (BiPredicate<Path, BasicFileAttributes>)",
+          "Same as walk",
+          "Deprecated"
+        ],
+        "correct": 1,
+        "explanation": "Files.find() combines walk with attribute-based filtering. More efficient than walk().filter() when using file attributes."
+      },
+      {
+        "question": "What is Files.newBufferedReader()?",
+        "options": [
+          "Creates new string",
+          "Creates BufferedReader for efficient line-by-line reading. Always use with try-with-resources.",
+          "Deprecated",
+          "For writing"
+        ],
+        "correct": 1,
+        "explanation": "Files.newBufferedReader(path) wraps file in BufferedReader. Process line-by-line with constant memory."
+      },
+      {
+        "question": "What is Files.newBufferedWriter()?",
+        "options": [
+          "Creates reader",
+          "Creates BufferedWriter for efficient writing. Use with try-with-resources and StandardOpenOption.",
+          "Deprecated",
+          "For reading"
+        ],
+        "correct": 1,
+        "explanation": "Files.newBufferedWriter(path, options) provides buffered writing. Append mode via StandardOpenOption.APPEND."
+      },
+      {
+        "question": "What is Files.copy()?",
+        "options": [
+          "Copies text",
+          "Copies file or input stream to target path. Options: REPLACE_EXISTING, COPY_ATTRIBUTES, NOFOLLOW_LINKS.",
+          "Deprecated",
+          "Moves files"
+        ],
+        "correct": 1,
+        "explanation": "Files.copy(source, target, options). Source can be Path or InputStream. Target is Path."
+      },
+      {
+        "question": "What is Files.move()?",
+        "options": [
+          "Copies file",
+          "Moves/renames file. Options: REPLACE_EXISTING, ATOMIC_MOVE (fails if not same filesystem).",
+          "Deprecated",
+          "Copies only"
+        ],
+        "correct": 1,
+        "explanation": "Files.move(src, dest, options). ATOMIC_MOVE ensures atomicity or throws. Can also rename directories."
+      },
+      {
+        "question": "What is Files.delete() vs Files.deleteIfExists()?",
+        "options": [
+          "Same",
+          "delete() throws if file missing. deleteIfExists() returns false if missing. Both throw on non-empty directories.",
+          "deleteIfExists throws",
+          "delete returns boolean"
+        ],
+        "correct": 1,
+        "explanation": "delete() throws NoSuchFileException. deleteIfExists() returns true if deleted, false if not found. Use deleteIfExists for safety."
+      },
+      {
+        "question": "What is Files.createDirectories()?",
+        "options": [
+          "Creates one dir",
+          "Creates ALL non-existent parent directories (mkdir -p). No error if already exists.",
+          "One level only",
+          "Deprecated"
+        ],
+        "correct": 1,
+        "explanation": "Files.createDirectories(path) creates intermediate dirs as needed. Unlike createDirectory() which fails if parent missing."
+      },
+      {
+        "question": "What is Files.createTempFile()?",
+        "options": [
+          "Regular file",
+          "Creates temporary file with prefix and suffix in temp directory. Use deleteOnExit() or manual cleanup.",
+          "Permanent file",
+          "Deprecated"
+        ],
+        "correct": 1,
+        "explanation": "Files.createTempFile(prefix, suffix) in system temp dir. Files.createTempFile(prefix, suffix, dir) in specific directory."
+      },
+      {
+        "question": "What is Files.probeContentType()?",
+        "options": [
+          "File type detection",
+          "Returns MIME type string based on file content/extension (platform-dependent)",
+          "File size",
+          "Deprecated"
+        ],
+        "correct": 1,
+        "explanation": "probeContentType(path) returns MIME type: 'text/plain', 'image/png', 'application/pdf'. Platform-specific implementation."
+      },
+      {
+        "question": "What is difference between absolute and canonical path?",
+        "options": [
+          "Same",
+          "Absolute: full path from root. Canonical: absolute + resolved symlinks + normalized. Canonical has no '..' or '.'.",
+          "Canonical is relative",
+          "Absolute is canonical"
+        ],
+        "correct": 1,
+        "explanation": "Path.toAbsolutePath() vs Path.toRealPath() (follows links). Canonical resolves all symbolic links and normalizes."
+      },
+      {
+        "question": "What is Files.isSymbolicLink()?",
+        "options": [
+          "Checks file type",
+          "Returns true if path is a symbolic link. Use with Files.readSymbolicLink() to get target.",
+          "Checks directory",
+          "Deprecated"
+        ],
+        "correct": 1,
+        "explanation": "Symbolic links are special files pointing to other paths. isSymbolicLink() distinguishes links from regular files."
+      },
+      {
+        "question": "What is Files.newInputStream()?",
+        "options": [
+          "Creates reader",
+          "Creates InputStream for reading bytes. Use with try-with-resources. Options: READ.",
+          "Deprecated",
+          "For writing"
+        ],
+        "correct": 1,
+        "explanation": "Files.newInputStream(path, options) for byte-level reading. Prefer buffered readers for text, raw streams for binary."
+      },
+      {
+        "question": "What is Files.newOutputStream()?",
+        "options": [
+          "Creates reader",
+          "Creates OutputStream for writing bytes. Options: CREATE, CREATE_NEW, APPEND, TRUNCATE_EXISTING.",
+          "Deprecated",
+          "For reading"
+        ],
+        "correct": 1,
+        "explanation": "Files.newOutputStream(path, options) for byte-level writing. StandardOpenOption combinations control overwrite/append/create behavior."
+      },
+      {
+        "question": "What is BasicFileAttributes?",
+        "options": [
+          "File content",
+          "Interface providing file metadata: size, creationTime, lastModifiedTime, isDirectory, isRegularFile, etc.",
+          "File path",
+          "Deprecated"
+        ],
+        "correct": 1,
+        "explanation": "Files.readAttributes(path, BasicFileAttributes.class) returns file metadata without opening the file."
+      },
+      {
+        "question": "What is FileVisitor interface?",
+        "options": [
+          "Visits files",
+          "Callback interface for recursive file tree traversal. preVisitDirectory, visitFile, visitFileFailed, postVisitDirectory.",
+          "Deprecated",
+          "For single files"
+        ],
+        "correct": 1,
+        "explanation": "Files.walkFileTree(path, visitor) uses FileVisitor. More control than Files.walk() - can skip subtrees, handle errors per-file."
+      },
+      {
+        "question": "What is SimpleFileVisitor?",
+        "options": [
+          "Complex visitor",
+          "Convenience implementation of FileVisitor with default behavior. Override only needed methods.",
+          "Deprecated",
+          "For reading only"
+        ],
+        "correct": 1,
+        "explanation": "Extend SimpleFileVisitor<T> and override specific methods. Much simpler than implementing full FileVisitor interface."
+      },
+      {
+        "question": "What is PathMatcher?",
+        "options": [
+          "Path matching",
+          "Matches paths against glob or regex patterns. Used with Files.walk() filtering. Glob: '**.java', Regex: '.*\\\\.java'",
+          "Deprecated",
+          "For files only"
+        ],
+        "correct": 1,
+        "explanation": "FileSystems.getDefault().getPathMatcher('glob:**.java') creates PathMatcher. Use matcher.matches(path) to filter."
+      },
+      {
+        "question": "What is WatchService?",
+        "options": [
+          "File watcher",
+          "Monitors directory for file changes (create, modify, delete). Used for hot reload and file sync.",
+          "Deprecated",
+          "For reading"
+        ],
+        "correct": 1,
+        "explanation": "WatchService monitors registered directories. Poll for WatchEvents. OS-dependent; not all changes guaranteed detected."
+      },
+      {
+        "question": "What is Files.readAllBytes()?",
+        "options": [
+          "Reads string",
+          "Returns byte[] of entire file content. Useful for binary files (images, PDFs).",
+          "Reads text",
+          "Deprecated"
+        ],
+        "correct": 1,
+        "explanation": "Files.readAllBytes(path) returns complete file as byte array. Use for binary files; readString for text."
+      },
+      {
+        "question": "What is Files.write()?",
+        "options": [
+          "Creates file",
+          "Writes byte array or iterable of CharSequence to file. Options: CREATE, APPEND, TRUNCATE_EXISTING.",
+          "Reads file",
+          "Deprecated"
+        ],
+        "correct": 1,
+        "explanation": "Files.write(path, bytes, options). Files.write(path, lines, charset, options) for text. Versatile write method."
+      },
+      {
+        "question": "What is StandardOpenOption enum?",
+        "options": [
+          "No such enum",
+          "File open options: READ, WRITE, APPEND, TRUNCATE_EXISTING, CREATE, CREATE_NEW, DELETE_ON_CLOSE, SPARSE, SYNC, DSYNC",
+          "Deprecated",
+          "For directories"
+        ],
+        "correct": 1,
+        "explanation": "StandardOpenOption controls file open behavior. Combine with varargs or Set: Files.newBufferedWriter(path, CREATE, APPEND)."
+      },
+      {
+        "question": "What is Files.isHidden()?",
+        "options": [
+          "Checks file visibility",
+          "Returns true if file is considered hidden by the OS (dot-files on Unix, hidden attribute on Windows)",
+          "Deprecated",
+          "Only for directories"
+        ],
+        "correct": 1,
+        "explanation": "isHidden() is platform-dependent. .file is hidden on Unix. Hidden attribute on Windows. Use with caution."
+      },
+      {
+        "question": "What is difference between FileInputStream and Files.newInputStream()?",
+        "options": [
+          "Same",
+          "FileInputStream: legacy IO. Files.newInputStream: modern NIO, better options, returns InputStream. Prefer NIO.",
+          "NIO is legacy",
+          "No difference"
+        ],
+        "correct": 1,
+        "explanation": "Files.newInputStream() is modern alternative. Supports StandardOpenOption. Always use try-with-resources for both."
+      },
+      {
+        "question": "What is Files.readAttributes() vs Files.getAttribute()?",
+        "options": [
+          "Same",
+          "readAttributes=bulk read into object. getAttribute=single attribute by name string. Bulk reads are more efficient.",
+          "getAttribute is bulk",
+          "readAttributes deprecated"
+        ],
+        "correct": 1,
+        "explanation": "readAttributes reads all attributes in one call (efficient). getAttribute reads single named attribute."
+      },
+      {
+        "question": "What is difference between FileInputStream and Files.newInputStream()?",
+        "options": [
+          "Same",
+          "FileInputStream=legacy IO. Files.newInputStream=modern NIO with StandardOpenOption support",
+          "NIO is legacy",
+          "No difference"
+        ],
+        "correct": 1,
+        "explanation": "Files.newInputStream() modern alternative. Supports StandardOpenOption. Always use try-with-resources."
+      },
+      {
+        "question": "What is Files.readAttributes() vs Files.getAttribute()?",
+        "options": [
+          "Same",
+          "readAttributes=bulk read into object. getAttribute=single attribute by name. Bulk more efficient.",
+          "getAttribute bulk",
+          "readAttributes deprecated"
+        ],
+        "correct": 1,
+        "explanation": "readAttributes reads all attributes in one call. getAttribute reads single named attribute."
+      },
+      {
+        "question": "What is Files.isHidden()?",
+        "options": [
+          "Checks visibility",
+          "Returns true if file considered hidden by OS",
+          "Deprecated",
+          "For directories only"
+        ],
+        "correct": 1,
+        "explanation": "isHidden() platform-dependent. Dot-files on Unix. Hidden attribute on Windows."
+      },
+      {
+        "question": "What is StandardOpenOption enum?",
+        "options": [
+          "No such enum",
+          "File open options: READ, WRITE, APPEND, TRUNCATE_EXISTING, CREATE, CREATE_NEW, DELETE_ON_CLOSE",
+          "Deprecated",
+          "For directories"
+        ],
+        "correct": 1,
+        "explanation": "StandardOpenOption controls file open behavior. Combine with varargs."
+      },
+      {
+        "question": "What is Files.write()?",
+        "options": [
+          "Creates file",
+          "Writes bytes or lines to file. Options: CREATE, APPEND, TRUNCATE_EXISTING.",
+          "Reads file",
+          "Deprecated"
+        ],
+        "correct": 1,
+        "explanation": "Files.write(path, bytes, options) for binary. Files.write(path, lines, charset, options) for text."
+      },
+      {
+        "question": "What is Files.readAllBytes()?",
+        "options": [
+          "Reads string",
+          "Returns byte[] of entire file. For binary files. Prefer readString for text.",
+          "Reads text",
+          "Deprecated"
+        ],
+        "correct": 1,
+        "explanation": "Files.readAllBytes(path) returns complete file as byte array."
+      },
+      {
+        "question": "What is WatchService?",
+        "options": [
+          "File watcher",
+          "Monitors directory for changes (create, modify, delete). Used for hot reload.",
+          "Deprecated",
+          "For reading"
+        ],
+        "correct": 1,
+        "explanation": "WatchService monitors registered directories. Poll for WatchEvents. OS-dependent."
+      },
+      {
+        "question": "What is PathMatcher?",
+        "options": [
+          "Path matching",
+          "Matches paths against glob/regex. Used with Files.walk() filtering.",
+          "Deprecated",
+          "For files only"
+        ],
+        "correct": 1,
+        "explanation": "getPathMatcher(glob:**.java).matches(path) filters walk results."
+      },
+      {
+        "question": "What is SimpleFileVisitor?",
+        "options": [
+          "Complex visitor",
+          "Convenience FileVisitor with default behavior. Override needed methods only.",
+          "Deprecated",
+          "For reading"
+        ],
+        "correct": 1,
+        "explanation": "Extend SimpleFileVisitor and override specific methods. Much simpler than full FileVisitor."
+      },
+      {
+        "question": "What is FileVisitor interface?",
+        "options": [
+          "Visits files",
+          "Callback for recursive tree traversal: preVisitDirectory, visitFile, visitFileFailed, postVisitDirectory",
+          "Deprecated",
+          "Single files"
+        ],
+        "correct": 1,
+        "explanation": "Files.walkFileTree uses FileVisitor. More control than Files.walk()."
       }
     ],
     "codingExercise": {
@@ -7783,6 +11114,435 @@ TOPICS = [
         ],
         "correct": 1,
         "explanation": "Records are immutable by design. All component fields are final and cannot be modified after construction."
+      },
+      {
+        "question": "How are Java enums different from C enums?",
+        "options": [
+          "Same",
+          "Java enums are full classes with fields, methods, constructors. C enums are just integer constants.",
+          "Java enums are slower",
+          "Java has no enums"
+        ],
+        "correct": 1,
+        "explanation": "Java enums are singleton objects with fields, methods, constructors, and interface implementations."
+      },
+      {
+        "question": "What is enum ordinal()?",
+        "options": [
+          "Name of enum",
+          "Returns zero-based position in enum declaration. AVOID relying on ordinal - fragile to reordering.",
+          "Enum value",
+          "Deprecated"
+        ],
+        "correct": 1,
+        "explanation": "ordinal() is position in declaration order. Changes if enum constants reordered. Store position as explicit field if needed."
+      },
+      {
+        "question": "Can enum implement interface?",
+        "options": [
+          "No",
+          "Yes - enums can implement interfaces. Each constant can provide its own implementation or share class-level implementation.",
+          "Only Comparable",
+          "Only Serializable"
+        ],
+        "correct": 1,
+        "explanation": "Enums can implement any interface. Each constant can override methods individually or share class implementation."
+      },
+      {
+        "question": "What is EnumSet and when to use?",
+        "options": [
+          "Regular Set",
+          "High-performance Set for enum values using bit vector. Always prefer over HashSet for enum elements.",
+          "Deprecated",
+          "For strings"
+        ],
+        "correct": 1,
+        "explanation": "EnumSet uses single long or long[] as bitmask. All operations O(1). Memory efficient. Use EnumSet.of(), allOf(), noneOf()."
+      },
+      {
+        "question": "What is EnumMap vs HashMap for enum keys?",
+        "options": [
+          "HashMap is faster",
+          "EnumMap uses array internally (indexed by ordinal). Much faster and memory-efficient for enum keys.",
+          "Same performance",
+          "EnumMap deprecated"
+        ],
+        "correct": 1,
+        "explanation": "EnumMap uses ordinal-indexed array. O(1), no hashing, minimal memory. Always preferred for enum keys."
+      },
+      {
+        "question": "What does record auto-generate?",
+        "options": [
+          "Nothing",
+          "Canonical constructor, accessors (named after components), equals(), hashCode(), toString()",
+          "Only constructor",
+          "Only getters"
+        ],
+        "correct": 1,
+        "explanation": "Record auto-generates: all-field constructor, accessor methods (component name, not getX), equals, hashCode, toString."
+      },
+      {
+        "question": "Can record have additional constructors?",
+        "options": [
+          "No",
+          "Yes - but must delegate to canonical constructor via this(...). Cannot bypass canonical constructor.",
+          "Only default",
+          "Only private"
+        ],
+        "correct": 1,
+        "explanation": "Additional constructors must chain to canonical. Ensures all invariants validated by canonical constructor."
+      },
+      {
+        "question": "What is compact constructor in record?",
+        "options": [
+          "No-arg constructor",
+          "Constructor omitting parameter list - validates invariants. Field assignment is automatic after body.",
+          "Deprecated",
+          "Private constructor"
+        ],
+        "correct": 1,
+        "explanation": "Compact constructor: public Person { if (age<0) throw...; }. Parameters implicit. Assignment after body."
+      },
+      {
+        "question": "Can record implement interface?",
+        "options": [
+          "No",
+          "Yes - records can implement interfaces. Cannot extend classes (already extends Record).",
+          "Only Serializable",
+          "Only Comparable"
+        ],
+        "correct": 1,
+        "explanation": "Records can implement interfaces. Useful for DTO contracts and polymorphism. Cannot extend classes."
+      },
+      {
+        "question": "Are record fields mutable?",
+        "options": [
+          "Yes",
+          "No - all record component fields are private final. Record instances are immutable by design.",
+          "Only via setters",
+          "Depends on access"
+        ],
+        "correct": 1,
+        "explanation": "Record fields are implicitly private final. No setters. Immutability is a core record design principle."
+      },
+      {
+        "question": "Can record have instance fields beyond components?",
+        "options": [
+          "Yes",
+          "No - all instance fields must be declared in record header (components). Can have static fields.",
+          "Only private",
+          "Only final"
+        ],
+        "correct": 1,
+        "explanation": "Record instance state is exactly its components. Static fields allowed. Instance fields beyond components not permitted."
+      },
+      {
+        "question": "What is enum's values() method?",
+        "options": [
+          "Returns single value",
+          "Compiler-generated static method returning array of all enum constants in declaration order",
+          "Returns first",
+          "Deprecated"
+        ],
+        "correct": 1,
+        "explanation": "values() returns all constants in order. Generated by compiler, not in Enum API. Useful for iteration: DayOfWeek.values()."
+      },
+      {
+        "question": "What is enum's valueOf() method?",
+        "options": [
+          "Returns ordinal",
+          "Converts String to enum constant. Throws IllegalArgumentException if no match (case-sensitive).",
+          "Returns first",
+          "Deprecated"
+        ],
+        "correct": 1,
+        "explanation": "DayOfWeek.valueOf('MONDAY') returns DayOfWeek.MONDAY. Case-sensitive. Exception on invalid name."
+      },
+      {
+        "question": "What is enum body per constant?",
+        "options": [
+          "Not possible",
+          "Each enum constant can have its own method implementation via class body: CONSTANT { @Override method(){} }",
+          "Only abstract",
+          "Deprecated"
+        ],
+        "correct": 1,
+        "explanation": "Each enum constant is an anonymous subclass instance. Can override methods per-constant for specialized behavior."
+      },
+      {
+        "question": "What is record serialization?",
+        "options": [
+          "Not serializable",
+          "Records are Serializable if implementing. Serialization uses canonical constructor (not bypassed like regular classes).",
+          "Never use",
+          "Deprecated"
+        ],
+        "correct": 1,
+        "explanation": "Record serialization uses component fields and canonical constructor. Safer than regular class serialization."
+      },
+      {
+        "question": "What is enum vs sealed class for fixed values?",
+        "options": [
+          "Same",
+          "Enum: fixed set of singleton constants. Sealed class: fixed set of types (can have multiple instances). Different use cases.",
+          "Sealed class deprecated",
+          "Enum is sealed"
+        ],
+        "correct": 1,
+        "explanation": "Enum for singleton constants (MONDAY, TUESDAY). Sealed class for restricted type hierarchies with multiple instances."
+      },
+      {
+        "question": "What is enum strategy pattern?",
+        "options": [
+          "Military",
+          "Each enum constant implements a method differently - polymorphic behavior across constants",
+          "Deprecated",
+          "Only for abstracts"
+        ],
+        "correct": 1,
+        "explanation": "Each enum constant overrides abstract method with custom implementation. Clean alternative to switch-on-enum."
+      },
+      {
+        "question": "What is record equals() behavior?",
+        "options": [
+          "Reference equality",
+          "Component-wise equality - two records equal if all components equal. Uses accessor methods, not fields.",
+          "Same as Object",
+          "Deprecated"
+        ],
+        "correct": 1,
+        "explanation": "Record equals() compares all components via their equals(). Two records with same component values are equal."
+      },
+      {
+        "question": "What is record hashCode() behavior?",
+        "options": [
+          "Object hashCode",
+          "Hash based on all component values. Consistent with equals(). Uses accessor methods.",
+          "Random hash",
+          "Deprecated"
+        ],
+        "correct": 1,
+        "explanation": "Record hashCode() combines component hashes. Equal records have equal hash codes (contract maintained)."
+      },
+      {
+        "question": "What is record toString() behavior?",
+        "options": [
+          "Classname@hash",
+          "Format: ClassName[component1=value1, component2=value2]. All components included.",
+          "Custom format",
+          "Deprecated"
+        ],
+        "correct": 1,
+        "explanation": "Record toString() includes all components in bracket notation. Useful for debugging and logging."
+      },
+      {
+        "question": "Can enum be abstract?",
+        "options": [
+          "No",
+          "Yes - enum can have abstract methods. Each constant must implement. Enables constant-specific behavior.",
+          "Only in Java 17+",
+          "Only for annotations"
+        ],
+        "correct": 1,
+        "explanation": "Abstract enum methods force each constant to provide implementation. Clean alternative to switch statements."
+      },
+      {
+        "question": "What is enum with multiple fields?",
+        "options": [
+          "Not possible",
+          "Enum can have multiple fields and a private constructor setting them all. Each constant passes values to constructor.",
+          "Only one field",
+          "Deprecated"
+        ],
+        "correct": 1,
+        "explanation": "Planet.MERCURY(3.3e23, 2.4e6) - enum constants pass values to private constructor which sets instance fields."
+      },
+      {
+        "question": "What is record with validation in compact constructor?",
+        "options": [
+          "Not possible",
+          "Compact constructor validates all invariants. Must not assign fields (automatic). Throw on invalid.",
+          "Requires full constructor",
+          "Only for primitives"
+        ],
+        "correct": 1,
+        "explanation": "public Person { Objects.requireNonNull(name); if(age<0) throw...; }. Field assignment is automatic after body."
+      },
+      {
+        "question": "What is difference between enum and Enum<?>?",
+        "options": [
+          "Same",
+          "enum is keyword for declaration. Enum<?> is the superclass (java.lang.Enum). All enums extend Enum.",
+          "Enum is keyword only",
+          "enum is class"
+        ],
+        "correct": 1,
+        "explanation": "enum declares an enum type. Enum<E extends Enum<E>> is the abstract base class all enums inherit from."
+      },
+      {
+        "question": "What is record's canonical constructor parameter order?",
+        "options": [
+          "Any order",
+          "Same order as component declarations. Cannot reorder parameters in canonical constructor.",
+          "Alphabetical",
+          "Random"
+        ],
+        "correct": 1,
+        "explanation": "Canonical constructor parameter order matches component declaration order. Consistent and predictable."
+      },
+      {
+        "question": "What is record with generic components?",
+        "options": [
+          "Not allowed",
+          "Record can have generic components: record Pair<A,B>(A first, B second) {}",
+          "Only in Java 20+",
+          "Only with wildcards"
+        ],
+        "correct": 1,
+        "explanation": "Generic records work like generic classes. Type parameters on record declaration apply to all components."
+      },
+      {
+        "question": "What is record with annotations?",
+        "options": [
+          "Not allowed",
+          "Annotations on components propagate to fields, accessor methods, and constructor parameters based on annotation target.",
+          "Only on class",
+          "Deprecated"
+        ],
+        "correct": 1,
+        "explanation": "@Target determines where component annotation propagates: FIELD, METHOD, PARAMETER, or any combination."
+      },
+      {
+        "question": "What is enum implementing interface with default method?",
+        "options": [
+          "Not possible",
+          "Enum can implement interface and override or inherit default methods",
+          "Only abstract methods",
+          "Deprecated"
+        ],
+        "correct": 1,
+        "explanation": "Enum can implement interfaces with default methods. Can override or inherit. Provides flexible behavior sharing."
+      },
+      {
+        "question": "What is record local declaration (inside method)?",
+        "options": [
+          "Not allowed",
+          "Record can be declared locally inside method body (Java 15+). Useful for internal DTOs.",
+          "Only at class level",
+          "Deprecated"
+        ],
+        "correct": 1,
+        "explanation": "Local records (inside methods) are valid. Useful for intermediate data transformations. Scoped to method."
+      },
+      {
+        "question": "What is enum with abstract methods?",
+        "options": [
+          "Not possible",
+          "Enum can have abstract methods. Each constant must implement. Polymorphic constants.",
+          "Only Java 17+",
+          "Only annotations"
+        ],
+        "correct": 1,
+        "explanation": "Abstract enum methods force per-constant implementation. Clean alternative to switch."
+      },
+      {
+        "question": "What is enum strategy pattern?",
+        "options": [
+          "Military pattern",
+          "Each constant implements method differently - polymorphic behavior across constants",
+          "Deprecated",
+          "Abstract only"
+        ],
+        "correct": 1,
+        "explanation": "Each enum constant overrides abstract method. Cleaner than switch-on-enum."
+      },
+      {
+        "question": "What is record with generic components?",
+        "options": [
+          "Not allowed",
+          "Record can be generic: record Pair<A,B>(A first, B second) {}",
+          "Only Java 20+",
+          "Only wildcards"
+        ],
+        "correct": 1,
+        "explanation": "Generic records work like generic classes. Type parameters on record declaration."
+      },
+      {
+        "question": "What is record local declaration?",
+        "options": [
+          "Not allowed",
+          "Record declared inside method body (Java 15+). Useful for internal DTOs.",
+          "Only class level",
+          "Deprecated"
+        ],
+        "correct": 1,
+        "explanation": "Local records inside methods. Scoped to method. For intermediate data transformations."
+      },
+      {
+        "question": "What is record serialization?",
+        "options": [
+          "Not serializable",
+          "Records Serializable if implementing. Uses canonical constructor (safer than regular serialization).",
+          "Never use",
+          "Deprecated"
+        ],
+        "correct": 1,
+        "explanation": "Record serialization uses canonical constructor. Not bypassed like regular Java serialization."
+      },
+      {
+        "question": "What is enum body per constant?",
+        "options": [
+          "Not possible",
+          "Each constant can have class body overriding methods: CONSTANT { @Override method(){} }",
+          "Only abstract",
+          "Deprecated"
+        ],
+        "correct": 1,
+        "explanation": "Each enum constant is anonymous subclass. Can override per-constant for specialized behavior."
+      },
+      {
+        "question": "What is record equals() behavior?",
+        "options": [
+          "Reference equality",
+          "Component-wise: two records equal if all components equal",
+          "Same as Object",
+          "Deprecated"
+        ],
+        "correct": 1,
+        "explanation": "Record equals compares all components via their equals methods. Same values = equal records."
+      },
+      {
+        "question": "What is record hashCode()?",
+        "options": [
+          "Object hashCode",
+          "Hash based on all component values. Consistent with equals.",
+          "Random",
+          "Deprecated"
+        ],
+        "correct": 1,
+        "explanation": "Record hashCode combines component hashes. Equal records = equal hash codes."
+      },
+      {
+        "question": "What is record toString()?",
+        "options": [
+          "Classname@hash",
+          "Format: ClassName[comp1=val1, comp2=val2]. All components included.",
+          "Custom format",
+          "Deprecated"
+        ],
+        "correct": 1,
+        "explanation": "Record toString includes all components in bracket notation. Useful for debugging."
+      },
+      {
+        "question": "What is EnumSet.allOf()?",
+        "options": [
+          "Returns empty",
+          "Returns EnumSet containing ALL enum constants. Efficient (single bitmask).",
+          "Returns one",
+          "Deprecated"
+        ],
+        "correct": 1,
+        "explanation": "EnumSet.allOf(MyEnum.class) returns complete set. Uses bit vector for efficiency."
       }
     ],
     "codingExercise": {
@@ -7931,6 +11691,435 @@ TOPICS = [
         ],
         "correct": 1,
         "explanation": "Using Predicate, Function, Consumer, Supplier makes your APIs compatible with streams, Optional, and third-party libraries."
+      },
+      {
+        "question": "What is lambda expression?",
+        "options": [
+          "Loop type",
+          "Concise anonymous function: (params) -> body. Implements functional interface.",
+          "Special variable",
+          "Class declaration"
+        ],
+        "correct": 1,
+        "explanation": "Lambda = parameters + arrow + body. Implements SAM interface. (a,b) -> a + b implements IntBinaryOperator."
+      },
+      {
+        "question": "What is functional interface?",
+        "options": [
+          "Any interface",
+          "Interface with exactly ONE abstract method. Can have multiple default/static methods. @FunctionalInterface enforced.",
+          "No methods",
+          "Deprecated"
+        ],
+        "correct": 1,
+        "explanation": "SAM = Single Abstract Method. @FunctionalInterface ensures exactly one abstract method at compile time."
+      },
+      {
+        "question": "Which functional interface takes value returns boolean?",
+        "options": [
+          "Function",
+          "Predicate<T>: test(T) returns boolean. Used for filtering and conditions.",
+          "Consumer",
+          "Supplier"
+        ],
+        "correct": 1,
+        "explanation": "Predicate<T>.test(T): boolean. Common in Stream.filter(), Collection.removeIf(). default methods: and(), or(), negate()."
+      },
+      {
+        "question": "Which functional interface takes no input returns value?",
+        "options": [
+          "Consumer",
+          "Supplier<T>: get() returns T. Used for lazy creation and factories.",
+          "Function",
+          "Predicate"
+        ],
+        "correct": 1,
+        "explanation": "Supplier<T>.get(): T. No input, produces output. Common in Optional.orElseGet(), Stream.generate()."
+      },
+      {
+        "question": "What is method reference?",
+        "options": [
+          "Deprecated feature",
+          "Shorthand for lambda calling existing method: String::toUpperCase instead of s->s.toUpperCase()",
+          "Method declaration",
+          "Interface type"
+        ],
+        "correct": 1,
+        "explanation": "Method references are cleaner: Class::staticMethod, object::instanceMethod, Class::instanceMethod, Class::new."
+      },
+      {
+        "question": "What does 'this' refer to in lambda?",
+        "options": [
+          "Lambda itself",
+          "Enclosing class instance (unlike anonymous class where 'this' refers to anonymous instance)",
+          "Null",
+          "Functional interface"
+        ],
+        "correct": 1,
+        "explanation": "Lambda does not create new scope for 'this'. 'this' refers to enclosing instance. Key difference from anonymous classes."
+      },
+      {
+        "question": "Which functional interface takes value returns nothing?",
+        "options": [
+          "Supplier",
+          "Consumer<T>: accept(T) returns void. Used for side effects (print, log, store).",
+          "Function",
+          "Predicate"
+        ],
+        "correct": 1,
+        "explanation": "Consumer<T>.accept(T): void. Common in Iterable.forEach(), Stream.peek(). default method: andThen()."
+      },
+      {
+        "question": "Which functional interface transforms value?",
+        "options": [
+          "Consumer",
+          "Function<T,R>: apply(T) returns R. Used for mapping/conversion.",
+          "Supplier",
+          "Predicate"
+        ],
+        "correct": 1,
+        "explanation": "Function<T,R>.apply(T): R. Common in Stream.map(). default methods: compose(), andThen(), identity()."
+      },
+      {
+        "question": "Can lambda access local variables?",
+        "options": [
+          "No",
+          "Yes - but only if effectively final (not reassigned after initialization)",
+          "Any local",
+          "Only static"
+        ],
+        "correct": 1,
+        "explanation": "Lambdas capture effectively final variables. Reassigning captured variable is compile error. No mutability restriction on heap objects."
+      },
+      {
+        "question": "What is advantage of standard functional interfaces?",
+        "options": [
+          "Faster",
+          "Interoperability with streams, Optional, and libraries. Use Predicate/Function/Consumer/Supplier over custom SAMs.",
+          "Less memory",
+          "No advantage"
+        ],
+        "correct": 1,
+        "explanation": "Standard interfaces ensure compatibility across Java ecosystem. Custom SAMs break interoperability with streams APIs."
+      },
+      {
+        "question": "What is higher-order function?",
+        "options": [
+          "Complex function",
+          "Function that takes/returns another function. Stream.map(Function) is higher-order. Enables functional composition.",
+          "Simple function",
+          "Deprecated"
+        ],
+        "correct": 1,
+        "explanation": "Higher-order: accepts or returns a lambda. map, filter, reduce are higher-order. Foundation of functional programming."
+      },
+      {
+        "question": "What is closure in Java lambda?",
+        "options": [
+          "Syntax error",
+          "Lambda capturing variables from enclosing scope. Captured variables must be effectively final.",
+          "Illegal",
+          "Only for methods"
+        ],
+        "correct": 1,
+        "explanation": "Lambda closure: captures effectively final local variables and enclosing instance. Creates closure over captured state."
+      },
+      {
+        "question": "What is currying in Java?",
+        "options": [
+          "Cooking technique",
+          "Converting multi-arg function to chain of single-arg functions. Function<A,Function<B,C>> curry = a->b->f(a,b).",
+          "Syntax error",
+          "Deprecated"
+        ],
+        "correct": 1,
+        "explanation": "Currying: f(a,b,c) -> a -> b -> c -> result. Each step returns function expecting next argument. Possible but verbose in Java."
+      },
+      {
+        "question": "What is function composition?",
+        "options": [
+          "Incompatible",
+          "andThen(f,g): apply f then g. compose(f,g): apply g then f. Enables building complex transformations from simple ones.",
+          "Not possible",
+          "Only for math"
+        ],
+        "correct": 1,
+        "explanation": "f.andThen(g): f first, g second. f.compose(g): g first, f second. Build pipelines from small functions."
+      },
+      {
+        "question": "What is BiFunction?",
+        "options": [
+          "Single argument",
+          "Function with TWO inputs: BiFunction<T,U,R>. apply(T,U) returns R. BinaryOperator<T> is BiFunction<T,T,T>.",
+          "Three arguments",
+          "No return"
+        ],
+        "correct": 1,
+        "explanation": "BiFunction<T,U,R>: two inputs, one output. Map.replaceAll(BiFunction). BinaryOperator for same-type operations."
+      },
+      {
+        "question": "What is UnaryOperator?",
+        "options": [
+          "Two arguments",
+          "Special Function<T,T> where input and output types are same. Useful for same-type transformations.",
+          "No return",
+          "Binary"
+        ],
+        "correct": 1,
+        "explanation": "UnaryOperator<T> extends Function<T,T>. List.replaceAll(UnaryOperator). BinaryOperator<T> for two-arg version."
+      },
+      {
+        "question": "What is IntPredicate vs Predicate<Integer>?",
+        "options": [
+          "Same",
+          "IntPredicate avoids boxing - works with primitive int. Better performance for large operations.",
+          "Predicate<Integer> is faster",
+          "IntPredicate deprecated"
+        ],
+        "correct": 1,
+        "explanation": "Primitive specializations (IntPredicate, LongFunction, DoubleConsumer) avoid autoboxing overhead. Use for performance."
+      },
+      {
+        "question": "What is lambda vs anonymous class performance?",
+        "options": [
+          "Anonymous class faster",
+          "Lambda uses invokedynamic (more efficient). Anonymous class generates separate .class file. Lambda preferred.",
+          "Same",
+          "Lambda slower"
+        ],
+        "correct": 1,
+        "explanation": "Lambda = invokedynamic (JVM optimization). Anonymous class = separate class file. Lambda more memory-efficient and faster."
+      },
+      {
+        "question": "What is effectively final variable?",
+        "options": [
+          "Always final",
+          "Variable not modified after initialization. Not required to be declared final, but treated as final by compiler.",
+          "Explicitly final",
+          "Variable"
+        ],
+        "correct": 1,
+        "explanation": "Effectively final: assigned once, never reassigned. Lambda can capture. Reassignment triggers compile error."
+      },
+      {
+        "question": "What is target typing in lambdas?",
+        "options": [
+          "Type annotation",
+          "Lambda type inferred from context (assigned variable, method parameter, cast). Same lambda can serve different SAM types.",
+          "Explicit typing",
+          "No inference"
+        ],
+        "correct": 1,
+        "explanation": "(x)->x*2 can be IntUnaryOperator, Function<Integer,Integer>, or IntFunction<Integer> depending on context."
+      },
+      {
+        "question": "What is lambda serialization?",
+        "options": [
+          "Not possible",
+          "Lambda can be serialized if target SAM extends Serializable. Cast required: (IntFunction&Serializable)(x)->x*2",
+          "Always serializable",
+          "Deprecated"
+        ],
+        "correct": 1,
+        "explanation": "Lambda serialization: cast expression to intersection type including Serializable. Fragile - depends on SAM implementation."
+      },
+      {
+        "question": "What is the difference between lambda and closure concept?",
+        "options": [
+          "Same",
+          "Lambda: syntax for anonymous function. Closure: lambda + captured environment (enclosing scope variables).",
+          "Closure is syntax",
+          "Lambda captures nothing"
+        ],
+        "correct": 1,
+        "explanation": "Lambda is syntax. Closure is semantics - lambda that captures enclosing state. All capturing lambdas are closures."
+      },
+      {
+        "question": "What is the @FunctionalInterface annotation for?",
+        "options": [
+          "Documentation",
+          "Compiler-enforced: interface must have exactly one abstract method. Compile error on violation.",
+          "Performance",
+          "Deprecated"
+        ],
+        "correct": 1,
+        "explanation": "@FunctionalInterface makes SAM contract explicit. Prevents accidental addition of second abstract method."
+      },
+      {
+        "question": "What is method reference to constructor?",
+        "options": [
+          "Not possible",
+          "ClassName::new - creates Supplier/Function that calls constructor. ArrayList::new is Supplier<ArrayList>.",
+          "Only static methods",
+          "Deprecated"
+        ],
+        "correct": 1,
+        "explanation": "Person::new with appropriate parameters becomes Function or BiFunction calling matching constructor."
+      },
+      {
+        "question": "What is lambda in stream operations?",
+        "options": [
+          "Not used",
+          "Lambda enables functional pipeline: .filter(predicate).map(function).forEach(consumer). Core of streams API.",
+          "Only for loops",
+          "Deprecated"
+        ],
+        "correct": 1,
+        "explanation": "Stream operations accept lambdas: Predicate for filter, Function for map, Consumer for forEach. Foundation of stream processing."
+      },
+      {
+        "question": "What is the difference between IntFunction and Function<Integer,?>?",
+        "options": [
+          "Same",
+          "IntFunction<R> takes primitive int (no boxing). Function<Integer,R> takes Integer object (boxed). IntFunction preferred.",
+          "Function faster",
+          "IntFunction deprecated"
+        ],
+        "correct": 1,
+        "explanation": "Primitive specializations avoid boxing overhead. IntFunction, LongFunction, DoubleFunction for parameter. ToIntFunction, ToLongFunction for return."
+      },
+      {
+        "question": "What is IntConsumer vs Consumer<Integer>?",
+        "options": [
+          "Same",
+          "IntConsumer takes primitive int. Consumer<Integer> takes Integer (autoboxed). IntConsumer avoids boxing overhead.",
+          "Consumer faster",
+          "IntConsumer deprecated"
+        ],
+        "correct": 1,
+        "explanation": "Primitive consumers (IntConsumer, LongConsumer, DoubleConsumer) avoid boxing. Use for performance with large data."
+      },
+      {
+        "question": "What is ObjIntConsumer?",
+        "options": [
+          "Typo",
+          "Specialized BiConsumer: first arg Object, second arg primitive int. objIntConsumer.accept(obj, intVal).",
+          "Not real",
+          "Deprecated"
+        ],
+        "correct": 1,
+        "explanation": "ObjIntConsumer<T>: accept(T, int). Specialized for common pattern of object + primitive int. ObjLongConsumer, ObjDoubleConsumer exist."
+      },
+      {
+        "question": "What is BooleanSupplier?",
+        "options": [
+          "Returns nothing",
+          "Supplier specialization: getAsBoolean() returns boolean. No input, generates boolean.",
+          "Takes boolean",
+          "Deprecated"
+        ],
+        "correct": 1,
+        "explanation": "BooleanSupplier.getAsBoolean(): boolean. Specialized primitive supplier. IntSupplier, LongSupplier, DoubleSupplier for other primitives."
+      },
+      {
+        "question": "What is IntPredicate vs Predicate<Integer>?",
+        "options": [
+          "Same",
+          "IntPredicate avoids boxing - works with primitive int. Better performance.",
+          "Predicate<Integer> faster",
+          "IntPredicate deprecated"
+        ],
+        "correct": 1,
+        "explanation": "Primitive specializations avoid autoboxing overhead. IntPredicate, LongPredicate, DoublePredicate."
+      },
+      {
+        "question": "What is lambda vs anonymous class performance?",
+        "options": [
+          "Anonymous faster",
+          "Lambda uses invokedynamic (more efficient). Anonymous class generates separate .class.",
+          "Same",
+          "Lambda slower"
+        ],
+        "correct": 1,
+        "explanation": "Lambda=invokedynamic. Anonymous class=separate class file. Lambda more memory-efficient."
+      },
+      {
+        "question": "What is effectively final variable?",
+        "options": [
+          "Always final",
+          "Variable not modified after init. Not required to be final, treated as final by compiler.",
+          "Explicit final",
+          "Mutable"
+        ],
+        "correct": 1,
+        "explanation": "Effectively final: assigned once, never reassigned. Lambda can capture. Reassignment=compile error."
+      },
+      {
+        "question": "What is target typing in lambdas?",
+        "options": [
+          "Type annotation",
+          "Lambda type inferred from context. Same lambda can serve different SAM types.",
+          "Explicit typing",
+          "No inference"
+        ],
+        "correct": 1,
+        "explanation": "(x)->x*2 can be IntUnaryOperator, Function, or IntFunction depending on assignment context."
+      },
+      {
+        "question": "What is lambda serialization?",
+        "options": [
+          "Not possible",
+          "Lambda serializable if SAM extends Serializable. Cast to intersection type.",
+          "Always serializable",
+          "Deprecated"
+        ],
+        "correct": 1,
+        "explanation": "(IntFunction&Serializable)(x)->x*2 creates serializable lambda. Fragile - depends on SAM."
+      },
+      {
+        "question": "What is closure in Java lambda?",
+        "options": [
+          "Syntax error",
+          "Lambda capturing variables from enclosing scope. Captured variables must be effectively final.",
+          "Illegal",
+          "Methods only"
+        ],
+        "correct": 1,
+        "explanation": "Lambda closure captures effectively final locals and enclosing instance. Creates closure over captured state."
+      },
+      {
+        "question": "What is currying in Java?",
+        "options": [
+          "Cooking",
+          "Converting multi-arg to chain of single-arg: a->b->f(a,b). Possible but verbose.",
+          "Syntax error",
+          "Deprecated"
+        ],
+        "correct": 1,
+        "explanation": "Currying: f(a,b) -> a -> b -> result. Each step returns function. Verbose but functional."
+      },
+      {
+        "question": "What is BiFunction?",
+        "options": [
+          "Single arg",
+          "Function with TWO inputs: BiFunction<T,U,R>. apply(T,U) returns R.",
+          "Three args",
+          "No return"
+        ],
+        "correct": 1,
+        "explanation": "BiFunction<T,U,R>: two inputs, one output. Map.replaceAll(BiFunction). BinaryOperator=BiFunction<T,T,T>."
+      },
+      {
+        "question": "What is UnaryOperator?",
+        "options": [
+          "Two args",
+          "Special Function<T,T> where input/output are same type. List.replaceAll(UnaryOperator).",
+          "No return",
+          "Binary"
+        ],
+        "correct": 1,
+        "explanation": "UnaryOperator<T> extends Function<T,T>. Same-type transformations. BinaryOperator for two-arg."
+      },
+      {
+        "question": "What is function composition?",
+        "options": [
+          "Incompatible",
+          "andThen(f,g): f then g. compose(f,g): g then f. Build complex from simple.",
+          "Not possible",
+          "Only math"
+        ],
+        "correct": 1,
+        "explanation": "f.andThen(g): f first, g second. f.compose(g): g first, f second. Pipeline small functions."
       }
     ],
     "codingExercise": {
@@ -8080,6 +12269,457 @@ TOPICS = [
         ],
         "correct": 1,
         "explanation": "collect(Collectors.toList()) is the classic approach. Java 16+ added stream.toList() returning an immutable list."
+      },
+      {
+        "question": "What is lazy evaluation in streams?",
+        "options": [
+          "Immediate",
+          "No work until terminal operation. Intermediates just build pipeline.",
+          "Compile-time",
+          "Deprecated"
+        ],
+        "correct": 1,
+        "explanation": "Intermediate ops are lazy. Only terminal ops trigger processing. Enables optimization."
+      },
+      {
+        "question": "Can stream be reused after terminal?",
+        "options": [
+          "Yes",
+          "No - consumed. Create new stream from source. IllegalStateException on reuse.",
+          "Only parallel",
+          "Only empty"
+        ],
+        "correct": 1,
+        "explanation": "Streams are single-use. Terminal operation exhausts the stream."
+      },
+      {
+        "question": "What is Collectors.groupingBy()?",
+        "options": [
+          "Sorts",
+          "Classifies elements into Map<K,List<V>>. SQL GROUP BY equivalent.",
+          "Filters",
+          "Counts only"
+        ],
+        "correct": 1,
+        "explanation": "groupingBy(classifier) creates Map. With downstream collectors for counting, summing, averaging."
+      },
+      {
+        "question": "What does filter() do?",
+        "options": [
+          "Sorts",
+          "Keeps elements matching Predicate. Intermediate (lazy). Does not modify source.",
+          "Transforms",
+          "Counts"
+        ],
+        "correct": 1,
+        "explanation": "filter(Predicate) retains elements where test() returns true. Returns new Stream."
+      },
+      {
+        "question": "What does map() do?",
+        "options": [
+          "Removes",
+          "Transforms each element via Function. Intermediate (lazy). Stream<T> to Stream<R>.",
+          "Sorts",
+          "Filters"
+        ],
+        "correct": 1,
+        "explanation": "map(Function) applies transformation. One-to-one. For one-to-many use flatMap()."
+      },
+      {
+        "question": "How convert Stream to List?",
+        "options": [
+          "stream.asList()",
+          "stream.collect(Collectors.toList()) or stream.toList() (Java 16+)",
+          "stream.toArray()",
+          "Automatic"
+        ],
+        "correct": 1,
+        "explanation": "collect(toList()) mutable. toList() (Java 16+) immutable."
+      },
+      {
+        "question": "What is Stream.reduce()?",
+        "options": [
+          "Sorts",
+          "Combines elements: reduce(identity, accumulator). Sum, product, min, max. Returns Optional if no identity.",
+          "Filters",
+          "Deprecated"
+        ],
+        "correct": 1,
+        "explanation": "reduce(0,(a,b)->a+b) sums. reduce(identity, accumulator, combiner) for parallel."
+      },
+      {
+        "question": "What is Stream.distinct()?",
+        "options": [
+          "Sorts",
+          "Removes duplicates via equals(). Stateful intermediate.",
+          "Counts",
+          "Deprecated"
+        ],
+        "correct": 1,
+        "explanation": "distinct() filters out duplicate elements. Stateful - tracks seen elements."
+      },
+      {
+        "question": "What is Stream.sorted()?",
+        "options": [
+          "Removes",
+          "Sorts by natural order or Comparator. Stateful - buffers entire stream.",
+          "No-op",
+          "Deprecated"
+        ],
+        "correct": 1,
+        "explanation": "sorted() needs all elements before emitting. Stateful intermediate operation."
+      },
+      {
+        "question": "What is Stream.parallel()?",
+        "options": [
+          "Same",
+          "Uses ForkJoinPool for multi-threaded processing. Beneficial only for large datasets.",
+          "Slower always",
+          "Deprecated"
+        ],
+        "correct": 1,
+        "explanation": "parallel() enables parallelism. Measure before assuming speedup. Overhead dominates for small streams."
+      },
+      {
+        "question": "What is Collectors.joining()?",
+        "options": [
+          "Same as collect",
+          "Concatenates stream elements into String. Delimiter, prefix, suffix options.",
+          "Sorts",
+          "Deprecated"
+        ],
+        "correct": 1,
+        "explanation": "joining() = concatenate. joining(', ') = comma-separated. joining(', ','[',']') = bracketed."
+      },
+      {
+        "question": "What is IntStream vs Stream<Integer>?",
+        "options": [
+          "Same",
+          "IntStream uses primitive int (no boxing). Stream<Integer> boxes. IntStream has sum(), average().",
+          "Stream<Integer> faster",
+          "IntStream deprecated"
+        ],
+        "correct": 1,
+        "explanation": "Primitive streams avoid boxing overhead. IntStream, LongStream, DoubleStream."
+      },
+      {
+        "question": "What is Stream.generate()?",
+        "options": [
+          "From collection",
+          "Creates infinite stream from Supplier. Use limit() to constrain.",
+          "From array",
+          "Deprecated"
+        ],
+        "correct": 1,
+        "explanation": "Stream.generate(Supplier) = infinite. Stream.iterate(seed, f) = sequential infinite. Always limit()."
+      },
+      {
+        "question": "What is Stream.peek()?",
+        "options": [
+          "Terminal",
+          "Intermediate for debugging - action on each element without consuming. Not for production logic.",
+          "Same as forEach",
+          "Deprecated"
+        ],
+        "correct": 1,
+        "explanation": "peek(Consumer) is intermediate (lazy). forEach is terminal. Use peek only for debugging."
+      },
+      {
+        "question": "What is Stream.takeWhile()?",
+        "options": [
+          "Same as filter",
+          "Takes while predicate true, then stops. dropWhile() drops until predicate passes. Java 9+.",
+          "Terminal",
+          "Deprecated"
+        ],
+        "correct": 1,
+        "explanation": "takeWhile(pred) takes from start until pred fails. dropWhile(pred) drops until pred passes."
+      },
+      {
+        "question": "What is Stream.max() vs min()?",
+        "options": [
+          "Same",
+          "max(cmp)=largest. min(cmp)=smallest. Both return Optional (empty if stream empty).",
+          "max() only",
+          "Deprecated"
+        ],
+        "correct": 1,
+        "explanation": "max(Comparator) = largest per comparator. min(Comparator) = smallest. Optional return type."
+      },
+      {
+        "question": "What is allMatch/anyMatch/noneMatch?",
+        "options": [
+          "All intermediate",
+          "allMatch: all satisfy? anyMatch: any? noneMatch: none? All short-circuit when answer determined.",
+          "All terminal long",
+          "Deprecated"
+        ],
+        "correct": 1,
+        "explanation": "Short-circuit: anyMatch stops on first true. allMatch stops on first false. Efficient for large streams."
+      },
+      {
+        "question": "What is forEach vs forEachOrdered?",
+        "options": [
+          "Same",
+          "forEach: any order (parallel). forEachOrdered: preserves encounter order.",
+          "forEach is ordered",
+          "Deprecated"
+        ],
+        "correct": 1,
+        "explanation": "forEachOrdered guarantees order in parallel streams at performance cost."
+      },
+      {
+        "question": "What is Collectors.toMap()?",
+        "options": [
+          "Always works",
+          "Creates Map. keyMapper + valueMapper. mergeFunction for duplicate keys. Throws on duplicates without merger.",
+          "Deprecated",
+          "For lists"
+        ],
+        "correct": 1,
+        "explanation": "toMap(key,value,merge). mergeFunction: (existing,replacement)->replacement handles duplicates."
+      },
+      {
+        "question": "What is Collectors.partitioningBy()?",
+        "options": [
+          "Group many",
+          "Splits into two groups: Map<Boolean,List<T>>. Special case of groupingBy.",
+          "Sorts",
+          "Deprecated"
+        ],
+        "correct": 1,
+        "explanation": "partitioningBy(predicate) = two groups (true/false). More efficient than groupingBy for boolean."
+      },
+      {
+        "question": "What is Collectors.collectingAndThen()?",
+        "options": [
+          "Same as collect",
+          "Wraps collector + finisher. collectingAndThen(toList(),unmodifiableList) for immutable.",
+          "Deprecated",
+          "For maps"
+        ],
+        "correct": 1,
+        "explanation": "collectingAndThen(downstream, finisher) post-processes collection result."
+      },
+      {
+        "question": "What is Stream.ofNullable()?",
+        "options": [
+          "Same as of()",
+          "Single-element stream (if non-null) or empty. Java 9+. Avoids NPE.",
+          "Deprecated",
+          "For arrays"
+        ],
+        "correct": 1,
+        "explanation": "Stream.ofNullable(x) = x==null?empty():Stream.of(x). Safer stream creation."
+      },
+      {
+        "question": "What is Collectors.summarizingDouble()?",
+        "options": [
+          "Just sum",
+          "DoubleSummaryStatistics: count, sum, min, average, max. Single pass.",
+          "Deprecated",
+          "For ints"
+        ],
+        "correct": 1,
+        "explanation": "summarizingDouble/Int/Long computes all stats in one pass. getCount/getSum/getMin/getAverage/getMax."
+      },
+      {
+        "question": "What is Stream.concat()?",
+        "options": [
+          "String concat",
+          "Combines two streams. Stream.concat(s1,s2). Static method. Limited to pair.",
+          "Deprecated",
+          "For lists"
+        ],
+        "correct": 1,
+        "explanation": "Stream.concat() merges two. For more: Stream.of(s1,s2,s3).flatMap(identity())."
+      },
+      {
+        "question": "What is Collectors.teeing()?",
+        "options": [
+          "Golf",
+          "Combines TWO collectors with merger. teeing(sum,count,(s,c)->s/c) for average. Java 12+.",
+          "Deprecated",
+          "For maps"
+        ],
+        "correct": 1,
+        "explanation": "teeing(c1,c2,merger) runs both collectors simultaneously. Single pass for two computations."
+      },
+      {
+        "question": "What is Stream.iterate() with predicate?",
+        "options": [
+          "Same as generate",
+          "iterate(seed, pred, f) creates finite stream. Like for-loop as stream. Java 9+.",
+          "From collection",
+          "Deprecated"
+        ],
+        "correct": 1,
+        "explanation": "iterate(seed, hasNext, next) = finite sequential stream. Replaces while-loop patterns."
+      },
+      {
+        "question": "What is flatMap vs map?",
+        "options": [
+          "Same",
+          "flatMap flattens nested streams. map preserves structure. flatMap for one-to-many.",
+          "flatMap filters",
+          "map flattens"
+        ],
+        "correct": 1,
+        "explanation": "flatMap replaces each element with stream, concatenating all. Word->letters is flatMap(word->word.chars())."
+      },
+      {
+        "question": "What is Collectors.filtering()?",
+        "options": [
+          "Same as filter",
+          "Downstream collector: filters within group. Java 9+. Inside groupingBy/partitioningBy.",
+          "Deprecated",
+          "For maps"
+        ],
+        "correct": 1,
+        "explanation": "filtering(pred, downstream) applies filter during collection. Works inside groupingBy."
+      },
+      {
+        "question": "What is Collectors.flatMapping()?",
+        "options": [
+          "Same as flatMap",
+          "Downstream: flatMaps before collecting. Inside groupingBy/partitioningBy. Java 9+.",
+          "Deprecated",
+          "For lists"
+        ],
+        "correct": 1,
+        "explanation": "flatMapping(mapper, downstream) applies one-to-many then collects. Within grouping operations."
+      },
+      {
+        "question": "What is Collectors.toUnmodifiableList()?",
+        "options": [
+          "Mutable",
+          "Creates immutable list. Java 10+. Cannot contain null. Throws on modification.",
+          "Deprecated",
+          "Same as toList()"
+        ],
+        "correct": 1,
+        "explanation": "toUnmodifiableList/Set/Map() create immutable collections directly. More efficient than wrapping."
+      },
+      {
+        "question": "What is Stream.dropWhile()?",
+        "options": [
+          "Same as filter",
+          "Drops while predicate true, then takes rest. Opposite of takeWhile(). Java 9+.",
+          "Terminal",
+          "Deprecated"
+        ],
+        "correct": 1,
+        "explanation": "dropWhile(pred) discards elements until pred fails, then passes through remaining."
+      },
+      {
+        "question": "What is Stream.findAny() vs findFirst()?",
+        "options": [
+          "Same",
+          "findFirst=first element. findAny=any element (better for parallel). Both return Optional.",
+          "findAny is first",
+          "Deprecated"
+        ],
+        "correct": 1,
+        "explanation": "findFirst() deterministic. findAny() non-deterministic for parallel. Both short-circuit."
+      },
+      {
+        "question": "What is Stream.count()?",
+        "options": [
+          "Same as collect",
+          "Terminal: returns count of elements. long count(). Consumes stream.",
+          "Intermediate",
+          "Deprecated"
+        ],
+        "correct": 1,
+        "explanation": "count() is terminal operation. Returns total element count as long. Short-circuit if size known from source."
+      },
+      {
+        "question": "What is Collectors.summingInt()?",
+        "options": [
+          "Same as mapToInt().sum()",
+          "Collector: sums int values extracted by mapper function. Downstream for groupingBy.",
+          "Deprecated",
+          "For doubles"
+        ],
+        "correct": 1,
+        "explanation": "summingInt(mapper) collects sum. Used in groupingBy: groupingBy(dept, summingInt(Employee::salary))."
+      },
+      {
+        "question": "What is Stream.collect()?",
+        "options": [
+          "Terminal",
+          "Terminal: accumulates elements into mutable result container via Collector",
+          "Intermediate",
+          "Deprecated"
+        ],
+        "correct": 0,
+        "explanation": "collect(Collector) is THE primary terminal operation. Mutable reduction. toList, toSet, toMap, groupingBy."
+      },
+      {
+        "question": "What is difference between sequential and parallel stream ordering?",
+        "options": [
+          "Same",
+          "Sequential preserves encounter order. Parallel may not (use forEachOrdered for order).",
+          "Parallel preserves order",
+          "Sequential random"
+        ],
+        "correct": 1,
+        "explanation": "Sequential always ordered. Parallel may reorder for efficiency. forEachOrdered guarantees order."
+      },
+      {
+        "question": "What is Stream.collect()?",
+        "options": [
+          "Terminal",
+          "Terminal: accumulates elements into mutable result via Collector",
+          "Intermediate",
+          "Deprecated"
+        ],
+        "correct": 0,
+        "explanation": "collect(Collector) THE primary terminal. Mutable reduction to List,Set,Map via Collectors."
+      },
+      {
+        "question": "What is sequential vs parallel ordering?",
+        "options": [
+          "Same",
+          "Sequential preserves order. Parallel may not. Use forEachOrdered for guaranteed order.",
+          "Parallel preserves",
+          "Sequential random"
+        ],
+        "correct": 1,
+        "explanation": "Parallel may reorder. forEachOrdered guarantees original order at performance cost."
+      },
+      {
+        "question": "What is Stream.toList() vs collect(toList())?",
+        "options": [
+          "Same",
+          "toList() (Java 16+) immutable. collect(toList()) mutable. toList more compact.",
+          "toList deprecated",
+          "collect immutable"
+        ],
+        "correct": 1,
+        "explanation": "toList()=immutable (Java 16+). collect(toList())=mutable (always). Prefer toList for final results."
+      },
+      {
+        "question": "What is IntStream.range() vs rangeClosed()?",
+        "options": [
+          "Same",
+          "range(0,5)=0-4 (exclusive end). rangeClosed(0,5)=0-5 (inclusive end).",
+          "rangeClosed exclusive",
+          "range inclusive"
+        ],
+        "correct": 1,
+        "explanation": "range=exclusive end. rangeClosed=inclusive end. Both create sequential ordered IntStream."
+      },
+      {
+        "question": "What is Stream.flatMapToInt()?",
+        "options": [
+          "Same as flatMap",
+          "Specialized flatMap returning IntStream. Avoids boxing. flatMapToLong, flatMapToDouble exist.",
+          "Deprecated",
+          "For lists"
+        ],
+        "correct": 1,
+        "explanation": "flatMapToInt returns primitive IntStream. More efficient than flatMap returning Stream<Integer>."
       }
     ],
     "codingExercise": {
@@ -8229,6 +12869,457 @@ TOPICS = [
         ],
         "correct": 1,
         "explanation": "Optional communicates 'this method may not return a result' through the type signature. Callers can't ignore it."
+      },
+      {
+        "question": "Who called null the billion-dollar mistake?",
+        "options": [
+          "Bill Gates",
+          "Tony Hoare (invented null, 1965)",
+          "James Gosling",
+          "Linus Torvalds"
+        ],
+        "correct": 1,
+        "explanation": "Hoare introduced null to ALGOL W. Later apologized at a conference for this design decision."
+      },
+      {
+        "question": "When use orElseGet() vs orElse()?",
+        "options": [
+          "Same",
+          "orElseGet is LAZY (Supplier called only if empty). orElse is EAGER. Prefer orElseGet for expensive defaults.",
+          "orElse is lazy",
+          "orElseGet deprecated"
+        ],
+        "correct": 1,
+        "explanation": "orElse(log('x')) always logs. orElseGet(()->log('x')) only logs if empty."
+      },
+      {
+        "question": "Why is Optional.get() discouraged?",
+        "options": [
+          "Slow",
+          "Throws NoSuchElementException if empty - same as NPE. Use orElse/orElseThrow.",
+          "Deprecated",
+          "Streams only"
+        ],
+        "correct": 1,
+        "explanation": "get() without check defeats Optional purpose. orElseThrow() gives meaningful exception."
+      },
+      {
+        "question": "What is correct Optional use?",
+        "options": [
+          "Field type",
+          "As RETURN TYPE for methods possibly returning no value. NOT field or parameter.",
+          "Parameter",
+          "Null replacement"
+        ],
+        "correct": 1,
+        "explanation": "Optional designed for return types. Signals absence in type system."
+      },
+      {
+        "question": "What does flatMap() do on Optional?",
+        "options": [
+          "Transforms",
+          "Flattens Optional<Optional<T>> to Optional<T>. For transformations returning Optional.",
+          "Maps boolean",
+          "Deletes"
+        ],
+        "correct": 1,
+        "explanation": "flatMap prevents nested Optionals in chaining. findEmployee.flatMap(Employee::dept)."
+      },
+      {
+        "question": "How create Optional from nullable?",
+        "options": [
+          "Optional.of(x)",
+          "Optional.ofNullable(x). empty() if null. of() throws NPE on null.",
+          "new Optional(x)",
+          "Optional.from(x)"
+        ],
+        "correct": 1,
+        "explanation": "ofNullable(null)=empty(). of(null)=NPE. Use ofNullable for external/uncertain values."
+      },
+      {
+        "question": "Should Optional be method parameter?",
+        "options": [
+          "Yes",
+          "No - forces callers to wrap. Overload: f() and f(T value).",
+          "Only String",
+          "Abstract"
+        ],
+        "correct": 1,
+        "explanation": "Optional not designed for parameters. Overloaded methods are cleaner."
+      },
+      {
+        "question": "What does Optional.filter() do?",
+        "options": [
+          "Remove from list",
+          "Returns Optional if predicate matches, empty() otherwise. Conditional presence.",
+          "Sorts",
+          "Transforms"
+        ],
+        "correct": 1,
+        "explanation": "filter(pred) conditionally retains value. opt.filter(s->s.length()>3) - keep long strings."
+      },
+      {
+        "question": "What is key Optional insight?",
+        "options": [
+          "Faster",
+          "Makes absence EXPLICIT in type system. Callers cannot ignore possibility of no result.",
+          "Eliminates NPE",
+          "Replaces errors"
+        ],
+        "correct": 1,
+        "explanation": "Optional communicates 'may not return result' through type signature."
+      },
+      {
+        "question": "What is Optional.ifPresent()?",
+        "options": [
+          "Always runs",
+          "Executes Consumer only if value present. void return. Side-effect operation.",
+          "Returns value",
+          "Deprecated"
+        ],
+        "correct": 1,
+        "explanation": "ifPresent(consumer) runs only when value exists. For side effects like printing or logging."
+      },
+      {
+        "question": "What is Optional.ifPresentOrElse()?",
+        "options": [
+          "Same as ifPresent",
+          "Handles presence (Consumer) AND absence (Runnable). Java 9+.",
+          "Deprecated",
+          "Only presence"
+        ],
+        "correct": 1,
+        "explanation": "ifPresentOrElse(val->use(val), ()->handleAbsent()). Both cases explicitly handled."
+      },
+      {
+        "question": "What is Optional.or()?",
+        "options": [
+          "Same as orElse",
+          "Returns Optional if present, else Supplier's Optional. Chains fallbacks. Java 9+.",
+          "Deprecated",
+          "Returns value"
+        ],
+        "correct": 1,
+        "explanation": "opt1.or(()->opt2).or(()->opt3). Chain fallback Optionals lazily."
+      },
+      {
+        "question": "What is Optional.stream()?",
+        "options": [
+          "Not possible",
+          "Returns Stream of 0 or 1 elements. Bridges Optional and Stream APIs. Java 9+.",
+          "Returns null",
+          "Deprecated"
+        ],
+        "correct": 1,
+        "explanation": "opt.stream() = present?Stream.of(val):Stream.empty(). Integrates with stream pipelines."
+      },
+      {
+        "question": "What is Optional.orElseThrow()?",
+        "options": [
+          "Deprecated",
+          "Throws if empty. Preferred over get() for meaningful exception. Java 10+ no-arg throws NoSuchElementException.",
+          "Returns null",
+          "Same as get()"
+        ],
+        "correct": 1,
+        "explanation": "orElseThrow(Supplier) provides domain exception. orElseThrow() (Java 10+) is explicit get()."
+      },
+      {
+        "question": "What is Optional.of() vs ofNullable()?",
+        "options": [
+          "Same",
+          "of() throws NPE on null (fail-fast). ofNullable() returns empty on null (safe).",
+          "ofNullable throws",
+          "of() returns empty"
+        ],
+        "correct": 1,
+        "explanation": "of() for values that must be present. ofNullable() for values that might legitimately be absent."
+      },
+      {
+        "question": "Can Optional be in collections?",
+        "options": [
+          "Yes",
+          "No - Optional elements in collections add indirection. Empty collection models absence.",
+          "Only List",
+          "Only Map"
+        ],
+        "correct": 1,
+        "explanation": "List<Optional<String>> unnecessary. Empty list = no results. Filter nulls/empty instead."
+      },
+      {
+        "question": "What is isPresent()+get() anti-pattern?",
+        "options": [
+          "Good",
+          "Should use orElse/orElseGet/orElseThrow/ifPresent. isPresent()+get() is verbose and error-prone.",
+          "Required",
+          "Only way"
+        ],
+        "correct": 1,
+        "explanation": "if(opt.isPresent()){var v=opt.get();} is same as opt.ifPresent(v->...). Use functional methods."
+      },
+      {
+        "question": "What is Optional.orElseThrow() no-arg?",
+        "options": [
+          "Compile error",
+          "Throws NoSuchElementException (Java 10+). Equivalent to get() but name is more explicit.",
+          "Returns null",
+          "Same as get()"
+        ],
+        "correct": 1,
+        "explanation": "orElseThrow() makes throwing explicit. Prefer orElseThrow(supplier) with domain exception."
+      },
+      {
+        "question": "What is map() vs flatMap() on Optional?",
+        "options": [
+          "Same",
+          "map wraps result. flatMap uses if transformation returns Optional. flatMap prevents Optional<Optional<>>.",
+          "flatMap wraps",
+          "map flattens"
+        ],
+        "correct": 1,
+        "explanation": "map(Function<T,R>): Optional<R>. flatMap(Function<T,Optional<R>>): Optional<R> (flattened)."
+      },
+      {
+        "question": "What is Optional as record component?",
+        "options": [
+          "Works fine",
+          "Not recommended. Use nullable field with Optional-returning accessor instead.",
+          "Required",
+          "Faster"
+        ],
+        "correct": 1,
+        "explanation": "Record with Optional field - complex serialization. Better: String email + Optional<String> email()."
+      },
+      {
+        "question": "Can Optional be empty vs null?",
+        "options": [
+          "Null is same",
+          "empty()=valid Optional object. null Optional=NPE. Always return empty(), never null.",
+          "empty is null",
+          "Neither valid"
+        ],
+        "correct": 1,
+        "explanation": "Returning null instead of Optional is a bug. Caller expects Optional methods to work."
+      },
+      {
+        "question": "What is OptionalInt vs Optional<Integer>?",
+        "options": [
+          "Same",
+          "OptionalInt uses primitive int (no boxing). Optional<Integer> boxes. Primitive avoids overhead.",
+          "Integer faster",
+          "OptionalInt deprecated"
+        ],
+        "correct": 1,
+        "explanation": "OptionalInt, OptionalLong, OptionalDouble. getAsInt() instead of get(). Avoid boxing."
+      },
+      {
+        "question": "How does Optional.map() handle null from mapper?",
+        "options": [
+          "map returns null",
+          "Wraps in Optional. Mapper returning null produces Optional.empty() (Java 9+).",
+          "Throws NPE",
+          "Deprecated"
+        ],
+        "correct": 1,
+        "explanation": "map() result always Optional. Mapper returning null = Optional.empty(). Null-safe."
+      },
+      {
+        "question": "What is Optional.isEmpty()?",
+        "options": [
+          "Same as isPresent()",
+          "Opposite of isPresent(). Returns true if empty. Java 11+. Clearer than !opt.isPresent().",
+          "Deprecated",
+          "No such method"
+        ],
+        "correct": 1,
+        "explanation": "isEmpty() (Java 11+) = !isPresent(). More readable negation."
+      },
+      {
+        "question": "What is orElse() eager evaluation pitfall?",
+        "options": [
+          "No pitfall",
+          "orElse(expensive()) ALWAYS calls expensive(). Use orElseGet(()->expensive()) for lazy.",
+          "Lazy evaluation",
+          "Not an issue"
+        ],
+        "correct": 1,
+        "explanation": "orElse(log()) logs even when present. orElseGet prevents wasted work for expensive defaults."
+      },
+      {
+        "question": "Can you chain Optional fallbacks?",
+        "options": [
+          "No",
+          "opt1.or(()->opt2).or(()->opt3).orElse(default). Java 9+. Lazy chain.",
+          "Only with if",
+          "Deprecated"
+        ],
+        "correct": 1,
+        "explanation": "or(Supplier<Optional>) chains Optionals. Each fallback evaluated lazily."
+      },
+      {
+        "question": "What is Optional with Stream.findFirst()?",
+        "options": [
+          "No relationship",
+          "findFirst() returns Optional. Empty stream = Optional.empty(). Natural integration.",
+          "Returns null",
+          "Returns List"
+        ],
+        "correct": 1,
+        "explanation": "findFirst()/findAny() return Optional. Bridges streaming and maybe-value semantics."
+      },
+      {
+        "question": "What is Optional's single responsibility?",
+        "options": [
+          "Multiple uses",
+          "Return type for 'maybe no result'. Not validation, fields, or parameters.",
+          "Error handling",
+          "Null substitute"
+        ],
+        "correct": 1,
+        "explanation": "Optional narrowly focused on return types. Not a general-purpose null replacement."
+      },
+      {
+        "question": "What is null vs Optional.empty()?",
+        "options": [
+          "Same",
+          "null=no object (ambiguous). empty()=explicit absence (intentional). empty() communicates intent.",
+          "empty is null",
+          "Neither communicates"
+        ],
+        "correct": 1,
+        "explanation": "null is ambiguous. empty() is explicit. Type system distinguishes 'no result' from 'uninitialized'."
+      },
+      {
+        "question": "What is Optional.ofNullable with chain pattern?",
+        "options": [
+          "Not possible",
+          "ofNullable(x).map(this::validate).filter(this::isValid).orElse(default) - safe processing chain.",
+          "Only for strings",
+          "Deprecated"
+        ],
+        "correct": 1,
+        "explanation": "Chain ofNullable with map/filter for safe processing of potentially-absent values. No null checks needed."
+      },
+      {
+        "question": "Can Optional be used as method parameter?",
+        "options": [
+          "Yes",
+          "No - forces callers to wrap values. Overload: f() and f(T). Bloch advises against.",
+          "Only String",
+          "Only abstract"
+        ],
+        "correct": 1,
+        "explanation": "Optional parameters are anti-pattern. Overload methods instead."
+      },
+      {
+        "question": "What is Optional.orElseThrow() best practice?",
+        "options": [
+          "No argument",
+          "Provide domain-specific exception: orElseThrow(()->new UserNotFoundExc(id)). Clear error message.",
+          "Never use",
+          "Only get()"
+        ],
+        "correct": 1,
+        "explanation": "orElseThrow(Supplier) enables domain-specific exceptions with meaningful messages."
+      },
+      {
+        "question": "What happens with Optional.of(null)?",
+        "options": [
+          "Returns empty",
+          "Throws NullPointerException immediately (fail-fast)",
+          "Returns null",
+          "Wraps null"
+        ],
+        "correct": 1,
+        "explanation": "of() throws NPE on null. Use ofNullable() if null is possible."
+      },
+      {
+        "question": "What is Optional design principle?",
+        "options": [
+          "Multiple uses",
+          "Single responsibility: method return type for maybe-no-result. Not general null replacement.",
+          "Error handling only",
+          "Collections"
+        ],
+        "correct": 1,
+        "explanation": "Optional has narrow focus. Return type only. Not fields, params, or general null substitute."
+      },
+      {
+        "question": "What is the difference between Optional and @Nullable annotation?",
+        "options": [
+          "Same",
+          "Optional=enforced by type system (must unwrap). @Nullable=documentation only (no compiler enforcement)",
+          "@Nullable enforced",
+          "Optional deprecated"
+        ],
+        "correct": 1,
+        "explanation": "Optional forces callers to handle absence. @Nullable is just a hint - compiler does not enforce handling."
+      },
+      {
+        "question": "Can Optional replace all null checks?",
+        "options": [
+          "Yes",
+          "No - Optional is for method returns, not general null replacement. Use Objects.requireNonNull for validation.",
+          "Yes absolutely",
+          "Only in streams"
+        ],
+        "correct": 1,
+        "explanation": "Optional not designed as universal null replacement. Narrow focus: method return types."
+      },
+      {
+        "question": "What is Optional.orElseThrow() with domain exception?",
+        "options": [
+          "No argument",
+          "orElseThrow(()->new UserNotFoundExc(id)). Clear, specific exception with context.",
+          "Never use",
+          "Only get()"
+        ],
+        "correct": 1,
+        "explanation": "orElseThrow(Supplier) enables domain-specific exceptions with meaningful messages and context."
+      },
+      {
+        "question": "What happens with Optional.of(null)?",
+        "options": [
+          "Returns empty",
+          "Throws NullPointerException immediately (fail-fast). Use ofNullable for nullable.",
+          "Returns null",
+          "Wraps null"
+        ],
+        "correct": 1,
+        "explanation": "of() throws NPE on null. Fail-fast behavior. ofNullable() for potentially null values."
+      },
+      {
+        "question": "What is Optional design principle?",
+        "options": [
+          "Multiple uses",
+          "Single responsibility: method return type for maybe-no-result. Not general null substitute.",
+          "Error handling",
+          "Collections"
+        ],
+        "correct": 1,
+        "explanation": "Optional narrowly focused on return types. Not for fields, params, or general null replacement."
+      },
+      {
+        "question": "What is Optional vs @Nullable annotation?",
+        "options": [
+          "Same",
+          "Optional=enforced by type (must unwrap). @Nullable=documentation (no compiler enforcement)",
+          "@Nullable enforced",
+          "Optional deprecated"
+        ],
+        "correct": 1,
+        "explanation": "Optional forces handling via type system. @Nullable is just documentation hint."
+      },
+      {
+        "question": "What is Optional with method chaining best practice?",
+        "options": [
+          "Get and check",
+          "ofNullable(x).map(this::validate).filter(this::isValid).orElseThrow() - clean chaining, no null checks",
+          "Only get()",
+          "Only isPresent()"
+        ],
+        "correct": 1,
+        "explanation": "Chain map/filter/orElseThrow for clean, declarative handling. No manual isPresent/get."
       }
     ],
     "codingExercise": {
