@@ -256,6 +256,7 @@ document.getElementById('app-nav').addEventListener('click', function(e) {
     var view = navItem.dataset.view;
     if (view === 'progress') showAppProgress();
     else if (view === 'sitemap') showAppSiteMap();
+    else if (view === 'textbooks') showAppTextbooks();
 });
 
 function showAppProgress() {
@@ -715,6 +716,23 @@ function loadResources() {
         var raw = localStorage.getItem(RESOURCES_KEY);
         if (raw) { topicResources = JSON.parse(raw); }
     } catch(e) { topicResources = {}; }
+    // Sync from server for current and completed topics
+    if (STATE.currentTopicId) {
+        var ctid = STATE.currentTopicId;
+        apiFetch('/resources/' + ctid).then(function(data) {
+            if (data.resources && data.resources.length > 0) {
+                if (!topicResources[ctid]) topicResources[ctid] = [];
+                for (var j = 0; j < data.resources.length; j++) {
+                    var sr = data.resources[j], found = false;
+                    for (var k = 0; k < topicResources[ctid].length; k++) {
+                        if (topicResources[ctid][k].id === sr.id) { found = true; break; }
+                    }
+                    if (!found) topicResources[ctid].push({id:sr.id, type:sr.type, title:sr.title, author:sr.author||'', url:sr.url, addedAt:sr.addedAt});
+                }
+                saveResources();
+            }
+        }).catch(function(){});
+    }
 }
 
 function saveResources() {
@@ -1067,6 +1085,46 @@ function renderAppSiteMap() {
             catch(e) {}
         }, 100);
     }
+}
+
+// ===== APP-LEVEL TEXTBOOKS VIEW =====
+function showAppTextbooks() {
+    currentView = 'textbooks';
+    STATE.currentTopicId = null;
+    document.getElementById('welcome-screen').style.display = 'none';
+    document.getElementById('lesson-viewer').style.display = 'none';
+    document.getElementById('app-view-progress').style.display = 'none';
+    document.getElementById('app-view-sitemap').style.display = 'none';
+    document.getElementById('app-view-textbooks').style.display = 'block';
+    document.getElementById('current-topic-title').textContent = 'Textbook References';
+    document.getElementById('topic-meta-badges').innerHTML = '';
+    renderAppTextbooks();
+    updateAppNavActive('textbooks');
+    renderSidebar();
+}
+
+function renderAppTextbooks() {
+    var container = document.getElementById('app-view-textbooks');
+    if (!container) return;
+    var textbookMap = {};
+    for (var i = 0; i < CURRICULUM.length; i++) {
+        var t = CURRICULUM[i];
+        if (!textbookMap[t.textbook]) textbookMap[t.textbook] = [];
+        textbookMap[t.textbook].push({id: t.id, title: t.title});
+    }
+    var textbooks = Object.keys(textbookMap).sort();
+    var html = '<h3>Textbook Reference Library</h3>';
+    html += '<p style="color:var(--text2);margin-bottom:16px;font-size:0.85rem">All recommended textbooks, grouped with the topics that reference them.</p>';
+    for (var bi = 0; bi < textbooks.length; bi++) {
+        var book = textbooks[bi], refs = textbookMap[book];
+        html += '<div class="textbook-card"><h4>' + escapeHTML(book) + '</h4>';
+        html += '<p style="margin:4px 0;font-size:0.8rem;color:var(--text2)">Referenced in ' + refs.length + ' topic(s):</p><div>';
+        for (var ri = 0; ri < refs.length; ri++) {
+            html += '<a href="javascript:void(0)" onclick="selectTopic(' + refs[ri].id + ')" class="textbook-tag">' + refs[ri].id + '. ' + escapeHTML(refs[ri].title) + '</a>';
+        }
+        html += '</div></div>';
+    }
+    container.innerHTML = html;
 }
 
 // ===== INITIALIZATION =====

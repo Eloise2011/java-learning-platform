@@ -73,6 +73,9 @@ body { font-family: var(--font); background: var(--bg); color: var(--text); heig
 .topbar .meta-badges { display: flex; gap: 6px; flex-shrink: 0; }
 .content-area { flex: 1; overflow-y: auto; padding: 24px 32px; }
 .app-view { padding: 0; }
+.textbook-card { background: var(--surface); border: 1px solid var(--surface3); border-radius: var(--radius); padding: 14px 18px; margin-bottom: 10px; }
+.textbook-card h4 { margin: 0 0 4px 0; font-size: 0.95rem; }
+.textbook-tag { font-size: 0.78rem; color: var(--accent); text-decoration: none; padding: 4px 10px; background: var(--bg); border-radius: 12px; cursor: pointer; display: inline-block; margin: 3px; }
 .welcome { text-align: center; padding: 60px 20px; color: var(--text2); }
 .welcome .icon { font-size: 3.5rem; margin-bottom: 16px; }
 .welcome h2 { font-size: 1.5rem; color: var(--text); margin-bottom: 8px; }
@@ -191,6 +194,7 @@ button:focus-visible, a:focus-visible, input:focus-visible, textarea:focus-visib
   <div class="app-nav" id="app-nav">
     <button class="app-nav-item" data-view="progress" id="btn-app-progress">📊 Overall Progress</button>
     <button class="app-nav-item" data-view="sitemap" id="btn-app-sitemap">🗺️ Site Map</button>
+  <button class="app-nav-item" data-view="textbooks" id="btn-app-textbooks">📖 Textbooks</button>
   </div>
   <div class="sidebar-nav" id="sidebar-nav"></div>
 </div>
@@ -219,6 +223,7 @@ button:focus-visible, a:focus-visible, input:focus-visible, textarea:focus-visib
   </div>
   <div id="app-view-progress" class="app-view" style="display:none"></div>
   <div id="app-view-sitemap" class="app-view" style="display:none"></div>
+  <div id="app-view-textbooks" class="app-view" style="display:none"></div>
 </div>
 <div id="toast-container"></div>
 <script src="https://cdn.jsdelivr.net/npm/mermaid@10.9.3/dist/mermaid.min.js"></script>
