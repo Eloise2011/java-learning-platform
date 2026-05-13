@@ -13947,6 +13947,20 @@ function selectTopic(id) {
     STATE.activeTab = 'lesson';
     renderSidebar();
 
+    // Deferred: force lesson tab after all rendering completes
+    setTimeout(function() {
+        var tabs = document.querySelectorAll('.tab');
+        for (var i = 0; i < tabs.length; i++) tabs[i].classList.remove('active');
+        var ltab = document.querySelector('[data-tab="lesson"]');
+        if (ltab) ltab.classList.add('active');
+        ['tab-practice','tab-extra','tab-enhancements'].forEach(function(id) {
+            var el = document.getElementById(id);
+            if (el) { el.classList.remove('active'); el.style.display = 'none'; }
+        });
+        var lsection = document.getElementById('tab-lesson');
+        if (lsection) { lsection.classList.add('active'); lsection.style.display = 'block'; }
+    }, 50);
+
     var activeItem = document.querySelector('.topic-item.active');
     if (activeItem) {
         activeItem.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
