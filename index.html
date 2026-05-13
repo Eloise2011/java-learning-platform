@@ -14383,8 +14383,10 @@ function renderExtraTab(topic) {
     var container = document.getElementById('tab-extra');
     if (!container) return;
 
-    // Fetch resources from server for this topic
-    apiFetch('/resources/' + topic.id).then(function(data) {
+    // Fetch resources from server (once per topic select)
+    if (!topic._resourcesLoaded) {
+        topic._resourcesLoaded = true;
+        apiFetch('/resources/' + topic.id).then(function(data) {
         if (data.resources && data.resources.length > 0) {
             if (!topicResources[topic.id]) topicResources[topic.id] = [];
             for (var j = 0; j < data.resources.length; j++) {
@@ -14403,7 +14405,8 @@ function renderExtraTab(topic) {
             // Re-render with fresh data
             renderExtraTab(topic);
         }
-    }).catch(function() {});
+    }).catch(function() { topic._resourcesLoaded = false; });
+    }
 
     var html = '<h3>📚 Extra-Curriculum Resources</h3>';
     html += '<p style="color:var(--text2);margin-bottom:14px;font-size:0.85rem">Attach books, articles, podcasts, and videos for deeper learning on this topic.</p>';
