@@ -13931,7 +13931,16 @@ function selectTopic(id) {
     renderEnhancementsTab(topic);
     renderProgressTab(topic);
     renderSiteMap(topic);
-    switchTab('lesson');
+    // Force Lesson tab active — reset all tabs then activate lesson
+    var allTabs = document.querySelectorAll('.tab');
+    for (var ti = 0; ti < allTabs.length; ti++) allTabs[ti].classList.remove('active');
+    var allSections = document.querySelectorAll('.lesson-section');
+    for (var si = 0; si < allSections.length; si++) allSections[si].classList.remove('active');
+    var lessonTab = document.querySelector('[data-tab="lesson"]');
+    var lessonSection = document.getElementById('tab-lesson');
+    if (lessonTab) lessonTab.classList.add('active');
+    if (lessonSection) lessonSection.classList.add('active');
+    STATE.activeTab = 'lesson';
     renderSidebar();
 
     var activeItem = document.querySelector('.topic-item.active');
