@@ -13873,6 +13873,7 @@ function showAppProgress() {
     document.getElementById('lesson-viewer').style.display = 'none';
     document.getElementById('app-view-progress').style.display = 'block';
     document.getElementById('app-view-sitemap').style.display = 'none';
+    document.getElementById('app-view-textbooks').style.display = 'none';
     document.getElementById('current-topic-title').textContent = 'Overall Progress';
     document.getElementById('topic-meta-badges').innerHTML = '';
     renderAppProgress();
@@ -13887,6 +13888,7 @@ function showAppSiteMap() {
     document.getElementById('lesson-viewer').style.display = 'none';
     document.getElementById('app-view-progress').style.display = 'none';
     document.getElementById('app-view-sitemap').style.display = 'block';
+    document.getElementById('app-view-textbooks').style.display = 'none';
     document.getElementById('current-topic-title').textContent = 'Java Technology Stack';
     document.getElementById('topic-meta-badges').innerHTML = '';
     renderAppSiteMap();
@@ -14751,6 +14753,8 @@ function showAppTextbooks() {
     STATE.currentTopicId = null;
     document.getElementById('welcome-screen').style.display = 'none';
     document.getElementById('lesson-viewer').style.display = 'none';
+    document.getElementById('app-view-progress').style.display = 'none';
+    document.getElementById('app-view-sitemap').style.display = 'none';
     document.getElementById('app-view-progress').style.display = 'none';
     document.getElementById('app-view-sitemap').style.display = 'none';
     document.getElementById('app-view-textbooks').style.display = 'block';
