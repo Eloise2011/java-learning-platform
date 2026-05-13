@@ -716,23 +716,6 @@ function loadResources() {
         var raw = localStorage.getItem(RESOURCES_KEY);
         if (raw) { topicResources = JSON.parse(raw); }
     } catch(e) { topicResources = {}; }
-    // Sync from server for current and completed topics
-    if (STATE.currentTopicId) {
-        var ctid = STATE.currentTopicId;
-        apiFetch('/resources/' + ctid).then(function(data) {
-            if (data.resources && data.resources.length > 0) {
-                if (!topicResources[ctid]) topicResources[ctid] = [];
-                for (var j = 0; j < data.resources.length; j++) {
-                    var sr = data.resources[j], found = false;
-                    for (var k = 0; k < topicResources[ctid].length; k++) {
-                        if (topicResources[ctid][k].id === sr.id) { found = true; break; }
-                    }
-                    if (!found) topicResources[ctid].push({id:sr.id, type:sr.type, title:sr.title, author:sr.author||'', url:sr.url, addedAt:sr.addedAt});
-                }
-                saveResources();
-            }
-        }).catch(function(){});
-    }
 }
 
 function saveResources() {
@@ -1108,19 +1091,21 @@ function renderAppTextbooks() {
     if (!container) return;
     var textbookMap = {};
     for (var i = 0; i < CURRICULUM.length; i++) {
-        var t = CURRICULUM[i];
-        if (!textbookMap[t.textbook]) textbookMap[t.textbook] = [];
-        textbookMap[t.textbook].push({id: t.id, title: t.title});
+        var t = CURRICULUM[i], tb = t.textbook;
+        if (!textbookMap[tb]) textbookMap[tb] = [];
+        textbookMap[tb].push({id: t.id, title: t.title});
     }
     var textbooks = Object.keys(textbookMap).sort();
     var html = '<h3>Textbook Reference Library</h3>';
-    html += '<p style="color:var(--text2);margin-bottom:16px;font-size:0.85rem">All recommended textbooks, grouped with the topics that reference them.</p>';
+    html += '<p style="color:var(--text2);margin-bottom:16px;font-size:0.85rem">All recommended textbooks for the Java Learning Path, with topics that reference each book.</p>';
     for (var bi = 0; bi < textbooks.length; bi++) {
         var book = textbooks[bi], refs = textbookMap[book];
-        html += '<div class="textbook-card"><h4>' + escapeHTML(book) + '</h4>';
-        html += '<p style="margin:4px 0;font-size:0.8rem;color:var(--text2)">Referenced in ' + refs.length + ' topic(s):</p><div>';
+        html += '<div style="background:var(--surface);border:1px solid var(--surface3);border-radius:var(--radius);padding:14px 18px;margin-bottom:10px">';
+        html += '<h4 style="margin:0 0 4px 0;font-size:0.95rem">' + escapeHTML(book) + '</h4>';
+        html += '<p style="margin:0 0 6px 0;font-size:0.78rem;color:var(--text2)">Referenced in ' + refs.length + ' topic(s):</p>';
+        html += '<div style="display:flex;flex-wrap:wrap;gap:6px">';
         for (var ri = 0; ri < refs.length; ri++) {
-            html += '<a href="javascript:void(0)" onclick="selectTopic(' + refs[ri].id + ')" class="textbook-tag">' + refs[ri].id + '. ' + escapeHTML(refs[ri].title) + '</a>';
+            html += '<a href="javascript:void(0)" onclick="selectTopic(' + refs[ri].id + ')" style="font-size:0.78rem;color:var(--accent);text-decoration:none;padding:4px 10px;background:var(--bg);border-radius:12px">' + refs[ri].id + '. ' + escapeHTML(refs[ri].title) + '</a>';
         }
         html += '</div></div>';
     }
