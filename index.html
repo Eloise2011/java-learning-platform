@@ -14330,7 +14330,7 @@ function loadResources() {
         var ctid = STATE.currentTopicId;
         apiFetch('/resources/' + ctid).then(function(data) {
             if (data.resources && data.resources.length > 0) {
-                if (!topicResources[ctid]) topicResources[ctid] = [];
+                topicResources[ctid] = [];
                 for (var j = 0; j < data.resources.length; j++) {
                     var sr = data.resources[j], found = false;
                     for (var k = 0; k < topicResources[ctid].length; k++) {
@@ -14388,18 +14388,13 @@ function renderExtraTab(topic) {
         topic._resourcesLoaded = true;
         apiFetch('/resources/' + topic.id).then(function(data) {
         if (data.resources && data.resources.length > 0) {
-            if (!topicResources[topic.id]) topicResources[topic.id] = [];
+            topicResources[topic.id] = [];
             for (var j = 0; j < data.resources.length; j++) {
-                var sr = data.resources[j], found = false;
-                for (var k = 0; k < topicResources[topic.id].length; k++) {
-                    if (topicResources[topic.id][k].id === sr.id) { found = true; break; }
-                }
-                if (!found) {
-                    topicResources[topic.id].push({
-                        id: sr.id, type: sr.type, title: sr.title,
-                        author: sr.author || '', url: sr.url, addedAt: sr.addedAt
-                    });
-                }
+                var sr = data.resources[j];
+                topicResources[topic.id].push({
+                    id: sr.id, type: sr.type, title: sr.title,
+                    author: sr.author || '', url: sr.url, addedAt: sr.addedAt
+                });
             }
             saveResources();
             // Re-render with fresh data
