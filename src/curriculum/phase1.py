@@ -1,5 +1,5 @@
-# Phase 1: Programming Fundamentals — 22 topics
-# Comprehensive quiz banks (10-14 questions per topic)
+# Phase 1: Programming Fundamentals
+# Expanded quiz banks
 
 TOPICS = [
   {
@@ -168,6 +168,446 @@ TOPICS = [
         ],
         "correct": 2,
         "explanation": "Cache sits between CPU and RAM, storing frequently-used data to mitigate the von Neumann bottleneck."
+      },
+      {
+        "question": "What is Moore's Law?",
+        "options": [
+          "Computers double in speed every 10 years",
+          "The observation that transistor density on chips doubles approximately every two years",
+          "RAM capacity triples annually",
+          "Software becomes twice as complex every year"
+        ],
+        "correct": 1,
+        "explanation": "Gordon Moore (Intel co-founder) observed in 1965 that transistor count per chip doubled ~every 2 years. This held true for decades but is slowing at atomic-scale limits."
+      },
+      {
+        "question": "What is quantum computing's key difference from classical computing?",
+        "options": [
+          "Uses decimal instead of binary",
+          "Uses qubits that can exist in superposition (both 0 and 1 simultaneously)",
+          "Runs only on Windows",
+          "It's just a faster classical computer"
+        ],
+        "correct": 1,
+        "explanation": "Quantum computers use qubits exploiting superposition and entanglement, potentially solving certain problems exponentially faster than classical computers."
+      },
+      {
+        "question": "What is a system-on-chip (SoC)?",
+        "options": [
+          "A type of RAM",
+          "A single chip integrating CPU, GPU, memory controller, and other components",
+          "A cooling system",
+          "A power supply"
+        ],
+        "correct": 1,
+        "explanation": "SoCs (like Apple M-series, Qualcomm Snapdragon) integrate most computer components onto one chip, improving efficiency and reducing physical size."
+      },
+      {
+        "question": "What is the role of the control unit in a CPU?",
+        "options": [
+          "Perform arithmetic",
+          "Fetch instructions, decode them, and coordinate execution across CPU components",
+          "Store data",
+          "Connect to the internet"
+        ],
+        "correct": 1,
+        "explanation": "The control unit orchestrates the fetch-decode-execute cycle, directing data flow between registers, ALU, memory, and I/O."
+      },
+      {
+        "question": "What is firmware?",
+        "options": [
+          "A type of hardware",
+          "Low-level software embedded in hardware devices (BIOS, router OS, printer controller)",
+          "A programming language",
+          "A type of RAM"
+        ],
+        "correct": 1,
+        "explanation": "Firmware is software permanently stored in ROM/flash memory that controls specific hardware devices at a low level."
+      },
+      {
+        "question": "What is a bit?",
+        "options": [
+          "Smallest unit of data — binary digit (0 or 1)",
+          "8 bytes of data",
+          "A type of variable",
+          "A CPU instruction"
+        ],
+        "correct": 0,
+        "explanation": "A bit is the fundamental unit of information representing one binary state: 0 or 1."
+      },
+      {
+        "question": "What is a nibble?",
+        "options": [
+          "8 bits",
+          "4 bits (half a byte)",
+          "2 bytes",
+          "16 bits"
+        ],
+        "correct": 1,
+        "explanation": "A nibble is 4 bits — half a byte. It can represent 16 values (0-15), corresponding to one hexadecimal digit."
+      },
+      {
+        "question": "What is a word in computer architecture?",
+        "options": [
+          "A text string",
+          "The natural data size of a CPU — typically 32 or 64 bits",
+          "4 bytes exactly",
+          "A variable name"
+        ],
+        "correct": 1,
+        "explanation": "A word is the CPU's native data width. On a 64-bit CPU, a word is 64 bits (8 bytes). It determines register size and arithmetic throughput."
+      },
+      {
+        "question": "What is the difference between RAM and ROM?",
+        "options": [
+          "No difference",
+          "RAM is read-write volatile memory; ROM is read-only non-volatile memory",
+          "ROM is faster than RAM",
+          "RAM retains data without power"
+        ],
+        "correct": 1,
+        "explanation": "RAM is volatile read-write memory for active programs. ROM is non-volatile read-only memory for firmware/boot code."
+      },
+      {
+        "question": "What does HTTP stand for?",
+        "options": [
+          "HyperText Transfer Protocol",
+          "High Tech Transfer Process",
+          "Hyper Transfer Text Program",
+          "Home Tool Transfer Protocol"
+        ],
+        "correct": 0,
+        "explanation": "HTTP is the foundation protocol of the World Wide Web, governing how browsers and servers communicate."
+      },
+      {
+        "question": "What does HTTPS provide that HTTP doesn't?",
+        "options": [
+          "Faster loading",
+          "Encryption via TLS/SSL — data is secure in transit",
+          "More features",
+          "Better compression"
+        ],
+        "correct": 1,
+        "explanation": "HTTPS = HTTP + TLS/SSL. It encrypts all communication, preventing eavesdropping and tampering."
+      },
+      {
+        "question": "What is an IP address?",
+        "options": [
+          "A website name",
+          "A unique numeric identifier for each device on a network",
+          "A type of protocol",
+          "A file format"
+        ],
+        "correct": 1,
+        "explanation": "An IP address uniquely identifies a device on a network. IPv4 uses 32 bits (e.g., 192.168.1.1); IPv6 uses 128 bits."
+      },
+      {
+        "question": "What is DNS?",
+        "options": [
+          "A programming language",
+          "Domain Name System — translates human-readable names (google.com) to IP addresses",
+          "A type of hardware",
+          "A file format"
+        ],
+        "correct": 1,
+        "explanation": "DNS is the internet's phonebook. It resolves domain names to IP addresses, enabling humans to use memorable names."
+      },
+      {
+        "question": "What does TCP/IP stand for?",
+        "options": [
+          "Total Computing Process/Internet Protocol",
+          "Transmission Control Protocol/Internet Protocol",
+          "Technical Communication Process/Internet Provider",
+          "Transfer Control Program/Integrated Protocol"
+        ],
+        "correct": 1,
+        "explanation": "TCP/IP is the fundamental protocol suite of the internet. TCP ensures reliable delivery; IP handles addressing and routing."
+      },
+      {
+        "question": "What is the difference between TCP and UDP?",
+        "options": [
+          "No difference",
+          "TCP is connection-oriented with guaranteed delivery; UDP is connectionless and faster but doesn't guarantee delivery",
+          "UDP is more reliable",
+          "TCP is only for web browsing"
+        ],
+        "correct": 1,
+        "explanation": "TCP guarantees ordered, error-checked delivery (web, email). UDP is faster but may lose packets (streaming, gaming, DNS)."
+      },
+      {
+        "question": "What is a GPU primarily designed for?",
+        "options": [
+          "Running operating systems",
+          "Parallel processing of graphics and matrix computations",
+          "File storage",
+          "Network routing"
+        ],
+        "correct": 1,
+        "explanation": "GPUs excel at parallel workloads: rendering graphics, training AI models, scientific simulations. They have thousands of simple cores."
+      },
+      {
+        "question": "What is an API?",
+        "options": [
+          "A type of hardware",
+          "Application Programming Interface — a contract defining how software components interact",
+          "A file format",
+          "A programming language"
+        ],
+        "correct": 1,
+        "explanation": "An API defines how different software components should interact. REST APIs, Java interfaces, and library methods are all APIs."
+      },
+      {
+        "question": "What is open-source software?",
+        "options": [
+          "Software that costs nothing",
+          "Software whose source code is publicly available for anyone to view, modify, and distribute",
+          "Software without bugs",
+          "Software that runs on all platforms"
+        ],
+        "correct": 1,
+        "explanation": "Open-source software makes its source code publicly available under licenses (MIT, GPL, Apache) that govern usage rights."
+      },
+      {
+        "question": "What is a terminal/command-line interface?",
+        "options": [
+          "A graphical window",
+          "A text-based interface for interacting with the OS by typing commands",
+          "A type of monitor",
+          "A programming language"
+        ],
+        "correct": 1,
+        "explanation": "A terminal provides text-based OS interaction. Commands like cd, ls, mkdir, java, git are typed rather than clicked."
+      },
+      {
+        "question": "What is a file system?",
+        "options": [
+          "A type of program",
+          "The method and data structure an OS uses to organize and store files on disk",
+          "A network protocol",
+          "A programming paradigm"
+        ],
+        "correct": 1,
+        "explanation": "A file system (NTFS, ext4, APFS) organizes how data is stored and retrieved on storage devices."
+      },
+      {
+        "question": "What is an executable file?",
+        "options": [
+          "A text file",
+          "A file containing machine code that the OS can load and run directly (.exe, .app, ELF binary)",
+          "A source code file",
+          "A configuration file"
+        ],
+        "correct": 1,
+        "explanation": "Executable files contain compiled machine code ready for the CPU. On Windows: .exe; on macOS: .app bundles or Mach-O; on Linux: ELF."
+      },
+      {
+        "question": "What does HTML stand for?",
+        "options": [
+          "HyperText Markup Language",
+          "High Tech Modern Language",
+          "Hyper Transfer Markup Logic",
+          "Home Tool Markup Language"
+        ],
+        "correct": 0,
+        "explanation": "HTML is the standard markup language for creating web pages, using tags to structure content."
+      },
+      {
+        "question": "What is the difference between frontend and backend?",
+        "options": [
+          "No difference",
+          "Frontend runs in the browser (UI); backend runs on the server (data, logic, APIs)",
+          "Backend is always in Java",
+          "Frontend is faster"
+        ],
+        "correct": 1,
+        "explanation": "Frontend handles user interface (HTML/CSS/JS in browser). Backend handles business logic, database, and APIs on the server."
+      },
+      {
+        "question": "What is a database?",
+        "options": [
+          "A spreadsheet",
+          "An organized collection of structured data, stored and accessed electronically",
+          "A type of file",
+          "A programming language"
+        ],
+        "correct": 1,
+        "explanation": "A database stores structured data with efficient querying (SQL, indexing). Examples: MySQL, PostgreSQL, MongoDB, Oracle."
+      },
+      {
+        "question": "What is a virtual machine?",
+        "options": [
+          "A physical computer",
+          "Software that emulates a complete computer system, running an OS within another OS",
+          "A type of CPU",
+          "A cloud service only"
+        ],
+        "correct": 1,
+        "explanation": "A VM emulates hardware, allowing multiple OS instances on one physical machine. The JVM is a specialized VM for Java bytecode."
+      },
+      {
+        "question": "What is a container (e.g., Docker)?",
+        "options": [
+          "A physical box",
+          "A lightweight, portable package containing an application and all its dependencies",
+          "A virtual machine",
+          "A type of database"
+        ],
+        "correct": 1,
+        "explanation": "Containers package applications with their dependencies, ensuring consistent behavior across environments. More lightweight than VMs."
+      },
+      {
+        "question": "What is version control?",
+        "options": [
+          "A backup system only",
+          "A system that tracks changes to files over time, enabling collaboration and history",
+          "A type of compiler",
+          "A deployment tool"
+        ],
+        "correct": 1,
+        "explanation": "Version control (Git) records file changes, enables branching/merging, and provides complete history. Essential for all software projects."
+      },
+      {
+        "question": "What is the difference between compiled and interpreted languages?",
+        "options": [
+          "They are identical",
+          "Compiled = translated to machine code before execution; Interpreted = executed line-by-line at runtime",
+          "Interpreted is always faster",
+          "Compiled languages can't be debugged"
+        ],
+        "correct": 1,
+        "explanation": "Compilation produces standalone executables (fast, platform-specific). Interpretation runs source directly (slower, platform-independent)."
+      },
+      {
+        "question": "What is a stack trace?",
+        "options": [
+          "A data structure",
+          "A report of the active stack frames at a certain point during execution — essential for debugging exceptions",
+          "A memory leak",
+          "A type of log file"
+        ],
+        "correct": 1,
+        "explanation": "When an exception occurs, Java prints a stack trace showing the call hierarchy. Read it bottom-to-top to trace the error path."
+      },
+      {
+        "question": "What is the heap (in memory management)?",
+        "options": [
+          "A sorted data structure",
+          "The region of memory where objects are dynamically allocated",
+          "CPU cache memory",
+          "The call stack"
+        ],
+        "correct": 1,
+        "explanation": "The heap is the memory pool for dynamically-allocated objects. In Java, all objects live on the heap and are garbage-collected."
+      },
+      {
+        "question": "What is garbage collection?",
+        "options": [
+          "Manual memory management",
+          "Automatic reclamation of memory occupied by objects no longer in use",
+          "A type of file cleanup",
+          "Deleting source code"
+        ],
+        "correct": 1,
+        "explanation": "The JVM's garbage collector automatically identifies and frees memory from unreachable objects. Java developers don't manually free memory (unlike C/C++)."
+      },
+      {
+        "question": "What does IDE stand for?",
+        "options": [
+          "Integrated Development Environment",
+          "Internal Debug Engine",
+          "Interactive Design Editor",
+          "Internet Development Ecosystem"
+        ],
+        "correct": 0,
+        "explanation": "An IDE combines code editor, compiler, debugger, and build tools into one application (IntelliJ IDEA, Eclipse, VS Code)."
+      },
+      {
+        "question": "What is the difference between lossy and lossless compression?",
+        "options": [
+          "No difference",
+          "Lossless preserves all original data (ZIP, PNG); lossy discards some data for smaller size (JPEG, MP3)",
+          "Lossy is always better",
+          "Compression doesn't apply to computers"
+        ],
+        "correct": 1,
+        "explanation": "Lossless: exact original can be reconstructed. Lossy: some data is permanently discarded to achieve higher compression ratios."
+      },
+      {
+        "question": "What is an algorithm?",
+        "options": [
+          "A programming language",
+          "A step-by-step procedure for solving a problem or performing a computation",
+          "A type of computer",
+          "A data structure"
+        ],
+        "correct": 1,
+        "explanation": "An algorithm is a finite sequence of well-defined instructions to solve a problem. Sorting, searching, and encryption are classic examples."
+      },
+      {
+        "question": "What is a data structure?",
+        "options": [
+          "A type of computer",
+          "A specialized format for organizing, storing, and accessing data efficiently",
+          "A programming language",
+          "An operating system"
+        ],
+        "correct": 1,
+        "explanation": "Arrays, lists, trees, hash maps, graphs — data structures determine how data is organized and what operations are efficient."
+      },
+      {
+        "question": "What is the difference between software and hardware?",
+        "options": [
+          "No difference",
+          "Hardware is physical computer components; software is the instructions/programs that run on hardware",
+          "Software is more expensive",
+          "Hardware includes programs"
+        ],
+        "correct": 1,
+        "explanation": "Hardware: physical components (CPU, RAM, disk). Software: programs and data. Hardware executes software instructions."
+      },
+      {
+        "question": "What does POST stand for in computing?",
+        "options": [
+          "Post Office System Test",
+          "Power-On Self-Test — diagnostic checks run by BIOS/UEFI when a computer starts",
+          "Program Optimization System Tool",
+          "Processor Operations Status Test"
+        ],
+        "correct": 1,
+        "explanation": "POST checks that essential hardware (RAM, CPU, storage, keyboard) is functional before attempting to boot the OS."
+      },
+      {
+        "question": "What is a kernel in an operating system?",
+        "options": [
+          "The user interface",
+          "The core component managing hardware, memory, processes, and security",
+          "A type of application",
+          "The file manager"
+        ],
+        "correct": 1,
+        "explanation": "The kernel is the OS core, running in privileged mode. It manages CPU scheduling, memory allocation, device drivers, and system calls."
+      },
+      {
+        "question": "What is a shell in an operating system?",
+        "options": [
+          "The kernel",
+          "A command-line interpreter that provides a user interface to the OS (bash, zsh, PowerShell)",
+          "A type of memory",
+          "A file system"
+        ],
+        "correct": 1,
+        "explanation": "A shell interprets user commands and communicates with the kernel. Bash and zsh on Unix/Linux/macOS; PowerShell and cmd on Windows."
+      },
+      {
+        "question": "What does WYSIWYG stand for?",
+        "options": [
+          "What You See Is What You Get",
+          "Why Your System Is Working Young",
+          "Where You Send Information With Your Gate",
+          "Windows Your System Interface With Your Graphics"
+        ],
+        "correct": 0,
+        "explanation": "WYSIWYG editors (like word processors) show content during editing as it will appear in the final output."
       }
     ],
     "codingExercise": {
@@ -305,6 +745,512 @@ TOPICS = [
         ],
         "correct": 1,
         "explanation": "A commit records a snapshot of the staged changes in the repository history."
+      },
+      {
+        "question": "What does 'Write Once, Run Anywhere' mean for Java?",
+        "options": [
+          "Java code is write-only",
+          "Compiled Java bytecode runs on any platform with a JVM without recompilation",
+          "Java can only run on one OS",
+          "Java programs never need updates"
+        ],
+        "correct": 1,
+        "explanation": "Java bytecode is platform-neutral. The same .class file runs on Windows, macOS, Linux, or any system with a compatible JVM."
+      },
+      {
+        "question": "What is the purpose of the javap command?",
+        "options": [
+          "Run Java programs",
+          "Disassemble .class files to view bytecode instructions and method signatures",
+          "Package JAR files",
+          "Create documentation"
+        ],
+        "correct": 1,
+        "explanation": "javap -c ClassName shows the bytecode instructions of compiled methods. Useful for understanding compilation and debugging."
+      },
+      {
+        "question": "What is the jshell tool (Java 9+)?",
+        "options": [
+          "A compiler",
+          "An interactive REPL (Read-Eval-Print Loop) for experimenting with Java code snippets",
+          "A debugger",
+          "A build tool"
+        ],
+        "correct": 1,
+        "explanation": "jshell allows you to type Java statements and see results immediately — no class, no main method, no compilation step needed."
+      },
+      {
+        "question": "What command lists all files in the current directory (macOS/Linux)?",
+        "options": [
+          "dir",
+          "ls",
+          "list",
+          "show"
+        ],
+        "correct": 1,
+        "explanation": "ls lists directory contents. ls -la shows detailed info including hidden files. dir is the Windows equivalent."
+      },
+      {
+        "question": "What does the 'cd' command do?",
+        "options": [
+          "Create a directory",
+          "Change the current working directory",
+          "Compile a file",
+          "Copy data"
+        ],
+        "correct": 1,
+        "explanation": "cd changes the shell's current directory. cd .. moves up one level. cd ~ goes to the home directory."
+      },
+      {
+        "question": "What does 'mkdir' do?",
+        "options": [
+          "Make a new file",
+          "Create a new directory",
+          "Delete a directory",
+          "Move a directory"
+        ],
+        "correct": 1,
+        "explanation": "mkdir creates a new directory. mkdir -p creates parent directories as needed."
+      },
+      {
+        "question": "What is the purpose of the .bashrc/.zshrc file?",
+        "options": [
+          "Store Java source code",
+          "Shell configuration file executed when a new terminal session starts",
+          "Configure the JVM",
+          "Store passwords"
+        ],
+        "correct": 1,
+        "explanation": ".bashrc/.zshrc set environment variables (JAVA_HOME, PATH), aliases, and shell preferences for each terminal session."
+      },
+      {
+        "question": "What command shows the current directory path?",
+        "options": [
+          "ls",
+          "pwd",
+          "cd",
+          "dir"
+        ],
+        "correct": 1,
+        "explanation": "pwd (Print Working Directory) displays the full path of the current directory."
+      },
+      {
+        "question": "What is the difference between a relative and absolute path?",
+        "options": [
+          "No difference",
+          "Absolute path starts from root (/ or C:\\); relative path is relative to the current working directory",
+          "Relative paths are longer",
+          "Absolute paths are deprecated"
+        ],
+        "correct": 1,
+        "explanation": "Absolute: /Users/alice/project/src/Main.java. Relative (from /Users/alice): project/src/Main.java."
+      },
+      {
+        "question": "What does the 'cp' command do?",
+        "options": [
+          "Change permissions",
+          "Copy files or directories",
+          "Create a process",
+          "Compile code"
+        ],
+        "correct": 1,
+        "explanation": "cp source destination copies a file. cp -r copies directories recursively."
+      },
+      {
+        "question": "What does the 'mv' command do?",
+        "options": [
+          "Make a video",
+          "Move or rename files and directories",
+          "Modify variables",
+          "Merge versions"
+        ],
+        "correct": 1,
+        "explanation": "mv oldname newname renames. mv file.txt /some/other/dir/ moves. mv can rename and move simultaneously."
+      },
+      {
+        "question": "What does the 'rm' command do?",
+        "options": [
+          "Read mail",
+          "Remove (delete) files or directories",
+          "Run main",
+          "Reset memory"
+        ],
+        "correct": 1,
+        "explanation": "rm removes files. rm -r removes directories recursively. rm -rf forces removal without confirmation — use with extreme caution."
+      },
+      {
+        "question": "What does 'sudo' do?",
+        "options": [
+          "Super user do — execute a command with elevated (root) privileges",
+          "Stop a command",
+          "Summarize output",
+          "Source code upload"
+        ],
+        "correct": 0,
+        "explanation": "sudo temporarily grants administrative privileges for a single command. Required for system-level changes."
+      },
+      {
+        "question": "What is the purpose of the jlink tool?",
+        "options": [
+          "Debug Java code",
+          "Create custom runtime images containing only the modules needed by an application",
+          "Link to databases",
+          "Format code"
+        ],
+        "correct": 1,
+        "explanation": "jlink creates minimal JVM images with only required modules, significantly reducing deployment size."
+      },
+      {
+        "question": "What is the purpose of jpackage?",
+        "options": [
+          "Package JAR files",
+          "Create native installers (.exe, .dmg, .deb) for Java applications",
+          "Compile faster",
+          "Debug packages"
+        ],
+        "correct": 1,
+        "explanation": "jpackage bundles a Java app with a custom JVM into a platform-native installer. End users don't need Java pre-installed."
+      },
+      {
+        "question": "What is the difference between IntelliJ IDEA Community and Ultimate editions?",
+        "options": [
+          "No difference",
+          "Community is free for JVM development; Ultimate adds database tools, JavaScript/TypeScript, Spring support, and more",
+          "Ultimate is free",
+          "Community is faster"
+        ],
+        "correct": 1,
+        "explanation": "Community Edition covers core Java/Android/Gradle/Maven. Ultimate adds enterprise features: Spring Boot, database tools, JavaScript, profiling."
+      },
+      {
+        "question": "What does IntelliJ's 'Reformat Code' do?",
+        "options": [
+          "Delete code",
+          "Apply consistent formatting (indentation, spacing, braces) according to configured code style",
+          "Compile the project",
+          "Run tests"
+        ],
+        "correct": 1,
+        "explanation": "Reformat Code (Ctrl+Alt+L / Cmd+Alt+L) standardizes code formatting based on project or IDE code style settings."
+      },
+      {
+        "question": "What is IntelliJ's 'Local History' feature?",
+        "options": [
+          "Git commit history",
+          "Built-in version control that automatically tracks file changes even without Git",
+          "Browser history",
+          "Search history"
+        ],
+        "correct": 1,
+        "explanation": "Local History records file changes independently of VCS. You can revert to previous versions even for uncommitted changes."
+      },
+      {
+        "question": "What does the Terminal tab in IntelliJ do?",
+        "options": [
+          "Nothing useful",
+          "Provides an integrated terminal emulator at the project root — no need to switch to a separate terminal app",
+          "Runs only Java",
+          "Shows error messages"
+        ],
+        "correct": 1,
+        "explanation": "The built-in terminal opens at the project directory with your configured shell. Run git, maven, java commands without leaving the IDE."
+      },
+      {
+        "question": "What does IntelliJ's 'Find in Files' (Ctrl+Shift+F) do?",
+        "options": [
+          "Find a file by name",
+          "Search for text across all files in the project",
+          "Find method declarations",
+          "Search the internet"
+        ],
+        "correct": 1,
+        "explanation": "Find in Files searches all project files for a string or regex. Results shown in a navigable panel with context."
+      },
+      {
+        "question": "What is the purpose of a .editorconfig file?",
+        "options": [
+          "Configure the editor theme",
+          "Define and maintain consistent coding styles across different editors and IDEs",
+          "Set JVM options",
+          "Configure Git"
+        ],
+        "correct": 1,
+        "explanation": "EditorConfig standardizes indentation, charset, and line endings across team members using different editors."
+      },
+      {
+        "question": "What does .gitkeep do?",
+        "options": [
+          "Nothing special — it's a convention to track empty directories in Git (Git doesn't track empty folders)",
+          "Encrypt files",
+          "Speed up Git",
+          "Backup data"
+        ],
+        "correct": 0,
+        "explanation": "Git tracks files, not directories. Placing an empty .gitkeep file in an empty directory ensures it's included in the repository."
+      },
+      {
+        "question": "What is the purpose of the README.md file?",
+        "options": [
+          "Store code",
+          "Provide project documentation, setup instructions, and overview — the first thing visitors see on GitHub",
+          "Compile code",
+          "Store passwords"
+        ],
+        "correct": 1,
+        "explanation": "README.md (Markdown format) introduces the project: what it does, how to install/run, how to contribute, and license information."
+      },
+      {
+        "question": "What is a linter?",
+        "options": [
+          "A compiler",
+          "A static analysis tool that flags programming errors, bugs, and style issues without running the code",
+          "A type of database",
+          "A deployment tool"
+        ],
+        "correct": 1,
+        "explanation": "Linters (ESLint, Checkstyle, SonarLint) analyze source code for potential errors, style violations, and anti-patterns."
+      },
+      {
+        "question": "What does 'chmod' do?",
+        "options": [
+          "Change the file mode/permissions (read, write, execute)",
+          "Change a module",
+          "Compile a Java file",
+          "Create a directory"
+        ],
+        "correct": 0,
+        "explanation": "chmod modifies file permissions. chmod +x makes a file executable. Permissions control who can read, write, or execute files."
+      },
+      {
+        "question": "What are environment variables?",
+        "options": [
+          "Variables that only work outdoors",
+          "Dynamic values that affect running processes — PATH, JAVA_HOME, HOME, etc.",
+          "Java class fields",
+          "Temporary files"
+        ],
+        "correct": 1,
+        "explanation": "Environment variables configure runtime behavior across processes. Set via export on Unix or System Properties on Windows."
+      },
+      {
+        "question": "What is a process in an operating system?",
+        "options": [
+          "A programming language",
+          "An instance of a running program with its own memory space and system resources",
+          "A file on disk",
+          "A type of CPU"
+        ],
+        "correct": 1,
+        "explanation": "A process is a program in execution. Each process has its own virtual address space, threads, and file handles."
+      },
+      {
+        "question": "What is a thread?",
+        "options": [
+          "A type of process",
+          "The smallest unit of execution within a process — multiple threads share the same process memory",
+          "A file",
+          "A CPU core"
+        ],
+        "correct": 1,
+        "explanation": "Threads are lightweight execution units within a process. They share heap memory but have separate stacks. Java supports multi-threading natively."
+      },
+      {
+        "question": "What is Maven Central?",
+        "options": [
+          "A coffee shop",
+          "The default public repository where Maven downloads dependencies from",
+          "A train station",
+          "A version of Java"
+        ],
+        "correct": 1,
+        "explanation": "Maven Central is the largest public repository of Java libraries. Build tools download dependencies from it automatically."
+      },
+      {
+        "question": "What command creates a new Maven project?",
+        "options": [
+          "mvn new",
+          "mvn archetype:generate",
+          "mvn create",
+          "mvn init"
+        ],
+        "correct": 1,
+        "explanation": "mvn archetype:generate scaffolds a new Maven project with the standard directory structure and pom.xml."
+      },
+      {
+        "question": "What is the standard Maven directory layout?",
+        "options": [
+          "Anything goes",
+          "src/main/java (source), src/test/java (tests), src/main/resources (config), pom.xml (build config)",
+          "Only one directory",
+          "/code/"
+        ],
+        "correct": 1,
+        "explanation": "Maven's convention-over-configuration: standard layout means any developer can navigate any Maven project without documentation."
+      },
+      {
+        "question": "What does 'mvn clean' do?",
+        "options": [
+          "Cleans source code",
+          "Deletes the target/ directory (all compiled output)",
+          "Formats code",
+          "Removes dependencies"
+        ],
+        "correct": 1,
+        "explanation": "mvn clean removes the build output directory, forcing a fresh recompilation on the next build."
+      },
+      {
+        "question": "What does 'mvn install' do?",
+        "options": [
+          "Installs the JDK",
+          "Compiles, tests, and installs the artifact into the local Maven repository (~/.m2)",
+          "Installs the OS",
+          "Downloads dependencies"
+        ],
+        "correct": 1,
+        "explanation": "mvn install runs the full lifecycle (compile → test → package → install). The JAR is placed in ~/.m2/repository for use by other local projects."
+      },
+      {
+        "question": "What is a SNAPSHOT version in Maven?",
+        "options": [
+          "A released version",
+          "A development version that may change — Maven checks for updates periodically",
+          "A broken version",
+          "A faster version"
+        ],
+        "correct": 1,
+        "explanation": "SNAPSHOT versions (1.0-SNAPSHOT) are mutable development builds. Maven re-downloads them. Release versions are immutable."
+      },
+      {
+        "question": "What does a .gitignore file typically exclude?",
+        "options": [
+          "Source code",
+          "Build artifacts (dist/, target/), IDE files (.idea/), OS files (.DS_Store), credentials (.env)",
+          "README files",
+          "Java files"
+        ],
+        "correct": 1,
+        "explanation": ".gitignore prevents committing generated files, local config, secrets, and OS metadata to version control."
+      },
+      {
+        "question": "What does 'git log' show?",
+        "options": [
+          "Current files",
+          "Commit history — list of all commits with messages, authors, and timestamps",
+          "File contents",
+          "Remote URLs"
+        ],
+        "correct": 1,
+        "explanation": "git log displays the commit history. git log --oneline shows a compact view. git log -p shows full diffs."
+      },
+      {
+        "question": "What does 'git diff' show?",
+        "options": [
+          "Remote changes",
+          "Unstaged differences between the working directory and the last commit",
+          "Commit history",
+          "Branch list"
+        ],
+        "correct": 1,
+        "explanation": "git diff shows line-by-line changes not yet staged. git diff --staged shows changes already staged for commit."
+      },
+      {
+        "question": "What is a Git remote?",
+        "options": [
+          "A local branch",
+          "A reference to a repository hosted elsewhere (GitHub, GitLab, server) — allows push/pull",
+          "A file copy",
+          "A commit"
+        ],
+        "correct": 1,
+        "explanation": "A remote (typically 'origin') is a pointer to the same repository on another machine. git push/pull synchronize with remotes."
+      },
+      {
+        "question": "What does 'git stash' do?",
+        "options": [
+          "Delete changes",
+          "Temporarily save uncommitted changes, restoring a clean working directory",
+          "Commit changes",
+          "Merge branches"
+        ],
+        "correct": 1,
+        "explanation": "git stash shelves changes for later. git stash pop reapplies them. Useful when you need to switch branches with uncommitted work."
+      },
+      {
+        "question": "What does 'git reset --soft HEAD~1' do?",
+        "options": [
+          "Delete the repository",
+          "Undo the last commit but keep changes staged",
+          "Delete all files",
+          "Reset to initial commit"
+        ],
+        "correct": 1,
+        "explanation": "git reset --soft undoes commits while preserving changes. HEAD~1 means 'one commit before HEAD'. --soft keeps changes staged."
+      },
+      {
+        "question": "What is the purpose of IntelliJ's 'Refactor > Rename' (Shift+F6)?",
+        "options": [
+          "Change only the file name",
+          "Rename a variable/method/class and update ALL references across the entire project",
+          "Delete the element",
+          "Create a copy"
+        ],
+        "correct": 1,
+        "explanation": "Rename refactoring safely renames identifiers across the entire codebase, including comments and string literals, using AST analysis."
+      },
+      {
+        "question": "What does IntelliJ's 'Analyze > Inspect Code' do?",
+        "options": [
+          "Run the program",
+          "Perform static analysis across the entire project, finding bugs, performance issues, and style violations",
+          "Format code",
+          "Compile faster"
+        ],
+        "correct": 1,
+        "explanation": "Code inspection runs hundreds of checks for potential bugs, dead code, performance issues, and style deviations."
+      },
+      {
+        "question": "What does the 'sout' live template do in IntelliJ?",
+        "options": [
+          "Nothing",
+          "Expands to System.out.println() — a keyboard shortcut for the most common Java statement",
+          "Saves output",
+          "Starts a server"
+        ],
+        "correct": 1,
+        "explanation": "IntelliJ live templates: type 'sout' + Tab → System.out.println(|). 'psvm' → public static void main. 'fori' → for loop."
+      },
+      {
+        "question": "What is the difference between 'build' and 'rebuild' in IntelliJ?",
+        "options": [
+          "No difference",
+          "Build compiles only changed files; Rebuild compiles ALL files from scratch",
+          "Rebuild is faster",
+          "Build only runs tests"
+        ],
+        "correct": 1,
+        "explanation": "Build is incremental (only changed files). Rebuild does a full clean compile of every source file."
+      },
+      {
+        "question": "What keyboard shortcut shows all IntelliJ actions (Command Palette)?",
+        "options": [
+          "Ctrl+C",
+          "Ctrl+Shift+A (Find Action)",
+          "Ctrl+S",
+          "Ctrl+Z"
+        ],
+        "correct": 1,
+        "explanation": "Find Action (Cmd+Shift+A on macOS) searches all IDE commands by name — the fastest way to access any feature without memorizing shortcuts."
+      },
+      {
+        "question": "What does the 'psvm' live template expand to?",
+        "options": [
+          "Nothing",
+          "public static void main(String[] args) { }",
+          "private static void method()",
+          "public String getValue()"
+        ],
+        "correct": 1,
+        "explanation": "psvm + Tab generates the complete main method signature. Combined with 'sout', you can write HelloWorld in seconds."
       }
     ],
     "codingExercise": {
@@ -474,6 +1420,446 @@ TOPICS = [
         ],
         "correct": 0,
         "explanation": "5+3 evaluates to 8 (integer addition), then 'Hello' is concatenated to produce '8Hello'."
+      },
+      {
+        "question": "What is the minimum code required for a valid Java program?",
+        "options": [
+          "A single statement",
+          "A class with a main method",
+          "A package declaration",
+          "An import statement"
+        ],
+        "correct": 1,
+        "explanation": "Every Java program needs at least one class containing a main() method with the exact signature public static void main(String[] args)."
+      },
+      {
+        "question": "What would happen if main() were declared as private?",
+        "options": [
+          "It would work fine",
+          "Runtime error: 'Main method not public' — the JVM can't call it",
+          "Compile error",
+          "It would run but output nothing"
+        ],
+        "correct": 1,
+        "explanation": "The JVM requires main() to be public so it can be called from outside the class. A private main is invisible to the JVM."
+      },
+      {
+        "question": "What happens if the filename doesn't match the public class name?",
+        "options": [
+          "The JVM auto-corrects it",
+          "Compile error: class name must match filename",
+          "Runtime warning",
+          "Nothing — it works fine"
+        ],
+        "correct": 1,
+        "explanation": "javac enforces that the public class name matches the filename (case-sensitive). HelloWorld.java must contain 'public class HelloWorld'."
+      },
+      {
+        "question": "Can a Java file have multiple class declarations?",
+        "options": [
+          "No",
+          "Yes, but only one can be public (and must match the filename)",
+          "Yes, all can be public",
+          "Only in Java 17+"
+        ],
+        "correct": 1,
+        "explanation": "A .java file can contain multiple classes, but at most one can be public. The filename must match the public class name."
+      },
+      {
+        "question": "What is the entry point called when you run: java HelloWorld",
+        "options": [
+          "The HelloWorld constructor",
+          "The main() method",
+          "The first method in the class",
+          "A method called start()"
+        ],
+        "correct": 1,
+        "explanation": "The JVM specifically looks for public static void main(String[] args) as the program entry point."
+      },
+      {
+        "question": "What is the purpose of the String[] args parameter?",
+        "options": [
+          "It's unused and optional",
+          "To receive command-line arguments passed to the program",
+          "To configure the JVM",
+          "To declare string variables"
+        ],
+        "correct": 1,
+        "explanation": "Command-line arguments (java MyApp arg1 arg2) are passed as an array of Strings to main()."
+      },
+      {
+        "question": "What happens if you write: java HelloWorld arg1 'arg two' arg3",
+        "options": [
+          "Error: too many arguments",
+          "args becomes ['arg1', 'arg two', 'arg3'] — quotes group words, spaces separate arguments",
+          "Only arg1 is passed",
+          "Compile error"
+        ],
+        "correct": 1,
+        "explanation": "The shell splits arguments by whitespace. Quotes preserve spaces within a single argument. The JVM receives the array after shell processing."
+      },
+      {
+        "question": "What package is the System class in?",
+        "options": [
+          "java.util",
+          "java.lang",
+          "java.io",
+          "java.system"
+        ],
+        "correct": 1,
+        "explanation": "System is in java.lang, which is automatically imported in every Java file. No explicit import needed."
+      },
+      {
+        "question": "What is the difference between print() and println()?",
+        "options": [
+          "No difference",
+          "println() adds a newline at the end; print() does not",
+          "print() is for numbers only",
+          "println() is deprecated"
+        ],
+        "correct": 1,
+        "explanation": "System.out.print('Hello'); System.out.print('World'); outputs 'HelloWorld' (one line). println() adds a line separator after output."
+      },
+      {
+        "question": "What is the purpose of the 'static' keyword in the main method?",
+        "options": [
+          "It's just tradition",
+          "So the JVM can call main() without creating an instance of the class first",
+          "To make the method thread-safe",
+          "To prevent overriding"
+        ],
+        "correct": 1,
+        "explanation": "Static methods belong to the class, not instances. The JVM calls main() before any objects exist, so main must be static."
+      },
+      {
+        "question": "What does the 'class' keyword define?",
+        "options": [
+          "A variable",
+          "A blueprint for objects containing fields (state) and methods (behavior)",
+          "A loop structure",
+          "A type of comment"
+        ],
+        "correct": 1,
+        "explanation": "class defines a new reference type. Everything in Java (except primitives) is defined within a class."
+      },
+      {
+        "question": "What are curly braces {} used for in Java?",
+        "options": [
+          "Comments",
+          "Defining blocks of code — class bodies, method bodies, loops, conditionals",
+          "String literals",
+          "Mathematical grouping"
+        ],
+        "correct": 1,
+        "explanation": "Curly braces define scope boundaries. Variables declared inside a block exist only within that block."
+      },
+      {
+        "question": "What is a statement in Java?",
+        "options": [
+          "A comment",
+          "A complete instruction terminated by a semicolon — an action for the program to execute",
+          "A variable declaration only",
+          "A class definition"
+        ],
+        "correct": 1,
+        "explanation": "A statement is the smallest standalone element — assignments, method calls, declarations. Most statements end with ;."
+      },
+      {
+        "question": "What does System.out refer to?",
+        "options": [
+          "The operating system itself",
+          "A static PrintStream field in System class connected to standard output (console by default)",
+          "A file on disk",
+          "A network socket"
+        ],
+        "correct": 1,
+        "explanation": "out is a public static final field of type PrintStream. It's connected to stdout — the console by default, but can be redirected."
+      },
+      {
+        "question": "What happens during the compilation phase (javac)?",
+        "options": [
+          "The program runs",
+          "Java source code is translated to bytecode (.class file) after syntax/semantic checking",
+          "Bytecode is executed",
+          "Documentation is generated"
+        ],
+        "correct": 1,
+        "explanation": "javac checks syntax, resolves types, and generates .class files containing JVM bytecode. Compilation errors are reported at this stage."
+      },
+      {
+        "question": "What happens during the execution phase (java)?",
+        "options": [
+          "Source code is compiled",
+          "The JVM loads bytecode, verifies it, and executes main()",
+          "IDE opens the file",
+          "Documentation is generated"
+        ],
+        "correct": 1,
+        "explanation": "java launches the JVM, which loads the class, links it, verifies bytecode, and invokes the main() method."
+      },
+      {
+        "question": "What is the difference between a compile-time error and a runtime error?",
+        "options": [
+          "They are the same",
+          "Compile-time errors (syntax, type mismatch) are caught by javac; runtime errors (exceptions) occur during execution",
+          "Runtime errors are always fatal",
+          "Compile-time errors are optional to fix"
+        ],
+        "correct": 1,
+        "explanation": "Compile errors prevent .class creation (syntax, missing imports, type mismatches). Runtime errors (NPE, division by zero, out of bounds) happen during program execution."
+      },
+      {
+        "question": "What does the comment // do in Java?",
+        "options": [
+          "Creates a variable",
+          "Single-line comment — everything after // on that line is ignored by the compiler",
+          "Documents a class",
+          "Imports a package"
+        ],
+        "correct": 1,
+        "explanation": "// starts a single-line comment. /* ... */ encloses multi-line comments. /** ... */ is for javadoc documentation comments."
+      },
+      {
+        "question": "What is a keyword in Java?",
+        "options": [
+          "Any word in a program",
+          "A reserved word with special meaning to the compiler (class, public, static, void, etc.)",
+          "A variable name",
+          "A method name"
+        ],
+        "correct": 1,
+        "explanation": "Keywords (50+) are reserved by the language and cannot be used as identifiers (variable names, method names, class names)."
+      },
+      {
+        "question": "What does 'public' mean on a class declaration?",
+        "options": [
+          "The class contains public methods",
+          "The class is accessible from any other class in any package",
+          "The class is faster",
+          "The class has no private fields"
+        ],
+        "correct": 1,
+        "explanation": "public class means the class is visible to all other classes. A non-public class is only visible within its own package."
+      },
+      {
+        "question": "Can you have multiple println() calls in a program?",
+        "options": [
+          "No, only one per program",
+          "Yes — you can call System.out.println() as many times as needed",
+          "Only in a loop",
+          "Only for Strings"
+        ],
+        "correct": 1,
+        "explanation": "println() can be called unlimited times. Each call outputs its argument followed by a newline."
+      },
+      {
+        "question": "What is whitespace in Java?",
+        "options": [
+          "Error messages",
+          "Spaces, tabs, and newlines — used to separate tokens and format code; ignored by the compiler",
+          "Only spaces",
+          "A type of comment"
+        ],
+        "correct": 1,
+        "explanation": "Whitespace separates tokens. The compiler ignores extra whitespace. Indentation is for human readability, not compiler requirements."
+      },
+      {
+        "question": "Can a Java program have multiple classes in the same .java file?",
+        "options": [
+          "Never",
+          "Yes, but only one can be public and must match the filename",
+          "Only in Java 11+",
+          "Yes, all can be public"
+        ],
+        "correct": 1,
+        "explanation": "Multiple classes per file are allowed, but at most one can be public. The file is named after the public class."
+      },
+      {
+        "question": "What is the difference between source code and bytecode?",
+        "options": [
+          "They are identical",
+          "Source code (.java) is human-readable; bytecode (.class) is platform-neutral JVM instructions",
+          "Bytecode is human-readable",
+          "Source code runs faster"
+        ],
+        "correct": 1,
+        "explanation": "Source code is what you write. Bytecode is what javac produces — compact numeric codes the JVM executes efficiently."
+      },
+      {
+        "question": "What does the JVM's bytecode verifier do?",
+        "options": [
+          "Compile source code",
+          "Check bytecode for safety: valid instructions, correct types, no stack overflow, no illegal access",
+          "Run the program",
+          "Optimize performance"
+        ],
+        "correct": 1,
+        "explanation": "The verifier ensures bytecode is well-formed and safe before execution — preventing crashes and security vulnerabilities from malformed code."
+      },
+      {
+        "question": "What is a class loader in the JVM?",
+        "options": [
+          "A compiler component",
+          "A subsystem that loads .class files into memory, finding bytecode and creating Class objects",
+          "A garbage collector",
+          "A debugging tool"
+        ],
+        "correct": 1,
+        "explanation": "Class loaders find and load class files. The hierarchy (Bootstrap → Platform → Application) provides isolation and security."
+      },
+      {
+        "question": "What is the purpose of the 'package' declaration?",
+        "options": [
+          "It's optional decoration",
+          "To organize classes into namespaces, preventing name conflicts and controlling access",
+          "To declare imports",
+          "To configure the JVM"
+        ],
+        "correct": 1,
+        "explanation": "package com.example.myapp; declares the class's namespace. Classes in different packages can have the same name without conflict."
+      },
+      {
+        "question": "What is the default package?",
+        "options": [
+          "java.lang",
+          "The unnamed package — used when no package is declared (discouraged for production code)",
+          "java.util",
+          "A special system package"
+        ],
+        "correct": 1,
+        "explanation": "Classes without a package declaration belong to the unnamed (default) package. This is fine for learning but not for production."
+      },
+      {
+        "question": "What are escape sequences in Java strings?",
+        "options": [
+          "Comments inside strings",
+          "Special characters represented by backslash codes: \\n (newline), \\t (tab), \\\" (quote), \\\\ (backslash)",
+          "Java keywords",
+          "String methods"
+        ],
+        "correct": 1,
+        "explanation": "Escape sequences allow embedding special characters in string literals. \\n creates a newline, \\t a tab, \\\" a literal double-quote."
+      },
+      {
+        "question": "What is the difference between System.out and System.in?",
+        "options": [
+          "No difference",
+          "System.out writes to standard output; System.in reads from standard input (keyboard by default)",
+          "System.in is deprecated",
+          "System.out is for files only"
+        ],
+        "correct": 1,
+        "explanation": "System.out is an OutputStream for writing. System.in is an InputStream for reading. Both can be redirected."
+      },
+      {
+        "question": "What is the difference between JDK and JVM?",
+        "options": [
+          "They are the same",
+          "JDK is the full development kit; JVM is the runtime engine that executes bytecode",
+          "JVM includes the compiler",
+          "JDK only runs on Windows"
+        ],
+        "correct": 1,
+        "explanation": "JDK = JVM + compiler + tools + libraries. JVM is just the bytecode execution engine."
+      },
+      {
+        "question": "What does the 'classpath' tell Java?",
+        "options": [
+          "Which classes to delete",
+          "Where to find compiled .class files and libraries",
+          "How fast to run",
+          "Which methods to call"
+        ],
+        "correct": 1,
+        "explanation": "The classpath (-cp) tells the JVM and compiler where to look for user-defined classes and third-party libraries."
+      },
+      {
+        "question": "Can a .java file compile without a main method?",
+        "options": [
+          "No",
+          "Yes — any valid class compiles. main() is only needed to run it as an application",
+          "Only abstract classes",
+          "Only interfaces"
+        ],
+        "correct": 1,
+        "explanation": "javac compiles any valid Java class regardless of whether it has main(). The main() method is only needed at execution time."
+      },
+      {
+        "question": "What is a package-private class?",
+        "options": [
+          "A class with no access modifier — visible only within its package",
+          "A class with private modifier",
+          "A deprecated feature",
+          "A class inside a method"
+        ],
+        "correct": 0,
+        "explanation": "Classes without a public modifier are package-private: accessible within the same package but invisible to external code."
+      },
+      {
+        "question": "What are the Java naming conventions for classes vs methods?",
+        "options": [
+          "No conventions",
+          "Classes: PascalCase (MyClass). Methods/variables: camelCase (myMethod, myVariable). Constants: UPPER_SNAKE_CASE (MAX_VALUE)",
+          "All lowercase",
+          "All uppercase"
+        ],
+        "correct": 1,
+        "explanation": "Conventions: PascalCase for types (classes, interfaces, enums), camelCase for methods and variables, UPPER_SNAKE for constants."
+      },
+      {
+        "question": "What does public static void main(String... args) do differently from String[] args?",
+        "options": [
+          "It's a different method",
+          "It's identical — varargs (String...) are syntactic sugar for String[] in this context",
+          "It can't be used as entry point",
+          "It's not valid Java"
+        ],
+        "correct": 1,
+        "explanation": "Both String[] and String... are valid for main()'s parameter. Varargs are sugar for arrays. The JVM accepts both."
+      },
+      {
+        "question": "What happens during the linking phase of class loading?",
+        "options": [
+          "Nothing",
+          "The JVM verifies bytecode, prepares static fields (allocates memory, sets defaults), and resolves symbolic references",
+          "Compilation occurs",
+          "The class is deleted"
+        ],
+        "correct": 1,
+        "explanation": "Linking consists of verification (well-formed bytecode), preparation (allocate static fields), and resolution (resolve symbolic references to concrete addresses)."
+      },
+      {
+        "question": "What is a Java source file's maximum size?",
+        "options": [
+          "1000 lines",
+          "No practical limit — can be megabytes, but best practice is to keep files focused and concise",
+          "100 lines",
+          "500 lines"
+        ],
+        "correct": 1,
+        "explanation": "Java has no hard file size limit. However, clean code practices suggest keeping files focused: one primary class per file, ~200-500 lines max."
+      },
+      {
+        "question": "What is the difference between System.out, System.in, and System.err?",
+        "options": [
+          "They are the same",
+          "out=standard output, in=standard input, err=standard error — three separate streams",
+          "err is deprecated",
+          "in is for files only"
+        ],
+        "correct": 1,
+        "explanation": "Three standard streams: out (normal output), err (error output, unbuffered), in (input from keyboard or redirected source)."
+      },
+      {
+        "question": "What is the purpose of the 'import' statement?",
+        "options": [
+          "Execute code from another file",
+          "Make classes from other packages available without fully qualifying their names",
+          "Copy code into the file",
+          "Create a new package"
+        ],
+        "correct": 1,
+        "explanation": "import allows using short class names instead of fully qualified ones (import java.util.List lets you write List instead of java.util.List)."
       }
     ],
     "codingExercise": {
@@ -654,6 +2040,446 @@ TOPICS = [
         ],
         "correct": 1,
         "explanation": "Decimal literals without a suffix are double by default. Use 'f' suffix for float."
+      },
+      {
+        "question": "What is the size of an int in Java?",
+        "options": [
+          "Platform-dependent",
+          "Always 32 bits (4 bytes)",
+          "16 bits",
+          "64 bits"
+        ],
+        "correct": 1,
+        "explanation": "Java guarantees int is exactly 32 bits on every platform. This is unlike C where int size varies by compiler/architecture."
+      },
+      {
+        "question": "What suffix is required for a long literal?",
+        "options": [
+          "No suffix needed",
+          "L or l (e.g., 10000000000L)",
+          "D or d",
+          "F or f"
+        ],
+        "correct": 1,
+        "explanation": "Integer literals default to int. Values beyond int range need the L suffix: long big = 9_223_372_036_854_775_807L;"
+      },
+      {
+        "question": "What is the result of: double x = 5 / 2; ?",
+        "options": [
+          "2.5",
+          "2.0",
+          "2",
+          "Compile error"
+        ],
+        "correct": 1,
+        "explanation": "5/2 is integer division (both operands are int) = 2. Then 2 is widened to 2.0 for assignment to double. Use 5.0/2 for 2.5."
+      },
+      {
+        "question": "What is autoboxing in Java?",
+        "options": [
+          "Automatic compilation",
+          "Automatic conversion between primitive types and their wrapper classes (int ↔ Integer)",
+          "Automatic formatting",
+          "Automatic memory management"
+        ],
+        "correct": 1,
+        "explanation": "Autoboxing: Java automatically wraps primitives in their wrapper classes and unwraps them as needed. int → Integer, boolean → Boolean."
+      },
+      {
+        "question": "What is the default value of a boolean field?",
+        "options": [
+          "true",
+          "false",
+          "null",
+          "undefined"
+        ],
+        "correct": 1,
+        "explanation": "Boolean fields default to false. Local boolean variables must be explicitly initialized before use."
+      },
+      {
+        "question": "What does 'final' mean for a variable?",
+        "options": [
+          "The variable is public",
+          "The variable can be assigned exactly once — it becomes immutable after initialization",
+          "The variable is static",
+          "The variable is private"
+        ],
+        "correct": 1,
+        "explanation": "final makes a variable unchangeable after its first assignment. final int MAX = 100; MAX = 200; // compile error."
+      },
+      {
+        "question": "What is the difference between float and double?",
+        "options": [
+          "float is bigger",
+          "float is 32-bit (~7 digits precision); double is 64-bit (~15 digits precision)",
+          "No difference in Java",
+          "double doesn't exist in Java"
+        ],
+        "correct": 1,
+        "explanation": "double has twice the precision and is the default for decimal literals. Use float only when memory is constrained (large arrays)."
+      },
+      {
+        "question": "What happens when you divide by zero with integers?",
+        "options": [
+          "Returns Infinity",
+          "Throws ArithmeticException",
+          "Returns 0",
+          "Returns NaN"
+        ],
+        "correct": 1,
+        "explanation": "Integer division by zero throws ArithmeticException. Floating-point division by zero returns Infinity or -Infinity."
+      },
+      {
+        "question": "What is the maximum value of a byte?",
+        "options": [
+          "255",
+          "127",
+          "128",
+          "256"
+        ],
+        "correct": 1,
+        "explanation": "byte is signed 8-bit: -128 to 127. For unsigned 0-255, you'd need to use int and mask with & 0xFF."
+      },
+      {
+        "question": "What is a wrapper class?",
+        "options": [
+          "A design pattern",
+          "An object representation of a primitive type (Integer for int, Double for double, etc.)",
+          "A type of exception",
+          "A file wrapper"
+        ],
+        "correct": 1,
+        "explanation": "Wrapper classes 'box' primitives into objects. Required for generics (List<Integer>, not List<int>) and for null-sentinel values."
+      },
+      {
+        "question": "What is the size of a short in Java?",
+        "options": [
+          "8 bits",
+          "16 bits",
+          "32 bits",
+          "64 bits"
+        ],
+        "correct": 1,
+        "explanation": "short is 16-bit signed integer: -32,768 to 32,767. Rarely used — int is preferred for most purposes."
+      },
+      {
+        "question": "What is the default value of a String field?",
+        "options": [
+          "'' (empty string)",
+          "null",
+          "undefined",
+          "'default'"
+        ],
+        "correct": 1,
+        "explanation": "String is a reference type. All reference fields default to null, not empty string."
+      },
+      {
+        "question": "What is variable scope in Java?",
+        "options": [
+          "The variable's name",
+          "The region of code where a variable is accessible — defined by its enclosing block {}",
+          "The variable's type",
+          "Memory location"
+        ],
+        "correct": 1,
+        "explanation": "A variable declared inside a block {} is only accessible within that block. Method parameters are scoped to the method body."
+      },
+      {
+        "question": "What is type inference with 'var' (Java 10+)?",
+        "options": [
+          "Dynamic typing",
+          "The compiler infers the variable type from the initializer — var name = 'John' infers String",
+          "JavaScript-style typing",
+          "A deprecated feature"
+        ],
+        "correct": 1,
+        "explanation": "var allows omitting the explicit type when it can be inferred: var list = new ArrayList<String>(); // type is ArrayList<String>."
+      },
+      {
+        "question": "What is the size of a boolean in Java?",
+        "options": [
+          "1 bit",
+          "JVM-dependent — typically 1 byte or 4 bytes depending on context",
+          "2 bytes",
+          "8 bytes"
+        ],
+        "correct": 1,
+        "explanation": "The JVM specification doesn't define boolean size precisely. Typically 1 byte individually or 4 bytes in arrays (aligned)."
+      },
+      {
+        "question": "What is the difference between 'int' and 'Integer'?",
+        "options": [
+          "No difference",
+          "int is a primitive (no methods, can't be null); Integer is a wrapper class (object, can be null, has methods)",
+          "Integer is faster",
+          "int is deprecated"
+        ],
+        "correct": 1,
+        "explanation": "int is a primitive type (stack-allocated, no methods). Integer is a reference type (heap-allocated object with utility methods like parseInt(), compare())."
+      },
+      {
+        "question": "What is the result of: Integer.parseInt('123')?",
+        "options": [
+          "The string '123'",
+          "The int value 123",
+          "Compile error",
+          "null"
+        ],
+        "correct": 1,
+        "explanation": "Integer.parseInt() converts a String to int. Throws NumberFormatException if the string is not a valid integer."
+      },
+      {
+        "question": "What is scientific notation in Java?",
+        "options": [
+          "A way to write comments",
+          "A compact way to write very large/small numbers: 1.5e6 = 1,500,000; 2.5e-3 = 0.0025",
+          "A sorting algorithm",
+          "A type of loop"
+        ],
+        "correct": 1,
+        "explanation": "Scientific notation: 6.022e23 (Avogadro's number), 1.6e-19 (electron charge). Useful for scientific and engineering calculations."
+      },
+      {
+        "question": "What is the difference between 'null' and empty string ''?",
+        "options": [
+          "They are the same",
+          "null means no object exists; '' is a valid String object with zero characters",
+          "Empty string throws NullPointerException",
+          "null is for primitives only"
+        ],
+        "correct": 1,
+        "explanation": "null = no object at all. '' = a String object with length 0. Calling .length() on null throws NPE; on '' returns 0."
+      },
+      {
+        "question": "What is the difference between primitive and reference type equality?",
+        "options": [
+          "They're compared the same way",
+          "== compares values for primitives, but compares memory addresses for references",
+          "Reference types can't use ==",
+          "Primitives use .equals()"
+        ],
+        "correct": 1,
+        "explanation": "== on primitives compares actual values. == on references compares whether they point to the same object (not content). Use .equals() for content."
+      },
+      {
+        "question": "What is the purpose of the strictfp keyword?",
+        "options": [
+          "Make code faster",
+          "Ensure floating-point calculations produce identical results across all platforms (IEEE 754 strict mode)",
+          "Prevent overflow",
+          "Enable parallel processing"
+        ],
+        "correct": 1,
+        "explanation": "strictfp forces strict IEEE 754 compliance for floating-point operations, guaranteeing identical results regardless of platform."
+      },
+      {
+        "question": "What is a literal in Java?",
+        "options": [
+          "A type of variable",
+          "A fixed value written directly in code (42, 3.14, 'A', true, 'hello')",
+          "A method call",
+          "An object reference"
+        ],
+        "correct": 1,
+        "explanation": "Literals are explicit constant values in source code. Integer literals (42), floating-point (3.14), character ('A'), boolean (true), string ('hello')."
+      },
+      {
+        "question": "What is the default type for integer literals?",
+        "options": [
+          "byte",
+          "int",
+          "long",
+          "short"
+        ],
+        "correct": 1,
+        "explanation": "Integer literals like 42 are int by default. Use L suffix for long, no suffix needed for byte/short when value fits range."
+      },
+      {
+        "question": "What happens with: byte b = 128; ?",
+        "options": [
+          "b becomes 128",
+          "Compile error: incompatible types — 128 exceeds byte range (-128 to 127)",
+          "b becomes -128",
+          "Runtime exception"
+        ],
+        "correct": 1,
+        "explanation": "128 exceeds byte's range. Compiler rejects it. byte b = (byte)128 would compile but produce -128 due to overflow."
+      },
+      {
+        "question": "What is widening primitive conversion?",
+        "options": [
+          "Converting to a narrower type",
+          "Converting a smaller type to a larger type automatically (int → long → float → double)",
+          "Converting to a wrapper class",
+          "Converting String to int"
+        ],
+        "correct": 1,
+        "explanation": "Widening is safe and automatic: byte→short→int→long→float→double. No data loss. No cast required."
+      },
+      {
+        "question": "What is narrowing primitive conversion?",
+        "options": [
+          "Converting to a wider type",
+          "Converting a larger type to a smaller type — requires explicit cast, may lose data/precision",
+          "Converting to String",
+          "Automatic conversion"
+        ],
+        "correct": 1,
+        "explanation": "Narrowing (double→int, long→short) needs explicit cast and may lose data. (int)3.99 = 3 (truncation, not rounding)."
+      },
+      {
+        "question": "What is the ASCII value of 'A'?",
+        "options": [
+          "32",
+          "65",
+          "97",
+          "48"
+        ],
+        "correct": 1,
+        "explanation": "ASCII: 'A' = 65, 'B' = 66, ..., 'Z' = 90. 'a' = 97. '0' = 48. These values are useful for character arithmetic."
+      },
+      {
+        "question": "How do you convert a char digit to its integer value?",
+        "options": [
+          "(int) c",
+          "c - '0'",
+          "Integer.parseInt(c)",
+          "c.intValue()"
+        ],
+        "correct": 1,
+        "explanation": "char '7' - char '0' = 55 - 48 = 7. This works because ASCII digits are consecutive from 48-57."
+      },
+      {
+        "question": "What is the maximum value of an int?",
+        "options": [
+          "2^31",
+          "2^31 - 1 = 2,147,483,647",
+          "2^32 - 1",
+          "2^63 - 1"
+        ],
+        "correct": 1,
+        "explanation": "int is 32-bit signed: Integer.MAX_VALUE = 2^31-1 = 2,147,483,647. Integer.MIN_VALUE = -2^31 = -2,147,483,648."
+      },
+      {
+        "question": "What is the minimum value of an int?",
+        "options": [
+          "0",
+          "-2,147,483,648",
+          "-2,147,483,647",
+          "-1"
+        ],
+        "correct": 1,
+        "explanation": "Integer.MIN_VALUE = -2^31 = -2,147,483,648. Due to two's complement, there's one more negative value than positive."
+      },
+      {
+        "question": "What is the result of: Integer.MAX_VALUE + 1?",
+        "options": [
+          "ArithmeticException",
+          "Integer.MIN_VALUE (overflow wraps around)",
+          "Integer.MAX_VALUE",
+          "0"
+        ],
+        "correct": 1,
+        "explanation": "Java integer overflow silently wraps: MAX_VALUE + 1 = MIN_VALUE. Use Math.addExact() to throw on overflow."
+      },
+      {
+        "question": "What is the result of Math.abs(Integer.MIN_VALUE)?",
+        "options": [
+          "2,147,483,648",
+          "-2,147,483,648 (returns the same negative value!)",
+          "2,147,483,647",
+          "0"
+        ],
+        "correct": 1,
+        "explanation": "Math.abs(Integer.MIN_VALUE) returns MIN_VALUE itself — there is no positive 2,147,483,648 in int range. A notorious edge case."
+      },
+      {
+        "question": "What does Double.NaN represent?",
+        "options": [
+          "Zero",
+          "Not a Number — result of undefined operations like 0.0/0.0 or sqrt(-1)",
+          "Infinity",
+          "Maximum double value"
+        ],
+        "correct": 1,
+        "explanation": "NaN = Not a Number. Produced by mathematically undefined operations. NaN != NaN is true — use Double.isNaN() to check."
+      },
+      {
+        "question": "What does Double.POSITIVE_INFINITY represent?",
+        "options": [
+          "A very large number",
+          "Result of division by zero in floating-point (1.0/0.0 = Infinity)",
+          "Maximum double value",
+          "An error"
+        ],
+        "correct": 1,
+        "explanation": "Floating-point division by zero returns Infinity, not an exception (unlike integer division). 1.0/0.0 = POSITIVE_INFINITY."
+      },
+      {
+        "question": "What is the difference between float and Float?",
+        "options": [
+          "No difference",
+          "float is primitive (32-bit); Float is the wrapper class with utility methods (parseFloat, isNaN, compare)",
+          "Float doesn't exist",
+          "float is deprecated"
+        ],
+        "correct": 1,
+        "explanation": "float is the primitive type. Float is the wrapper class providing parsing, comparison, and constants (Float.MAX_VALUE, Float.NaN)."
+      },
+      {
+        "question": "What are underscores in numeric literals? (int x = 1_000_000;)",
+        "options": [
+          "Syntax error",
+          "Readability feature — underscores are ignored by compiler, making large numbers easier to read",
+          "Decimal separators",
+          "Bitwise operators"
+        ],
+        "correct": 1,
+        "explanation": "Underscores in numbers are pure sugar for human readability: 1_000_000 = 1000000, 0b1010_0101 = binary with groups."
+      },
+      {
+        "question": "What is a compile-time constant in Java?",
+        "options": [
+          "Any final variable",
+          "A static final variable initialized with a compile-time constant expression",
+          "Any variable",
+          "A runtime value"
+        ],
+        "correct": 1,
+        "explanation": "Compile-time constants: static final fields initialized with literals or constant expressions. Inlined by compiler. static final int MAX = 100;"
+      },
+      {
+        "question": "What happens with: double d = 0.1 + 0.2; System.out.println(d == 0.3);?",
+        "options": [
+          "true",
+          "false — 0.1+0.2 = 0.30000000000000004 due to binary floating-point",
+          "Compile error",
+          "Runtime exception"
+        ],
+        "correct": 1,
+        "explanation": "0.1 and 0.2 can't be exactly represented in binary IEEE 754. The sum is slightly more than 0.3. Never use == with floating-point."
+      },
+      {
+        "question": "What is the solution to floating-point comparison issues?",
+        "options": [
+          "Always use ==",
+          "Check if absolute difference is less than a tiny epsilon: Math.abs(a-b) < 0.000001",
+          "Use int instead",
+          "Floating-point can't be compared"
+        ],
+        "correct": 1,
+        "explanation": "Use epsilon comparison: Math.abs(a - b) < 1e-9. Or use BigDecimal for exact decimal arithmetic (financial calculations)."
+      },
+      {
+        "question": "What are the 8 primitive types in Java?",
+        "options": [
+          "int, float, double, boolean, String, char, byte, long",
+          "byte, short, int, long, float, double, char, boolean",
+          "Integer, Float, Double, Boolean, Character, Byte, Short, Long",
+          "int, float, double, bool, char, byte, long, short"
+        ],
+        "correct": 1,
+        "explanation": "The 8 primitives: byte, short, int, long (integers); float, double (floating-point); char (character); boolean (true/false). String is NOT a primitive."
       }
     ],
     "codingExercise": {
@@ -828,6 +2654,435 @@ TOPICS = [
         ],
         "correct": 2,
         "explanation": "The ternary operator: condition (10 > 5 = true) returns the first value 'A'."
+      },
+      {
+        "question": "What is the result of: 10 % 3?",
+        "options": [
+          "3",
+          "1",
+          "0",
+          "3.33"
+        ],
+        "correct": 1,
+        "explanation": "10 % 3 = 1. The remainder when 10 is divided by 3: 3×3=9, remainder 1."
+      },
+      {
+        "question": "What is the result of: -10 % 3 in Java?",
+        "options": [
+          "1",
+          "-1",
+          "2",
+          "-2"
+        ],
+        "correct": 1,
+        "explanation": "Java's % is remainder, not modulo. Result has same sign as dividend: -10 % 3 = -1. For mathematical modulo, use Math.floorMod(-10, 3) = 2."
+      },
+      {
+        "question": "What is the precedence of && compared to ||?",
+        "options": [
+          "|| is higher",
+          "&& is higher — like * over +",
+          "Same precedence",
+          "Depends on context"
+        ],
+        "correct": 1,
+        "explanation": "&& (AND) has higher precedence than || (OR): a || b && c = a || (b && c). Use parentheses to make intent explicit."
+      },
+      {
+        "question": "What is the result of: int x = 5; System.out.println(++x);?",
+        "options": [
+          "5",
+          "6",
+          "4",
+          "Compile error"
+        ],
+        "correct": 1,
+        "explanation": "Prefix increment (++x): increment first, then use value. Output: 6. Postfix (x++): use value first (5), then increment."
+      },
+      {
+        "question": "What is the result of: int x = 5; int y = x++ + ++x;?",
+        "options": [
+          "11",
+          "12",
+          "10",
+          "13"
+        ],
+        "correct": 1,
+        "explanation": "x++ returns 5 (x becomes 6). ++x increments to 7, returns 7. 5+7=12. Avoid mixing increments in expressions — it's confusing."
+      },
+      {
+        "question": "What does the instanceof operator do?",
+        "options": [
+          "Compares strings",
+          "Checks if an object is an instance of a specific class or interface",
+          "Creates a new object",
+          "Compares integers"
+        ],
+        "correct": 1,
+        "explanation": "obj instanceof String returns true if obj is a String (or subclass). Used for type checking before casting."
+      },
+      {
+        "question": "What is the difference between & and &&?",
+        "options": [
+          "No difference",
+          "& always evaluates both operands (bitwise/logical); && short-circuits (stops if left is false)",
+          "&& is for integers only",
+          "& is deprecated"
+        ],
+        "correct": 1,
+        "explanation": "&& is short-circuit logical AND. & when used with booleans evaluates both sides. & with integers performs bitwise AND."
+      },
+      {
+        "question": "What does the |= operator do?",
+        "options": [
+          "Bitwise OR assignment: x |= y same as x = x | y",
+          "No such operator",
+          "Equality check",
+          "Logical OR only"
+        ],
+        "correct": 0,
+        "explanation": "|= is compound bitwise OR assignment. Similarly, &=, ^=, <<=, >>=, >>>= all exist."
+      },
+      {
+        "question": "What is the shift operator >> vs >>>?",
+        "options": [
+          "No difference",
+          ">> is arithmetic right shift (preserves sign); >>> is logical right shift (fills with zeros)",
+          "<< doesn't exist",
+          ">>> is deprecated"
+        ],
+        "correct": 1,
+        "explanation": ">> fills with sign bit (preserving negative numbers). >>> fills with zero regardless of sign. << always fills with zero on right."
+      },
+      {
+        "question": "What is the result of: 8 >> 2?",
+        "options": [
+          "4",
+          "2",
+          "16",
+          "32"
+        ],
+        "correct": 1,
+        "explanation": "8 in binary: 1000. Right shift by 2: 0010 = 2. Right shift is equivalent to division by 2^n (integer division)."
+      },
+      {
+        "question": "What is the result of: 2 << 3?",
+        "options": [
+          "6",
+          "8",
+          "16",
+          "4"
+        ],
+        "correct": 2,
+        "explanation": "2 in binary: 0010. Left shift by 3: 0001 0000 = 16. Left shift is equivalent to multiplication by 2^n: 2 × 2³ = 16."
+      },
+      {
+        "question": "What does the ~ operator do?",
+        "options": [
+          "No such operator",
+          "Bitwise NOT — flips all bits",
+          "Approximately equal",
+          "Negates a number"
+        ],
+        "correct": 1,
+        "explanation": "~ is bitwise complement: ~0 = -1 (all bits set to 1). ~n = -(n+1) in two's complement. ~5 = -6."
+      },
+      {
+        "question": "What does the ^ operator do with booleans?",
+        "options": [
+          "Power operation",
+          "Logical XOR — true if operands differ (one true, one false)",
+          "AND operation",
+          "No such operator for booleans"
+        ],
+        "correct": 1,
+        "explanation": "^ is XOR: true ^ true = false, true ^ false = true, false ^ true = true, false ^ false = false."
+      },
+      {
+        "question": "What is operator associativity?",
+        "options": [
+          "Which operators work together",
+          "The direction expressions are evaluated: left-to-right (most) or right-to-left (assignment, unary)",
+          "How operators are named",
+          "Operator overloading"
+        ],
+        "correct": 1,
+        "explanation": "Most operators are left-associative (a+b+c = (a+b)+c). Assignment and unary are right-associative (a=b=c = a=(b=c))."
+      },
+      {
+        "question": "What is the result of: int a = 10; a += a = 5;?",
+        "options": [
+          "15",
+          "15 or 20 depending on evaluation",
+          "Don't write this code — it's undefined behavior in Java",
+          "10"
+        ],
+        "correct": 2,
+        "explanation": "While Java evaluates left-to-right, expressions that both read and assign the same variable are confusing. Avoid them. Use clear, separate statements."
+      },
+      {
+        "question": "What is the dot (.) operator used for?",
+        "options": [
+          "Multiplication",
+          "Member access — accessing fields and methods of an object/class",
+          "String concatenation",
+          "No such use"
+        ],
+        "correct": 1,
+        "explanation": "The dot operator accesses members: object.method(), Class.staticMethod(), object.field. It's the highest-precedence operator."
+      },
+      {
+        "question": "What does the new keyword do in combination with operators?",
+        "options": [
+          "Nothing related",
+          "new creates objects; it's technically an operator with high precedence",
+          "new is not an operator",
+          "new only works with +"
+        ],
+        "correct": 1,
+        "explanation": "new is classified as an operator in Java, with very high precedence. new String('hello').toUpperCase() — new binds before method call."
+      },
+      {
+        "question": "What is the typeof operator equivalent in Java?",
+        "options": [
+          "typeof(x)",
+          "getClass() method",
+          "instanceof operator",
+          "There is no typeof in Java"
+        ],
+        "correct": 2,
+        "explanation": "Java doesn't have typeof like JavaScript. Use instanceof for type checking or getClass() for exact class: obj.getClass().getName()."
+      },
+      {
+        "question": "What is the result of: 'a' + 1?",
+        "options": [
+          "'b'",
+          "98",
+          "'a1'",
+          "Compile error"
+        ],
+        "correct": 1,
+        "explanation": "char + int promotes char to int (the Unicode value). 'a' = 97, so 97+1=98. To get 'b', cast: (char)('a'+1)."
+      },
+      {
+        "question": "What is the result of: 1 + 2 + '3' + 4?",
+        "options": [
+          "334",
+          "334 (1+2=3, 3+'3'='33', '33'+4='334')",
+          "10",
+          "1234"
+        ],
+        "correct": 1,
+        "explanation": "Evaluation left-to-right: 1+2=3 (int), 3+'3'='33' (String, when + has one String operand), '33'+4='334'."
+      },
+      {
+        "question": "What is the result of: '3' + 4 + 1?",
+        "options": [
+          "341",
+          "8",
+          "'341'",
+          "35"
+        ],
+        "correct": 0,
+        "explanation": "Left-to-right: '3'+4='34' (String), '34'+1='341' (String). First + with a String makes everything after String concatenation."
+      },
+      {
+        "question": "What does the ternary operator return when the condition is false?",
+        "options": [
+          "The condition",
+          "The value after the colon (:)",
+          "null",
+          "0"
+        ],
+        "correct": 1,
+        "explanation": "condition ? valueIfTrue : valueIfFalse. If condition is false, the expression after : is evaluated and returned."
+      },
+      {
+        "question": "What is type of: (x > 5) ? 1 : 2.0?",
+        "options": [
+          "int",
+          "double",
+          "Compile error",
+          "Object"
+        ],
+        "correct": 1,
+        "explanation": "The ternary promotes both branches to the wider type. 1 (int) and 2.0 (double) → result type is double."
+      },
+      {
+        "question": "What does the ++ operator do when used on a char?",
+        "options": [
+          "Nothing",
+          "Increments to the next Unicode character: 'A'++ → 'B'",
+          "Compile error",
+          "Converts to int"
+        ],
+        "correct": 1,
+        "explanation": "char++ increments the Unicode code point: 'A' (65) becomes 'B' (66). Works because char is an unsigned 16-bit numeric type."
+      },
+      {
+        "question": "What does the 'new' operator return?",
+        "options": [
+          "void",
+          "A reference (memory address) to the newly created object",
+          "The object itself (not a reference)",
+          "null"
+        ],
+        "correct": 1,
+        "explanation": "new allocates heap memory, calls constructor, and returns a reference pointing to the new object."
+      },
+      {
+        "question": "What is short-circuit evaluation?",
+        "options": [
+          "A faster compiler",
+          "When the result is determined by the left operand, the right operand is never evaluated",
+          "Integer overflow",
+          "Memory optimization"
+        ],
+        "correct": 1,
+        "explanation": "false && anything() — anything() is never called. true || anything() — anything() is never called. Prevents side effects and saves computation."
+      },
+      {
+        "question": "Which operators have the lowest precedence?",
+        "options": [
+          "Unary (++ -- !)",
+          "Assignment (= += -= etc.)",
+          "Multiplicative (* / %)",
+          "Relational (< >)"
+        ],
+        "correct": 1,
+        "explanation": "Assignment operators have the lowest precedence. This is why a = b + c works — + is evaluated before =."
+      },
+      {
+        "question": "What is the result of: boolean b = true; b &= false; ?",
+        "options": [
+          "true",
+          "false",
+          "Compile error",
+          "No such operator"
+        ],
+        "correct": 1,
+        "explanation": "&= works with booleans: b = b & false = false. Unlike &&, & doesn't short-circuit."
+      },
+      {
+        "question": "What is the use of parentheses in expressions?",
+        "options": [
+          "Only for method calls",
+          "Override default operator precedence to make evaluation order explicit",
+          "They have no effect",
+          "Only for grouping numbers"
+        ],
+        "correct": 1,
+        "explanation": "Parentheses explicitly control evaluation order: (a+b)*c vs a+b*c. When in doubt, add parentheses. They cost nothing and prevent bugs."
+      },
+      {
+        "question": "What does the ? operator do in Java?",
+        "options": [
+          "Null check",
+          "Ternary conditional: condition ? valueIfTrue : valueIfFalse",
+          "Pattern matching",
+          "Type query"
+        ],
+        "correct": 1,
+        "explanation": "? is part of the ternary operator (?:). It evaluates a condition and returns one of two values."
+      },
+      {
+        "question": "What is the difference between ++i and i++?",
+        "options": [
+          "No difference",
+          "++i increments first then returns; i++ returns first then increments",
+          "i++ is faster",
+          "++i doesn't exist"
+        ],
+        "correct": 1,
+        "explanation": "Prefix (++i): increment, then use value. Postfix (i++): use current value, then increment. Only matters when using the return value."
+      },
+      {
+        "question": "What is the concatenation rule for + with Strings?",
+        "options": [
+          "+ only works with Strings",
+          "If either operand is a String, + performs string concatenation (converting the other to String)",
+          "+ is only for numbers",
+          "String + int throws error"
+        ],
+        "correct": 1,
+        "explanation": "When one operand of + is a String, Java converts the other to String via toString() and concatenates them."
+      },
+      {
+        "question": "What does the ! operator do?",
+        "options": [
+          "Bitwise NOT",
+          "Logical NOT — flips true to false and false to true",
+          "No such operator in Java",
+          "Factorial calculation"
+        ],
+        "correct": 1,
+        "explanation": "! is logical negation: !true = false, !false = true. !(x > 5) is equivalent to x <= 5 (De Morgan's law)."
+      },
+      {
+        "question": "What is a unary operator?",
+        "options": [
+          "Operator with two operands",
+          "Operator taking a single operand (++, --, +, -, !, ~)",
+          "Operator with three operands",
+          "A deprecated operator"
+        ],
+        "correct": 1,
+        "explanation": "Unary operators work on one operand: -x (negation), !flag (NOT), ++i (increment), --i (decrement), ~bits (complement)."
+      },
+      {
+        "question": "What is a binary operator?",
+        "options": [
+          "Operator for binary numbers",
+          "Operator taking two operands (+, -, *, /, %, &&, ||, ==, <, >, etc.)",
+          "Operator for bits",
+          "A deprecated term"
+        ],
+        "correct": 1,
+        "explanation": "Binary operators work on two operands: a+b, a-b, a*b, a/b, a%b, a==b, a&&b. Most Java operators are binary."
+      },
+      {
+        "question": "What is the only ternary operator in Java?",
+        "options": [
+          "+++",
+          "?: (conditional operator)",
+          "===",
+          "* *"
+        ],
+        "correct": 1,
+        "explanation": "?: is the only ternary (3-operand) operator in Java: condition ? valueIfTrue : valueIfFalse."
+      },
+      {
+        "question": "What is the difference between 'a' and 'a' in Java?",
+        "options": [
+          "No difference",
+          "'a' is a char (single quotes); 'a' is a String (double quotes)",
+          "'a' doesn't compile",
+          "'a' is an int"
+        ],
+        "correct": 1,
+        "explanation": "Single quotes = char literal (one character). Double quotes = String literal (can be empty, one char, or many chars). char c = 'A'; String s = 'A';"
+      },
+      {
+        "question": "What does the comma operator do in a for loop?",
+        "options": [
+          "No special behavior",
+          "Allows multiple initialization/update expressions: for(int i=0, j=n-1; ...; i++, j--)",
+          "Creates tuples",
+          "Comma operator doesn't exist in Java"
+        ],
+        "correct": 1,
+        "explanation": "In for-loop headers, comma separates multiple expressions in init and update sections. Not a general comma operator like C."
+      },
+      {
+        "question": "What is the result of: System.out.println(10 > 5 > 1);?",
+        "options": [
+          "true",
+          "Compile error",
+          "false",
+          "true then false"
+        ],
+        "correct": 1,
+        "explanation": "10 > 5 evaluates to true (boolean). Then true > 1 is a compile error — can't compare boolean with int. Unlike Python/JS where this chains."
       }
     ],
     "codingExercise": {
@@ -976,6 +3231,457 @@ TOPICS = [
         ],
         "correct": 1,
         "explanation": "Braces prevent the dangling-else problem and make it safe to add more lines to a conditional block later."
+      },
+      {
+        "question": "What is the correct syntax for an if statement?",
+        "options": [
+          "if x > 0 then { }",
+          "if (x > 0) { }",
+          "if [x > 0] { }",
+          "if {x > 0} { }"
+        ],
+        "correct": 1,
+        "explanation": "Java syntax: if (condition) { statements }. Parentheses around condition are required; braces around body are strongly recommended."
+      },
+      {
+        "question": "What happens if you omit the else block?",
+        "options": [
+          "Compile error",
+          "Nothing — the if statement without else simply does nothing when the condition is false",
+          "Runtime exception",
+          "The program crashes"
+        ],
+        "correct": 1,
+        "explanation": "else is optional. If the condition is false and there's no else, execution simply continues after the if block."
+      },
+      {
+        "question": "What is a nested if statement?",
+        "options": [
+          "A bug",
+          "An if statement inside another if or else block",
+          "A deprecated feature",
+          "A loop with if"
+        ],
+        "correct": 1,
+        "explanation": "Nested ifs: if (a) { if (b) { ... } }. Deep nesting reduces readability — consider extracting methods or using guard clauses."
+      },
+      {
+        "question": "What is the switch expression syntax introduced in Java 14?",
+        "options": [
+          "switch (x) { case 1: return 'A'; }",
+          "var result = switch (x) { case 1 -> 'A'; case 2 -> 'B'; default -> 'C'; };",
+          "No such feature",
+          "switch { 1 => 'A' }"
+        ],
+        "correct": 1,
+        "explanation": "Arrow switch expression: returns a value, uses -> syntax, no fall-through, compiler checks exhaustiveness. Requires semicolon after closing brace."
+      },
+      {
+        "question": "What happens if multiple switch cases match?",
+        "options": [
+          "All matching cases execute",
+          "Only the first matching case executes — cases are evaluated top-to-bottom",
+          "Compile error",
+          "Random case chosen"
+        ],
+        "correct": 1,
+        "explanation": "Cases are checked in order. The first match wins. After execution, break or arrow prevents fall-through to subsequent cases."
+      },
+      {
+        "question": "What is the purpose of the 'default' case in a switch?",
+        "options": [
+          "It's optional decoration",
+          "It handles any value not matched by explicit cases — acts as a catch-all",
+          "It's the first case to execute",
+          "It's required by compiler"
+        ],
+        "correct": 1,
+        "explanation": "default matches when no case does. Without default and no match, the entire switch is skipped. Best practice: always include default."
+      },
+      {
+        "question": "What is a guard clause?",
+        "options": [
+          "A switch case with conditions",
+          "An early return/throw at the start of a method that handles edge cases first, reducing nesting",
+          "A type of exception",
+          "A security check"
+        ],
+        "correct": 1,
+        "explanation": "Guard clauses exit early on invalid/special cases: if (input == null) return; This avoids deep nesting and improves readability."
+      },
+      {
+        "question": "Can you use strings in a switch statement (Java 7+)?",
+        "options": [
+          "No",
+          "Yes — switch works with String values since Java 7",
+          "Only in Java 17+",
+          "Only with if-else"
+        ],
+        "correct": 1,
+        "explanation": "Java 7+ supports String in switch. The compiler generates efficient bytecode using hashCode() and equals() behind the scenes."
+      },
+      {
+        "question": "What is a boolean expression?",
+        "options": [
+          "A string that equals 'true'",
+          "An expression that evaluates to true or false",
+          "Any expression",
+          "A numeric expression"
+        ],
+        "correct": 1,
+        "explanation": "Boolean expressions produce boolean results: comparisons (x > 5), logical combinations (a && b), method calls returning boolean."
+      },
+      {
+        "question": "What does this output: int x = 5; if (x = 10) System.out.println(x); ?",
+        "options": [
+          "10",
+          "Compile error — x=10 is an int assignment, not a boolean",
+          "5",
+          "Runtime error"
+        ],
+        "correct": 1,
+        "explanation": "Unlike C, Java requires a boolean condition. x=10 is an int expression (value 10), not boolean. The compiler rejects this."
+      },
+      {
+        "question": "What is an 'else if' technically in Java?",
+        "options": [
+          "A separate keyword",
+          "An else block containing another if statement — nested if in else",
+          "A special syntax",
+          "A deprecated pattern"
+        ],
+        "correct": 1,
+        "explanation": "else if is just: if (a) {...} else { if (b) {...} }. The braces are implicit. It's syntactic sugar for nested if inside else."
+      },
+      {
+        "question": "What is the purpose of curly braces in control flow?",
+        "options": [
+          "Decoration only",
+          "They group multiple statements into a single block — without braces, only the first statement after if/else/for/while is controlled",
+          "They improve performance",
+          "They are optional in all cases"
+        ],
+        "correct": 1,
+        "explanation": "Without braces, only the immediately following statement is part of the control flow. Braces make the block explicit. Always use them."
+      },
+      {
+        "question": "What is a truth table used for?",
+        "options": [
+          "Database design",
+          "Understanding how logical operators (AND, OR, NOT, XOR) behave for all input combinations",
+          "Performance analysis",
+          "Debug output"
+        ],
+        "correct": 1,
+        "explanation": "Truth tables enumerate all possible boolean inputs and show the result of logical operations. Essential for understanding complex conditions."
+      },
+      {
+        "question": "What does the 'yield' keyword do in switch expressions (Java 14+)?",
+        "options": [
+          "Return a value from the enclosing method",
+          "Return a value from a case block in a switch expression when using colon syntax",
+          "Pause execution",
+          "No such keyword"
+        ],
+        "correct": 1,
+        "explanation": "yield returns a value from a switch expression case block when not using arrow syntax: case 1: yield 'A'; Equivalent to -> 'A'."
+      },
+      {
+        "question": "What happens with: if (true) int x = 5; ?",
+        "options": [
+          "x is set to 5",
+          "Compile error — variable declaration without braces is not a valid single statement under if",
+          "Runtime error",
+          "x = 5"
+        ],
+        "correct": 1,
+        "explanation": "A variable declaration without braces isn't a valid standalone statement under if. Use braces: if (true) { int x = 5; }"
+      },
+      {
+        "question": "What is a conditional expression's type when branches have different types?",
+        "options": [
+          "Always Object",
+          "The most specific common supertype of both branches",
+          "Always the first branch's type",
+          "Compile error"
+        ],
+        "correct": 1,
+        "explanation": "The compiler finds the common supertype: (condition ? 1 : 2.0) → double (int widens to double). (condition ? 1 : 'hello') → Serializable & Comparable (common supertypes)."
+      },
+      {
+        "question": "What are De Morgan's Laws in boolean logic?",
+        "options": [
+          "!(a && b) == !a || !b and !(a || b) == !a && !b",
+          "No such concept in Java",
+          "a && b == a || b",
+          "Only for bitwise operations"
+        ],
+        "correct": 0,
+        "explanation": "De Morgan's: !(a && b) = !a || !b; !(a || b) = !a && !b. Useful for simplifying complex boolean expressions."
+      },
+      {
+        "question": "What is the difference between == and equals() for enums?",
+        "options": [
+          "No difference",
+          "For enums, == and equals() behave identically — each enum constant is a singleton",
+          "equals() doesn't work on enums",
+          "== is faster"
+        ],
+        "correct": 1,
+        "explanation": "Enums are singletons. == works correctly for enum comparison because each constant is a single instance. equals() also works (it calls == internally)."
+      },
+      {
+        "question": "What is a 'switch on enum' advantage?",
+        "options": [
+          "No advantage",
+          "Compiler checks that all enum values are covered (exhaustiveness check), catching missing cases at compile time",
+          "It runs faster",
+          "Enums can't be used in switch"
+        ],
+        "correct": 1,
+        "explanation": "Switch on enum provides compile-time exhaustiveness checking. If you add a new enum value, the compiler flags switch statements that don't handle it."
+      },
+      {
+        "question": "What does the @SuppressWarnings('fallthrough') annotation do?",
+        "options": [
+          "Nothing",
+          "Suppresses compiler warnings when intentional fall-through is used in a switch case",
+          "Prevents fall-through",
+          "Forces break"
+        ],
+        "correct": 1,
+        "explanation": "When you intentionally use fall-through, add @SuppressWarnings('fallthrough') with a comment explaining WHY. Prevents noisy warnings."
+      },
+      {
+        "question": "What is the difference between if-else-if ladder and switch?",
+        "options": [
+          "No difference",
+          "switch is optimized for equality on a single variable; if-else-if handles complex, unrelated conditions",
+          "if-else is obsolete",
+          "switch works only with integers"
+        ],
+        "correct": 1,
+        "explanation": "switch works well for discrete value matching. if-else-if handles ranges, complex conditions, different variables. Choose based on clarity."
+      },
+      {
+        "question": "What does 'fall-through' mean in a traditional switch?",
+        "options": [
+          "The program crashes",
+          "Execution continues into the next case because break was omitted",
+          "A compiler error",
+          "The default case executes"
+        ],
+        "correct": 1,
+        "explanation": "Without break, execution falls through to the next case. Sometimes intentional (multiple cases sharing code), but usually a bug."
+      },
+      {
+        "question": "What is the purpose of the assert statement?",
+        "options": [
+          "Production error handling",
+          "Validate assumptions during development/testing — throws AssertionError if condition is false",
+          "Type checking",
+          "Performance optimization"
+        ],
+        "correct": 1,
+        "explanation": "assert condition : message; validates invariants. Disabled at runtime by default. Enable with java -ea. Not for production error handling."
+      },
+      {
+        "question": "How can you exit a method early without throwing an exception?",
+        "options": [
+          "You can't",
+          "Use the return statement — even in void methods, return; exits immediately",
+          "Use break",
+          "Use continue"
+        ],
+        "correct": 1,
+        "explanation": "return exits the method immediately. In void methods: if (invalid) return; skips remaining logic. Cleaner than deep nesting."
+      },
+      {
+        "question": "What is cyclomatic complexity?",
+        "options": [
+          "Number of files",
+          "A metric measuring code complexity based on the number of decision points (if, switch, loops)",
+          "Lines of code",
+          "Compile time"
+        ],
+        "correct": 1,
+        "explanation": "Cyclomatic complexity counts independent paths through code. High complexity (>10) suggests the method should be split into smaller pieces."
+      },
+      {
+        "question": "What does the 'case null ->' syntax do in modern switch?",
+        "options": [
+          "Nothing special",
+          "Directly handles null values in switch — previously switch threw NPE on null",
+          "Compile error",
+          "Creates a null object"
+        ],
+        "correct": 1,
+        "explanation": "Java 17+ allows case null -> in switch, eliminating the need for a separate null check before the switch statement."
+      },
+      {
+        "question": "What is pattern matching for switch (Java 17+ preview, 21 final)?",
+        "options": [
+          "Regular expression matching",
+          "Matching by object type and destructuring in case labels: case String s -> process(s)",
+          "Bit pattern matching",
+          "No such feature"
+        ],
+        "correct": 1,
+        "explanation": "Pattern matching in switch enables type-based cases with destructuring. Reduces instanceof-and-cast boilerplate dramatically."
+      },
+      {
+        "question": "What is a branch predictor in CPU context?",
+        "options": [
+          "A compiler optimization",
+          "Hardware that guesses which way a conditional branch will go, enabling speculative execution",
+          "A debugging tool",
+          "A type of loop"
+        ],
+        "correct": 1,
+        "explanation": "Modern CPUs predict branch direction (~95%+ accurate). Mispredictions are expensive (pipeline flush). Predictable branches (sorted data) are faster."
+      },
+      {
+        "question": "What is the difference between 'else if' and two separate 'if' statements?",
+        "options": [
+          "No difference",
+          "else if is exclusive — only one branch executes. Two separate ifs can both execute",
+          "Two ifs are faster",
+          "else if is deprecated"
+        ],
+        "correct": 1,
+        "explanation": "if+else if ensures mutual exclusion. if+if checks both conditions independently — both can be true and both branches execute."
+      },
+      {
+        "question": "What is a state machine?",
+        "options": [
+          "A type of computer",
+          "A design pattern modeling system states and transitions between them — often implemented with switch or enums",
+          "A database",
+          "A loop pattern"
+        ],
+        "correct": 1,
+        "explanation": "State machines model systems with discrete states (Order: PENDING→SHIPPED→DELIVERED). Often implemented with enums + switch for clean transition logic."
+      },
+      {
+        "question": "What is a conditional breakpoint in a debugger?",
+        "options": [
+          "A normal breakpoint",
+          "A breakpoint that only pauses when a specified condition is true — avoids stopping on every iteration",
+          "A bug",
+          "A type of exception"
+        ],
+        "correct": 1,
+        "explanation": "Conditional breakpoints evaluate an expression each time. Only suspend when true. Essential for debugging loops and frequently-called methods."
+      },
+      {
+        "question": "What is the difference between 'if' and 'while'?",
+        "options": [
+          "No difference",
+          "if executes 0 or 1 time; while executes 0 or more times",
+          "while is faster",
+          "if is for loops"
+        ],
+        "correct": 1,
+        "explanation": "if tests once and branches once. while tests repeatedly and loops. The condition syntax is identical but the behavior is fundamentally different."
+      },
+      {
+        "question": "What is a short-circuit evaluation example with ||?",
+        "options": [
+          "false || true returns false",
+          "true || expensiveCall() — expensiveCall() is NEVER executed",
+          "|| always evaluates both sides",
+          "|| only works with booleans"
+        ],
+        "correct": 1,
+        "explanation": "With ||, if left operand is true, the result is true regardless of right. The right side is skipped (short-circuited)."
+      },
+      {
+        "question": "What is the difference between break and return inside a loop?",
+        "options": [
+          "No difference",
+          "break exits only the loop; return exits the entire method",
+          "return only works in void methods",
+          "break exits the program"
+        ],
+        "correct": 1,
+        "explanation": "break = exit loop. return = exit method entirely. Use return when the method's job is done (found what you're looking for)."
+      },
+      {
+        "question": "What is a code smell related to deeply nested if statements?",
+        "options": [
+          "It's fine",
+          "Arrow anti-pattern — deeply nested conditionals that look like an arrow pointing right. Extract methods or use guard clauses.",
+          "It improves performance",
+          "It's required by style guides"
+        ],
+        "correct": 1,
+        "explanation": "Deep nesting (>3 levels) is a code smell. Refactor with guard clauses (early returns), extract methods, or use polymorphism/strategy pattern."
+      },
+      {
+        "question": "What does this code do: switch(0) { default: System.out.print('A'); case 0: System.out.print('B'); }?",
+        "options": [
+          "Prints 'A'",
+          "Prints 'BA' — default executes first (at top), then falls through to case 0",
+          "Prints 'AB'",
+          "Compile error"
+        ],
+        "correct": 1,
+        "explanation": "default doesn't have to be last. Case 0 matches, falls through from default (no break). Prints 'BA'. Unusual but valid."
+      },
+      {
+        "question": "What is the purpose of 'do { ... } while(condition);' semicolon?",
+        "options": [
+          "No purpose",
+          "Required syntax — the semicolon terminates the do-while statement",
+          "Optional decoration",
+          "It's a bug"
+        ],
+        "correct": 1,
+        "explanation": "Unlike other block statements, do-while requires a semicolon after while(condition). Forgetting it is a common syntax error."
+      },
+      {
+        "question": "What is a ternary operator chaining issue?",
+        "options": [
+          "It's always fine",
+          "Nested ternaries (a?b:c?d:e) are extremely hard to read. Prefer if-else for anything beyond simple single-level ternary.",
+          "It causes compile errors",
+          "It improves speed"
+        ],
+        "correct": 1,
+        "explanation": "One level of ternary is great for simple value selection. Nesting ternaries creates unreadable code. if-else is clearer for complex logic."
+      },
+      {
+        "question": "What is the difference between 'x = 5' and 'x == 5' in Java?",
+        "options": [
+          "No difference in conditions",
+          "x=5 is assignment (returns 5); x==5 is comparison (returns boolean). if(x=5) is a compile error in Java unlike C.",
+          "== is for assignment",
+          "= is for comparison"
+        ],
+        "correct": 1,
+        "explanation": "Java's type safety prevents the classic C bug: if(x=5) assigns and returns int, which isn't boolean — compiler rejects it. Use == for comparison."
+      },
+      {
+        "question": "What is an enhanced switch's advantage over traditional switch?",
+        "options": [
+          "No advantages",
+          "No fall-through, compile-time exhaustiveness, can return values, cleaner syntax with arrows",
+          "Slower execution",
+          "More verbose"
+        ],
+        "correct": 1,
+        "explanation": "Enhanced switch (->) eliminates fall-through bugs, supports expressions (returning values), and the compiler verifies all cases are covered."
+      },
+      {
+        "question": "What is a guard in pattern matching switch?",
+        "options": [
+          "A security check",
+          "An additional condition after a pattern: case String s && s.length() > 5 -> — the case only matches if both pattern and guard are true",
+          "A type of exception",
+          "No such feature"
+        ],
+        "correct": 1,
+        "explanation": "Guards refine pattern matching: the case only matches when the pattern matches AND the guard condition is true."
       }
     ],
     "codingExercise": {
@@ -1134,6 +3840,468 @@ TOPICS = [
         ],
         "correct": 0,
         "explanation": "Java's for loop syntax requires parentheses and semicolons: for(init; condition; update)."
+      },
+      {
+        "question": "What is the difference between while and for loops?",
+        "options": [
+          "No difference",
+          "for packs init/condition/update in one line (known count); while only has condition (unknown count)",
+          "while is deprecated",
+          "for loops are slower"
+        ],
+        "correct": 1,
+        "explanation": "for = known iterations. while = condition-driven (unknown count). Both can express the same logic but communicate different intent."
+      },
+      {
+        "question": "What is an infinite loop?",
+        "options": [
+          "A loop that never executes",
+          "A loop whose condition never becomes false — runs until externally interrupted",
+          "A loop with 0 iterations",
+          "A compile error"
+        ],
+        "correct": 1,
+        "explanation": "Infinite loop: while(true) or for(;;). Intentional for servers/event loops. Accidental when condition logic never changes within the body."
+      },
+      {
+        "question": "How do you break out of nested loops?",
+        "options": [
+          "You can't",
+          "Use labeled break: outer: for(...) { for(...) { break outer; } }",
+          "Use multiple break statements",
+          "Use return only"
+        ],
+        "correct": 1,
+        "explanation": "Labeled break exits the named outer loop. rare but useful. Consider extracting nested loops into a method and using return for clarity."
+      },
+      {
+        "question": "What is an Iterator?",
+        "options": [
+          "A type of loop",
+          "An object that enables traversing a collection and removing elements during iteration",
+          "A for loop variant",
+          "A deprecated pattern"
+        ],
+        "correct": 1,
+        "explanation": "Iterator provides hasNext(), next(), and remove(). Unlike for-each, Iterator supports safe element removal during traversal."
+      },
+      {
+        "question": "What is the difference between Iterator and ListIterator?",
+        "options": [
+          "No difference",
+          "ListIterator is bidirectional (hasPrevious, previous) and supports add/set; Iterator is forward-only with remove only",
+          "ListIterator is slower",
+          "Iterator is only for sets"
+        ],
+        "correct": 1,
+        "explanation": "ListIterator works on Lists and can traverse both directions, add elements, and set values. Iterator is simpler: forward-only with remove."
+      },
+      {
+        "question": "What happens with: for(;;) { System.out.println('loop'); }?",
+        "options": [
+          "Compile error",
+          "Infinite loop printing 'loop' forever — all three for parts are optional",
+          "Prints once",
+          "Does nothing"
+        ],
+        "correct": 1,
+        "explanation": "for(;;) is valid Java — an infinite loop. All three parts (init, condition, update) are optional. The semicolons are required."
+      },
+      {
+        "question": "What does break without a label do?",
+        "options": [
+          "Exit the program",
+          "Exit the innermost enclosing loop or switch immediately",
+          "Skip one iteration",
+          "Nothing"
+        ],
+        "correct": 1,
+        "explanation": "Unlabeled break exits the innermost enclosing for, while, do-while, or switch. Execution continues after the loop/switch."
+      },
+      {
+        "question": "What does continue without a label do?",
+        "options": [
+          "Exit the loop",
+          "Skip remaining body of current iteration; proceed to next iteration check",
+          "Restart the loop from beginning",
+          "Exit the program"
+        ],
+        "correct": 1,
+        "explanation": "continue jumps to the next iteration. In for loops, the update statement (i++) still executes before condition check."
+      },
+      {
+        "question": "How do you iterate over a Map with for-each?",
+        "options": [
+          "You can't use for-each on Map",
+          "map.entrySet() gives Set<Map.Entry> which is Iterable: for (var e : map.entrySet()) { e.getKey(); e.getValue(); }",
+          "Only with Iterator",
+          "Only with while loop"
+        ],
+        "correct": 1,
+        "explanation": "Iterate map.entrySet() for key+value, map.keySet() for keys, map.values() for values. All are Iterable for for-each."
+      },
+      {
+        "question": "What is a common performance mistake with String concatenation in loops?",
+        "options": [
+          "Using StringBuilder",
+          "Using += in a loop — creates many intermediate String objects. Use StringBuilder instead.",
+          "Using for-each",
+          "Using while"
+        ],
+        "correct": 1,
+        "explanation": "String is immutable. s += 'x' in a loop creates a new String object each iteration. StringBuilder.append() is O(1) amortized for repeated concatenation."
+      },
+      {
+        "question": "What happens if a loop's condition is false initially (while loop)?",
+        "options": [
+          "Loop executes once",
+          "Loop body never executes",
+          "Compile error",
+          "Runtime exception"
+        ],
+        "correct": 1,
+        "explanation": "while checks condition first. If false initially, the body is skipped entirely. Use do-while if the body must execute at least once."
+      },
+      {
+        "question": "What is the for-each loop syntax limitation?",
+        "options": [
+          "It can't iterate arrays",
+          "You cannot access the current index, modify the collection structure, or iterate multiple collections in lockstep",
+          "It's slower",
+          "It doesn't work with generics"
+        ],
+        "correct": 1,
+        "explanation": "for-each hides the index. Use traditional for loop when you need index, need to modify the collection, or need to iterate in reverse."
+      },
+      {
+        "question": "What is a sentinel value in loop context?",
+        "options": [
+          "A loop counter",
+          "A special value that signals loop termination (e.g., reading until -1 or null)",
+          "A boolean flag",
+          "A type of exception"
+        ],
+        "correct": 1,
+        "explanation": "Sentinel-controlled loop: read input until a special marker value is encountered. while ((line = reader.readLine()) != null)."
+      },
+      {
+        "question": "What is a counting loop?",
+        "options": [
+          "Any while loop",
+          "A for loop used to execute a specific number of times: for(int i=0; i<n; i++)",
+          "An infinite loop",
+          "A do-while loop"
+        ],
+        "correct": 1,
+        "explanation": "Counting loop = definite iteration. You know the exact count beforehand. for is the idiomatic choice."
+      },
+      {
+        "question": "What is the difference between initializing a variable inside vs outside a loop?",
+        "options": [
+          "No difference",
+          "Inside: re-created each iteration (fresh scope). Outside: persists across iterations (accessible after loop)",
+          "Outside is always better",
+          "Inside causes compile errors"
+        ],
+        "correct": 1,
+        "explanation": "Declare variables in the narrowest scope needed. Loop counters inside for(;;). Accumulators outside. This prevents unintended reuse."
+      },
+      {
+        "question": "How can you iterate backwards through an array?",
+        "options": [
+          "You can't",
+          "for (int i = arr.length - 1; i >= 0; i--)",
+          "Only with while",
+          "Use reverse for-each"
+        ],
+        "correct": 1,
+        "explanation": "Backward iteration: start at length-1, decrement to 0. for-each always goes forward; use traditional for for reverse."
+      },
+      {
+        "question": "What does 'break' do in a switch inside a loop?",
+        "options": [
+          "Exit the switch AND the loop",
+          "Exit only the switch — the loop continues",
+          "Exit the program",
+          "Nothing"
+        ],
+        "correct": 1,
+        "explanation": "break inside switch exits the switch, not the enclosing loop. Use labeled break to exit both: loop: for(...) { switch(...) { break loop; } }."
+      },
+      {
+        "question": "What is loop unrolling?",
+        "options": [
+          "A bug",
+          "A compiler optimization that duplicates the loop body to reduce branch instructions and improve performance",
+          "Reversing a loop",
+          "Breaking a loop early"
+        ],
+        "correct": 1,
+        "explanation": "Loop unrolling replicates the body N times per iteration, reducing loop overhead. The JIT compiler may do this automatically for hot loops."
+      },
+      {
+        "question": "What is an Iterator's fail-fast behavior?",
+        "options": [
+          "It fails immediately on any error",
+          "Iterator throws ConcurrentModificationException if the collection is structurally modified after iterator creation",
+          "It never fails",
+          "It silently skips modified elements"
+        ],
+        "correct": 1,
+        "explanation": "Fail-fast iterators detect concurrent modification and throw ConcurrentModificationException. Not guaranteed but best-effort. Use ConcurrentHashMap for concurrent modification."
+      },
+      {
+        "question": "What does Arrays.stream() provide that for-each doesn't?",
+        "options": [
+          "Nothing",
+          "Functional pipeline: filter, map, reduce, parallel execution. for-each is imperative and sequential only.",
+          "Faster execution always",
+          "Only works on arrays"
+        ],
+        "correct": 1,
+        "explanation": "Streams provide functional transformations (filter/map/reduce) and parallel processing. for-each is simpler but imperative. Choose based on need."
+      },
+      {
+        "question": "What is the for-each equivalent using Iterator?",
+        "options": [
+          "No equivalent",
+          "for (Iterator<T> it = list.iterator(); it.hasNext(); ) { T item = it.next(); }",
+          "Only while works",
+          "for-each can't be expressed manually"
+        ],
+        "correct": 1,
+        "explanation": "for-each is syntactic sugar for Iterator traversal. The compiler generates Iterator-based bytecode for Iterable objects."
+      },
+      {
+        "question": "What is ConcurrentModificationException?",
+        "options": [
+          "A compile error",
+          "Thrown when a collection is structurally modified during iteration (except through iterator's own remove)",
+          "A database error",
+          "A network error"
+        ],
+        "correct": 1,
+        "explanation": "Modifying a collection while iterating (except via Iterator.remove()) throws ConcurrentModificationException. Use CopyOnWriteArrayList or ConcurrentHashMap for concurrent modification."
+      },
+      {
+        "question": "What is a for loop's scope rule for the index variable?",
+        "options": [
+          "Index is visible everywhere",
+          "Index declared in for(init) is scoped to the loop body only — not accessible after the loop",
+          "Index is a field",
+          "Index never goes out of scope"
+        ],
+        "correct": 1,
+        "explanation": "Variables declared in the for loop header (int i = 0) are scoped to the loop body. They're destroyed when the loop exits."
+      },
+      {
+        "question": "What is a common for loop off-by-one error?",
+        "options": [
+          "Using < instead of !=",
+          "Using <= when < is intended (or vice versa) — iterating one too many or one too few times",
+          "Using int instead of long",
+          "Using i++ instead of ++i"
+        ],
+        "correct": 1,
+        "explanation": "i <= n runs n+1 times; i < n runs n times. For 0-indexed arrays of length n, valid indices are 0 to n-1: use i < n."
+      },
+      {
+        "question": "What is loop fusion?",
+        "options": [
+          "Combining two nested loops",
+          "A compiler/JIT optimization that merges adjacent loops over the same range into a single loop",
+          "Creating infinite loops",
+          "Breaking out of loops"
+        ],
+        "correct": 1,
+        "explanation": "If two loops iterate over the same range independently, the JIT may fuse them into one loop for better cache utilization and fewer branch instructions."
+      },
+      {
+        "question": "How do you iterate with both index and value?",
+        "options": [
+          "for-each with index",
+          "for (int i = 0; i < list.size(); i++) { var value = list.get(i); } — traditional for gives both index and value",
+          "Only with streams",
+          "You can't"
+        ],
+        "correct": 1,
+        "explanation": "Traditional for loop provides both index and value. For-each only gives value. Streams with IntStream.range can provide index."
+      },
+      {
+        "question": "What is a for-each loop on a null collection?",
+        "options": [
+          "Works fine (empty)",
+          "Throws NullPointerException — for-each calls .iterator() on the reference",
+          "Compile error",
+          "Returns immediately"
+        ],
+        "correct": 1,
+        "explanation": "for-each on null throws NPE. Always check for null or use Collections.emptyList() / Optional.ofNullable() before iterating."
+      },
+      {
+        "question": "What is the difference between forEach() method and for-each loop?",
+        "options": [
+          "No difference",
+          "forEach accepts a Consumer (lambda); for-each is a language construct. forEach can be parallel with parallelStream()",
+          "forEach is deprecated",
+          "for-each doesn't work on collections"
+        ],
+        "correct": 1,
+        "explanation": "Collection.forEach(Consumer) and Stream.forEach(Consumer) are method-based alternatives to for-each loops, enabling lambda syntax and parallelism."
+      },
+      {
+        "question": "What is the while loop idiom for reading files?",
+        "options": [
+          "while(file.hasNext())",
+          "String line; while((line = reader.readLine()) != null) { process(line); }",
+          "while(file.read())",
+          "while(!file.empty())"
+        ],
+        "correct": 1,
+        "explanation": "The read-and-assign-in-condition pattern is idiomatic: reads a line, checks for null, assigns to variable, all in one expression."
+      },
+      {
+        "question": "What happens when comparing for vs for-each performance?",
+        "options": [
+          "for-each is always slower",
+          "For ArrayList, for-each and indexed for have identical performance (same bytecode). For LinkedList, for-each is MUCH faster (O(n) vs O(n²)).",
+          "No difference ever",
+          "for is always faster"
+        ],
+        "correct": 1,
+        "explanation": "for-each uses Iterator internally. For ArrayList, indexed for and for-each are equivalent. For LinkedList, for-each iterates in O(n); indexed for with get(i) is O(n²)."
+      },
+      {
+        "question": "What is a loop invariant?",
+        "options": [
+          "A bug in a loop",
+          "A condition that remains true before and after each loop iteration — used in formal verification and algorithm design",
+          "A variable that changes",
+          "A type of exception"
+        ],
+        "correct": 1,
+        "explanation": "Loop invariants are conditions preserved across iterations. Used in algorithms like binary search and in formal correctness proofs."
+      },
+      {
+        "question": "What is the difference between 'continue' in a for loop vs a while loop?",
+        "options": [
+          "No difference",
+          "In for, continue executes the update (i++) before checking condition. In while, it jumps directly to the condition check",
+          "continue doesn't work in while",
+          "while doesn't support continue"
+        ],
+        "correct": 1,
+        "explanation": "for: continue → update → condition check. while: continue → condition check (update is part of body, so it may be skipped). This can cause infinite loops."
+      },
+      {
+        "question": "What is a forEachRemaining iterator method?",
+        "options": [
+          "Non-existent",
+          "Performs an action on each remaining element of an iterator — useful after partially consuming an iterator",
+          "A type of loop",
+          "Deprecated"
+        ],
+        "correct": 1,
+        "explanation": "Iterator.forEachRemaining(Consumer) processes remaining elements after some have already been consumed. Useful for batch processing."
+      },
+      {
+        "question": "Why is it better to compute collection.size() once before the loop?",
+        "options": [
+          "Size changes during iteration",
+          "Avoids repeated method calls — but the JIT typically optimizes this. More important: size check before iteration enables bounds guarantees.",
+          "It's required",
+          "Size can't be called in loops"
+        ],
+        "correct": 1,
+        "explanation": "Modern JVMs inline and optimize size() calls. But computing size once makes intent clear: the bound is fixed for this loop."
+      },
+      {
+        "question": "What is a 'stream of indices' pattern?",
+        "options": [
+          "Not possible",
+          "IntStream.range(0, list.size()).forEach(i -> { var item = list.get(i); }) — streams with index access",
+          "A type of for loop",
+          "Only for arrays"
+        ],
+        "correct": 1,
+        "explanation": "IntStream.range provides index-based stream iteration. Useful when you need both index and value in a stream pipeline."
+      },
+      {
+        "question": "What is a nested for loop complexity?",
+        "options": [
+          "O(n)",
+          "O(n × m) — each level multiplies the iteration count. Three nested loops = O(n³). Be careful with performance at scale.",
+          "O(1)",
+          "No performance impact"
+        ],
+        "correct": 1,
+        "explanation": "Nested loops multiply complexity: for(i) { for(j) { ... } } executes n×m times. At n=1000, that's 1,000,000 iterations. At n=1,000,000, that's 1 trillion."
+      },
+      {
+        "question": "What is an enhanced for loop limitation with arrays?",
+        "options": [
+          "Can't iterate arrays at all",
+          "Can't modify array elements (read-only access to the local copy). Can't access the index. Can't iterate in reverse.",
+          "Works identically to C",
+          "No limitations"
+        ],
+        "correct": 1,
+        "explanation": "for(int v : arr) gives a copy of each element. Modifying v doesn't modify arr. For modification, use traditional for with arr[i]."
+      },
+      {
+        "question": "What is the Java equivalent of Python's range(10)?",
+        "options": [
+          "range(10)",
+          "IntStream.range(0, 10) or for(int i=0; i<10; i++)",
+          "Arrays.range(10)",
+          "No equivalent"
+        ],
+        "correct": 1,
+        "explanation": "IntStream.range(0, 10) provides a stream of 0-9. For simple iteration, for(int i=0; i<10; i++) is the idiomatic equivalent."
+      },
+      {
+        "question": "What is the 'for(;;)' idiom typically used for?",
+        "options": [
+          "It's a syntax error",
+          "Intentional infinite loop — equivalent to while(true). Used for event loops, servers, and games",
+          "Counted loops",
+          "Temporary debugging"
+        ],
+        "correct": 1,
+        "explanation": "for(;;) is the minimal infinite loop syntax. All three parts are empty. Some prefer it over while(true) as it's explicitly 'loop forever'."
+      },
+      {
+        "question": "What is an Iterator.remove() vs Collection.remove() during iteration?",
+        "options": [
+          "No difference",
+          "Iterator.remove() is safe during iteration. collection.remove() throws ConcurrentModificationException",
+          "Collection.remove is safer",
+          "Neither works"
+        ],
+        "correct": 1,
+        "explanation": "Only Iterator.remove() can safely remove elements during iteration. Direct collection modification (list.remove()) during for-each throws CME."
+      },
+      {
+        "question": "What is the difference between forEach and forEachOrdered in parallel streams?",
+        "options": [
+          "No difference",
+          "forEach allows any order (faster); forEachOrdered preserves encounter order (e.g., printing in original list order)",
+          "forEachOrdered is deprecated",
+          "Only forEach exists"
+        ],
+        "correct": 1,
+        "explanation": "In parallel streams, forEach may process elements in any order for maximum parallelism. forEachOrdered guarantees original order at a performance cost."
+      },
+      {
+        "question": "What is a 'loop and a half' problem?",
+        "options": [
+          "An off-by-one error",
+          "When you need to read input before checking the condition — solved by while(true) with break, or do-while, or the read-in-condition idiom",
+          "A performance issue",
+          "A type of infinite loop"
+        ],
+        "correct": 1,
+        "explanation": "'Loop and a half': you must read first, then check. Solutions: while((line=read())!=null), or while(true){read; if(done)break;}."
       }
     ],
     "codingExercise": {
@@ -1292,6 +4460,336 @@ TOPICS = [
         ],
         "correct": 1,
         "explanation": "Recursion is when a method calls itself to solve a smaller instance of the same problem. Requires a base case to terminate."
+      },
+      {
+        "question": "What is a method signature in Java?",
+        "options": [
+          "Method name only",
+          "Method name + parameter types (return type is NOT part of signature)",
+          "Method name + return type",
+          "Method body"
+        ],
+        "correct": 1,
+        "explanation": "The signature consists of method name and parameter types. Return type, throws clause, and parameter names are not part of the signature for overloading purposes."
+      },
+      {
+        "question": "What is the difference between formal parameters and actual arguments?",
+        "options": [
+          "No difference",
+          "Formal parameters = declared in method definition; actual arguments = values passed at call site",
+          "Arguments are always primitives",
+          "Parameters are always objects"
+        ],
+        "correct": 1,
+        "explanation": "Parameters are the placeholders defined in the method. Arguments are the concrete values passed when calling. void foo(int x) — x is a parameter. foo(5) — 5 is an argument."
+      },
+      {
+        "question": "What is method hiding (vs overriding)?",
+        "options": [
+          "No difference",
+          "Static methods are hidden (not overridden) — the reference type determines which version is called, not the object type",
+          "Overriding doesn't exist in Java",
+          "Hiding is deprecated"
+        ],
+        "correct": 1,
+        "explanation": "Static methods are resolved at compile time based on reference type (hiding). Instance methods are resolved at runtime based on object type (overriding)."
+      },
+      {
+        "question": "What happens when a method declares a checked exception but doesn't throw it?",
+        "options": [
+          "Compile error",
+          "It's allowed — the throws clause is a promise that the method MIGHT throw, not that it WILL",
+          "Runtime exception",
+          "The method can't be called"
+        ],
+        "correct": 1,
+        "explanation": "Declaring a checked exception that's never thrown is valid but misleading. It forces callers to handle a non-existent failure mode."
+      },
+      {
+        "question": "What are covariant return types (Java 5+)?",
+        "options": [
+          "Return types that are different",
+          "An overriding method can return a more specific type than the parent method",
+          "All return types must match exactly",
+          "A deprecated feature"
+        ],
+        "correct": 1,
+        "explanation": "Parent: Animal getPet(). Child: Dog getPet(). Dog is covariant (more specific). Compiler verifies type safety."
+      },
+      {
+        "question": "What is the difference between passing a primitive array vs an object to a method?",
+        "options": [
+          "No difference — both are pass-by-value",
+          "For array: the reference is copied, enabling mutation of elements. The reference itself cannot be replaced in the caller.",
+          "Arrays are passed by reference",
+          "Objects are always copied"
+        ],
+        "correct": 1,
+        "explanation": "Java is always pass-by-value. Array references are copied — you can modify arr[i] (same heap object) but not replace the caller's array variable."
+      },
+      {
+        "question": "What is method inlining?",
+        "options": [
+          "Writing methods inline",
+          "JIT compiler optimization: replacing a method call with the method body directly to eliminate call overhead",
+          "A style choice",
+          "A debugging technique"
+        ],
+        "correct": 1,
+        "explanation": "The JIT compiler inlines frequently-called short methods, eliminating stack frame overhead. Inlining also enables further optimizations at the call site."
+      },
+      {
+        "question": "Can a method return multiple values in Java?",
+        "options": [
+          "Yes, using arrays",
+          "No — a method returns exactly one value. Use a custom class, record, Map, or Pair to return multiple related values.",
+          "Only by throwing exceptions",
+          "Only void methods"
+        ],
+        "correct": 1,
+        "explanation": "Single return value is a fundamental Java constraint. Records (Java 14+) are the cleanest way to return multiple values as a single object."
+      },
+      {
+        "question": "What is a method signature composed of?",
+        "options": [
+          "Method name only",
+          "Method name + parameter types (return type NOT part of signature)",
+          "Method name + return type",
+          "Method name + body"
+        ],
+        "correct": 1,
+        "explanation": "The compiler uses method name and parameter types to distinguish methods. Return type and parameter names are not part of the signature."
+      },
+      {
+        "question": "Can a void method have a return statement?",
+        "options": [
+          "No",
+          "Yes — return; (with no value) exits the method early",
+          "Only with null",
+          "Only in constructors"
+        ],
+        "correct": 1,
+        "explanation": "Void methods can use 'return;' to exit early. Useful in guard clauses when conditions aren't met."
+      },
+      {
+        "question": "What is a method reference in Java 8+?",
+        "options": [
+          "A pointer to a method",
+          "Shorthand for lambdas: ClassName::methodName",
+          "A type of variable",
+          "Not valid Java"
+        ],
+        "correct": 1,
+        "explanation": "Method references (String::length, System.out::println) are cleaner than equivalent lambdas when simply delegating to an existing method."
+      },
+      {
+        "question": "What is tail recursion?",
+        "options": [
+          "A bug",
+          "Recursive call as the LAST operation — can be optimized to iteration (though JVM doesn't for Java)",
+          "Recursion without a base case",
+          "A type of loop"
+        ],
+        "correct": 1,
+        "explanation": "Tail recursion: final action is recursive call. Scala optimizes this to avoid stack overflow. Java's JVM does NOT perform tail-call optimization."
+      },
+      {
+        "question": "How does Java resolve overloaded method calls with null arguments?",
+        "options": [
+          "Randomly",
+          "Most specific applicable method wins. If ambiguous, compile error",
+          "Always picks Object",
+          "Always picks String"
+        ],
+        "correct": 1,
+        "explanation": "Compiler picks most specific type. String vs Integer both accept null → ambiguous → compile error."
+      },
+      {
+        "question": "What is the difference between varargs and array parameters?",
+        "options": [
+          "No difference",
+          "Varargs allows comma-separated values; array requires explicit array creation",
+          "Varargs are faster",
+          "Arrays can't be parameters"
+        ],
+        "correct": 1,
+        "explanation": "Varargs (int... nums) provides caller convenience. Inside method, both are arrays. Varargs must be last parameter."
+      },
+      {
+        "question": "Can you overload methods with generic parameters that erase to the same signature?",
+        "options": [
+          "Yes",
+          "No — after erasure both become identical, causing compile error",
+          "Only with wildcards",
+          "Only in abstract classes"
+        ],
+        "correct": 1,
+        "explanation": "void print(List<String>) and void print(List<Integer>) both erase to void print(List). Compile error."
+      },
+      {
+        "question": "What is a pure function?",
+        "options": [
+          "A method with no bugs",
+          "Function whose output depends only on inputs and has no side effects",
+          "A static method only",
+          "A void method"
+        ],
+        "correct": 1,
+        "explanation": "Pure functions: same input always gives same output, no side effects. Easier to test, reason about, and parallelize."
+      },
+      {
+        "question": "What is a factory method?",
+        "options": [
+          "A constructor",
+          "Static method creating/returning instances — can cache, return subclasses",
+          "A void method",
+          "Deprecated"
+        ],
+        "correct": 1,
+        "explanation": "Factory methods (Integer.valueOf(), LocalDate.of()) provide controlled instantiation with caching and subclass returns."
+      },
+      {
+        "question": "What is the @SafeVarargs annotation for?",
+        "options": [
+          "Marks varargs as safe",
+          "Suppresses heap pollution warnings for typesafe varargs methods",
+          "Makes varargs faster",
+          "Deprecated"
+        ],
+        "correct": 1,
+        "explanation": "@SafeVarargs tells compiler 'this generic varargs method is provably typesafe.' Use on final/static/private methods."
+      },
+      {
+        "question": "What is a bridge method?",
+        "options": [
+          "Method connecting two systems",
+          "Compiler-generated synthetic method ensuring type erasure doesn't break polymorphism",
+          "Networking method",
+          "Deprecated"
+        ],
+        "correct": 1,
+        "explanation": "Bridge methods maintain override semantics after type erasure. Generated by compiler, rarely visible unless using reflection."
+      },
+      {
+        "question": "What is the difference between System.exit(0), return, and throw?",
+        "options": [
+          "All the same",
+          "exit() kills JVM; return exits method; throw propagates exception",
+          "return terminates JVM",
+          "throw exits JVM"
+        ],
+        "correct": 0,
+        "explanation": "System.exit(0) kills entire JVM immediately (no finally blocks). return is normal method exit. throw transfers to catch block."
+      },
+      {
+        "question": "Can a constructor call another constructor of the same class?",
+        "options": [
+          "No",
+          "Yes — using this(args) as the first statement",
+          "Only in Java 17+",
+          "Only for default constructors"
+        ],
+        "correct": 1,
+        "explanation": "this(args) chains to another constructor. Must be first statement. Every constructor ultimately chains to super()."
+      },
+      {
+        "question": "What is the maximum practical number of method parameters?",
+        "options": [
+          "3-5 before considering refactoring",
+          "Unlimited",
+          "10 always OK",
+          "Exactly 1"
+        ],
+        "correct": 0,
+        "explanation": "More than 4-5 parameters suggests the method does too much. Group parameters into objects or use Builder pattern."
+      },
+      {
+        "question": "What is the difference between formal parameters and actual arguments?",
+        "options": [
+          "No difference",
+          "Formal = declared in definition; actual = values passed at call site",
+          "Arguments are always primitives",
+          "Parameters are always objects"
+        ],
+        "correct": 1,
+        "explanation": "Parameters: placeholders in method definition. Arguments: concrete values when calling. void foo(int x) — x is parameter. foo(5) — 5 is argument."
+      },
+      {
+        "question": "What are covariant return types (Java 5+)?",
+        "options": [
+          "All return types must match",
+          "Overriding method can return a more specific type than parent",
+          "Deprecated feature",
+          "Only for void methods"
+        ],
+        "correct": 1,
+        "explanation": "Parent: Animal getPet(). Child: Dog getPet(). Compiler verifies the more specific type is safe for all callers."
+      },
+      {
+        "question": "What is method hiding (vs overriding)?",
+        "options": [
+          "No difference",
+          "Static methods are hidden (resolved at compile time); instance methods overridden (resolved at runtime)",
+          "Overriding doesn't exist",
+          "Hiding is deprecated"
+        ],
+        "correct": 1,
+        "explanation": "Static methods resolve based on reference type. Instance methods resolve based on object type. This is a critical distinction."
+      },
+      {
+        "question": "What is method inlining?",
+        "options": [
+          "Writing methods inline",
+          "JIT optimization: replacing call with method body to eliminate overhead",
+          "A style choice",
+          "Debugging technique"
+        ],
+        "correct": 1,
+        "explanation": "JIT inlines frequently-called short methods, eliminating call overhead and enabling further optimizations at the call site."
+      },
+      {
+        "question": "Can a method return multiple values in Java?",
+        "options": [
+          "Yes via arrays",
+          "No — returns exactly one value. Use record, class, or collection for multiple",
+          "Only by throwing exceptions",
+          "Only void methods"
+        ],
+        "correct": 1,
+        "explanation": "Single return value. Records (Java 14+) are cleanest for returning multiple related values as one object."
+      },
+      {
+        "question": "What is a method's precondition?",
+        "options": [
+          "Return value",
+          "Conditions that must be true before method is called — caller's responsibility",
+          "Method body",
+          "Exception thrown"
+        ],
+        "correct": 1,
+        "explanation": "Preconditions define what must be true before calling. Violation = caller bug. Often validated with assertions or IllegalArgumentException."
+      },
+      {
+        "question": "What is a method's postcondition?",
+        "options": [
+          "Parameter list",
+          "Conditions guaranteed to be true after method completes — method's responsibility",
+          "Method name",
+          "Deprecated concept"
+        ],
+        "correct": 1,
+        "explanation": "Postconditions define what the method guarantees after execution (return value, side effects, state changes). Part of the method's contract."
+      },
+      {
+        "question": "What is defensive copying in method parameters?",
+        "options": [
+          "Copying only when attacked",
+          "Creating copy of mutable objects passed in to prevent external modification",
+          "Security vulnerability",
+          "Copying files"
+        ],
+        "correct": 1,
+        "explanation": "If method receives mutable Date, copy it: this.date = new Date(date.getTime()). Prevents callers from modifying internal state."
       }
     ],
     "codingExercise": {
@@ -1451,6 +4949,171 @@ TOPICS = [
         ],
         "correct": 2,
         "explanation": "Inserting in the middle requires shifting all subsequent elements right — O(n) in the worst case."
+      },
+      {
+        "question": "How do you create a copy of an array?",
+        "options": [
+          "arr2 = arr1",
+          "arr2 = Arrays.copyOf(arr1, arr1.length) or arr2 = arr1.clone()",
+          "arr2 = new Array(arr1)",
+          "arr2 = arr1.copy()"
+        ],
+        "correct": 1,
+        "explanation": "Arrays.copyOf() or clone() creates a new array. Assignment (=) only copies the reference, not the elements."
+      },
+      {
+        "question": "What is the time complexity of searching an unsorted array?",
+        "options": [
+          "O(1)",
+          "O(n) — must examine every element in the worst case",
+          "O(log n)",
+          "O(n^2)"
+        ],
+        "correct": 1,
+        "explanation": "Unsorted array search requires linear scan. Sorted arrays enable binary search (O(log n)). Hash-based structures provide O(1) average search."
+      },
+      {
+        "question": "What does Arrays.fill(arr, val) do?",
+        "options": [
+          "Returns a new filled array",
+          "Sets every element of the existing array to the specified value",
+          "Fills array with random values",
+          "Creates a new array"
+        ],
+        "correct": 1,
+        "explanation": "Arrays.fill modifies the array in-place, setting all elements to val. This is O(n). No new array is created."
+      },
+      {
+        "question": "What is the difference between deepEquals and equals for arrays?",
+        "options": [
+          "No difference",
+          "equals compares 1D arrays element-by-element; deepEquals recursively compares nested arrays",
+          "deepEquals is slower always",
+          "equals works for all dimensions"
+        ],
+        "correct": 1,
+        "explanation": "For 2D+ arrays, equals() does shallow comparison (compares row references). deepEquals() recursively compares all nested levels."
+      },
+      {
+        "question": "What is the difference between length, length(), and size()?",
+        "options": [
+          "All the same",
+          "length = array field; length() = String method; size() = Collection method",
+          "Only length exists",
+          "Depends on JVM"
+        ],
+        "correct": 1,
+        "explanation": "arr.length (field, no parens), str.length() (method), list.size() (method). Three different mechanisms for similar concepts — a common source of confusion."
+      },
+      {
+        "question": "How does Java check array bounds?",
+        "options": [
+          "It doesn't",
+          "JVM checks every access at runtime — throws ArrayIndexOutOfBoundsException",
+          "At compile time only",
+          "Only in debug mode"
+        ],
+        "correct": 1,
+        "explanation": "Every array access is bounds-checked. Prevents buffer overflow attacks. JIT may eliminate checks it proves unnecessary."
+      },
+      {
+        "question": "What is System.arraycopy() used for?",
+        "options": [
+          "Creating arrays",
+          "Efficient native implementation for bulk array copying — faster than manual loop",
+          "Array sorting",
+          "Array searching"
+        ],
+        "correct": 1,
+        "explanation": "System.arraycopy() uses native memory operations. Faster than manual loops for large arrays due to optimized memory copying."
+      },
+      {
+        "question": "How do you convert an array to a List?",
+        "options": [
+          "arr.toList()",
+          "Arrays.asList(arr) — returns fixed-size List backed by original array",
+          "arr.asList()",
+          "list(arr)"
+        ],
+        "correct": 1,
+        "explanation": "Arrays.asList() wraps array without copying. Changes reflect in both. Returned List has FIXED size (no add/remove)."
+      },
+      {
+        "question": "How do you convert a List to an array?",
+        "options": [
+          "list.toArray()",
+          "list.toArray(new String[0]) — idiomatic way for properly-typed array",
+          "list.asArray()",
+          "(String[]) list.cast()"
+        ],
+        "correct": 1,
+        "explanation": "toArray(T[]) returns typed array. new String[0] preferred over new String[list.size()] — JVM optimizes zero-length allocation."
+      },
+      {
+        "question": "Can you create a generic array in Java?",
+        "options": [
+          "Yes: new T[10]",
+          "No: erasure prevents new T[10]. Use (T[]) new Object[10] or ArrayList",
+          "Only in Java 17+",
+          "Only for wildcards"
+        ],
+        "correct": 1,
+        "explanation": "Due to type erasure, T doesn't exist at runtime. Use ArrayList<T> or pass Class<T> with Array.newInstance()."
+      },
+      {
+        "question": "What is the difference between Array and ArrayList?",
+        "options": [
+          "No difference",
+          "Array is fixed-size, holds primitives. ArrayList is resizable List, objects only",
+          "ArrayList is faster",
+          "Array can't hold objects"
+        ],
+        "correct": 1,
+        "explanation": "Array: fixed-length, primitives OK, part of language. ArrayList: dynamic, objects only (autoboxing), part of Collections Framework."
+      },
+      {
+        "question": "What is the binary search algorithm's pre-condition?",
+        "options": [
+          "Array must be non-empty",
+          "Array MUST be sorted in the comparator's order",
+          "Array must be int type",
+          "No pre-condition"
+        ],
+        "correct": 1,
+        "explanation": "Binary search requires sorted array. Result on unsorted array is undefined (not guaranteed to fail)."
+      },
+      {
+        "question": "What is an array's memory layout advantage?",
+        "options": [
+          "No advantage",
+          "Elements contiguous in memory — cache-friendly, CPU prefetching works optimally",
+          "Arrays use less memory",
+          "Arrays are encrypted"
+        ],
+        "correct": 1,
+        "explanation": "Contiguous memory = spatial locality. Accessing arr[i] caches arr[i+1], arr[i+2]. Sequential access yields high cache hit rates."
+      },
+      {
+        "question": "What does Arrays.parallelSort() do?",
+        "options": [
+          "Same as sort()",
+          "Uses ForkJoinPool for multi-threaded sorting — faster for large arrays",
+          "Sorts descending",
+          "Deprecated"
+        ],
+        "correct": 1,
+        "explanation": "parallelSort() divides array into segments, sorts in parallel, merges. Beneficial for >10K elements; overhead dominates for small arrays."
+      },
+      {
+        "question": "What is a sparse array?",
+        "options": [
+          "Array with all zeros",
+          "Array where most elements are default/zero — use Map<Integer,T> instead",
+          "Small array",
+          "Parallel array"
+        ],
+        "correct": 1,
+        "explanation": "Sparse arrays waste memory on default values. Map<Integer, T> only stores non-default entries. Useful for large index spaces with few values."
       }
     ],
     "codingExercise": {
@@ -1610,6 +5273,72 @@ TOPICS = [
         ],
         "correct": 1,
         "explanation": "Fields should be private. Provide public getters/setters only when necessary, following the principle of least privilege."
+      },
+      {
+        "question": "What is the difference between a class variable (static) and an instance variable?",
+        "options": [
+          "No difference",
+          "Static: one copy shared by all instances. Instance: each object has its own copy",
+          "Static variables are faster",
+          "Instance variables are shared"
+        ],
+        "correct": 1,
+        "explanation": "static fields belong to the class (one per class). Instance fields belong to each object (one per instance). static methods can only access static fields directly."
+      },
+      {
+        "question": "What is a static initializer block?",
+        "options": [
+          "A constructor",
+          "A block (static { ... }) that runs once when the class is loaded — used for complex static initialization",
+          "A method",
+          "Deprecated"
+        ],
+        "correct": 1,
+        "explanation": "static { ... } executes when the class is first loaded. Useful for initializing static collections or fields requiring try-catch logic."
+      },
+      {
+        "question": "What is an instance initializer block?",
+        "options": [
+          "Same as static initializer",
+          "A block ({ ... }) that runs before the constructor body — copied into every constructor by the compiler",
+          "Rarely used",
+          "A method"
+        ],
+        "correct": 1,
+        "explanation": "Instance initializer runs before constructor body. Rarely used — prefer direct field initialization or constructor code for clarity."
+      },
+      {
+        "question": "What is the 'this()' call in a constructor?",
+        "options": [
+          "Calling another method",
+          "Calling another constructor of the SAME class — must be first statement",
+          "Calling a parent constructor",
+          "Deprecated"
+        ],
+        "correct": 1,
+        "explanation": "this(args) chains to another constructor of the same class. super(args) chains to parent. Exactly one must be the first statement."
+      },
+      {
+        "question": "What is a copy constructor?",
+        "options": [
+          "A constructor with no parameters",
+          "A constructor that creates a new object as a copy of an existing object of the same class",
+          "Default constructor",
+          "Deprecated"
+        ],
+        "correct": 1,
+        "explanation": "public Person(Person other) { this.name = other.name; ... } creates a defensive copy. Unlike C++, Java doesn't auto-generate copy constructors."
+      },
+      {
+        "question": "What is the difference between aggregation and composition?",
+        "options": [
+          "No difference",
+          "Composition: strong ownership (part cannot exist without whole). Aggregation: weak relationship (part can exist independently)",
+          "Aggregation is for classes only",
+          "Composition is deprecated"
+        ],
+        "correct": 1,
+        "explanation": "Composition: Car HAS-A Engine (engine doesn't exist independently). Aggregation: Department HAS-A Employee (employee exists without department)."
       }
     ],
     "codingExercise": {
@@ -1748,6 +5477,61 @@ TOPICS = [
         ],
         "correct": 1,
         "explanation": "private members are visible only within the declaring class. Subclasses must use protected/public getters if available."
+      },
+      {
+        "question": "What is an immutable class?",
+        "options": [
+          "A class with no methods",
+          "A class whose instances cannot be modified after creation (all fields final, no setters)",
+          "A class with only static methods",
+          "A deprecated concept"
+        ],
+        "correct": 1,
+        "explanation": "Immutable classes (String, Integer, LocalDate) guarantee state never changes. Rules: final class, private final fields, no setters, defensive copies of mutable fields."
+      },
+      {
+        "question": "What is the Law of Demeter?",
+        "options": [
+          "A legal document",
+          "Principle of least knowledge: a method should only talk to its immediate friends — don't chain method calls on returned objects",
+          "A mathematical law",
+          "A type of exception"
+        ],
+        "correct": 1,
+        "explanation": "Law of Demeter: method M should only call methods of its own class, its parameters, objects it creates, and its direct component objects. Avoid a.getB().getC().doSomething()."
+      },
+      {
+        "question": "What is a Java Bean?",
+        "options": [
+          "A coffee-related class",
+          "A reusable component: public no-arg constructor, private fields with getters/setters (getX/isX/setX), Serializable",
+          "A type of coffee",
+          "A Spring-only concept"
+        ],
+        "correct": 1,
+        "explanation": "JavaBeans convention enables tools to inspect and manipulate components via reflection. Getters/setters follow naming patterns (getProperty, setProperty)."
+      },
+      {
+        "question": "What is defensive copying?",
+        "options": [
+          "Copying only when attacked",
+          "Creating a copy of mutable objects passed to/from methods to prevent external modification of internal state",
+          "A security vulnerability",
+          "Copying files"
+        ],
+        "correct": 1,
+        "explanation": "If a method receives or returns a mutable Date, make a copy: this.date = new Date(date.getTime()). Prevents callers from modifying your internal state."
+      },
+      {
+        "question": "What is the difference between information hiding and encapsulation?",
+        "options": [
+          "Identical concepts",
+          "Encapsulation = bundling data with methods. Information hiding = restricting access to internal details (the goal of encapsulation)",
+          "Information hiding doesn't exist",
+          "Encapsulation is deprecated"
+        ],
+        "correct": 1,
+        "explanation": "Encapsulation is the mechanism (private fields, public methods). Information hiding is the goal (internal details concealed from external code)."
       }
     ],
     "codingExercise": {
@@ -1896,6 +5680,72 @@ TOPICS = [
         ],
         "correct": 1,
         "explanation": "Every constructor must begin with either this(args) or super(args). This chains constructor calls up the hierarchy."
+      },
+      {
+        "question": "What is the difference between 'extends' and 'implements'?",
+        "options": [
+          "No difference",
+          "extends = inherit from a class (only one). implements = fulfill an interface contract (multiple allowed)",
+          "implements is for classes",
+          "extends is for interfaces"
+        ],
+        "correct": 1,
+        "explanation": "extends creates a parent-child class relationship (single). implements declares interface conformance (multiple). Both establish IS-A relationships."
+      },
+      {
+        "question": "What is the Liskov Substitution Principle?",
+        "options": [
+          "A sorting algorithm",
+          "Subtypes must be substitutable for their base types without breaking correctness",
+          "A type of exception",
+          "A memory management rule"
+        ],
+        "correct": 1,
+        "explanation": "LSP: if S is a subtype of T, objects of type T should be replaceable with objects of type S without altering program correctness. Square IS-NOT-A substitutable Rectangle (width/height coupling violates LSP)."
+      },
+      {
+        "question": "What are sealed classes (Java 17+)?",
+        "options": [
+          "Classes that can't be created",
+          "Classes that restrict which other classes may extend/implement them using 'permits' clause",
+          "Deprecated classes",
+          "Anonymous classes"
+        ],
+        "correct": 1,
+        "explanation": "sealed class Shape permits Circle, Rectangle, Triangle restricts the class hierarchy to explicitly listed subclasses. Enables exhaustive pattern matching."
+      },
+      {
+        "question": "What is the difference between 'is-a' and 'has-a' relationships?",
+        "options": [
+          "No difference",
+          "IS-A = inheritance (Dog IS-A Animal). HAS-A = composition (Car HAS-A Engine). Use HAS-A unless there's genuine polymorphism.",
+          "HAS-A uses extends",
+          "IS-A uses composition"
+        ],
+        "correct": 1,
+        "explanation": "IS-A through inheritance creates tight coupling. HAS-A through composition is more flexible. Favor HAS-A (composition) per Bloch Item 18."
+      },
+      {
+        "question": "What is the fragile base class problem?",
+        "options": [
+          "Classes with bugs",
+          "When changes to a base class break subclasses — a key argument for favoring composition over inheritance",
+          "A deprecated issue",
+          "Only affects abstract classes"
+        ],
+        "correct": 1,
+        "explanation": "Subclasses depend on parent implementation details. A seemingly safe change to the parent (adding a method, changing algorithm) can break all subclasses."
+      },
+      {
+        "question": "What does a protected member allow that package-private doesn't?",
+        "options": [
+          "Nothing extra",
+          "Access from subclasses in DIFFERENT packages. Package-private restricts to same package only.",
+          "Access from any class",
+          "Only static access"
+        ],
+        "correct": 1,
+        "explanation": "protected extends package-private by also granting access to subclasses outside the package. This is a commitment — anyone can extend your class and access protected members."
       }
     ],
     "codingExercise": {
