@@ -14150,19 +14150,21 @@ function checkAnswer(topicId, questionIndex, selectedOption) {
     }
 
     for (var j = 0; j < options.length; j++) {
-        if (j === q.correct) {
-            options[j].classList.add('correct');
-        } else if (j === selectedOption && !isCorrect) {
-            options[j].classList.add('wrong');
+        if (j === selectedOption) {
+            options[j].classList.add(isCorrect ? 'correct' : 'wrong');
         }
     }
 
     saveQuizAnswer(topicId, questionIndex, selectedOption, isCorrect);
-    saveQuizAnswer(topicId, questionIndex, selectedOption, isCorrect);
     var fb = document.getElementById('quiz-fb-' + topicId + '-' + questionIndex);
     if (fb) {
-        fb.textContent = (isCorrect ? '✓ Correct! ' : '✗ Incorrect. ') + q.explanation;
-        fb.classList.add('show', isCorrect ? 'correct' : 'wrong');
+        if (isCorrect) {
+            fb.textContent = '✓ Correct! ' + q.explanation;
+            fb.classList.add('show', 'correct');
+        } else {
+            fb.textContent = '✗ Incorrect. Try again or click Reveal Answer.';
+            fb.classList.add('show', 'wrong');
+        }
     }
     var rb = document.createElement('button');
     rb.textContent = 'Try Again';
