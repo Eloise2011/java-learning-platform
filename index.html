@@ -13991,16 +13991,24 @@ function renderLesson(topic) {
     html += '<div class="textbook-ref"><strong>📖 Textbook:</strong> <em>' + escapeHTML(topic.textbook) + '</em></div>';
     html += topic.lesson;
 
-    html += '<div style="margin-top:24px;display:flex;gap:10px;align-items:center;flex-wrap:wrap">';
+    html += '<div style="margin-top:24px;display:flex;align-items:center;justify-content:space-between">';
+    var pid = getPrevTopicId(topic.id), nid = getNextTopicId(topic.id);
+    if (pid !== null) {
+        html += '<button class="secondary" onclick="selectTopic(' + pid + ')" style="padding:10px 20px;background:transparent;border:1px solid var(--surface3);color:var(--text2);border-radius:6px;cursor:pointer;font-family:var(--font);font-size:0.85rem">← Previous</button>';
+    } else {
+        html += '<span></span>';
+    }
     if (STATE.completedTopics.has(topic.id)) {
-        html += '<button class="complete-btn" disabled>✓ Completed</button>';
-        html += '<button class="reset-btn" onclick="unmarkComplete(' + topic.id + ')">↩ Mark Incomplete</button>';
+        html += '<span style="display:flex;gap:10px;align-items:center"><button class="complete-btn" disabled>✓ Completed</button>';
+        html += '<button class="reset-btn" onclick="unmarkComplete(' + topic.id + ')">↩ Incomplete</button></span>';
     } else {
         html += '<button class="complete-btn" onclick="markComplete(' + topic.id + ')">✓ Mark Complete</button>';
     }
-    var pid = getPrevTopicId(topic.id), nid = getNextTopicId(topic.id);
-    if (pid !== null) html += '<button class="secondary" onclick="selectTopic(' + pid + ')" style="padding:8px 16px;background:transparent;border:1px solid var(--surface3);color:var(--text2);border-radius:6px;cursor:pointer;font-family:var(--font)">← Previous</button>';
-    if (nid !== null) html += '<button class="secondary" onclick="selectTopic(' + nid + ')" style="padding:8px 16px;background:transparent;border:1px solid var(--surface3);color:var(--text2);border-radius:6px;cursor:pointer;font-family:var(--font)">Next →</button>';
+    if (nid !== null) {
+        html += '<button class="secondary" onclick="selectTopic(' + nid + ')" style="padding:10px 20px;background:transparent;border:1px solid var(--surface3);color:var(--text2);border-radius:6px;cursor:pointer;font-family:var(--font);font-size:0.85rem">Next →</button>';
+    } else {
+        html += '<span></span>';
+    }
     html += '</div>';
 
     container.innerHTML = html;
