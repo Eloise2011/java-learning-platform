@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Enhancements In Progress — Java Learning Platform</title>
+<style>
+  body { font-family: 'Segoe UI', system-ui, sans-serif; background: #faf9f7; color: #1e293b; max-width: 900px; margin: 40px auto; padding: 0 20px; line-height: 1.7; }
+  h1 { color: #2563eb; border-bottom: 2px solid #e2e8f0; padding-bottom: 10px; }
+  h2 { color: #475569; margin-top: 30px; }
+  table { width: 100%; border-collapse: collapse; margin: 12px 0 20px; }
+  th { background: #f1f5f9; padding: 10px 14px; text-align: left; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.5px; color: #64748b; }
+  td { padding: 10px 14px; border-bottom: 1px solid #e2e8f0; font-size: 0.9rem; }
+  .done { color: #047857; font-weight: 600; }
+  .pending { color: #d97706; font-weight: 600; }
+  .tag { display: inline-block; padding: 2px 8px; border-radius: 10px; font-size: 0.7rem; font-weight: 700; margin-right: 4px; }
+  .tag-easy { background: #dcfce7; color: #166534; }
+  .tag-medium { background: #fef3c7; color: #92400e; }
+  .tag-hard { background: #fee2e2; color: #991b1b; }
+  .summary { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; padding: 16px 20px; margin: 20px 0; }
+  .summary strong { color: #2563eb; }
+</style>
+</head>
+<body>
+
+<h1>Enhancements In Progress</h1>
+<p>Java Learning Platform — Iteration 2 tracking. Last updated: 2026-05-19.</p>
+
+<div class="summary">
+  <strong>Progress:</strong> 19 / 40 items complete (47.5%) &nbsp;|&nbsp;
+  <strong>Remaining:</strong> 21 items &nbsp;|&nbsp;
+  <strong>Quick wins:</strong> N2, U4, U5, U6, M7, M6, N4, N7
+</div>
+
+<h2>✅ Completed (19 items)</h2>
+<table>
+<tr><th>ID</th><th>Item</th><th>Resolution</th></tr>
+<tr><td>C1</td><td>Mermaid highlighting broken</td><td class="done">Separate style directives</td></tr>
+<tr><td>C2</td><td>Mermaid renders on hidden tab</td><td class="done">Lazy rendering on tab switch</td></tr>
+<tr><td>C3</td><td>Hardcoded "65 Topics" vs actual 22</td><td class="done">Dynamic renderWelcome()</td></tr>
+<tr><td>C4</td><td>4 competing build scripts</td><td class="done">Single src/build.py pipeline</td></tr>
+<tr><td>H2</td><td>javascript: URLs in resources</td><td class="done">http/https protocol whitelist</td></tr>
+<tr><td>H3</td><td>Mermaid CDN without pin</td><td class="done">Pinned to v10.9.3</td></tr>
+<tr><td>H4</td><td>Mermaid securityLevel: loose</td><td class="done">Strict mode + htmlLabels off</td></tr>
+<tr><td>H5</td><td>Quiz state not persisted</td><td class="done">API + localStorage persistence</td></tr>
+<tr><td>M2</td><td>Mermaid diagram hardcoded</td><td class="done">Data-driven labels array</td></tr>
+<tr><td>M5</td><td>Content as inline Python strings</td><td class="done">src/curriculum/phase1.py</td></tr>
+<tr><td>U1</td><td>WCAG AA color contrast</td><td class="done">text2/text3/success darkened</td></tr>
+<tr><td>U3</td><td>No focus indicators</td><td class="done">:focus-visible outlines</td></tr>
+<tr><td>U7</td><td>Prev/Next only in Practice tab</td><td class="done">Added to Lesson tab footer</td></tr>
+<tr><td>U8</td><td>No quiz retry</td><td class="done">"Try Again" button</td></tr>
+<tr><td>—</td><td>Resource sync from MySQL</td><td class="done">renderExtraTab() API fetch</td></tr>
+<tr><td>—</td><td>Soft delete in MySQL</td><td class="done">deleted_at column + UPDATE</td></tr>
+<tr><td>—</td><td>Best Practices tab</td><td class="done">22 topics, code examples, case studies</td></tr>
+<tr><td>—</td><td>Textbook reference page</td><td class="done">App-level view, grouped by book</td></tr>
+<tr><td>—</td><td>Quiz expansion (2→50+)</td><td class="done">1,158 questions total</td></tr>
+</table>
+
+<h2>⬜ Remaining (21 items)</h2>
+
+<h3>Security</h3>
+<table>
+<tr><th>ID</th><th>Item</th><th>Effort</th><th>Recommendation</th></tr>
+<tr><td>H1</td><td>Lesson content as raw innerHTML — compromised pipeline = XSS <span class="tag tag-medium">medium</span></td><td>1 day</td><td>Add DOMPurify or HTML whitelist sanitizer at build time</td></tr>
+</table>
+
+<h3>Architecture</h3>
+<table>
+<tr><th>ID</th><th>Item</th><th>Effort</th><th>Recommendation</th></tr>
+<tr><td>M1</td><td>Monolithic file (315KB → 900KB at 65 topics) <span class="tag tag-hard">large</span></td><td>5 days</td><td>Split into shell HTML + fetchable curriculum.json + cacheable app.js</td></tr>
+<tr><td>M3</td><td>Full innerHTML re-renders destroy DOM state <span class="tag tag-medium">medium</span></td><td>2 days</td><td>Targeted DOM updates; preserve scroll position, input state</td></tr>
+<tr><td>M4</td><td>No persistence abstraction layer <span class="tag tag-medium">medium</span></td><td>2 days</td><td>Storage interface with API + localStorage implementations</td></tr>
+<tr><td>M6</td><td>Render calls duplicated across 4 locations <span class="tag tag-easy">easy</span></td><td>1 day</td><td>Tab renderer registry object</td></tr>
+<tr><td>M7</td><td>O(n) linear scans over curriculum <span class="tag tag-easy">easy</span></td><td>1 day</td><td>Build Map&lt;id, topic&gt; once at init</td></tr>
+<tr><td>M8</td><td>No keyboard navigation in sidebar <span class="tag tag-medium">medium</span></td><td>2 days</td><td>Roving tabindex + Arrow key handlers</td></tr>
+</table>
+
+<h3>UX & Accessibility</h3>
+<table>
+<tr><th>ID</th><th>Item</th><th>Effort</th><th>Recommendation</th></tr>
+<tr><td>U2</td><td>No ARIA landmarks — screen reader inaccessible <span class="tag tag-medium">medium</span></td><td>2 days</td><td>role="navigation/main/tablist/tabpanel", aria-expanded, aria-current</td></tr>
+<tr><td>U4</td><td>Body text 0.9rem (~14px) — below 16px minimum <span class="tag tag-easy">easy</span></td><td>1 day</td><td>Increase body to 1rem (16px); sidebar items to 0.85rem</td></tr>
+<tr><td>U5</td><td>No deep-linking — cannot bookmark/share topic <span class="tag tag-easy">easy</span></td><td>1 day</td><td>location.hash = '#topic-' + id; restore from hash on init</td></tr>
+<tr><td>U6</td><td>Tab label "Notes" vs internal name "enhancements" <span class="tag tag-easy">easy</span></td><td>1 hour</td><td>Align naming: either "Enhance" or rename internals</td></tr>
+</table>
+
+<h3>Content</h3>
+<table>
+<tr><th>ID</th><th>Item</th><th>Effort</th><th>Recommendation</th></tr>
+<tr><td>L1</td><td>Content density overwhelming for beginners <span class="tag tag-medium">medium</span></td><td>3 days</td><td>Collapsible "Deep Dive" sections; core lesson ≤1,500 words</td></tr>
+<tr><td>L2</td><td>public static final int max() in intro methods <span class="tag tag-easy">easy</span></td><td>1 hour</td><td>Simplify to public static int max(int a, int b)</td></tr>
+<tr><td>L3</td><td>No dedicated String/StringBuilder lesson <span class="tag tag-medium">medium</span></td><td>2 days</td><td>Add focused String methods mini-topic</td></tr>
+<tr><td>L4</td><td>Topic 2 covers Git, Maven, Gradle — too broad <span class="tag tag-easy">easy</span></td><td>1 day</td><td>Move Git+Maven to Phase 2; keep Topic 2 focused on JDK+IDE</td></tr>
+<tr><td>L5</td><td>Exercise check too permissive (80% threshold) <span class="tag tag-easy">easy</span></td><td>1 day</td><td>Raise to 100% or add regex pattern matching</td></tr>
+</table>
+
+<h3>Nice-to-Have Features</h3>
+<table>
+<tr><th>ID</th><th>Feature</th><th>Effort</th></tr>
+<tr><td>N1</td><td>Topic search/filter in sidebar <span class="tag tag-medium">medium</span></td><td>2-3 days</td></tr>
+<tr><td>N2</td><td>Dark mode / theme toggle <span class="tag tag-easy">easy</span></td><td>1 day</td></tr>
+<tr><td>N3</td><td>Gamification — streaks, milestone badges <span class="tag tag-medium">medium</span></td><td>3-4 days</td></tr>
+<tr><td>N4</td><td>Progress export — JSON + Markdown <span class="tag tag-easy">easy</span></td><td>1 day</td></tr>
+<tr><td>N7</td><td>Bookmark topics for quick access <span class="tag tag-easy">easy</span></td><td>1 day</td></tr>
+</table>
+
+<h2>Recommended Next Batch (Quick Wins)</h2>
+<p>These 5 items can be done in ~3 days total and deliver visible improvements:</p>
+<ol>
+  <li><strong>N2</strong> — Dark mode toggle (1 day, high user impact)</li>
+  <li><strong>U5</strong> — URL hash deep-linking (1 day, enables sharing/bookmarking)</li>
+  <li><strong>M7</strong> — O(1) topic lookup Map (1 day, perf foundation)</li>
+  <li><strong>U4</strong> — Font size fix (1 day, accessibility)</li>
+  <li><strong>M6</strong> — Tab renderer registry (1 day, code quality)</li>
+</ol>
+
+</body>
+</html>
