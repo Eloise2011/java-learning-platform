@@ -14066,22 +14066,6 @@ function renderPractice(topic) {
         html += '</div>';
     }
 
-    html += '<div style="margin-top:20px;display:flex;gap:10px;align-items:center;flex-wrap:wrap">';
-    if (STATE.completedTopics.has(topic.id)) {
-        html += '<button class="complete-btn" disabled>✓ Completed</button>';
-    } else {
-        html += '<button class="complete-btn" onclick="markComplete(' + topic.id + ')">✓ Mark Complete</button>';
-    }
-    var prevId = getPrevTopicId(topic.id);
-    var nextId = getNextTopicId(topic.id);
-    if (prevId !== null) {
-        html += '<button class="secondary" onclick="selectTopic(' + prevId + ')" style="padding:8px 16px;background:transparent;border:1px solid var(--surface3);color:var(--text2);border-radius:6px;cursor:pointer;font-family:var(--font)">← Previous</button>';
-    }
-    if (nextId !== null) {
-        html += '<button class="secondary" onclick="selectTopic(' + nextId + ')" style="padding:8px 16px;background:transparent;border:1px solid var(--surface3);color:var(--text2);border-radius:6px;cursor:pointer;font-family:var(--font)">Next →</button>';
-    }
-    html += '</div>';
-
     container.innerHTML = html;
 }
 
@@ -14189,9 +14173,28 @@ function checkAnswer(topicId, questionIndex, selectedOption) {
         for (var k = 0; k < os.length; k++) { os[k].disabled = false; os[k].classList.remove('correct', 'wrong'); }
         fb.classList.remove('show', 'correct', 'wrong'); fb.textContent = '';
         if (rb.parentNode) rb.remove();
+        if (revealBtn.parentNode) revealBtn.remove();
         if (quizAnswers[topicId]) { delete quizAnswers[topicId][questionIndex]; saveQuizAnswers(); }
     };
     fb.appendChild(rb);
+
+    // Reveal Answer button
+    var revealBtn = document.createElement('button');
+    revealBtn.textContent = '💡 Reveal Answer';
+    revealBtn.style.cssText = 'margin-top:8px;margin-left:8px;padding:6px 14px;background:transparent;border:1px solid var(--warning);color:var(--warning);border-radius:6px;cursor:pointer;font-family:var(--font);font-size:0.78rem';
+    revealBtn.onclick = function(e) {
+        e.stopPropagation();
+        var os = questionEl.querySelectorAll('.quiz-option');
+        for (var k = 0; k < os.length; k++) {
+            os[k].disabled = true;
+            if (k === q.correct) os[k].classList.add('correct');
+        }
+        fb.textContent = '✓ Answer: ' + q.options[q.correct] + '. ' + q.explanation;
+        fb.classList.add('show', 'correct');
+        if (rb.parentNode) rb.remove();
+        if (revealBtn.parentNode) revealBtn.remove();
+    };
+    fb.appendChild(revealBtn);
 }
 
 // ===== CODING EXERCISE LOGIC =====
