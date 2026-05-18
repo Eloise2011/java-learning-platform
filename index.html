@@ -14166,8 +14166,9 @@ function checkAnswer(topicId, questionIndex, selectedOption) {
             fb.classList.add('show', 'wrong');
         }
     }
-    var rb = document.createElement('button');
-    rb.textContent = 'Try Again';
+    if (!isCorrect) {
+        var rb = document.createElement('button');
+        rb.textContent = 'Try Again';
     rb.style.cssText = 'margin-top:8px;padding:6px 14px;background:transparent;border:1px solid var(--surface3);color:var(--text2);border-radius:6px;cursor:pointer;font-family:var(--font);font-size:0.78rem';
     rb.onclick = function(e) {
         e.stopPropagation();
@@ -14180,8 +14181,8 @@ function checkAnswer(topicId, questionIndex, selectedOption) {
     };
     fb.appendChild(rb);
 
-    // Reveal Answer button
-    var revealBtn = document.createElement('button');
+        // Reveal Answer button
+        var revealBtn = document.createElement('button');
     revealBtn.textContent = '💡 Reveal Answer';
     revealBtn.style.cssText = 'margin-top:8px;margin-left:8px;padding:6px 14px;background:transparent;border:1px solid var(--warning);color:var(--warning);border-radius:6px;cursor:pointer;font-family:var(--font);font-size:0.78rem';
     revealBtn.onclick = function(e) {
@@ -14196,7 +14197,8 @@ function checkAnswer(topicId, questionIndex, selectedOption) {
         if (rb.parentNode) rb.remove();
         if (revealBtn.parentNode) revealBtn.remove();
     };
-    fb.appendChild(revealBtn);
+        fb.appendChild(revealBtn);
+    }
 }
 
 // ===== CODING EXERCISE LOGIC =====
