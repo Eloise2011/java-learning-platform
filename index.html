@@ -207,15 +207,16 @@ button:focus-visible, a:focus-visible, input:focus-visible, textarea:focus-visib
     </div>
     <div id="lesson-viewer" style="display:none">
       <div class="tabs" style="flex-wrap:wrap" id="topic-tabs">
-        <button class="tab active" data-tab="lesson">📖 Lesson</button>
-        <button class="tab" data-tab="practice">✏️ Practice</button>
-        <button class="tab" data-tab="extra">📚 Extra</button>
-        <button class="tab" data-tab="enhancements">💬 Notes</button>
+        <button class="tab active" data-tab="lesson" onclick="switchTab('lesson')">📖 Lesson</button>
+        <button class="tab" data-tab="practice" onclick="switchTab('practice')">✏️ Practice</button>
+        <button class="tab" data-tab="extra" onclick="switchTab('extra')">📚 Extra</button>
+        <button class="tab" data-tab="enhancements" onclick="switchTab('enhancements')">💬 Notes</button>
       </div>
       <div id="tab-lesson" class="lesson-section active"></div>
       <div id="tab-practice" class="lesson-section"></div>
       <div id="tab-extra" class="lesson-section"></div>
       <div id="tab-enhancements" class="lesson-section"></div>
+      <div id="tab-bestpractices" class="lesson-section"></div>
     </div>
   <div id="app-view-progress" class="app-view" style="display:none"></div>
   <div id="app-view-sitemap" class="app-view" style="display:none"></div>
