@@ -619,7 +619,8 @@ TOPICS = [
         "main",
         "stack",
         "heap"
-      ]
+      ],
+      "exampleSolution": "The JVM starts, the ClassLoader loads HelloWorld.class, the bytecode verifier checks safety, then the JVM finds the main() method. When System.out.println() is called, the JVM makes a native system call to the OS, which writes characters to the terminal standard output stream. The terminal emulator renders these characters as pixels on screen using the GPU."
     }
   },
   {
@@ -1261,7 +1262,8 @@ TOPICS = [
         "version",
         "HelloWorld",
         "main"
-      ]
+      ],
+      "exampleSolution": "1. Install JDK 21: brew install openjdk@21 (macOS)\n2. Set JAVA_HOME: export JAVA_HOME=/Library/Java/JavaVirtualMachines/jdk-21.jdk/Contents/Home\n3. Add to PATH: export PATH=$JAVA_HOME/bin:$PATH\n4. Verify: java -version && javac -version\n5. Install IntelliJ IDEA Community Edition\n6. Create new project, write HelloWorld.java, run it"
     }
   },
   {
@@ -1870,7 +1872,8 @@ TOPICS = [
         "String[]",
         "System.out.println",
         "LocalDate"
-      ]
+      ],
+      "exampleSolution": "public class HelloWorld {\n    public static void main(String[] args) {\n        System.out.println(\"Hello, World!\");\n        System.out.println(\"My name is [Your Name]\");\n        System.out.println(\"Today date: \" + java.time.LocalDate.now());\n        System.out.println(\"1234 * 5678 = \" + (1234 * 5678));\n    }\n}"
     }
   },
   {
@@ -2495,7 +2498,8 @@ TOPICS = [
         "boolean",
         "MAX_VALUE",
         "overflow"
-      ]
+      ],
+      "exampleSolution": "byte b = 127;\nshort s = 32000;\nint i = 2147483647;\nlong l = 9223372036854775807L;\nfloat f = 3.14f;\ndouble d = 3.141592653589793;\nchar c = \"A\";\nboolean flag = false;\n\n// Overflow demo:\nint max = Integer.MAX_VALUE;\nSystem.out.println(\"MAX_VALUE: \" + max);\nSystem.out.println(\"MAX_VALUE+1: \" + (max+1)); // wraps to MIN_VALUE!\n\n// Type casting:\ndouble pi = 3.14159;\nint approx = (int) pi; // 3 (truncated)"
     }
   },
   {
@@ -3094,7 +3098,8 @@ TOPICS = [
         ".equals",
         "==",
         "String"
-      ]
+      ],
+      "exampleSolution": "// Integer vs floating-point division:\ndouble wrong = 10 / 3;      // 3.0 (int/int = int, then widened)\ndouble right = 10.0 / 3;    // 3.333...\ndouble also = (double)10/3; // 3.333...\n\n// Short-circuit evaluation:\npublic static boolean log(String msg, boolean val) {\n    System.out.println(msg); return val;\n}\n// Test: if(false && log(\"called\",true)) -- log() is NEVER called!\n\n// String == vs .equals():\nString s1 = new String(\"hello\");\nString s2 = new String(\"hello\");\nSystem.out.println(s1 == s2);      // false\nSystem.out.println(s1.equals(s2));  // true"
     }
   },
   {
@@ -3692,7 +3697,8 @@ TOPICS = [
         "triangle",
         "&&",
         "||"
-      ]
+      ],
+      "exampleSolution": "public class TriangleClassifier {\n    public static String classify(int a, int b, int c) {\n        if (a<=0 || b<=0 || c<=0) return \"Invalid sides\";\n        if (a+b<=c || b+c<=a || a+c<=b) return \"Invalid triangle inequality\";\n        if (a==b && b==c) return \"Equilateral\";\n        if (a==b || b==c || a==c) return \"Isosceles\";\n        return \"Scalene\";\n    }\n    public static void main(String[] args) {\n        System.out.println(classify(3,3,3)); // Equilateral\n        System.out.println(classify(3,4,4)); // Isosceles\n        System.out.println(classify(3,4,5)); // Scalene\n    }\n}"
     }
   },
   {
@@ -4312,7 +4318,8 @@ TOPICS = [
         "do-while",
         "fibonacci",
         "break"
-      ]
+      ],
+      "exampleSolution": "// 1. Fibonacci (first 20):\nint a=0, b=1;\nSystem.out.print(a+\" \"+b);\nfor(int i=2; i<20; i++){int n=a+b; System.out.print(\" \"+n); a=b; b=n;}\n\n// 2. Smallest power of 2 > 1,000,000:\nint p=1; while(p<=1000000) p*=2;\nSystem.out.println(\"Result: \"+p);\n\n// 3. Validate input with do-while:\nint input=-5;\ndo{ System.out.println(\"Enter 1-10\"); input=5; }while(input<1||input>10);\nSystem.out.println(\"Valid: \"+input);"
     }
   },
   {
@@ -4911,7 +4918,8 @@ TOPICS = [
         "static",
         "void",
         "pass-by-value"
-      ]
+      ],
+      "exampleSolution": "// Pass-by-value demo:\npublic static void swap(int a, int b){int t=a;a=b;b=t;}\n// This does NOT affect caller -- only local copies changed\n\n// Swap array elements -- this WORKS:\npublic static void swapArr(int[] arr, int i, int j){\n    int t=arr[i]; arr[i]=arr[j]; arr[j]=t;\n}\n// Array reference is copied but points to same heap object\nint[] nums={5,10}; swapArr(nums,0,1);\nSystem.out.println(nums[0]+\",\"+nums[1]); // 10,5"
     }
   },
   {
@@ -5521,7 +5529,8 @@ TOPICS = [
         "rotate",
         "for",
         "sum"
-      ]
+      ],
+      "exampleSolution": "// Binary search:\npublic static int binSearch(int[] arr, int target){\n    int l=0, r=arr.length-1;\n    while(l<=r){int m=l+(r-l)/2;\n        if(arr[m]==target) return m;\n        else if(arr[m]<target) l=m+1; else r=m-1;}\n    return -1;\n}\n\n// Rotate left by k:\npublic static void rotate(int[] arr, int k){\n    k%=arr.length; reverse(arr,0,k-1);\n    reverse(arr,k,arr.length-1); reverse(arr,0,arr.length-1);\n}\n\n// Find pairs summing to target (O(n) with HashSet):\npublic static List<int[]> findPairs(int[] arr, int t){\n    var seen=new HashSet<Integer>(); var res=new ArrayList<int[]>();\n    for(int v:arr){if(seen.contains(t-v)) res.add(new int[]{t-v,v}); seen.add(v);}\n    return res;\n}"
     }
   },
   {
@@ -6110,7 +6119,8 @@ TOPICS = [
         "withdraw",
         "transfer",
         "this"
-      ]
+      ],
+      "exampleSolution": "public class BankAccount {\n    private final String accountNumber;\n    private double balance;\n    public BankAccount(String accNo){\n        if(accNo==null||accNo.isBlank()) throw new IllegalArgumentException();\n        this.accountNumber=accNo; this.balance=0.0;\n    }\n    public void deposit(double amt){\n        if(amt<=0) throw new IllegalArgumentException(\"Must be positive\");\n        balance+=amt;\n    }\n    public boolean withdraw(double amt){\n        if(amt<=0||amt>balance) return false;\n        balance-=amt; return true;\n    }\n    public boolean transfer(BankAccount to, double amt){\n        if(!this.withdraw(amt)) return false;\n        to.deposit(amt); return true;\n    }\n    public double getBalance(){return balance;}\n}"
     }
   },
   {
@@ -6742,7 +6752,8 @@ TOPICS = [
         "constructor",
         "get",
         "Immutable"
-      ]
+      ],
+      "exampleSolution": "public final class ImmutablePerson {\n    private final String name;\n    private final LocalDate birthDate;\n    public ImmutablePerson(String name, LocalDate bd){\n        this.name=Objects.requireNonNull(name);\n        this.birthDate=Objects.requireNonNull(bd);\n    }\n    public String getName(){return name;}\n    public LocalDate getBirthDate(){return birthDate;}\n    public int getAge(){\n        return Period.between(birthDate, LocalDate.now()).getYears();\n    }\n}"
     }
   },
   {
@@ -7375,7 +7386,8 @@ TOPICS = [
         "Car",
         "ElectricCar",
         "accelerate"
-      ]
+      ],
+      "exampleSolution": "abstract class Vehicle { protected int speed;\n    public void accelerate(int a){speed+=a;}\n    public int getSpeed(){return speed;}\n}\nclass Car extends Vehicle {\n    private final int doors;\n    public Car(int d){doors=d;}\n    public void honk(){System.out.println(\"Beep!\");}\n}\nclass ElectricCar extends Car {\n    private int battery=100;\n    public ElectricCar(int d){super(d);}\n    @Override public void accelerate(int a){\n        if(battery>=a){super.accelerate(a); battery-=a/10;}\n    }\n    public int getBattery(){return battery;}\n}"
     }
   },
   {
@@ -7985,7 +7997,8 @@ TOPICS = [
         "List",
         "implements",
         "extends"
-      ]
+      ],
+      "exampleSolution": "interface Shape { double area(); }\nrecord Circle(double r) implements Shape {\n    public double area(){return Math.PI*r*r;}\n}\nrecord Rectangle(double w, double h) implements Shape {\n    public double area(){return w*h;}\n}\nrecord Triangle(double b, double h) implements Shape {\n    public double area(){return 0.5*b*h;}\n}\n// totalArea works with ANY Shape — even future ones!\npublic static double totalArea(List<Shape> shapes){\n    return shapes.stream().mapToDouble(Shape::area).sum();\n}"
     }
   },
   {
@@ -8617,7 +8630,8 @@ TOPICS = [
         "Recordable",
         "@Override",
         "extends"
-      ]
+      ],
+      "exampleSolution": "interface Playable { void play(); void pause(); }\ninterface Recordable { void record(); }\nclass MediaPlayer implements Playable, Recordable {\n    private boolean playing=false;\n    public void play(){playing=true; System.out.println(\"Playing\");}\n    public void pause(){playing=false; System.out.println(\"Paused\");}\n    public void record(){System.out.println(\"Recording\");}\n}\nclass Podcast extends MediaPlayer {\n    private String title;\n    public Podcast(String t){title=t;}\n    public void download(){System.out.println(\"Downloading: \"+title);}\n}"
     }
   },
   {
@@ -9205,7 +9219,8 @@ TOPICS = [
         "catch",
         "transfer",
         "balance"
-      ]
+      ],
+      "exampleSolution": "public class BankService {\n    public void transfer(String fromId, String toId, double amt){\n        var from=findAccount(fromId);\n        var to=findAccount(toId);\n        if(!from.withdraw(amt))\n            throw new InsufficientFundsException(from.getBalance(),amt);\n        to.deposit(amt);\n    }\n    private Account findAccount(String id){\n        var acc=database.get(id);\n        if(acc==null) throw new AccountNotFoundException(id);\n        return acc;\n    }\n}\n\nclass InsufficientFundsException extends RuntimeException {\n    public InsufficientFundsException(double bal, double req){\n        super(String.format(\"Balance %.2f, requested %.2f\",bal,req));\n    }\n}"
     }
   },
   {
@@ -9803,7 +9818,8 @@ TOPICS = [
         "entrySet",
         "split",
         "toLowerCase"
-      ]
+      ],
+      "exampleSolution": "public static Map<String,Integer> wordFrequency(String text){\n    Map<String,Integer> freq=new HashMap<>();\n    String[] words=text.toLowerCase().replaceAll(\"[^a-z0-9\\\\s]\",\"\").split(\"\\\\s+\");\n    for(String w:words){if(!w.isEmpty()) freq.merge(w,1,Integer::sum);}\n    String most=null; int max=0;\n    for(var e:freq.entrySet()){if(e.getValue()>max){most=e.getKey();max=e.getValue();}}\n    System.out.println(\"Most frequent: \"+most+\" (\"+max+\" times)\");\n    return freq;\n}"
     }
   },
   {
@@ -10392,7 +10408,8 @@ TOPICS = [
         "super",
         "static",
         "swap"
-      ]
+      ],
+      "exampleSolution": "public class Pair<K,V> {\n    private final K key; private final V value;\n    public Pair(K k,V v){key=k;value=v;}\n    public K getKey(){return key;}\n    public V getValue(){return value;}\n    public static <A,B> Pair<B,A> swap(Pair<A,B> p){\n        return new Pair<>(p.getValue(),p.getKey());\n    }\n}\n// Method accepting List<? extends Number>:\npublic static double sum(List<? extends Number> nums){\n    return nums.stream().mapToDouble(Number::doubleValue).sum();\n}"
     }
   },
   {
@@ -10980,7 +10997,8 @@ TOPICS = [
         "split",
         "try",
         "IOException"
-      ]
+      ],
+      "exampleSolution": "public static void processCSV(String path) throws IOException {\n    int valid=0, invalid=0;\n    try(BufferedReader r=Files.newBufferedReader(Path.of(path))){\n        String line;\n        while((line=r.readLine())!=null){\n            if(line.split(\",\").length>=3) valid++; else invalid++;\n        }\n    }\n    String summary=String.format(\"Total:%d Valid:%d Invalid:%d\",valid+invalid,valid,invalid);\n    Files.writeString(Path.of(\"summary.txt\"),summary);\n    System.out.println(summary);\n}"
     }
   },
   {
@@ -11557,7 +11575,8 @@ TOPICS = [
         "Money",
         "convert",
         "symbol"
-      ]
+      ],
+      "exampleSolution": "public enum Currency {\n    USD(\"$\",1.0), EUR(\"E\",0.92), GBP(\"L\",0.79), JPY(\"Y\",149.0);\n    private final String sym; private final double rate;\n    Currency(String s,double r){sym=s;rate=r;}\n    public double toUSD(double amt){return amt*rate;}\n    public double fromUSD(double usd){return usd/rate;}\n}\nrecord Money(Currency currency, double amount){\n    public Money convertTo(Currency target){\n        double usd=currency.toUSD(amount);\n        return new Money(target,target.fromUSD(usd));\n    }\n}"
     }
   },
   {
@@ -12135,7 +12154,8 @@ TOPICS = [
         "apply",
         "filter",
         "map"
-      ]
+      ],
+      "exampleSolution": "public static <T,R> List<R> filterAndTransform(List<T> input, Predicate<T> filter, Function<T,R> transform){\n    List<R> result=new ArrayList<>();\n    for(T item:input){if(filter.test(item)) result.add(transform.apply(item));}\n    return result;\n}\n// Usage:\nvar names=List.of(\"Alice\",\"Bob\",\"Anna\",\"Alex\");\nvar result=filterAndTransform(names, s->s.startsWith(\"A\"), String::toUpperCase);\nSystem.out.println(result); // [ALICE, ANNA, ALEX]"
     }
   },
   {
@@ -12735,7 +12755,8 @@ TOPICS = [
         "limit",
         "collect",
         "Collectors"
-      ]
+      ],
+      "exampleSolution": "record Tx(String type, double amount, LocalDate date){}\n// 1. Total by type:\nvar byType=txs.stream().collect(Collectors.groupingBy(Tx::type, Collectors.summingDouble(Tx::amount)));\n// 2. Top 3 largest:\nvar top3=txs.stream().sorted(Comparator.comparingDouble(Tx::amount).reversed()).limit(3).toList();\n// 3. Average per month:\nvar avgMonth=txs.stream().collect(Collectors.groupingBy(t->t.date().getMonth(), Collectors.averagingDouble(Tx::amount)));"
     }
   },
   {
@@ -13334,7 +13355,8 @@ TOPICS = [
         "orElse",
         "orElseThrow",
         "filter"
-      ]
+      ],
+      "exampleSolution": "public Optional<Employee> findEmployeeByEmail(String email){\n    return Optional.ofNullable(database.getByEmail(email));\n}\npublic String getManagerName(String email){\n    return findEmployeeByEmail(email)\n        .map(Employee::getDepartment)\n        .flatMap(Department::getManager)\n        .map(Employee::getName)\n        .orElse(\"No manager\");\n}"
     }
   }
 ]
