@@ -14003,28 +14003,20 @@ function initTabs() {
 }
 
 function switchTab(tabName) {
-    var tabs = document.querySelectorAll('.tab');
-    for (var i = 0; i < tabs.length; i++) tabs[i].classList.remove('active');
-    var sections = document.querySelectorAll('.lesson-section');
-    for (var j = 0; j < sections.length; j++) sections[j].classList.remove('active');
-
-    var tab = document.querySelector('[data-tab="' + tabName + '"]');
-    var section = document.getElementById('tab-' + tabName);
-    if (tab) tab.classList.add('active');
-    if (section) section.classList.add('active');
-
-    if (tabName === 'sitemap' && STATE.currentTopicId) {
-        var mel = document.querySelector('#tab-sitemap .mermaid');
-        if (mel && !mel.querySelector('svg')) {
-            initMermaid();
-            if (typeof mermaid !== 'undefined') {
-                setTimeout(function() {
-                    try { mermaid.run({ querySelector: '#tab-sitemap .mermaid' }); }
-                    catch(e) { mel.innerHTML = '<p style="color:var(--text3);padding:20px">Diagram failed to render.</p>'; }
-                }, 100);
-            }
-        }
+    // Hide all lesson sections and deactivate all tabs
+    var allSections = ['tab-lesson', 'tab-practice', 'tab-extra', 'tab-enhancements', 'tab-bestpractices'];
+    for (var j = 0; j < allSections.length; j++) {
+        var sec = document.getElementById(allSections[j]);
+        if (sec) { sec.classList.remove('active'); sec.style.display = 'none'; }
     }
+    var allTabs = document.querySelectorAll('.tab');
+    for (var i = 0; i < allTabs.length; i++) allTabs[i].classList.remove('active');
+
+    // Show selected section and activate selected tab
+    var section = document.getElementById('tab-' + tabName);
+    var tab = document.querySelector('[data-tab="' + tabName + '"]');
+    if (section) { section.classList.add('active'); section.style.display = 'block'; }
+    if (tab) tab.classList.add('active');
 }
 
 // ===== LESSON RENDERING =====
