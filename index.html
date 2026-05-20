@@ -14026,7 +14026,7 @@ function renderPractice(topic) {
             html += '<div class="quiz-question" id="quiz-' + topic.id + '-' + qi + '">';
             html += '<h4>Q' + (qi + 1) + '. ' + escapeHTML(q.question) + '</h4>';
             for (var oi = 0; oi < q.options.length; oi++) {
-                html += '<button class="quiz-option" onclick="checkAnswer(' + topic.id + ',' + qi + ',' + oi + '" data-topic="' + topic.id + '" data-q="' + qi + '" data-o="' + oi + '">' + escapeHTML(q.options[oi]) + '</button>';
+                html += '<button class="quiz-option" onclick="checkAnswer(' + topic.id + ',' + qi + ',' + oi + ')" data-topic="' + topic.id + '" data-q="' + qi + '" data-o="' + oi + '">' + escapeHTML(q.options[oi]) + '</button>';
             }
             html += '<div class="quiz-feedback" id="quiz-fb-' + topic.id + '-' + qi + '"></div>';
             html += '</div>';
