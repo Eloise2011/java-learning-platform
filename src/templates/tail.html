@@ -407,16 +407,24 @@ function renderLesson(topic) {
     html += '<div class="textbook-ref"><strong>📖 Textbook:</strong> <em>' + escapeHTML(topic.textbook) + '</em></div>';
     html += topic.lesson;
 
-    html += '<div style="margin-top:24px;display:flex;gap:10px;align-items:center;flex-wrap:wrap">';
+    html += '<div style="margin-top:24px;display:flex;align-items:center;justify-content:space-between">';
+    var pid = getPrevTopicId(topic.id), nid = getNextTopicId(topic.id);
+    if (pid !== null) {
+        html += '<button class="secondary" onclick="selectTopic(' + pid + ')" style="padding:10px 20px;background:transparent;border:1px solid var(--surface3);color:var(--text2);border-radius:6px;cursor:pointer;font-family:var(--font);font-size:0.85rem">← Previous</button>';
+    } else {
+        html += '<span></span>';
+    }
     if (STATE.completedTopics.has(topic.id)) {
-        html += '<button class="complete-btn" disabled>✓ Completed</button>';
-        html += '<button class="reset-btn" onclick="unmarkComplete(' + topic.id + ')">↩ Mark Incomplete</button>';
+        html += '<span style="display:flex;gap:10px;align-items:center"><button class="complete-btn" disabled>✓ Completed</button>';
+        html += '<button class="reset-btn" onclick="unmarkComplete(' + topic.id + ')">↩ Incomplete</button></span>';
     } else {
         html += '<button class="complete-btn" onclick="markComplete(' + topic.id + ')">✓ Mark Complete</button>';
     }
-    var pid = getPrevTopicId(topic.id), nid = getNextTopicId(topic.id);
-    if (pid !== null) html += '<button class="secondary" onclick="selectTopic(' + pid + ')" style="padding:8px 16px;background:transparent;border:1px solid var(--surface3);color:var(--text2);border-radius:6px;cursor:pointer;font-family:var(--font)">← Previous</button>';
-    if (nid !== null) html += '<button class="secondary" onclick="selectTopic(' + nid + ')" style="padding:8px 16px;background:transparent;border:1px solid var(--surface3);color:var(--text2);border-radius:6px;cursor:pointer;font-family:var(--font)">Next →</button>';
+    if (nid !== null) {
+        html += '<button class="secondary" onclick="selectTopic(' + nid + ')" style="padding:10px 20px;background:transparent;border:1px solid var(--surface3);color:var(--text2);border-radius:6px;cursor:pointer;font-family:var(--font);font-size:0.85rem">Next →</button>';
+    } else {
+        html += '<span></span>';
+    }
     html += '</div>';
 
     container.innerHTML = html;
@@ -431,18 +439,10 @@ function renderPractice(topic) {
         html += '<h3>📝 Quiz: ' + escapeHTML(topic.title) + '</h3>';
         for (var qi = 0; qi < topic.quiz.length; qi++) {
             var q = topic.quiz[qi];
-            var prev = getQuizAnswer(topic.id, qi);
             html += '<div class="quiz-question" id="quiz-' + topic.id + '-' + qi + '">';
             html += '<h4>Q' + (qi + 1) + '. ' + escapeHTML(q.question) + '</h4>';
             for (var oi = 0; oi < q.options.length; oi++) {
-                var cls = 'quiz-option';
-                var dis = '';
-                if (prev) {
-                    dis = ' disabled';
-                    if (oi === q.correct) cls += ' correct';
-                    else if (oi === prev.selectedOption && !prev.isCorrect) cls += ' wrong';
-                }
-                html += '<button class="' + cls + '"' + dis + ' onclick="checkAnswer(' + topic.id + ',' + qi + ',' + oi + ')" data-topic="' + topic.id + '" data-q="' + qi + '" data-o="' + oi + '">';
+                html += '<button class="quiz-option" onclick="checkAnswer(' + topic.id + ',' + qi + ',' + oi + ')" data-topic="' + topic.id + '" data-q="' + qi + '" data-o="' + oi + '">';
                 html += escapeHTML(q.options[oi]);
                 html += '</button>';
             }
@@ -473,22 +473,6 @@ function renderPractice(topic) {
         html += '<div class="check-result" id="exercise-result-' + topic.id + '"></div>';
         html += '</div>';
     }
-
-    html += '<div style="margin-top:20px;display:flex;gap:10px;align-items:center;flex-wrap:wrap">';
-    if (STATE.completedTopics.has(topic.id)) {
-        html += '<button class="complete-btn" disabled>✓ Completed</button>';
-    } else {
-        html += '<button class="complete-btn" onclick="markComplete(' + topic.id + ')">✓ Mark Complete</button>';
-    }
-    var prevId = getPrevTopicId(topic.id);
-    var nextId = getNextTopicId(topic.id);
-    if (prevId !== null) {
-        html += '<button class="secondary" onclick="selectTopic(' + prevId + ')" style="padding:8px 16px;background:transparent;border:1px solid var(--surface3);color:var(--text2);border-radius:6px;cursor:pointer;font-family:var(--font)">← Previous</button>';
-    }
-    if (nextId !== null) {
-        html += '<button class="secondary" onclick="selectTopic(' + nextId + ')" style="padding:8px 16px;background:transparent;border:1px solid var(--surface3);color:var(--text2);border-radius:6px;cursor:pointer;font-family:var(--font)">Next →</button>';
-    }
-    html += '</div>';
 
     container.innerHTML = html;
 }
