@@ -208,9 +208,9 @@ button:focus-visible, a:focus-visible, input:focus-visible, textarea:focus-visib
     <div id="lesson-viewer" style="display:none">
       <div class="tabs" style="flex-wrap:wrap" id="topic-tabs">
         <button class="tab active" data-tab="lesson" onclick="switchTab('lesson')">📖 Lesson</button>
-        <button class="tab" data-tab="practice" onclick="switchTab('practice')">✏️ Practice</button>
-        <button class="tab" data-tab="extra" onclick="switchTab('extra')">📚 Extra</button>
-        <button class="tab" data-tab="enhancements" onclick="switchTab('enhancements')">💬 Notes</button>
+        <button class="tab" data-tab="practice" onclick="document.getElementById('tab-lesson').style.display='none';document.getElementById('tab-practice').style.display='block';document.getElementById('tab-extra').style.display='none';document.getElementById('tab-enhancements').style.display='none';var tb=document.getElementById('tab-bestpractices');if(tb)tb.style.display='none';var tabs=document.querySelectorAll('.tab');for(var i=0;i<tabs.length;i++)tabs[i].classList.remove('active');this.classList.add('active')">✏️ Practice</button>
+        <button class="tab" data-tab="extra" onclick="document.getElementById('tab-lesson').style.display='none';document.getElementById('tab-practice').style.display='none';document.getElementById('tab-extra').style.display='block';document.getElementById('tab-enhancements').style.display='none';var tb=document.getElementById('tab-bestpractices');if(tb)tb.style.display='none';var tabs=document.querySelectorAll('.tab');for(var i=0;i<tabs.length;i++)tabs[i].classList.remove('active');this.classList.add('active')">📚 Extra</button>
+        <button class="tab" data-tab="enhancements" onclick="document.getElementById('tab-lesson').style.display='none';document.getElementById('tab-practice').style.display='none';document.getElementById('tab-extra').style.display='none';document.getElementById('tab-enhancements').style.display='block';var tb=document.getElementById('tab-bestpractices');if(tb)tb.style.display='none';var tabs=document.querySelectorAll('.tab');for(var i=0;i<tabs.length;i++)tabs[i].classList.remove('active');this.classList.add('active')">💬 Notes</button>
       </div>
       <div id="tab-lesson" class="lesson-section active"></div>
       <div id="tab-practice" class="lesson-section"></div>
