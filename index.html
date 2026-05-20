@@ -14023,28 +14023,12 @@ function renderPractice(topic) {
         html += '<h3>📝 Quiz: ' + escapeHTML(topic.title) + '</h3>';
         for (var qi = 0; qi < topic.quiz.length; qi++) {
             var q = topic.quiz[qi];
-            var prev = getQuizAnswer(topic.id, qi);
             html += '<div class="quiz-question" id="quiz-' + topic.id + '-' + qi + '">';
             html += '<h4>Q' + (qi + 1) + '. ' + escapeHTML(q.question) + '</h4>';
             for (var oi = 0; oi < q.options.length; oi++) {
-                var cls = 'quiz-option';
-                var dis = '';
-                if (prev) {
-                    dis = ' disabled';
-                    if (oi === q.correct) cls += ' correct';
-                    else if (oi === prev.selectedOption && !prev.isCorrect) cls += ' wrong';
-                }
-                html += '<button class="' + cls + '"' + dis + ' onclick="checkAnswer(' + topic.id + ',' + qi + ',' + oi + ')" data-topic="' + topic.id + '" data-q="' + qi + '" data-o="' + oi + '">';
-                html += escapeHTML(q.options[oi]);
-                html += '</button>';
+                html += '<button class="quiz-option" onclick="checkAnswer(' + topic.id + ',' + qi + ',' + oi + '" data-topic="' + topic.id + '" data-q="' + qi + '" data-o="' + oi + '">' + escapeHTML(q.options[oi]) + '</button>';
             }
-            html += '<div class="quiz-feedback" id="quiz-fb-' + topic.id + '-' + qi + '"';
-            if (prev) {
-                html += ' class="show ' + (prev.isCorrect ? 'correct' : 'wrong') + '"';
-                html += '>' + (prev.isCorrect ? '✓ Correct! ' : '✗ Incorrect. ') + escapeHTML(q.explanation) + '</div>';
-            } else {
-                html += '></div>';
-            }
+            html += '<div class="quiz-feedback" id="quiz-fb-' + topic.id + '-' + qi + '"></div>';
             html += '</div>';
         }
     } else {
