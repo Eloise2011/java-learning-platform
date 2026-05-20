@@ -466,7 +466,15 @@ function renderPractice(topic) {
         html += '<p style="color:var(--text2);line-height:1.6">' + escapeHTML(ex.instruction) + '</p>';
         if (ex.hint) {
             html += '<div class="hint" id="hint-' + topic.id + '" style="display:none">💡 Hint: ' + escapeHTML(ex.hint) + '</div>';
-            html += '<button class="secondary" onclick="document.getElementById(\'hint-' + topic.id + '\').style.display=\'block\'" style="margin-bottom:8px;padding:6px 14px;background:transparent;border:1px solid var(--surface3);color:var(--text2);border-radius:6px;cursor:pointer;font-family:var(--font);font-size:0.8rem">Show Hint</button>';
+            html += '<button class="secondary" onclick="document.getElementById(\'hint-' + topic.id + '\').style.display=\'block\'" style="padding:6px 14px;background:transparent;border:1px solid var(--surface3);color:var(--text2);border-radius:6px;cursor:pointer;font-family:var(--font);font-size:0.8rem">💡 Show Hint</button>';
+        }
+        if (ex.exampleSolution) {
+            html += '<div id="example-sol-' + topic.id + '" style="display:none;width:100%;background:var(--surface);border:1px solid var(--surface3);border-radius:6px;padding:12px;margin-top:4px"><strong style="color:var(--accent)">📝 Example Solution:</strong><pre style="font-family:var(--mono);font-size:0.8rem;margin-top:6px;white-space:pre-wrap;color:var(--text)">' + escapeHTML(ex.exampleSolution) + '</pre></div>';
+            html += '<button class="secondary" onclick="document.getElementById(\'example-sol-' + topic.id + '\').style.display=\'block\'" style="padding:6px 14px;background:transparent;border:1px solid var(--accent);color:var(--accent);border-radius:6px;cursor:pointer;font-family:var(--font);font-size:0.8rem">📝 Show Example</button>';
+            var nextId = getNextTopicId(topic.id);
+            if (nextId !== null) {
+                html += '<button class="secondary" onclick="selectTopic(' + nextId + ')" style="padding:6px 14px;background:var(--accent);color:#fff;border:none;border-radius:6px;cursor:pointer;font-family:var(--font);font-size:0.8rem">Accept & Continue →</button>';
+            }
         }
         html += '<textarea id="exercise-input-' + topic.id + '" placeholder="Write your solution here..."></textarea>';
         html += '<button onclick="checkExercise(' + topic.id + ')">✓ Check</button>';
@@ -569,23 +577,48 @@ function checkAnswer(topicId, questionIndex, selectedOption) {
     saveQuizAnswer(topicId, questionIndex, selectedOption, isCorrect);
     var fb = document.getElementById('quiz-fb-' + topicId + '-' + questionIndex);
     if (fb) {
-        fb.textContent = (isCorrect ? '✓ Correct! ' : '✗ Incorrect. ') + q.explanation;
-        fb.classList.add('show', isCorrect ? 'correct' : 'wrong');
+        if (isCorrect) {
+            fb.textContent = '✓ Correct! ' + q.explanation;
+            fb.classList.add('show', 'correct');
+        } else {
+            fb.textContent = '✗ Incorrect. Try again or click Reveal Answer.';
+            fb.classList.add('show', 'wrong');
+        }
     }
-    var rb = document.createElement('button');
-    rb.textContent = 'Try Again';
-    rb.style.cssText = 'margin-top:8px;padding:6px 14px;background:transparent;border:1px solid var(--surface3);color:var(--text2);border-radius:6px;cursor:pointer;font-family:var(--font);font-size:0.78rem';
-    rb.onclick = function(e) {
-        e.stopPropagation();
-        var os = questionEl.querySelectorAll('.quiz-option');
-        for (var k = 0; k < os.length; k++) { os[k].disabled = false; os[k].classList.remove('correct', 'wrong'); }
-        fb.classList.remove('show', 'correct', 'wrong'); fb.textContent = '';
-        if (rb.parentNode) rb.remove();
-        if (quizAnswers[topicId]) { delete quizAnswers[topicId][questionIndex]; saveQuizAnswers(); }
-    };
-    fb.appendChild(rb);
-}
+    if (!isCorrect) {
+        var rb = document.createElement('button');
+        rb.textContent = 'Try Again';
+        rb.style.cssText = 'margin-top:8px;padding:6px 14px;background:transparent;border:1px solid var(--surface3);color:var(--text2);border-radius:6px;cursor:pointer;font-family:var(--font);font-size:0.78rem';
+        rb.onclick = function(e) {
+            e.stopPropagation();
+            var os = questionEl.querySelectorAll('.quiz-option');
+            for (var k = 0; k < os.length; k++) { os[k].disabled = false; os[k].classList.remove('correct', 'wrong'); }
+            fb.classList.remove('show', 'correct', 'wrong'); fb.textContent = '';
+            if (rb.parentNode) rb.remove();
+            if (revealBtn.parentNode) revealBtn.remove();
+            if (quizAnswers[topicId]) { delete quizAnswers[topicId][questionIndex]; saveQuizAnswers(); }
+        };
+        fb.appendChild(rb);
 
+        var revealBtn = document.createElement('button');
+        revealBtn.textContent = '💡 Reveal Answer';
+        revealBtn.style.cssText = 'margin-top:8px;margin-left:8px;padding:6px 14px;background:transparent;border:1px solid var(--warning);color:var(--warning);border-radius:6px;cursor:pointer;font-family:var(--font);font-size:0.78rem';
+        revealBtn.onclick = function(e) {
+            e.stopPropagation();
+            var os = questionEl.querySelectorAll('.quiz-option');
+            for (var k = 0; k < os.length; k++) {
+                os[k].disabled = true;
+                if (k === q.correct) os[k].classList.add('correct');
+            }
+            fb.textContent = '✓ Answer: ' + q.options[q.correct] + '. ' + q.explanation;
+            fb.classList.add('show', 'correct');
+            if (rb.parentNode) rb.remove();
+            if (revealBtn.parentNode) revealBtn.remove();
+        };
+        fb.appendChild(revealBtn);
+    }
+
+}
 // ===== CODING EXERCISE LOGIC =====
 function checkExercise(topicId) {
     var topic = getTopicById(topicId);
