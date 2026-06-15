@@ -6337,6 +6337,32 @@ const CURRICULUM = [
     "codingExercise": {
       "instruction": "Design a BankAccount class with: accountNumber (String), balance (double, private), and methods deposit(double), withdraw(double) returning boolean, getBalance(), and transfer(BankAccount to, double amount). Prevent negative balances.",
       "hint": "withdraw returns false if insufficient funds. transfer calls this.withdraw and to.deposit. Keep balance private.",
+      "checks": [
+        {
+          "label": "Declares a BankAccount class",
+          "pattern": "\\bclass\\s+BankAccount\\b"
+        },
+        {
+          "label": "Keeps balance private (encapsulation)",
+          "pattern": "\\bprivate\\b[\\s\\S]{0,60}\\bbalance\\b"
+        },
+        {
+          "label": "Implements deposit(...)",
+          "pattern": "\\bdeposit\\s*\\("
+        },
+        {
+          "label": "Implements withdraw(...)",
+          "pattern": "\\bwithdraw\\s*\\("
+        },
+        {
+          "label": "Implements transfer(...)",
+          "pattern": "\\btransfer\\s*\\("
+        },
+        {
+          "label": "Guards against invalid amounts (a conditional check)",
+          "pattern": "\\bif\\s*\\("
+        }
+      ],
       "checkKeywords": [
         "class",
         "BankAccount",
@@ -6971,6 +6997,29 @@ const CURRICULUM = [
     "codingExercise": {
       "instruction": "Create an ImmutablePerson class where all fields are private final, set only through the constructor. Provide getters but NO setters. Include: name, birthDate (LocalDate), and a getAge() method that computes age.",
       "hint": "Immutability: no setters, all fields final. getAge() uses Period.between(birthDate, LocalDate.now()).getYears().",
+      "checks": [
+        {
+          "label": "Declares the ImmutablePerson class",
+          "pattern": "\\bclass\\s+ImmutablePerson\\b"
+        },
+        {
+          "label": "Fields are private final (immutable)",
+          "pattern": "\\bprivate\\s+final\\b"
+        },
+        {
+          "label": "Provides getters",
+          "pattern": "\\bpublic\\s+[\\w<>\\[\\]]+\\s+(get|is)\\w*\\s*\\("
+        },
+        {
+          "label": "Has NO setters (mutation forbidden)",
+          "pattern": "\\bset[A-Z]\\w*\\s*\\(",
+          "mustNotMatch": true
+        },
+        {
+          "label": "Computes age via getAge()",
+          "pattern": "\\bgetAge\\s*\\("
+        }
+      ],
       "checkKeywords": [
         "private",
         "final",
@@ -7604,6 +7653,28 @@ const CURRICULUM = [
     "codingExercise": {
       "instruction": "Create a Vehicle hierarchy: Vehicle (speed, accelerate()), Car extends Vehicle (numDoors, honk()), ElectricCar extends Car (batteryLevel, charge()). Override accelerate() in ElectricCar to consume battery.",
       "hint": "ElectricCar.accelerate() should call super.accelerate() AND decrease batteryLevel. Use @Override on every overridden method.",
+      "checks": [
+        {
+          "label": "Defines the Vehicle base class",
+          "pattern": "\\bclass\\s+Vehicle\\b"
+        },
+        {
+          "label": "Uses inheritance (extends)",
+          "pattern": "\\bclass\\s+\\w+\\s+extends\\s+\\w+"
+        },
+        {
+          "label": "Overrides accelerate() with @Override",
+          "pattern": "@Override"
+        },
+        {
+          "label": "Calls the superclass with super",
+          "pattern": "\\bsuper\\b"
+        },
+        {
+          "label": "Builds the 3-level chain (ElectricCar extends Car)",
+          "pattern": "\\bclass\\s+ElectricCar\\s+extends\\s+Car\\b"
+        }
+      ],
       "checkKeywords": [
         "extends",
         "super",
@@ -8216,6 +8287,28 @@ const CURRICULUM = [
     "codingExercise": {
       "instruction": "Create a Shape hierarchy: Shape defines area(). Circle and Rectangle implement it. Write totalArea(List<Shape>) that works with any shapes. Add Triangle — totalArea() needs ZERO changes.",
       "hint": "This is the Open-Closed Principle: open for extension, closed for modification.",
+      "checks": [
+        {
+          "label": "Defines a Shape abstraction",
+          "pattern": "\\b(interface|abstract\\s+class|class)\\s+Shape\\b"
+        },
+        {
+          "label": "Subtypes implement/extend Shape",
+          "pattern": "\\b(implements|extends)\\s+Shape\\b"
+        },
+        {
+          "label": "Defines area()",
+          "pattern": "\\barea\\s*\\("
+        },
+        {
+          "label": "Programs to abstraction with List<Shape>",
+          "pattern": "List\\s*<\\s*Shape\\s*>"
+        },
+        {
+          "label": "Provides totalArea(...)",
+          "pattern": "\\btotalArea\\s*\\("
+        }
+      ],
       "checkKeywords": [
         "interface",
         "Shape",
@@ -8849,6 +8942,28 @@ const CURRICULUM = [
     "codingExercise": {
       "instruction": "Create interface Playable with play() and pause(). Create Recordable with record(). Create MediaPlayer that implements both. Create Podcast extending MediaPlayer with download(). Demonstrate multiple interface inheritance.",
       "hint": "Use implements Playable, Recordable on MediaPlayer. Podcast extends MediaPlayer.",
+      "checks": [
+        {
+          "label": "Declares interface Playable",
+          "pattern": "\\binterface\\s+Playable\\b"
+        },
+        {
+          "label": "Declares interface Recordable",
+          "pattern": "\\binterface\\s+Recordable\\b"
+        },
+        {
+          "label": "Implements multiple interfaces at once",
+          "pattern": "\\bimplements\\s+\\w+\\s*,\\s*\\w+"
+        },
+        {
+          "label": "Overrides interface methods (@Override)",
+          "pattern": "@Override"
+        },
+        {
+          "label": "Podcast extends MediaPlayer",
+          "pattern": "\\bclass\\s+Podcast\\s+extends\\s+MediaPlayer\\b"
+        }
+      ],
       "checkKeywords": [
         "interface",
         "implements",
@@ -14796,6 +14911,62 @@ function checkAnswer(topicId, questionIndex, selectedOption) {
 
 }
 // ===== CODING EXERCISE LOGIC =====
+// Pillar 1-A — Structural grading. Replaces naive substring keyword matching with checks
+// that inspect the REAL code: comments and string/char literals are stripped first (so
+// concepts cannot be "stuffed" into a comment to game the checker), matching is token-aware
+// (word boundaries) and case-sensitive (Java is case-sensitive).
+
+function stripCodeNoise(src) {
+    var out = src;
+    out = out.replace(/\/\*[\s\S]*?\*\//g, ' ');     // block comments
+    out = out.replace(/\/\/[^\n]*/g, ' ');           // line comments
+    out = out.replace(/"""[\s\S]*?"""/g, ' "" ');    // text blocks
+    out = out.replace(/"(?:\\.|[^"\\])*"/g, ' "" ');  // string literals
+    out = out.replace(/'(?:\\.|[^'\\])*'/g, " '' ");  // char literals
+    return out;
+}
+
+function looksLikeJavaCode(code) {
+    // Must contain a brace pair and at least one code-shaped token — rejects pure prose.
+    return /\{[\s\S]*\}/.test(code) && /\b(class|interface|enum|record|void|return)\b|[;=(]/.test(code);
+}
+
+function keywordToRegex(kw) {
+    var esc = kw.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+    var pre = /^\w/.test(kw) ? '\\b' : '';
+    var post = /\w$/.test(kw) ? '\\b' : '';
+    return new RegExp(pre + esc + post);
+}
+
+function buildExerciseChecks(ex) {
+    var checks = [];
+    // Prefer authored structural checks when the exercise defines them.
+    if (ex.checks && ex.checks.length) {
+        for (var i = 0; i < ex.checks.length; i++) {
+            var c = ex.checks[i];
+            try {
+                checks.push({ label: c.label, re: new RegExp(c.pattern, c.flags || ''), mustNotMatch: !!c.mustNotMatch });
+            } catch (e) { /* skip a malformed pattern rather than break grading */ }
+        }
+        return checks;
+    }
+    // Fallback: derive token-aware checks from checkKeywords (still far stricter than substring).
+    var keywords = ex.checkKeywords || [];
+    for (var k = 0; k < keywords.length; k++) {
+        checks.push({ label: 'Uses ' + keywords[k], re: keywordToRegex(keywords[k]), mustNotMatch: false });
+    }
+    return checks;
+}
+
+function renderCheckList(items, mark) {
+    if (!items.length) return '';
+    var html = '<ul style="margin:6px 0 0 18px;padding:0">';
+    for (var i = 0; i < items.length; i++) {
+        html += '<li>' + mark + ' ' + escapeHTML(items[i]) + '</li>';
+    }
+    return html + '</ul>';
+}
+
 function checkExercise(topicId) {
     var topic = getTopicById(topicId);
     if (!topic || !topic.codingExercise) return;
@@ -14805,35 +14976,50 @@ function checkExercise(topicId) {
     var result = document.getElementById('exercise-result-' + topicId);
     if (!input || !result) return;
 
-    var text = input.value.trim();
-    if (text.length < 10) {
-        result.textContent = '✗ Please write a more complete solution before checking.';
+    var raw = input.value.trim();
+    if (raw.length < 10) {
+        result.innerHTML = '✗ Please write a more complete solution before checking.';
         result.className = 'check-result show fail';
         return;
     }
 
-    var keywords = ex.checkKeywords || [];
-    var textLower = text.toLowerCase();
-    var found = [];
-    var missing = [];
-
-    for (var i = 0; i < keywords.length; i++) {
-        if (textLower.indexOf(keywords[i].toLowerCase()) !== -1) {
-            found.push(keywords[i]);
-        } else {
-            missing.push(keywords[i]);
-        }
+    var code = stripCodeNoise(raw);
+    if (!looksLikeJavaCode(code)) {
+        result.innerHTML = '✗ That does not look like Java code yet. Write a real class or method — comments and prose alone will not pass.';
+        result.className = 'check-result show fail';
+        return;
     }
 
-    var pct = keywords.length > 0 ? Math.round(found.length / keywords.length * 100) : 100;
+    var checks = buildExerciseChecks(ex);
+    if (checks.length === 0) {
+        result.innerHTML = '✓ Submission received. No automated checks are defined for this exercise — compare your solution against the example.';
+        result.className = 'check-result show pass';
+        return;
+    }
+
+    var passed = [], failed = [];
+    for (var i = 0; i < checks.length; i++) {
+        var hit = checks[i].re.test(code);
+        var ok = checks[i].mustNotMatch ? !hit : hit;
+        (ok ? passed : failed).push(checks[i].label);
+    }
+
+    var pct = Math.round(passed.length / checks.length * 100);
+    var passList = renderCheckList(passed, '✓');
+    var failList = renderCheckList(failed, '✗');
+
     if (pct >= 80) {
-        result.textContent = '✓ Great! Found ' + found.length + '/' + keywords.length + ' key concepts: ' + found.join(', ') + (missing.length > 0 ? '. Missing: ' + missing.join(', ') : '');
+        result.innerHTML = '<strong>✓ Great — ' + passed.length + '/' + checks.length + ' checks passed.</strong>' + passList +
+            (failed.length ? '<div style="margin-top:8px;opacity:0.85">Still to address:</div>' + failList : '');
         result.className = 'check-result show pass';
     } else if (pct >= 40) {
-        result.textContent = '⚠ Getting there. Found: ' + found.join(', ') + '. Missing: ' + missing.join(', ') + '. Review the lesson and try again.';
+        result.innerHTML = '<strong>⚠ Getting there — ' + passed.length + '/' + checks.length + ' checks passed.</strong>' + passList +
+            '<div style="margin-top:8px">Still to address:</div>' + failList +
+            '<div style="margin-top:8px;opacity:0.85">Review the lesson and refine your solution.</div>';
         result.className = 'check-result show fail';
     } else {
-        result.textContent = '✗ Keep working. Try to include these concepts: ' + keywords.join(', ');
+        result.innerHTML = '<strong>✗ Keep working — ' + passed.length + '/' + checks.length + ' checks passed.</strong>' + passList +
+            '<div style="margin-top:8px">Make sure your code:</div>' + failList;
         result.className = 'check-result show fail';
     }
 }

@@ -6111,6 +6111,14 @@ TOPICS = [
     "codingExercise": {
       "instruction": "Design a BankAccount class with: accountNumber (String), balance (double, private), and methods deposit(double), withdraw(double) returning boolean, getBalance(), and transfer(BankAccount to, double amount). Prevent negative balances.",
       "hint": "withdraw returns false if insufficient funds. transfer calls this.withdraw and to.deposit. Keep balance private.",
+      "checks": [
+        {"label": "Declares a BankAccount class", "pattern": "\\bclass\\s+BankAccount\\b"},
+        {"label": "Keeps balance private (encapsulation)", "pattern": "\\bprivate\\b[\\s\\S]{0,60}\\bbalance\\b"},
+        {"label": "Implements deposit(...)", "pattern": "\\bdeposit\\s*\\("},
+        {"label": "Implements withdraw(...)", "pattern": "\\bwithdraw\\s*\\("},
+        {"label": "Implements transfer(...)", "pattern": "\\btransfer\\s*\\("},
+        {"label": "Guards against invalid amounts (a conditional check)", "pattern": "\\bif\\s*\\("}
+      ],
       "checkKeywords": [
         "class",
         "BankAccount",
@@ -6745,6 +6753,13 @@ TOPICS = [
     "codingExercise": {
       "instruction": "Create an ImmutablePerson class where all fields are private final, set only through the constructor. Provide getters but NO setters. Include: name, birthDate (LocalDate), and a getAge() method that computes age.",
       "hint": "Immutability: no setters, all fields final. getAge() uses Period.between(birthDate, LocalDate.now()).getYears().",
+      "checks": [
+        {"label": "Declares the ImmutablePerson class", "pattern": "\\bclass\\s+ImmutablePerson\\b"},
+        {"label": "Fields are private final (immutable)", "pattern": "\\bprivate\\s+final\\b"},
+        {"label": "Provides getters", "pattern": "\\bpublic\\s+[\\w<>\\[\\]]+\\s+(get|is)\\w*\\s*\\("},
+        {"label": "Has NO setters (mutation forbidden)", "pattern": "\\bset[A-Z]\\w*\\s*\\(", "mustNotMatch": True},
+        {"label": "Computes age via getAge()", "pattern": "\\bgetAge\\s*\\("}
+      ],
       "checkKeywords": [
         "private",
         "final",
@@ -7378,6 +7393,13 @@ TOPICS = [
     "codingExercise": {
       "instruction": "Create a Vehicle hierarchy: Vehicle (speed, accelerate()), Car extends Vehicle (numDoors, honk()), ElectricCar extends Car (batteryLevel, charge()). Override accelerate() in ElectricCar to consume battery.",
       "hint": "ElectricCar.accelerate() should call super.accelerate() AND decrease batteryLevel. Use @Override on every overridden method.",
+      "checks": [
+        {"label": "Defines the Vehicle base class", "pattern": "\\bclass\\s+Vehicle\\b"},
+        {"label": "Uses inheritance (extends)", "pattern": "\\bclass\\s+\\w+\\s+extends\\s+\\w+"},
+        {"label": "Overrides accelerate() with @Override", "pattern": "@Override"},
+        {"label": "Calls the superclass with super", "pattern": "\\bsuper\\b"},
+        {"label": "Builds the 3-level chain (ElectricCar extends Car)", "pattern": "\\bclass\\s+ElectricCar\\s+extends\\s+Car\\b"}
+      ],
       "checkKeywords": [
         "extends",
         "super",
@@ -7990,6 +8012,13 @@ TOPICS = [
     "codingExercise": {
       "instruction": "Create a Shape hierarchy: Shape defines area(). Circle and Rectangle implement it. Write totalArea(List<Shape>) that works with any shapes. Add Triangle — totalArea() needs ZERO changes.",
       "hint": "This is the Open-Closed Principle: open for extension, closed for modification.",
+      "checks": [
+        {"label": "Defines a Shape abstraction", "pattern": "\\b(interface|abstract\\s+class|class)\\s+Shape\\b"},
+        {"label": "Subtypes implement/extend Shape", "pattern": "\\b(implements|extends)\\s+Shape\\b"},
+        {"label": "Defines area()", "pattern": "\\barea\\s*\\("},
+        {"label": "Programs to abstraction with List<Shape>", "pattern": "List\\s*<\\s*Shape\\s*>"},
+        {"label": "Provides totalArea(...)", "pattern": "\\btotalArea\\s*\\("}
+      ],
       "checkKeywords": [
         "interface",
         "Shape",
@@ -8623,6 +8652,13 @@ TOPICS = [
     "codingExercise": {
       "instruction": "Create interface Playable with play() and pause(). Create Recordable with record(). Create MediaPlayer that implements both. Create Podcast extending MediaPlayer with download(). Demonstrate multiple interface inheritance.",
       "hint": "Use implements Playable, Recordable on MediaPlayer. Podcast extends MediaPlayer.",
+      "checks": [
+        {"label": "Declares interface Playable", "pattern": "\\binterface\\s+Playable\\b"},
+        {"label": "Declares interface Recordable", "pattern": "\\binterface\\s+Recordable\\b"},
+        {"label": "Implements multiple interfaces at once", "pattern": "\\bimplements\\s+\\w+\\s*,\\s*\\w+"},
+        {"label": "Overrides interface methods (@Override)", "pattern": "@Override"},
+        {"label": "Podcast extends MediaPlayer", "pattern": "\\bclass\\s+Podcast\\s+extends\\s+MediaPlayer\\b"}
+      ],
       "checkKeywords": [
         "interface",
         "implements",
