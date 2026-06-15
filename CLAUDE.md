@@ -77,6 +77,7 @@ curl http://localhost:5001/api/progress
 - **Rendering:** All render functions use `innerHTML`. App-level views (Welcome, Progress, Site Map, Textbooks) are switched by `currentView`. Topic tab switching (`switchTab()`) manipulates `style.display` directly rather than relying on CSS classes.
 - **Persistence:** API-first to `API_BASE`, with `localStorage` fallback. All API calls go through `apiFetch()`, which sets `apiOnline`. Storage keys: `java-learning-platform-progress`, `java-learning-quiz-answers`.
 - **Quiz system:** Questions stored in `topic.quiz[]`. Answers persisted to `localStorage` and the MySQL `quiz_answers` table via `saveQuizAnswer()`. Previous answers restored via `getQuizAnswer()`. Note: the Practice tab presents a fresh quiz UI on reload (answers remain in the DB).
+- **Coding-exercise grading (`checkExercise`, structural — Pillar 1-A):** Submissions are graded against the *real* code, not substrings. `stripCodeNoise()` removes comments and string/char literals first (so concepts can't be stuffed into a comment), `looksLikeJavaCode()` rejects prose, and matching is token-aware (word boundaries) and case-sensitive. `buildExerciseChecks()` prefers an authored `codingExercise.checks` array and falls back to token-aware checks derived from `checkKeywords`. See `OPTIMIZATION-PLAN.md` for the broader pedagogy roadmap.
 - **Mermaid:** Lazy-rendered — diagram string built in `buildMermaidDiagram()`, with `mermaid.run()` deferred to `switchTab()` / `renderAppSiteMap()` so it only runs when the container is visible (avoids zero-dimension SVG). Configured with `securityLevel: 'strict'` and `htmlLabels: false`.
 - **Curriculum data flow:** `src/curriculum/phaseN.py` → `src/build.py` → `dist/index.html` → `index.html`
 
@@ -90,7 +91,9 @@ Do NOT manually edit the CURRICULUM JSON inside `index.html` / `dist/index.html`
 
 To add a new phase, create `src/curriculum/phaseN.py` exporting a `TOPICS` list; `src/build.py` auto-discovers it (sorted filename order). Make sure the phase name matches a key in the `PHASES` dict in `src/build.py`.
 
-Each topic object has: `id`, `phase`, `phaseColor`, `phaseClass`, `title`, `hours`, `complexity`, `importance`, `textbook`, `summary`, `lesson` (HTML string), `quiz` (array of `{question, options, correct, explanation}`), and `codingExercise` (`{instruction, hint, checkKeywords}`).
+Each topic object has: `id`, `phase`, `phaseColor`, `phaseClass`, `title`, `hours`, `complexity`, `importance`, `textbook`, `summary`, `lesson` (HTML string), `quiz` (array of `{question, options, correct, explanation}`), and `codingExercise` (`{instruction, hint, checkKeywords, exampleSolution?, checks?}`).
+
+`codingExercise.checks` (optional) is the structural grader's rule list — `[{label, pattern, flags?, mustNotMatch?}]`, where `pattern` is a JS-regex source string (write backslashes escaped for Python, e.g. `r"\bclass\b"`) and `mustNotMatch: True` inverts the rule to flag an anti-pattern (e.g. "no setters"). When `checks` is absent the grader falls back to token-aware matching of `checkKeywords`.
 
 ## Backend API
 
