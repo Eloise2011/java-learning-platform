@@ -469,13 +469,7 @@ function renderPractice(topic) {
                 html += escapeHTML(q.options[oi]);
                 html += '</button>';
             }
-            html += '<div class="quiz-feedback" id="quiz-fb-' + topic.id + '-' + qi + '"';
-            if (prev) {
-                html += ' class="show ' + (prev.isCorrect ? 'correct' : 'wrong') + '"';
-                html += '>' + (prev.isCorrect ? '✓ Correct! ' : '✗ Incorrect. ') + escapeHTML(q.explanation) + '</div>';
-            } else {
-                html += '></div>';
-            }
+            html += '<div class="quiz-feedback" id="quiz-fb-' + topic.id + '-' + qi + '"></div>';
             html += '</div>';
         }
     } else {
