@@ -270,6 +270,7 @@ function showAppProgress() {
     document.getElementById('current-topic-title').textContent = 'Overall Progress';
     document.getElementById('topic-meta-badges').innerHTML = '';
     renderAppProgress();
+    animateIn(document.getElementById('app-view-progress'));
     updateAppNavActive('progress');
     renderSidebar();
 }
@@ -285,6 +286,7 @@ function showAppSiteMap() {
     document.getElementById('current-topic-title').textContent = 'Java Technology Stack';
     document.getElementById('topic-meta-badges').innerHTML = '';
     renderAppSiteMap();
+    animateIn(document.getElementById('app-view-sitemap'));
     updateAppNavActive('sitemap');
     renderSidebar();
 }
@@ -338,6 +340,7 @@ function selectTopic(id) {
     document.getElementById('tab-enhancements').classList.remove('active');
     document.getElementById('tab-enhancements').style.display = 'none';
     STATE.activeTab = 'lesson';
+    animateIn(document.getElementById('tab-lesson'));
     renderSidebar();
 
     // Deferred: force lesson tab after all rendering completes
@@ -372,16 +375,36 @@ function initTabs() {
     }
 }
 
+// Re-trigger the Apple-style entrance animation on an element, then clean up so no
+// lingering transform remains (a residual transform would break sticky descendants).
+function animateIn(el) {
+    if (!el) return;
+    el.classList.remove('anim-in');
+    void el.offsetWidth;            // force reflow so the animation restarts from the top
+    el.classList.add('anim-in');
+    el.addEventListener('animationend', function handler() {
+        el.classList.remove('anim-in');
+        el.removeEventListener('animationend', handler);
+    });
+}
+
 function switchTab(tabName) {
     var tabs = document.querySelectorAll('.tab');
     for (var i = 0; i < tabs.length; i++) tabs[i].classList.remove('active');
-    var sections = document.querySelectorAll('.lesson-section');
-    for (var j = 0; j < sections.length; j++) sections[j].classList.remove('active');
 
     var tab = document.querySelector('[data-tab="' + tabName + '"]');
-    var section = document.getElementById('tab-' + tabName);
     if (tab) tab.classList.add('active');
-    if (section) section.classList.add('active');
+
+    // Authoritative show/hide: the active panel is the only one displayed, and it fades in.
+    var sections = document.querySelectorAll('.lesson-section');
+    for (var j = 0; j < sections.length; j++) {
+        var s = sections[j];
+        var on = (s.id === 'tab-' + tabName);
+        s.classList.toggle('active', on);
+        s.style.display = on ? 'block' : 'none';
+        if (on) animateIn(s);
+    }
+    STATE.activeTab = tabName;
 
     if (tabName === 'sitemap' && STATE.currentTopicId) {
         var mel = document.querySelector('#tab-sitemap .mermaid');
@@ -1242,6 +1265,7 @@ function showAppTextbooks() {
     document.getElementById('current-topic-title').textContent = 'Textbook References';
     document.getElementById('topic-meta-badges').innerHTML = '';
     renderAppTextbooks();
+    animateIn(document.getElementById('app-view-textbooks'));
     updateAppNavActive('textbooks');
     renderSidebar();
 }
@@ -1285,6 +1309,7 @@ function init() {
     if (!STATE.currentTopicId) {
         renderWelcome();
         document.getElementById('welcome-screen').style.display = 'block';
+        animateIn(document.getElementById('welcome-screen'));
         document.getElementById('lesson-viewer').style.display = 'none';
         document.getElementById('current-topic-title').textContent = 'Select a topic to begin';
         document.getElementById('topic-meta-badges').innerHTML = '';
