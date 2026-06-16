@@ -421,14 +421,48 @@ function switchTab(tabName) {
 }
 
 // ===== LESSON RENDERING =====
+function toggleDeepDive(btn) {
+    var body = btn.nextElementSibling;
+    if (!body) return;
+    var open = body.style.display === 'none';
+    body.style.display = open ? 'block' : 'none';
+    btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+    btn.textContent = (open ? '▾' : '▸') + ' Full explanation';
+    try { localStorage.setItem('java-learning-deepdive-pref', open ? 'open' : 'closed'); } catch (e) {}
+    if (open) animateIn(body);
+}
+
 function renderLesson(topic) {
     var container = document.getElementById('tab-lesson');
     var html = '';
 
     html += '<h3>' + escapeHTML(topic.title) + '</h3>';
-    html += '<p style="font-size:0.95rem;color:var(--text)">' + escapeHTML(topic.summary) + '</p>';
+
+    // Layered lesson (Part A) — core idea first, then a runnable example, with the
+    // full rich lesson available on demand. Cuts intake overwhelm for returning learners.
+    var coreHtml = topic.core ? topic.core : ('<p>' + escapeHTML(topic.summary) + '</p>');
+    html += '<div class="core-card"><div class="core-label">⚡ Core idea</div>' + coreHtml + '</div>';
+
+    if (topic.example && topic.example.code) {
+        html += '<div class="example-block"><div class="example-label">▶ See it work</div>';
+        html += '<pre class="example-code">' + escapeHTML(topic.example.code) + '</pre>';
+        if (topic.example.output) {
+            html += '<div class="example-out"><span class="example-out-label">Output</span><pre>' + escapeHTML(topic.example.output) + '</pre></div>';
+        }
+        if (topic.example.caption) {
+            html += '<div class="example-cap">' + escapeHTML(topic.example.caption) + '</div>';
+        }
+        html += '</div>';
+    }
+
     html += '<div class="textbook-ref"><strong>📖 Textbook:</strong> <em>' + escapeHTML(topic.textbook) + '</em></div>';
-    html += topic.lesson;
+
+    var ddOpen = false;
+    try { ddOpen = (localStorage.getItem('java-learning-deepdive-pref') === 'open'); } catch (e) {}
+    html += '<div class="deepdive">';
+    html += '<button class="deepdive-toggle" onclick="toggleDeepDive(this)" aria-expanded="' + (ddOpen ? 'true' : 'false') + '">' + (ddOpen ? '▾' : '▸') + ' Full explanation</button>';
+    html += '<div class="deepdive-body"' + (ddOpen ? '' : ' style="display:none"') + '>' + topic.lesson + '</div>';
+    html += '</div>';
 
     html += '<div style="margin-top:24px;display:flex;align-items:center;justify-content:space-between">';
     var pid = getPrevTopicId(topic.id), nid = getNextTopicId(topic.id);

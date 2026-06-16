@@ -93,6 +93,8 @@ To add a new phase, create `src/curriculum/phaseN.py` exporting a `TOPICS` list;
 
 Each topic object has: `id`, `phase`, `phaseColor`, `phaseClass`, `title`, `hours`, `complexity`, `importance`, `textbook`, `summary`, `lesson` (HTML string), `quiz` (array of `{question, options, correct, explanation}`), and `codingExercise` (`{instruction, hint, checkKeywords, exampleSolution?, checks?}`).
 
+**Layered lessons (Part A):** topics may also define `core` (optional HTML string — the 60-second core idea, shown first; falls back to `summary` when absent) and `example` (optional `{code, output, caption?}` — a minimal runnable snippet rendered as a "See it work" block). `renderLesson()` shows core → example → textbook → a collapsible **Full explanation** deep-dive containing `lesson` (collapsed by default; open/closed preference stored in `localStorage` key `java-learning-deepdive-pref`). Authored for topics 10–14 so far; `src/build.py` warns (non-fatally) for topics still missing `core`.
+
 `codingExercise.checks` (optional) is the structural grader's rule list — `[{label, pattern, flags?, mustNotMatch?}]`, where `pattern` is a JS-regex source string (write backslashes escaped for Python, e.g. `r"\bclass\b"`) and `mustNotMatch: True` inverts the rule to flag an anti-pattern (e.g. "no setters"). When `checks` is absent the grader falls back to token-aware matching of `checkKeywords`.
 
 ## Backend API

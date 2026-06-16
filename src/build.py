@@ -58,6 +58,7 @@ def load_topics():
 def validate_topics(topics):
     """Validate curriculum data integrity."""
     errors = []
+    warnings = []
     ids = set()
     for t in topics:
         # Required fields
@@ -89,13 +90,29 @@ def validate_topics(topics):
                               ('importance', ['critical', 'important', 'nice'])]:
             if t.get(field) not in valid:
                 errors.append(f"Topic {tid}: {field}='{t.get(field)}' not in {valid}")
-    
+
+        # Layered-lesson fields (Part A) — 'core' is warn-only (falls back to summary),
+        # 'example' shape is validated when present.
+        if 'core' not in t:
+            warnings.append(f"Topic {tid}: no 'core' (layered lesson) — rendering will fall back to summary")
+        ex = t.get('example')
+        if ex is not None:
+            if not isinstance(ex.get('code'), str) or not ex.get('code'):
+                errors.append(f"Topic {tid}: example.code must be a non-empty string")
+            if not isinstance(ex.get('output'), str):
+                errors.append(f"Topic {tid}: example.output must be a string")
+
+    if warnings:
+        print(f"\n  ℹ {len(warnings)} content warning(s) (non-fatal):")
+        for w in warnings:
+            print(f"    - {w}")
+
     if errors:
         print("\n⚠ VALIDATION ERRORS:")
         for e in errors:
             print(f"  - {e}")
         return False
-    
+
     print(f"  ✓ All {len(topics)} topics validated successfully")
     return True
 
