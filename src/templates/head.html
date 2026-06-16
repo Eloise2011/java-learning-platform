@@ -152,6 +152,10 @@ body { font-family: var(--font); background: var(--bg); color: var(--text); heig
 .toast.info { background: #eff6ff; color: var(--accent); border: 1px solid var(--accent); }
 .toast.warn { background: #fffbeb; color: var(--warning); border: 1px solid var(--warning); }
 @keyframes slideIn { from { transform: translateY(16px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+/* Apple-style view/tab entrance: gentle fade + subtle rise on an ease-out curve. */
+@keyframes paneIn { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
+.anim-in { animation: paneIn 0.45s cubic-bezier(0.16, 1, 0.3, 1) both; will-change: opacity, transform; }
+@media (prefers-reduced-motion: reduce) { .anim-in { animation: none; } }
 .notify-prompt { background: var(--surface); border: 1px solid var(--accent2); border-radius: var(--radius); padding: 14px; margin-top: 12px; text-align: center; }
 .notify-prompt button { padding: 6px 16px; background: var(--accent2); color: white; border: none; border-radius: 6px; font-weight: 700; cursor: pointer; font-family: var(--font); font-size: 0.8rem; margin-top: 6px; }
 ::-webkit-scrollbar { width: 5px; } ::-webkit-scrollbar-track { background: transparent; } ::-webkit-scrollbar-thumb { background: var(--surface3); border-radius: 3px; }

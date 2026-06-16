@@ -152,6 +152,10 @@ body { font-family: var(--font); background: var(--bg); color: var(--text); heig
 .toast.info { background: #eff6ff; color: var(--accent); border: 1px solid var(--accent); }
 .toast.warn { background: #fffbeb; color: var(--warning); border: 1px solid var(--warning); }
 @keyframes slideIn { from { transform: translateY(16px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+/* Apple-style view/tab entrance: gentle fade + subtle rise on an ease-out curve. */
+@keyframes paneIn { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
+.anim-in { animation: paneIn 0.45s cubic-bezier(0.16, 1, 0.3, 1) both; will-change: opacity, transform; }
+@media (prefers-reduced-motion: reduce) { .anim-in { animation: none; } }
 .notify-prompt { background: var(--surface); border: 1px solid var(--accent2); border-radius: var(--radius); padding: 14px; margin-top: 12px; text-align: center; }
 .notify-prompt button { padding: 6px 16px; background: var(--accent2); color: white; border: none; border-radius: 6px; font-weight: 700; cursor: pointer; font-family: var(--font); font-size: 0.8rem; margin-top: 6px; }
 ::-webkit-scrollbar { width: 5px; } ::-webkit-scrollbar-track { background: transparent; } ::-webkit-scrollbar-thumb { background: var(--surface3); border-radius: 3px; }
@@ -14561,6 +14565,7 @@ function showAppProgress() {
     document.getElementById('current-topic-title').textContent = 'Overall Progress';
     document.getElementById('topic-meta-badges').innerHTML = '';
     renderAppProgress();
+    animateIn(document.getElementById('app-view-progress'));
     updateAppNavActive('progress');
     renderSidebar();
 }
@@ -14576,6 +14581,7 @@ function showAppSiteMap() {
     document.getElementById('current-topic-title').textContent = 'Java Technology Stack';
     document.getElementById('topic-meta-badges').innerHTML = '';
     renderAppSiteMap();
+    animateIn(document.getElementById('app-view-sitemap'));
     updateAppNavActive('sitemap');
     renderSidebar();
 }
@@ -14629,6 +14635,7 @@ function selectTopic(id) {
     document.getElementById('tab-enhancements').classList.remove('active');
     document.getElementById('tab-enhancements').style.display = 'none';
     STATE.activeTab = 'lesson';
+    animateIn(document.getElementById('tab-lesson'));
     renderSidebar();
 
     // Deferred: force lesson tab after all rendering completes
@@ -14663,16 +14670,36 @@ function initTabs() {
     }
 }
 
+// Re-trigger the Apple-style entrance animation on an element, then clean up so no
+// lingering transform remains (a residual transform would break sticky descendants).
+function animateIn(el) {
+    if (!el) return;
+    el.classList.remove('anim-in');
+    void el.offsetWidth;            // force reflow so the animation restarts from the top
+    el.classList.add('anim-in');
+    el.addEventListener('animationend', function handler() {
+        el.classList.remove('anim-in');
+        el.removeEventListener('animationend', handler);
+    });
+}
+
 function switchTab(tabName) {
     var tabs = document.querySelectorAll('.tab');
     for (var i = 0; i < tabs.length; i++) tabs[i].classList.remove('active');
-    var sections = document.querySelectorAll('.lesson-section');
-    for (var j = 0; j < sections.length; j++) sections[j].classList.remove('active');
 
     var tab = document.querySelector('[data-tab="' + tabName + '"]');
-    var section = document.getElementById('tab-' + tabName);
     if (tab) tab.classList.add('active');
-    if (section) section.classList.add('active');
+
+    // Authoritative show/hide: the active panel is the only one displayed, and it fades in.
+    var sections = document.querySelectorAll('.lesson-section');
+    for (var j = 0; j < sections.length; j++) {
+        var s = sections[j];
+        var on = (s.id === 'tab-' + tabName);
+        s.classList.toggle('active', on);
+        s.style.display = on ? 'block' : 'none';
+        if (on) animateIn(s);
+    }
+    STATE.activeTab = tabName;
 
     if (tabName === 'sitemap' && STATE.currentTopicId) {
         var mel = document.querySelector('#tab-sitemap .mermaid');
@@ -15533,6 +15560,7 @@ function showAppTextbooks() {
     document.getElementById('current-topic-title').textContent = 'Textbook References';
     document.getElementById('topic-meta-badges').innerHTML = '';
     renderAppTextbooks();
+    animateIn(document.getElementById('app-view-textbooks'));
     updateAppNavActive('textbooks');
     renderSidebar();
 }
@@ -15576,6 +15604,7 @@ function init() {
     if (!STATE.currentTopicId) {
         renderWelcome();
         document.getElementById('welcome-screen').style.display = 'block';
+        animateIn(document.getElementById('welcome-screen'));
         document.getElementById('lesson-viewer').style.display = 'none';
         document.getElementById('current-topic-title').textContent = 'Select a topic to begin';
         document.getElementById('topic-meta-badges').innerHTML = '';
