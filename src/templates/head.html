@@ -156,6 +156,22 @@ body { font-family: var(--font); background: var(--bg); color: var(--text); heig
 @keyframes paneIn { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
 .anim-in { animation: paneIn 0.45s cubic-bezier(0.16, 1, 0.3, 1) both; will-change: opacity, transform; }
 @media (prefers-reduced-motion: reduce) { .anim-in { animation: none; } }
+/* Layered lessons (Part A): core idea + runnable example + collapsible deep dive. */
+.core-card { background: linear-gradient(0deg, var(--surface2), var(--surface)); border: 1px solid var(--accent2); border-left: 4px solid var(--accent); border-radius: var(--radius); padding: 14px 16px; margin: 4px 0 16px; }
+.core-card .core-label { font-size: 0.72rem; font-weight: 800; letter-spacing: 0.6px; text-transform: uppercase; color: var(--accent); margin-bottom: 6px; }
+.core-card p { margin: 0 0 8px; font-size: 0.96rem; line-height: 1.7; color: var(--text); }
+.core-card p:last-child { margin-bottom: 0; }
+.example-block { background: var(--surface); border: 1px solid var(--surface3); border-radius: var(--radius); padding: 12px 14px; margin: 0 0 16px; }
+.example-label { font-size: 0.72rem; font-weight: 800; letter-spacing: 0.6px; text-transform: uppercase; color: var(--success); margin-bottom: 8px; }
+.example-code { font-family: var(--mono); font-size: 0.82rem; line-height: 1.55; background: var(--surface2); border-radius: 6px; padding: 10px 12px; overflow-x: auto; white-space: pre; color: var(--text); margin: 0; }
+.example-out { margin-top: 8px; display: flex; align-items: flex-start; gap: 8px; }
+.example-out-label { font-size: 0.66rem; font-weight: 800; text-transform: uppercase; color: var(--text3); background: var(--surface2); border-radius: 4px; padding: 3px 7px; margin-top: 2px; flex-shrink: 0; }
+.example-out pre { font-family: var(--mono); font-size: 0.82rem; margin: 0; color: var(--text2); white-space: pre-wrap; }
+.example-cap { font-size: 0.78rem; color: var(--text3); margin-top: 8px; font-style: italic; }
+.deepdive { margin-top: 14px; }
+.deepdive-toggle { display: inline-flex; align-items: center; gap: 6px; padding: 8px 14px; background: var(--surface2); border: 1px solid var(--surface3); border-radius: 8px; color: var(--text2); font-family: var(--font); font-size: 0.82rem; font-weight: 600; cursor: pointer; transition: all 0.15s; }
+.deepdive-toggle:hover { color: var(--text); border-color: var(--accent2); }
+.deepdive-body { margin-top: 12px; }
 .notify-prompt { background: var(--surface); border: 1px solid var(--accent2); border-radius: var(--radius); padding: 14px; margin-top: 12px; text-align: center; }
 .notify-prompt button { padding: 6px 16px; background: var(--accent2); color: white; border: none; border-radius: 6px; font-weight: 700; cursor: pointer; font-family: var(--font); font-size: 0.8rem; margin-top: 6px; }
 ::-webkit-scrollbar { width: 5px; } ::-webkit-scrollbar-track { background: transparent; } ::-webkit-scrollbar-thumb { background: var(--surface3); border-radius: 3px; }
